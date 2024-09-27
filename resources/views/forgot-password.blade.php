@@ -71,9 +71,9 @@
                 <strong>Email</strong>
                 <input type="email" class="form-control" name="email" required>
             </div>
-            <button type="submit" class="btn btn-primary">
-                <a style="color: white; text-decoration:none;" href="{{'password-verification'}}">Kode</a>
-            </button>
+            {{-- <button onclick="" type="submit" class="btn btn-primary"> --}}
+                <a class="btn btn-primary" style="color: white; text-decoration:none;" href="{{'password-verification'}}">Kode</a>
+            {{-- </button> --}}
             <a style="color: blue; text-decoration:none; font-weight:bold" href="{{'login'}} ">Kembali ke Masuk</a>
         </form>
       </div>

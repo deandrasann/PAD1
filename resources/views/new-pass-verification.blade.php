@@ -74,6 +74,7 @@
                 <input type="number" id="pin" class="form-control" name="pin" maxlength="6" required>
             </div>
             <button type="submit" class="btn btn-primary ">Verifikasi</button>
+            <p>check github</p>
             <p> Belum menerima kode?<a style="color: blue; text-decoration:none; font-weight:bold" href="{{'login'}}">Kirim ulang sekarang</a></p>
         </form>
       </div>

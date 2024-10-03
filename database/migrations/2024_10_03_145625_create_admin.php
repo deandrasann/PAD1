@@ -12,8 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('admin', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+            $table->engine = 'InnoDB';
+            $table->charset = 'utf8mb4';
+            $table->collation = 'utf8mb4_general_ci';
+            $table->integer('id_admin',true);
+            $table->string('nama_admin');
+            $table->string('email');
+            $table->string('foto')->nullable();
         });
     }
 

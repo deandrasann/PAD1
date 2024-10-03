@@ -12,8 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('detail_resep', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+            $table->engine = 'InnoDB';
+            $table->charset = 'utf8mb4';
+            $table->collation = 'utf8mb4_general_ci';
+            $table->integer('kode_resep',true);
+            $table->integer('jumlah_resep');
+            $table->integer('harga_satuan');
         });
     }
 

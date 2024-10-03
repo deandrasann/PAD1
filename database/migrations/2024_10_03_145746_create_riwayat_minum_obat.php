@@ -12,8 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('riwayat_minum_obat', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+            $table->engine = 'InnoDB';
+            $table->charset = 'utf8mb4';
+            $table->collation = 'utf8mb4_general_ci';
+            $table->integer('id_riwayat',true);
+            $table->string('waktu');
+            $table->string('status');
         });
     }
 

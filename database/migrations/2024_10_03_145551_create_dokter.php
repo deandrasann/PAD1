@@ -12,8 +12,15 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('dokter', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+            $table->engine = 'InnoDB';
+            $table->charset = 'utf8mb4';
+            $table->collation = 'utf8mb4_general_ci';
+            $table->integer('id_dokter',true);
+            $table->integer('kode_dokter');
+            $table->string('jenis_dokter');
+            $table->string('spesialis');
+            $table->string('nama_dokter');
+            $table->integer('kode_bpjs');
         });
     }
 

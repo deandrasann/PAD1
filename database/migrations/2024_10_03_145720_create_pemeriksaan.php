@@ -12,8 +12,18 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('pemeriksaan', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+            $table->engine = 'InnoDB';
+            $table->charset = 'utf8mb4';
+            $table->collation = 'utf8mb4_general_ci';
+            $table->integer('no_antrian',true);
+            $table->string('kode_icd');
+            $table->string('anamnesa');
+            $table->string('pemeriksaan_fisik');
+            $table->string('jenis_diagnosa');
+            $table->string('jenis_kasus');
+            $table->date('tgl_diagnosa');
+            $table->string('pemeriksaan_penunjang');
+            $table->text('catatan');
         });
     }
 

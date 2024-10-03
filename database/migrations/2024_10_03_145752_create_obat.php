@@ -12,8 +12,26 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('obat', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+            $table->engine = 'InnoDB';
+            $table->charset = 'utf8mb4';
+            $table->collation = 'utf8mb4_general_ci';
+            $table->integer('kode_obat',true);
+            $table->string('nama_obat');
+            $table->string('takaran_minum');
+            $table->string('jml_kali_minum');
+            $table->string('bentuk_obat');
+            $table->string('aturan_pakai');
+            $table->string('jumlah_obat');
+            $table->string('waktu_minum');
+            $table->text('keterangan');
+            $table->string('kontraindikasi');
+            $table->string('pola_makan');
+            $table->string('interaksi_obat');
+            $table->string('petunjuk_penyimpanan');
+            $table->string('kekuatan_sediaan');
+            $table->string('informasi_tambahan');
+            $table->string('efek_samping');
+            $table->string('indikasi');
         });
     }
 

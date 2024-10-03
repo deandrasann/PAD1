@@ -8,4 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class DokterModel extends Model
 {
     use HasFactory;
+
+    protected $table = 'dokter';
+    // nama PK
+    protected $primaryKey = 'id_dokter';
+    // agar timestamps tidak otomatis masuk
+    public $timestamps = false;
+    // PK integer AI
+    public $incrementing = true;
+
 }

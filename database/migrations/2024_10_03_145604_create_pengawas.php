@@ -16,9 +16,18 @@ return new class extends Migration
             $table->charset = 'utf8mb4';
             $table->collation = 'utf8mb4_general_ci';
             $table->integer('id_pengawas',true);
+            $table->integer('kode_klinik');
             $table->string('nama_pengawas');
             $table->string('email');
             $table->string('foto');
+
+
+            $table
+            ->foreign('kode_klinik')
+            ->references('id_klinik')
+            ->on('klinik')
+            ->cascadeOnUpdate()
+            ->cascadeOnDelete();
         });
     }
 

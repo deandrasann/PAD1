@@ -16,9 +16,17 @@ return new class extends Migration
             $table->charset = 'utf8mb4';
             $table->collation = 'utf8mb4_general_ci';
             $table->integer('id_admin',true);
+            $table->integer('id_klinik');
             $table->string('nama_admin');
             $table->string('email');
             $table->string('foto')->nullable();
+
+            $table
+            ->foreign('id_klinik')
+            ->references('id_klinik')
+            ->on('klinik')
+            ->cascadeOnUpdate()
+            ->cascadeOnDelete();
         });
     }
 

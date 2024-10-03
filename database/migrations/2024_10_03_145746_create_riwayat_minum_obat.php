@@ -16,8 +16,26 @@ return new class extends Migration
             $table->charset = 'utf8mb4';
             $table->collation = 'utf8mb4_general_ci';
             $table->integer('id_riwayat',true);
+            $table->integer('kode_obat');
+            $table->integer('nama_obat');
+            $table->integer('aturan_pakai');
             $table->string('waktu');
             $table->string('status');
+    
+    
+                $table
+                ->foreign('kode_obat')
+                ->references('kode_obat')
+                ->on('obat')
+                ->cascadeOnUpdate()
+                ->cascadeOnDelete();
+    
+                $table
+                ->foreign('nama_obat')
+                ->references('kode_obat')
+                ->on('obat')
+                ->cascadeOnUpdate()
+                ->cascadeOnDelete();
         });
     }
 

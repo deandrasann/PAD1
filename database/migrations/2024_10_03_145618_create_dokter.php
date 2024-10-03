@@ -16,11 +16,19 @@ return new class extends Migration
             $table->charset = 'utf8mb4';
             $table->collation = 'utf8mb4_general_ci';
             $table->integer('id_dokter',true);
+            $table->integer('kode_klinik');
             $table->integer('kode_dokter');
             $table->string('jenis_dokter');
             $table->string('spesialis');
             $table->string('nama_dokter');
             $table->integer('kode_bpjs');
+
+            $table
+            ->foreign('kode_klinik')
+            ->references('id_klinik')
+            ->on('klinik')
+            ->cascadeOnUpdate()
+            ->cascadeOnDelete();
         });
     }
 

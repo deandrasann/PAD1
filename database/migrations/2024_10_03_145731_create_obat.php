@@ -16,6 +16,7 @@ return new class extends Migration
             $table->charset = 'utf8mb4';
             $table->collation = 'utf8mb4_general_ci';
             $table->integer('kode_obat',true);
+            $table->integer('id_apoteker');
             $table->string('nama_obat');
             $table->string('takaran_minum');
             $table->string('jml_kali_minum');
@@ -32,6 +33,13 @@ return new class extends Migration
             $table->string('informasi_tambahan');
             $table->string('efek_samping');
             $table->string('indikasi');
+
+            $table
+            ->foreign('id_apoteker')
+            ->references('id_apoteker')
+            ->on('apoteker')
+            ->cascadeOnUpdate()
+            ->cascadeOnDelete();
         });
     }
 

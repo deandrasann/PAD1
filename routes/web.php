@@ -10,7 +10,10 @@ Route::get('/', function () {
 });
 
 Route::get('/login', [AuthController::class, 'index']);
+Route::get('/logout', [AuthController::class, 'logout']);
 Route::post('/login', [AuthController::class, 'authenticate']);
+Route::post('/logout', [AuthController::class, 'logout']);
+
 Route::get('/dashboard', [DashboardController::class, 'index']);
 
 Route::get('/forgot-password', function(){

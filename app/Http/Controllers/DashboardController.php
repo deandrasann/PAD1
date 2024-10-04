@@ -10,7 +10,12 @@ class DashboardController extends Controller
     public function index()
     {
         $data = Auth::user();
+        if ($data == null) {
+            return redirect('login');
+        }
+        $cekuser = Auth::user()->id_role;
+        // dd($cekuser);
         // dd($data);
-        return view('coba', compact('data'));
+        return view('coba', compact('cekuser'));
     }
 }

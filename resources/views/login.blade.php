@@ -54,7 +54,7 @@
       </div>
       <div class="col-md-6 p-4">
         <h3 class="text-center">Masuk</h3>
-        <form action="/login" method="POST">
+        <form action="login" method="POST">
           @csrf
           <div class="mb-3">
             <label for="username" class="form-label">Username</label>
@@ -82,7 +82,7 @@
             <a href="{{'forgot-password'}}" class="text-end" style="color: black">Lupa password?</a>
           </div>
           <div class="d-grid">
-            <button type="submit" class="btn btn-primary">Kirim Kode</button>
+            <button type="submit" class="btn btn-primary">Login</button>
           </div>
           <div class="text-center my-3">OR</div>
           <div class="d-grid">

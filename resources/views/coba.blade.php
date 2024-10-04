@@ -7,8 +7,8 @@
     <title>Document</title>
 </head>
 <body>
-    @can('admin')
-    <p>{{ Auth::user()->username }}</p>
-    @endcan
+    <p>Halo : {{ (Auth::user()->level_user->username) }}</p>
+    <p>{{ $cekuser }}</p>
+    <p>ini tampilan bukan untuk admin</p>
 </body>
 </html>

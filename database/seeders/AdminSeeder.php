@@ -17,7 +17,7 @@ class AdminSeeder extends Seeder
         $admin = collect([
             [
                 'id_admin' => '1',
-                'id_role' => 'R01',
+                'id_pengguna' => '1',
                 'id_klinik' => '1',
                 'nama_admin' => 'adminpenjaga',
                 'email' => 'admin@gmail.com',

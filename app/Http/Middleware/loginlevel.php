@@ -15,7 +15,7 @@ class loginlevel
      */
     public function handle(Request $request, Closure $next, ...$levels): Response
     {
-        if(in_array($request->user()->level_user->id_role, $levels))
+        if(in_array($request->user()->nama_role, $levels))
         {
             return $next($request);
         }

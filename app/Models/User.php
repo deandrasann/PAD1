@@ -18,10 +18,10 @@ class User extends Authenticatable
      */
 
      protected $table = 'users';
-     protected $primaryKey = 'id_role';
+     protected $primaryKey = 'id_pengguna';
 
     protected $fillable = [
-        'name',
+        'username',
         'email',
         'password',
     ];
@@ -49,6 +49,12 @@ class User extends Authenticatable
     }
 
     public function level_user() {
-        return $this->belongsTo(AdminModel::class, 'id_role','id_role');
+        return $this->belongsTo(AdminModel::class, 'id_pengguna','id_pengguna');
+    }
+    public function dokter() {
+        return $this->belongsTo(DokterModel::class, 'id_pengguna','id_pengguna');
+    }
+    public function apoteker() {
+        return $this->belongsTo(ApotekerModel::class, 'id_pengguna','id_pengguna');
     }
 }

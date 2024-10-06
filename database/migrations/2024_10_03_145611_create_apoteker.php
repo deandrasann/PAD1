@@ -16,9 +16,17 @@ return new class extends Migration
             $table->charset = 'utf8mb4';
             $table->collation = 'utf8mb4_general_ci';
             $table->integer('id_apoteker',true);
+            $table->integer('id_pengguna');
             $table->string('nama_apoteker');
             $table->string('email');
             $table->string('foto');
+
+            $table
+            ->foreign('id_pengguna')
+            ->references('id_pengguna')
+            ->on('users')
+            ->cascadeOnUpdate()
+            ->cascadeOnDelete();
         });
     }
 

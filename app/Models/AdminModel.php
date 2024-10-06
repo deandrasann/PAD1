@@ -20,6 +20,6 @@ class AdminModel extends Model
 
     public function LevelUser(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'id_role', 'id_admin');
+        return $this->belongsTo(User::class, 'id_pengguna', 'id_admin');
     }
 }

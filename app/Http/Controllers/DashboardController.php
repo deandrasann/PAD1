@@ -2,20 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $data = Auth::user();
-        if ($data == null) {
-            return redirect('login');
-        }
-        $cekuser = Auth::user()->id_role;
-        // dd($cekuser);
-        // dd($data);
-        return view('coba', compact('cekuser'));
+       return view('dashboard');
     }
 }

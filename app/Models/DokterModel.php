@@ -17,4 +17,7 @@ class DokterModel extends Model
     // PK integer AI
     public $incrementing = true;
 
+    public function dokter() {
+        return $this->belongsTo(User::class, 'id_pengguna','id_dokter');
+    }
 }

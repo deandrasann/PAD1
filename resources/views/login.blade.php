@@ -54,7 +54,7 @@
       </div>
       <div class="col-md-6 p-4">
         <h3 class="text-center">Masuk</h3>
-        <form action="login" method="POST">
+        <form action="{{ route('login') }}" method="POST">
           @csrf
           <div class="mb-3">
             <label for="username" class="form-label">Username</label>

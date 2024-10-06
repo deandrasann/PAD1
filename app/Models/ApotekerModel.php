@@ -17,4 +17,8 @@ class ApotekerModel extends Model
     // PK integer AI
     public $incrementing = true;
 
+
+    public function audhasd() {
+        return $this->belongsTo(User::class, 'id_pengguna','id_apoteker');
+    }
 }

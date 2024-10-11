@@ -16,8 +16,12 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
+
+     protected $table = 'users';
+     protected $primaryKey = 'id_pengguna';
+
     protected $fillable = [
-        'name',
+        'username',
         'email',
         'password',
     ];
@@ -41,7 +45,16 @@ class User extends Authenticatable
     {
         return [
             'email_verified_at' => 'datetime',
-            'password' => 'hashed',
         ];
+    }
+
+    public function level_user() {
+        return $this->belongsTo(AdminModel::class, 'id_pengguna','id_pengguna');
+    }
+    public function dokter() {
+        return $this->belongsTo(DokterModel::class, 'id_pengguna','id_pengguna');
+    }
+    public function apoteker() {
+        return $this->belongsTo(ApotekerModel::class, 'id_pengguna','id_pengguna');
     }
 }

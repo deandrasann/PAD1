@@ -16,7 +16,7 @@ return new class extends Migration
             $table->charset = 'utf8mb4';
             $table->collation = 'utf8mb4_general_ci';
             $table->integer('id_klinik',true);
-            $table->integer('kode_klinik');
+            $table->char('kode_klinik', 10);
             $table->integer('kode_bpjs');
             $table->string('nama_klinik');
         });

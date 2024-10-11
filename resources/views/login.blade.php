@@ -54,11 +54,12 @@
       </div>
       <div class="col-md-6 p-4">
         <h3 class="text-center">Masuk</h3>
-        <form>
+        <form action="{{ route('login') }}" method="POST">
+          @csrf
           <div class="mb-3">
             <label for="username" class="form-label">Username</label>
             <div class="input-group">
-              <input type="text" class="form-control" id="username" required>
+              <input type="text" class="form-control" id="username" name="username" required>
               <span class="input-group-text">
                 <img src="{{asset('images\user.png')}}" style="width: 20px; height: 20px; ">
               </span>
@@ -67,7 +68,7 @@
           <div class="mb-3">
             <label for="password" class="form-label">Password</label>
             <div class="input-group">
-              <input type="password" class="form-control" id="password" required>
+              <input type="password" class="form-control" id="password" name="password" required>
                 <button class="btn btn-outline-secondary" type="button" id="button-addon2"><img src="{{asset('images\hidden.png')}}" style="width: 20px; height: 20px; "></button>
             </div>
           </div>
@@ -81,7 +82,7 @@
             <a href="{{'forgot-password'}}" class="text-end" style="color: black">Lupa password?</a>
           </div>
           <div class="d-grid">
-            <button type="submit" class="btn btn-primary">Kirim Kode</button>
+            <button type="submit" class="btn btn-primary">Login</button>
           </div>
           <div class="text-center my-3">OR</div>
           <div class="d-grid">

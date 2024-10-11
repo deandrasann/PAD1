@@ -16,6 +16,7 @@ return new class extends Migration
             $table->charset = 'utf8mb4';
             $table->collation = 'utf8mb4_general_ci';
             $table->integer('id_admin',true);
+            $table->integer('id_pengguna');
             $table->integer('id_klinik');
             $table->string('nama_admin');
             $table->string('email');
@@ -25,6 +26,13 @@ return new class extends Migration
             ->foreign('id_klinik')
             ->references('id_klinik')
             ->on('klinik')
+            ->cascadeOnUpdate()
+            ->cascadeOnDelete();
+
+            $table
+            ->foreign('id_pengguna')
+            ->references('id_pengguna')
+            ->on('users')
             ->cascadeOnUpdate()
             ->cascadeOnDelete();
         });

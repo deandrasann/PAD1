@@ -18,7 +18,8 @@ class DatabaseSeeder extends Seeder
             KlinikSeeder::class,
             AdminSeeder::class,
             DokterSeeder::class,
-            ApotekerSeeder::class
+            ApotekerSeeder::class,
+            ObatSeeder::class
         ]);
     }
 }

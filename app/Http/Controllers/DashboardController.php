@@ -12,4 +12,10 @@ class DashboardController extends Controller
     {
        return view('dashboard');
     }
+
+    public function obat()
+    {
+        $data = User::latest()->paginate(2);
+        return view('daftar_obat', compact('data'));
+    }
 }

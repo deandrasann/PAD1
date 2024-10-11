@@ -51,7 +51,26 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
+                @foreach ($data as $index => $item)
+                    <tr>
+                        <td>{{$index + 1}}</td>
+                        <td>{{$item->nama_role}}</td>
+                        <td>{{$item->username}}</td>
+                        <td>{{$item->email}}</td>
+                        <td><button class="btn btn-primary  p-2 px-3" style="background: #5C97EF"><img src="{{asset('images\detail icon.png')}}" style="width: 20px; height: 20px; border:none; " class="me-2">Detail</button>
+                            <button class="btn btn-success  p-2 px-3 " style="background: #3A9C73"><img src="{{asset('images\detail icon.png')}}" style="width: 20px; height: 20px; border:none;" class="me-2">Edit</button>
+                            <button class="btn btn-danger  p-2 px-3 " style="background: #BE2323"><img src="{{asset('images\detail icon.png')}}" style="width: 20px; height: 20px; border:none;" class="me-2">Hapus</button></td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+        <div class="d-flex justify-content-end">
+            {{$data->links()}}
+        </div>
+    </div>
+
+</div>
+                {{-- <tr>
                     <td>1</td>
                     <td ><strong> Tablet 10 mg</strong></td>
                     <td>-</td>
@@ -62,12 +81,10 @@
                         <button class="btn btn-danger  p-2 px-3 " style="background: #BE2323"><img src="{{asset('images\detail icon.png')}}" style="width: 20px; height: 20px; border:none;" class="me-2">Hapus</button>
                     </td>
                 </tr>
-            </tbody>
-        </table>
-    </div>
+           --}}
 
 
-        <nav aria-label="Page navigation example">
+        {{-- <nav aria-label="Page navigation example">
             <ul class="pagination pagination-lg justify-content-center">
                 <li class="page-item disabled" aria-disabled="true" aria-label="« Previous" >
                     <span class="page-link" aria-hidden="true"><img src="{{asset('images\back icon.png')}}"></span>
@@ -86,6 +103,6 @@
                 </li>
             </ul>
         </nav>
-    </div>
+     --}}
 
 @endsection

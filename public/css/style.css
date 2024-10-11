@@ -31,7 +31,7 @@
 /* .page-link:hover .page-link:hover{
     outline: linear-gradient(90deg, #2DA3F9 0%, #807593 100%) !important;
 } */
- .page-item .page-link{
+ /* .page-item .page-link{
     border-radius: 16px;
  }
 
@@ -43,4 +43,4 @@
 .page-item:active .page-link {
     outline: linear-gradient(90deg, #2DA3F9 0%, #807593 100%) !important;
 
-}
+} */

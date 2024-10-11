@@ -1,0 +1,46 @@
+.btn-custom{
+    width: 258px;
+    height: 55px;
+    flex-shrink: 0;
+    border-radius: 15px;
+    background: linear-gradient(90deg, rgba(0, 150, 255, 0.4) 0%, rgba(0, 150, 255, 0.01) 100%);
+    backdrop-filter: blur(50px);
+    border:none;
+    color: #FFF;
+}
+/* .btn-custom:active{
+    width: 258px;
+    height: 55px;
+    flex-shrink: 0;
+    border-radius: 15px;
+    background: #F2F4F8;
+    backdrop-filter: blur(50px);
+    color: #2E6084;
+
+} */
+
+.btn-custom:hover{
+    background-color: #2DA3F9;
+}
+
+/* .btn-custom:active svg {
+    stroke: #2E6084;
+    color: #2E6084;
+} */
+
+/* .page-link:hover .page-link:hover{
+    outline: linear-gradient(90deg, #2DA3F9 0%, #807593 100%) !important;
+} */
+ .page-item .page-link{
+    border-radius: 16px;
+ }
+
+.page-item:hover .page-link {
+    background-color: #2DA3F9;
+    color: white;
+}
+
+.page-item:active .page-link {
+    outline: linear-gradient(90deg, #2DA3F9 0%, #807593 100%) !important;
+
+}

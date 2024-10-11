@@ -13,6 +13,10 @@ class AuthController extends Controller
     {
         return view('login');
     }
+    public function beranda()
+    {
+        return view('beranda');
+    }
 
     /**
      * Show the form for creating a new resource.

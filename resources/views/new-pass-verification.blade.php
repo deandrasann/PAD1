@@ -26,14 +26,14 @@
     }
     .input-group .form-control, .input-group .btn {
       border-radius: 0.25rem;
-      border-color: #ced4da; /* Same border color as input field */
+      border-color: #ced4da;
     }
     .btn-custom {
       background-color: white;
       border: 1px solid #ced4da;
     }
     .form-container{
-        display: flex;
+            display: flex;
             flex-direction: column;
             align-items: center;
             width: 250px;

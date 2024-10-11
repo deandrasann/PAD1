@@ -16,3 +16,6 @@ Route::get('/forgot-password', function(){
 Route::get('/password-verification', function(){
     return view('new-pass-verification');
 });
+Route::get('/beranda', function(){
+    return view('beranda');
+});

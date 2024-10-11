@@ -48,11 +48,6 @@
             box-sizing: border-box;
             font-size: 16px;
     }
-    input[type="number"]::-webkit-outer-spin-button,
-    input[type="number"]::-webkit-inner-spin-button {
-        -webkit-appearance: none;
-        margin: 0;
-        }
   </style>
 </head>
 <body>

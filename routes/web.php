@@ -25,4 +25,5 @@ Route::get('/forgot-password', function(){
 Route::get('/password-verification', function(){
     return view('new-pass-verification');
 });
-Route::get('/beranda', [DashboardController::class, 'obat']);
+Route::get('/obat', [DashboardController::class, 'obat']);
+Route::get('/beranda',[DashboardController::class,'beranda']);

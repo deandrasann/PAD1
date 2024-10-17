@@ -1,3 +1,7 @@
+body{
+    font-family: 'Roboto';font-size: 22px;
+}
+
 .btn-custom{
     width: 258px;
     height: 55px;
@@ -8,39 +12,148 @@
     border:none;
     color: #FFF;
 }
-/* .btn-custom:active{
-    width: 258px;
-    height: 55px;
-    flex-shrink: 0;
-    border-radius: 15px;
-    background: #F2F4F8;
-    backdrop-filter: blur(50px);
-    color: #2E6084;
 
-} */
 
 .btn-custom:hover{
     background-color: #2DA3F9;
 }
 
-/* .btn-custom:active svg {
-    stroke: #2E6084;
-    color: #2E6084;
-} */
-
-/* .page-link:hover .page-link:hover{
-    outline: linear-gradient(90deg, #2DA3F9 0%, #807593 100%) !important;
-} */
- /* .page-item .page-link{
-    border-radius: 16px;
- }
-
-.page-item:hover .page-link {
-    background-color: #2DA3F9;
-    color: white;
+/* Gaya tabel */
+.table td {
+    vertical-align: middle;
 }
 
-.page-item:active .page-link {
-    outline: linear-gradient(90deg, #2DA3F9 0%, #807593 100%) !important;
+/* Gaya search bar */
+.search-bar {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    max-width: 300px;
+}
+.table-primary th {
+    background-color: #4284B3 !important;
+    color: white !important;
+}
 
-} */
+.btn-primary{
+    background-color: #2DA3F9;
+    outline: none;
+    border: none;
+}
+
+/* Gaya tombol tambah obat */
+.tambah-obat-btn {
+    background: #2DA3F9;
+    border: none;
+    padding: 12px 16px;
+    margin: 16px 8px;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+}
+
+/* Gaya tombol detail */
+.detail-btn {
+    background: #5C97EF;
+}
+
+.detail-btn img {
+    width: 20px;
+    height: 20px;
+    border: none;
+}
+
+/* Gaya tombol edit */
+.edit-btn {
+    background: #3A9C73;
+}
+
+.edit-btn img {
+    width: 20px;
+    height: 20px;
+    border: none;
+}
+
+/* Gaya tombol hapus */
+.delete-btn {
+    background: #BE2323;
+}
+
+.delete-btn img {
+    width: 20px;
+    height: 20px;
+    border: none;
+}
+
+/* Gaya pagination */
+.paginate .pagination {
+    display: flex;
+    justify-content: center;
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.paginate .pagination li {
+    margin: 0 5px;
+}
+
+.paginate .pagination li a, .paginate .pagination li span {
+    display: block;
+    padding: 10px 15px;
+    border-radius: 4px; /* Rounded corners */
+    background-color: #f8f9fa; /* Light background */
+    border: none;
+    color: #6c757d; /* Light text */
+    font-size: 1rem;
+    text-decoration: none;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.paginate .pagination li a:hover {
+    background-color: #e2e6ea; /* Hover effect */
+    color: #007bff; /* Hover text color */
+}
+
+.paginate .pagination li.active span {
+    background-color: white;
+    border: 2px solid #007bff; /* Border around active button */
+    color: #007bff;
+}
+
+.paginate .pagination li.disabled span, .paginate .pagination li.disabled a {
+    color: #d3d3d3; /* Disabled link color */
+}
+
+.paginate .pagination li.disabled a:hover {
+    background-color: #f8f9fa; /* Keep hover effect disabled */
+}
+
+
+/* BERANDA */
+.info{
+
+}
+.container-row-1{
+    background: linear-gradient(180deg, #81C7FB 0%, #4C7695 100%);
+    color: white;
+    border-radius: 20px;
+}
+
+.container-row-2{
+    background: linear-gradient(180deg, #73B2E0 0%, #3F617A 100%);
+    color: white;
+    border-radius: 20px;
+}
+.container-row-3{
+    background: linear-gradient(180deg, #2E9FF1 0%, #1A5C8B 100%);
+    color: white;
+    border-radius: 20px;
+}
+.container-row-4{
+    background:linear-gradient(180deg, #4990C3 0%, #23455D 100%);
+    color: white;
+    border-radius: 20px;
+}
+
+
+

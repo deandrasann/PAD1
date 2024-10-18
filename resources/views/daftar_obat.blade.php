@@ -2,15 +2,11 @@
 
 @section('content')
 
-<!-- Import file eksternal CSS -->
-<title>Daftar Obat</title>
-<link rel="stylesheet" href="{{ asset('css/styles.css') }}">
-
 <div class="container mt-4">
     <h2>DATA RESEP OBAT</h2>
 
     <!-- Tombol Tambah Obat -->
-    <button type="button" class="btn btn-primary tambah-obat-btn">
+    <button type="button" class="btn btn-resep tambah-obat-btn">
         <strong>+ Tambah Obat</strong>
     </button>
 
@@ -42,7 +38,7 @@
                         <td>{{ $item->username }}</td>
                         <td>{{ $item->email }}</td>
                         <td>
-                            <button class="btn btn-primary p-2 px-3 detail-btn">
+                            <button class="btn btn-resep p-2 px-3 detail-btn">
                                 <img src="{{ asset('images/detail icon.png') }}" class="me-2">Detail
                             </button>
                             <button class="btn btn-success p-2 px-3 edit-btn">

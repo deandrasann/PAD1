@@ -22,4 +22,10 @@ class DashboardController extends Controller
     {
         return view('beranda');
     }
+    public function tambahResep(){
+        return view('tambah_resep');
+    }
+    public function pasienTerdaftar(){
+        return view('pasien_terdaftar');
+    }
 }

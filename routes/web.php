@@ -3,7 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
-
+use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 Route::get('/', function () {
     return view('welcome');
@@ -25,5 +25,7 @@ Route::get('/forgot-password', function(){
 Route::get('/password-verification', function(){
     return view('new-pass-verification');
 });
-Route::get('/obat', [DashboardController::class, 'obat']);
-Route::get('/beranda',[DashboardController::class,'beranda']);
+Route::get('/obat', [DashboardController::class, 'obat'])->name('daftar-obat');
+Route::get('/beranda', [DashboardController::class, 'beranda'])->name('beranda');
+Route::get('/tambah-resep', [DashboardController::class,'tambahResep'])->name('tambah-resep');
+Route::get('/pasien-terdaftar', [DashboardController::class,'pasienTerdaftar'])->name('pasien-terdaftar');

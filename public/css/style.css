@@ -1,5 +1,14 @@
 body{
     font-family: 'Roboto';font-size: 22px;
+    background: #F2F4F8;
+}
+.navbar::-webkit-scrollbar{
+    display: none;
+}
+
+.navbar{
+    -ms-overflow-style: none;
+    scrollbar-width: none;
 }
 
 .btn-custom{
@@ -11,13 +20,26 @@ body{
     backdrop-filter: blur(50px);
     border:none;
     color: #FFF;
+    text-decoration: none;
 }
 
 
 .btn-custom:hover{
     background-color: #2DA3F9;
 }
+.btn-custom:active{
+    background-color: #2DA3F9;
+}
 
+.btn-resep{
+    background-color: #2DA3F9 !important;
+    outline: none !important;
+    stroke: none !important;
+    color: white !important;
+}
+.btn-resep:hover{
+    background-color: #2079b8 !important;
+}
 /* Gaya tabel */
 .table td {
     vertical-align: middle;
@@ -130,9 +152,9 @@ body{
 
 
 /* BERANDA */
-.info{
+/* .info{
 
-}
+} */
 .container-row-1{
     background: linear-gradient(180deg, #81C7FB 0%, #4C7695 100%);
     color: white;
@@ -153,6 +175,12 @@ body{
     background:linear-gradient(180deg, #4990C3 0%, #23455D 100%);
     color: white;
     border-radius: 20px;
+}
+
+.form-control:focus{
+    border-color: #1E98F1 !important;
+    outline: none !important;
+    box-shadow: none !important;
 }
 
 

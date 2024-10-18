@@ -1,6 +1,6 @@
 @extends('footerheader.navbar')
 @section('content')
-
+<title>Beranda</title>
 <h2>Beranda</h2>
 
 <div class="misahin role apoteker">

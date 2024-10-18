@@ -18,8 +18,10 @@ class AdminModel extends Model
     // PK integer AI
     public $incrementing = true;
 
+    protected $fillable = ['nama_admin', 'foto'];
+
     public function LevelUser(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'id_pengguna', 'id_admin');
+        return $this->belongsTo(User::class, 'id_pengguna', 'id_pengguna');
     }
 }

@@ -57,4 +57,10 @@ class User extends Authenticatable
     public function apoteker() {
         return $this->belongsTo(ApotekerModel::class, 'id_pengguna','id_pengguna');
     }
+    public function pengawas() {
+        return $this->belongsTo(ApotekerModel::class, 'id_pengguna','id_pengguna');
+    }
+    public function pasien() {
+        return $this->belongsTo(ApotekerModel::class, 'id_pengguna','id_pengguna');
+    }
 }

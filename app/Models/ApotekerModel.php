@@ -18,7 +18,7 @@ class ApotekerModel extends Model
     public $incrementing = true;
 
 
-    public function audhasd() {
-        return $this->belongsTo(User::class, 'id_pengguna','id_apoteker');
+    public function apoteker() {
+        return $this->belongsTo(User::class, 'id_pengguna','id_pengguna');
     }
 }

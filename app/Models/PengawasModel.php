@@ -17,4 +17,7 @@ class PengawasModel extends Model
     // PK integer AI
     public $incrementing = true;
 
+    public function pengawas() {
+        return $this->belongsTo(User::class, 'id_pengguna','id_pengguna');
+    }
 }

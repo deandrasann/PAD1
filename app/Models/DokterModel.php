@@ -18,6 +18,6 @@ class DokterModel extends Model
     public $incrementing = true;
 
     public function dokter() {
-        return $this->belongsTo(User::class, 'id_pengguna','id_dokter');
+        return $this->belongsTo(User::class, 'id_pengguna','id_pengguna');
     }
 }

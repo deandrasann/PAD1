@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Beranda</title>
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 
@@ -51,6 +51,10 @@
                 <button type="button" class="btn-custom ps-3 d-flex justify-content-start align-items-center m-2" > <img src="{{asset('images/obat icon.png')}}" class="me-4" style="width: 30px; height:30px"><strong>Obat</strong></button>
                 <button type="button" class="btn-custom ps-3 d-flex justify-content-start align-items-center m-2" > <img src="{{asset('images/home icon.png')}}" class="me-4" style="width: 30px; height:30px"><strong>Pasien</strong></button>
                 <button type="button" class="btn-custom ps-3 d-flex justify-content-start align-items-center m-2" > <img src="{{asset('images/obat icon.png')}}" class="me-4" style="width: 30px; height:30px"><strong>Rawat Inap</strong></button>
+                <button type="button" class="btn-custom ps-3 d-flex justify-content-start align-items-center m-2" > <img src="{{asset('images/navbar menu/list pasien.png')}}" class="me-4" style="width: 30px; height:30px"><strong>List Pasien</strong></button>
+                <button type="button" class="btn-custom ps-3 d-flex justify-content-start align-items-center m-2" > <img src="{{asset('images/navbar menu/riwayat pasien.png')}}" class="me-4" style="width: 30px; height:30px"><strong>Riwayat Pasien</strong></button>
+                <button type="button" class="btn-custom ps-3 d-flex justify-content-start align-items-center m-2" > <img src="{{asset('images/navbar menu/list pasien.png')}}" class="me-4" style="width: 30px; height:30px"><strong>Apoteker</strong></button>
+                <button type="button" class="btn-custom ps-3 d-flex justify-content-start align-items-center m-2" > <img src="{{asset('images/navbar menu/riwayat pasien.png')}}" class="me-4" style="width: 30px; height:30px"><strong>Pengawas</strong></button>
             </div>
 
     </nav>

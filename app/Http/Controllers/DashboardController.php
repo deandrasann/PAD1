@@ -19,4 +19,8 @@ class DashboardController extends Controller
         $data = User::latest()->paginate(2);
         return view('daftar_obat', compact('data'));
     }
+    public function beranda()
+    {
+        return view('beranda');
+    }
 }

@@ -90,6 +90,7 @@
         </div>
     </div>
 </div>
+@can('admin')
 <div class="misahin role PMO">
     <div class="info d-flex flex-wrap justify-content-start">
         <div class="container-row-1 py-3 pe-3 my-3 me-3 d-flex justify-content-end align-items-start px-4">
@@ -101,7 +102,6 @@
                 <img src="{{ asset('images/beranda/jumlah apoteker.png')}}" class="ms-3">
             </div>
         </div>
-
         <div class="container-row-2 py-3 pe-3 my-3 me-3 d-flex justify-content-end align-items-start px-4">
             <div class="me-4">
                 <h2>0</h2>
@@ -113,6 +113,7 @@
         </div>
     </div>
 </div>
+@endcan
 <div class="table-data table-responsive">
     <table class="table table-striped table-hover">
         <thead class="table-primary">

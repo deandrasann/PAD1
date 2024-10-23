@@ -21,6 +21,7 @@ class DashboardController extends Controller
     }
     public function beranda()
     {
-        return view('beranda');
+        $data = User::all();
+        return view('beranda', compact('data'));
     }
 }

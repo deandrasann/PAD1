@@ -27,21 +27,26 @@
         </div>
 
 
+        
         <div class="d-flex align-items-center me-4">
-            <a href="#" class="text-decoration-none d-flex align-items-center">
+            <form action="{{ route('logout') }}" method="POST">
+                @csrf
+            <a href="{{ route('logout') }}" class="text-decoration-none d-flex align-items-center">
                 <img src="{{asset('images/navbar menu/logout.png')}}" alt="Logout Icon">
                 <span class="logout-text ms-2" style="color:white">Logout</span>
             </a>
         </div>
-
+    </form>
         <div class="offcanvas offcanvas-start" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel" style="background: var(--Linear-Gradient, linear-gradient(180deg, #0D426C 12.3%, #338CC1 62%, #BDE5FF 100%)); backdrop-filter: blur(2px); backdrop-filter: blur(2px); color:#FFFFFF">
             <button type="button" class="mt-5 me-5 d-flex justify-content-end" data-bs-dismiss="offcanvas" aria-label="Close" style="background: none; border:none; outline:none">
                 <img src="{{asset('images/navbar menu/navbar icon.png')}}" alt="">
             </button>
             <div class="offcanvas-header d-flex flex-column align-items-center text-align-center">
+                @auth
                 <img src="{{asset('images/profile.png')}}" class="m-4">
-                <h5 class="offcanvas-title" id="offcanvasScrollingLabel">Diana</h5>
-                <p>Apoteker</p>
+                <h5 class="offcanvas-title" id="offcanvasScrollingLabel">{{ auth()->user()->username }}</h5>
+                <p>{{ auth()->user()->nama_role }}</p>
+                @endauth
             </div>
             <div class="offcanvas-body d-flex flex-column justify-content-start align-items-center">
                 <button type="button" class="btn btn-primary d-flex justify-content-center align-items-center m-2 mb-5" style="width: 257px; height: 62px; flex-shrink: 0; border-radius: 90px;background: #3378AA; box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);border:none"><strong>TAMBAH RESEP</strong> <img src="{{asset('images/tambah resep icon.png')}}" class="ms-4" style="width: 45px; height:45px"></button>

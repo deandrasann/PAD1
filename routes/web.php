@@ -26,4 +26,6 @@ Route::get('/password-verification', function(){
     return view('new-pass-verification');
 });
 Route::get('/obat', [DashboardController::class, 'obat']);
-Route::get('/beranda',[DashboardController::class,'beranda']);
+Route::group(['middleware' => ['level:admin']], function () {
+Route::get('/beranda',[DashboardController::class,'beranda'])->name('beranda');
+});

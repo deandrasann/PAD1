@@ -24,4 +24,10 @@ class DashboardController extends Controller
         $data = User::all();
         return view('beranda', compact('data'));
     }
+    public function tambahResep(){
+        return view('tambah_resep');
+    }
+    public function pasienTerdaftar(){
+        return view('pasien_terdaftar');
+    }
 }

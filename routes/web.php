@@ -29,7 +29,6 @@ Route::get('/obat', [DashboardController::class, 'obat'])->name('daftar-obat');
 Route::get('/tambah-resep', [DashboardController::class,'tambahResep'])->name('tambah-resep');
 Route::get('/pasien-terdaftar', [DashboardController::class,'pasienTerdaftar'])->name('pasien-terdaftar');
 
-Route::get('/obat', [DashboardController::class, 'obat']);
 Route::group(['middleware' => ['level:admin']], function () {
 Route::get('/beranda',[DashboardController::class,'beranda'])->name('beranda');
 });

@@ -10,10 +10,12 @@
     @auth
     @can('admin')
         <p>{{ auth()->user()->username }}</p>
+        <p>p1</p>
     @endcan
     @endauth
     @can('dokter')
         <p>{{ auth()->user()->username }}</p>
+        <p>p2</p>
     @endcan
     <p>tidak ada yang login</p>
 </body>

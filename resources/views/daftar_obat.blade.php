@@ -2,9 +2,8 @@
 
 @section('content')
 
-<div class="container mt-4" st>
+<div class="container mt-4">
     <h2>DATA RESEP OBAT</h2>
-
 
     <div class="d-flex justify-content-between align-items-center">
         <div class="card my-4" style="width: 24rem;">
@@ -40,42 +39,11 @@
                     <div class="col-5">11</div>
                 </div>
             </div>
+        </div>
 
-          </div>
-          <div class="modal fade modal-dialog modal-dialog-centered" id="cetakObat" tabindex="-1" aria-labelledby="cetakObatLabel" aria-hidden="true">
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                    <div>
-                        <h5 class="modal-title" id="cetakObatLabel">Pilih obat yang akan dicetak</h5>
-                    </div>
-                    <div>
-                        <input class="form-check-input" type="checkbox" id="selectAll">
-                        <label class="form-check-label" for="selectAll">
-                          Select All
-                        </label>
-                    </div>
-
-
-
-                </div>
-                <div class="modal-body">
-                    <div class="checkbox-group">
-
-                      </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-white" data-bs-dismiss="modal">Batal</button>
-                    <button type="button" class="btn btn-resep ms-auto">Cetak</button>
-
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <a href="#" class="container-row-2 p-4" data-bs-toggle="modal" data-bs-target="#cetakObat">
+        <a href="#" class="container-row-2 p-4" data-bs-toggle="modal" data-bs-target="#cetakObat">
             <img src="{{ asset('images/printer.png') }}">
-          </a>
+        </a>
     </div>
 
     <button type="button" class="btn btn-resep tambah-obat-btn">
@@ -99,7 +67,7 @@
                     <th style="width:250px">Indikasi</th>
                     <th style="width:250px">Golongan Obat</th>
                     <th style="width:400px">Nama Obat</th>
-                    <th >Aksi</th>
+                    <th>Aksi</th>
                 </tr>
             </thead>
             <tbody>
@@ -110,12 +78,17 @@
                         <td>{{ $item->username }}</td>
                         <td>{{ $item->email }}</td>
                         <td>
-                            <button class="btn btn-resep p-2 px-3 detail-btn">
+                            <!-- Detail Button -->
+                            <button class="btn btn-resep p-2 px-3 detail-btn" data-bs-toggle="modal" data-bs-target="#detailObatModal">
                                 <img src="{{ asset('images/detail icon.png') }}" class="me-2">Detail
                             </button>
+
+                            <!-- Edit Button -->
                             <button class="btn btn-success p-2 px-3 edit-btn">
                                 <img src="{{ asset('images/detail icon.png') }}" class="me-2">Edit
                             </button>
+
+                            <!-- Delete Button -->
                             <button class="btn btn-danger p-2 px-3 delete-btn">
                                 <img src="{{ asset('images/detail icon.png') }}" class="me-2">Hapus
                             </button>
@@ -125,10 +98,74 @@
             </tbody>
         </table>
 
-        <!-- Pagination -->
-        <div class="paginate d-flex justify-content-center">
-            {{ $data->links() }}
+        <!-- Detail Modal -->
+        <div class="modal fade" id="detailObatModal" tabindex="-1" aria-labelledby="detailObatModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="detailObatModalLabel">Detail Data Obat</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <table class="table table-borderless">
+                            <tbody>
+                                <tr>
+                                    <th>Nama</th>
+                                    <td>: Amlodipine Tablet 10 mg</td>
+                                </tr>
+                                <tr>
+                                    <th>Indikasi</th>
+                                    <td>: Anti Hipertensi (menurunkan tekanan darah)</td>
+                                </tr>
+                                <tr>
+                                    <th>Golongan Obat</th>
+                                    <td>: Bengkak di pergelangan kaki, sakit kepala, wajah merah</td>
+                                </tr>
+                                <tr>
+                                    <th>Efek Samping</th>
+                                    <td>: Ibu menyusui</td>
+                                </tr>
+                                <tr>
+                                    <th>Kontraindikasi</th>
+                                    <td>: </td>
+                                </tr>
+                                <tr>
+                                    <th>Pola makan dan Hidup Sehat</th>
+                                    <td>
+                                        <ol>
+                                            <li>Perbanyak konsumsi air putih, sayuran, buah, ikan.</li>
+                                            <li>Kurangi konsumsi makanan/minuman manis, berlemak, garam.</li>
+                                            <li>Kurangi makanan instan (sosis, makanan kaleng).</li>
+                                            <li>Ganti konsumsi susu dengan yang rendah lemak.</li>
+                                        </ol>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Informasi Tambahan</th>
+                                    <td>
+                                        <ol>
+                                            <li>Hindari mengubah posisi tubuh secara tiba-tiba dari duduk ke berdiri atau berbaring ke duduk.</li>
+                                            <li>Rutin cek tekanan darah anda.</li>
+                                            <li>Hindari rokok.</li>
+                                            <li>Olahraga aerobik 30 menit tiap minggu.</li>
+                                        </ol>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kembali</button>
+                    </div>
+                </div>
+            </div>
         </div>
+
+    </div>
+
+    <!-- Pagination -->
+    <div class="paginate d-flex justify-content-center">
+        {{ $data->links() }}
     </div>
 </div>
 

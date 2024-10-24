@@ -17,6 +17,8 @@ class PasienModel extends Model
     // PK integer AI
     public $incrementing = true;
 
+    // protected $fillable = 'id_pasien';
+
     public function pasien() {
         return $this->belongsTo(User::class, 'id_pengguna','id_pengguna');
     }

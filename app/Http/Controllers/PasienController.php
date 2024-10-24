@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class PasienController extends Controller
 {
     public function index() {
-        $data_pasien = PasienModel::latest()->paginate(2);
-        return view('pasien_terdaftar', compact('data'));
+        $data_pasien = PasienModel::all();
+        return view('pasien_terdaftar', compact('data_pasien'));
     }
 }

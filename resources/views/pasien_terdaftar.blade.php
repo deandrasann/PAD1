@@ -14,6 +14,7 @@
             <table class="table table-striped table-hover">
                 <thead class="table-primary">
                     <tr>
+                        <th class="px-4 py-2">Nomor</th>
                         <th class="px-4 py-2">Nama Pasien</th>
                         <th class="px-4 py-2">Nama RM</th>
                         <th class="px-4 py-2">Tanggal Lahir</th>
@@ -26,12 +27,20 @@
                     @foreach ($data_pasien as $index => $item)
                     <tr>
                         <td>{{ $index + 1 }}</td>
-                        <td>{{ $item->nama_role }}</td>
-                        <td>{{ $item->username }}</td>
+                        <td>{{ $item->nama }}</td>
+                        <td>{{ $item->no_rm }}</td>
+                        <td>{{ $item->tanggal_lahir }}</td>
+                        <td>{{ $item->alamat }}</td>
+                        <td>{{ $item->jenis_kelamin }}</td>
+                        <td>{{ $item->no_telp }}</td>
                     </tr>
                     @endforeach
                 </tbody>
             </table>
+            <!-- Pagination -->
+        {{-- <div class="paginate d-flex justify-content-center">
+            {{ $data_pasien->links() }}
+        </div> --}}
         </div>
     </div>
 </div>

@@ -19,7 +19,7 @@ Route::get('/login', [AuthController::class, 'index'])->name('login');
 Route::post('/login', [AuthController::class, 'authenticate'])->name('login');
 Route::get('/logout', [AuthController::class, 'logout']);
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
-Route::get('/pasien-terdaftar', [PasienController::class, 'index'])->name('pasien');
+Route::get('/pasien-terdaftar', [PasienController::class, 'index'])->name('pasien-terdaftar');
 
 
 

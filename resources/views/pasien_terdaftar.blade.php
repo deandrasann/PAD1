@@ -4,9 +4,11 @@
     <div class="d-flex justify-content-between">
         <h2 class="m-4">PASIEN</h2>
         <!-- Button trigger modal -->
+        @if ($data_pasien->isEmpty())
         <button type="button" class="btn btn-resep d-flex justify-content-center align-items-center p-4 m-2" data-bs-toggle="modal" data-bs-target="#tambahPasienModal" style="font-weight: bold">
             Tambah Pasien
         </button>
+        @endif
     </div>
 
     <div class="d-flex justify-content-center align-items-center p-4">
@@ -16,31 +18,41 @@
                     <tr>
                         <th class="px-4 py-2">Nomor</th>
                         <th class="px-4 py-2">Nama Pasien</th>
-                        <th class="px-4 py-2">Nama RM</th>
+                        <th class="px-4 py-2">No RM</th>
                         <th class="px-4 py-2">Tanggal Lahir</th>
                         <th class="px-4 py-2">Alamat</th>
                         <th class="px-4 py-2">Jenis Kelamin</th>
-                        <th class="px-4 py-2">No Telp.</th>
+                        <th class="px-4 py-2">No Telp</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($data_pasien as $index => $item)
+                    @forelse ($data_pasien as $index => $item)
                     <tr>
                         <td>{{ $index + 1 }}</td>
-                        <td>{{ $item->nama }}</td>
+                        <td>{{ $item->nama }}</td>  
                         <td>{{ $item->no_rm }}</td>
                         <td>{{ $item->tanggal_lahir }}</td>
                         <td>{{ $item->alamat }}</td>
                         <td>{{ $item->jenis_kelamin }}</td>
                         <td>{{ $item->no_telp }}</td>
                     </tr>
-                    @endforeach
+                    @empty
+                    <tr>
+                        <td>Tidak Ada Data</td>
+                        <td>Tidak Ada Data</td>
+                        <td>Tidak Ada Data</td>
+                        <td>Tidak Ada Data</td>
+                        <td>Tidak Ada Data</td>
+                        <td>Tidak Ada Data</td>
+                        <td>Tidak Ada Data</td>
+                    </tr>
+                    @endforelse
                 </tbody>
             </table>
             <!-- Pagination -->
-        {{-- <div class="paginate d-flex justify-content-center">
-            {{ $data_pasien->links() }}
-        </div> --}}
+            <div class="paginate d-flex justify-content-center">
+                {{ $data_pasien->links() }}
+            </div>
         </div>
     </div>
 </div>

@@ -3,6 +3,7 @@
 <title>Beranda</title>
 <h2 >Beranda</h2>
 
+@can('apoteker')
 <div class="misahin role apoteker">
     <div class="info d-flex flex-wrap justify-content-start">
         <div class="container-row-1 py-3 pe-3 my-3 me-3 d-flex justify-content-end align-items-start px-4">
@@ -46,7 +47,8 @@
         </div>
     </div>
 </div>
-
+@endcan
+@can('pengawas')
 <div class="misahin role PMO">
     <div class="info d-flex flex-wrap justify-content-start">
         <div class="container-row-1 py-3 pe-3 my-3 me-3 d-flex justify-content-end align-items-start px-4">
@@ -90,6 +92,8 @@
         </div>
     </div>
 </div>
+@endcan
+
 @can('admin')
 <div class="misahin role PMO">
     <div class="info d-flex flex-wrap justify-content-start">

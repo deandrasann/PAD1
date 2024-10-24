@@ -26,7 +26,7 @@
     </div>
 
 
-        
+
     <div class="d-flex align-items-center me-4">
             <form action="{{ route('logout') }}" method="POST">
                 @csrf
@@ -61,7 +61,7 @@
 </nav>
 <body>
 
-    <div class="m-5">@yield('content')</div>
+    <div class="body m-5">@yield('content')</div>
 
 </body>
 </html>

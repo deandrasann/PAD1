@@ -2,10 +2,82 @@
 
 @section('content')
 
-<div class="container mt-4">
+<div class="container mt-4" st>
     <h2>DATA RESEP OBAT</h2>
 
-    <!-- Tombol Tambah Obat -->
+
+    <div class="d-flex justify-content-between align-items-center">
+        <div class="card my-4" style="width: 24rem;">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-5"><strong>No Resep</strong></div>
+                    <div class="col-1">:</div>
+                    <div class="col-5">11</div>
+                </div>
+                <div class="row">
+                    <div class="col-5"><strong>Tanggal Resep</strong></div>
+                    <div class="col-1">:</div>
+                    <div class="col-5">11</div>
+                </div>
+                <div class="row">
+                    <div class="col-5"><strong>Nama </strong></div>
+                    <div class="col-1">:</div>
+                    <div class="col-5">11</div>
+                </div>
+                <div class="row">
+                    <div class="col-5"><strong>Jenis Kelamin</strong></div>
+                    <div class="col-1">:</div>
+                    <div class="col-5">11</div>
+                </div>
+                <div class="row">
+                    <div class="col-5"><strong>No Telepon</strong></div>
+                    <div class="col-1">:</div>
+                    <div class="col-5">11</div>
+                </div>
+                <div class="row">
+                    <div class="col-5"><strong>Alamat</strong></div>
+                    <div class="col-1">:</div>
+                    <div class="col-5">11</div>
+                </div>
+            </div>
+
+          </div>
+          <div class="modal fade modal-dialog modal-dialog-centered" id="cetakObat" tabindex="-1" aria-labelledby="cetakObatLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                    <div>
+                        <h5 class="modal-title" id="cetakObatLabel">Pilih obat yang akan dicetak</h5>
+                    </div>
+                    <div>
+                        <input class="form-check-input" type="checkbox" id="selectAll">
+                        <label class="form-check-label" for="selectAll">
+                          Select All
+                        </label>
+                    </div>
+
+
+
+                </div>
+                <div class="modal-body">
+                    <div class="checkbox-group">
+
+                      </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-white" data-bs-dismiss="modal">Batal</button>
+                    <button type="button" class="btn btn-resep ms-auto">Cetak</button>
+
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <a href="#" class="container-row-2 p-4" data-bs-toggle="modal" data-bs-target="#cetakObat">
+            <img src="{{ asset('images/printer.png') }}">
+          </a>
+    </div>
+
     <button type="button" class="btn btn-resep tambah-obat-btn">
         <strong>+ Tambah Obat</strong>
     </button>

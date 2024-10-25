@@ -6,7 +6,7 @@
     <h2>DATA RESEP OBAT</h2>
 
     <div class="d-flex justify-content-between align-items-center">
-        <div class="card my-4" style="width: 24rem;">
+        {{-- <div class="card my-4" style="width: 24rem;">
             <div class="card-body">
                 <div class="row">
                     <div class="col-5"><strong>No Resep</strong></div>
@@ -39,15 +39,15 @@
                     <div class="col-5">11</div>
                 </div>
             </div>
-        </div>
-
+        </div> --}}
+{{--
         <a href="#" class="container-row-2 p-4" data-bs-toggle="modal" data-bs-target="#cetakObat">
             <img src="{{ asset('images/printer.png') }}">
-        </a>
+        </a> --}}
     </div>
 
-    <button type="button" class="btn btn-resep tambah-obat-btn">
-        <strong>+ Tambah Obat</strong>
+    <button type="button" class="btn btn-resep mb-4 mt-2" data-bs-toggle="modal" data-bs-target="#tambahObatModal">
+        + Tambah Obat
     </button>
 
     <!-- Search Bar -->
@@ -84,13 +84,13 @@
                             </button>
 
                             <!-- Edit Button -->
-                            <button class="btn btn-success p-2 px-3 edit-btn">
-                                <img src="{{ asset('images/detail icon.png') }}" class="me-2">Edit
+                            <button class="btn btn-success p-2 px-3 edit-btn" data-bs-toggle="modal" data-bs-target="#editObatModal" >
+                                <img src="{{ asset('images/edit icon.png') }}" class="me-2">Edit
                             </button>
 
                             <!-- Delete Button -->
-                            <button class="btn btn-danger p-2 px-3 delete-btn">
-                                <img src="{{ asset('images/detail icon.png') }}" class="me-2">Hapus
+                            <button class="btn btn-danger p-2 px-3 delete-btn" data-bs-toggle="modal" data-bs-target="#HapusObatModal">
+                                <img src="{{ asset('images/delete icon.png') }}" class="me-2">Hapus
                             </button>
                         </td>
                     </tr>
@@ -157,11 +157,226 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kembali</button>
                     </div>
+
                 </div>
             </div>
         </div>
 
+        {{-- Hapus Obat Modal --}}
+        <!-- Hapus Obat Modal -->
+        <div class="modal fade" id="HapusObatModal" tabindex="-1" aria-labelledby="HapusObatModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content ">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="HapusObatModalLabel">Hapus Data Obat</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body text-center">
+                        <img src="{{ asset('images/warning icon.png') }}" alt="Warning">
+                        <p>Anda yakin ingin menghapus data obat ini?</p>
+                        <div class="d-flex justify-content-around mt-3">
+                            <button type="button" class="btn btn-white" data-bs-dismiss="modal">TIDAK</button>
+                            <button type="button" class="btn btn-danger">YA</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{-- Tambah Obat Modal --}}
+        <div class="modal fade" id="tambahObatModal" tabindex="-1" aria-labelledby="tambahObatModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="tambahObatModalLabel">Tambah Obat</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                      <!-- Nama Obat -->
+                      <div class="row mb-3">
+                        <label for="namaObat" class="col-md-4 col-form-label">Nama Obat</label>
+                        <div class="col-md-8">
+                          <input type="text" class="form-control" id="namaObat" placeholder="Nama obat">
+                        </div>
+                      </div>
+
+                      <!-- Bentuk Obat -->
+                      <div class="row mb-3">
+                        <label for="bentukObat" class="col-md-4 col-form-label">Bentuk Obat</label>
+                        <div class="col-md-8">
+                          <input type="text" class="form-control" id="bentukObat" placeholder="Bentuk obat">
+                        </div>
+                      </div>
+
+                      <!-- Kebutuhan Sediaan & Satuan -->
+                      <div class="row mb-3">
+                        <label for="kekuatanSediaan" class="col-md-4 col-form-label">Kebutuhan Sediaan</label>
+                        <div class="col-md-5">
+                          <input type="text" class="form-control" id="kekuatanSediaan" placeholder="Kebutuhan Sediaan">
+                        </div>
+                        <div class="col-md-3">
+                          <input type="text" class="form-control" id="satuan" placeholder="Satuan">
+                        </div>
+                      </div>
+
+                      <!-- Efek Samping -->
+                      <div class="row mb-3">
+                        <label for="efekSamping" class="col-md-4 col-form-label">Efek Samping</label>
+                        <div class="col-md-8">
+                          <input type="text" class="form-control" id="efekSamping" placeholder="Efek Samping">
+                        </div>
+                      </div>
+
+                      <!-- Kontraindikasi -->
+                      <div class="row mb-3">
+                        <label for="kontraindikasi" class="col-md-4 col-form-label">Kontraindikasi</label>
+                        <div class="col-md-8">
+                          <input type="text" class="form-control" id="kontraindikasi" placeholder="Kontraindikasi">
+                        </div>
+                      </div>
+
+                      <!-- Interaksi Obat -->
+                      <div class="row mb-3">
+                        <label for="interaksiObat" class="col-md-4 col-form-label">Interaksi Obat</label>
+                        <div class="col-md-8">
+                          <input type="text" class="form-control" id="interaksiObat" placeholder="Interaksi Obat">
+                        </div>
+                      </div>
+
+                      <!-- Petunjuk Penyimpanan -->
+                      <div class="row mb-3">
+                        <label for="petunjukPenyimpanan" class="col-md-4 col-form-label">Petunjuk Penyimpanan</label>
+                        <div class="col-md-8">
+                          <input type="text" class="form-control" id="petunjukPenyimpanan" placeholder="Petunjuk Penyimpanan">
+                        </div>
+                      </div>
+
+                      <!-- Pola Makan dan Hidup Sehat -->
+                      <div class="row mb-3">
+                        <label for="polaMakan" class="col-md-4 col-form-label">Pola Makan dan Hidup Sehat</label>
+                        <div class="col-md-8">
+                          <input type="text" class="form-control" id="polaMakan" placeholder="Pola Makan dan Hidup Sehat">
+                        </div>
+                      </div>
+
+                      <!-- Informasi Tambahan -->
+                      <div class="row mb-3">
+                        <label for="informasiTambahan" class="col-md-4 col-form-label">Informasi Tambahan</label>
+                        <div class="col-md-8">
+                          <input type="text" class="form-control" id="informasiTambahan" placeholder="Informasi Tambahan">
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-white" data-bs-dismiss="modal">Batal</button>
+                    <button type="button" class="btn btn-resep ms-auto">Simpan</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
     </div>
+
+    {{-- Edit Obat Modal --}}
+    <div class="modal fade" id="editObatModal" tabindex="-1" aria-labelledby="editObatModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="editObatModalLabel">Tambah Obat</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                  <!-- Nama Obat -->
+                  <div class="row mb-3">
+                    <label for="namaObat" class="col-md-4 col-form-label">Nama Obat</label>
+                    <div class="col-md-8">
+                      <input type="text" class="form-control" id="namaObat" placeholder="Nama obat">
+                    </div>
+                  </div>
+
+                  <!-- Bentuk Obat -->
+                  <div class="row mb-3">
+                    <label for="bentukObat" class="col-md-4 col-form-label">Bentuk Obat</label>
+                    <div class="col-md-8">
+                      <input type="text" class="form-control" id="bentukObat" placeholder="Bentuk obat">
+                    </div>
+                  </div>
+
+                  <!-- Kebutuhan Sediaan & Satuan -->
+                  <div class="row mb-3">
+                    <label for="kekuatanSediaan" class="col-md-4 col-form-label">Kebutuhan Sediaan</label>
+                    <div class="col-md-5">
+                      <input type="text" class="form-control" id="kekuatanSediaan" placeholder="Kebutuhan Sediaan">
+                    </div>
+                    <div class="col-md-3">
+                      <input type="text" class="form-control" id="satuan" placeholder="Satuan">
+                    </div>
+                  </div>
+
+                  <!-- Efek Samping -->
+                  <div class="row mb-3">
+                    <label for="efekSamping" class="col-md-4 col-form-label">Efek Samping</label>
+                    <div class="col-md-8">
+                      <input type="text" class="form-control" id="efekSamping" placeholder="Efek Samping">
+                    </div>
+                  </div>
+
+                  <!-- Kontraindikasi -->
+                  <div class="row mb-3">
+                    <label for="kontraindikasi" class="col-md-4 col-form-label">Kontraindikasi</label>
+                    <div class="col-md-8">
+                      <input type="text" class="form-control" id="kontraindikasi" placeholder="Kontraindikasi">
+                    </div>
+                  </div>
+
+                  <!-- Interaksi Obat -->
+                  <div class="row mb-3">
+                    <label for="interaksiObat" class="col-md-4 col-form-label">Interaksi Obat</label>
+                    <div class="col-md-8">
+                      <input type="text" class="form-control" id="interaksiObat" placeholder="Interaksi Obat">
+                    </div>
+                  </div>
+
+                  <!-- Petunjuk Penyimpanan -->
+                  <div class="row mb-3">
+                    <label for="petunjukPenyimpanan" class="col-md-4 col-form-label">Petunjuk Penyimpanan</label>
+                    <div class="col-md-8">
+                      <input type="text" class="form-control" id="petunjukPenyimpanan" placeholder="Petunjuk Penyimpanan">
+                    </div>
+                  </div>
+
+                  <!-- Pola Makan dan Hidup Sehat -->
+                  <div class="row mb-3">
+                    <label for="polaMakan" class="col-md-4 col-form-label">Pola Makan dan Hidup Sehat</label>
+                    <div class="col-md-8">
+                      <input type="text" class="form-control" id="polaMakan" placeholder="Pola Makan dan Hidup Sehat">
+                    </div>
+                  </div>
+
+                  <!-- Informasi Tambahan -->
+                  <div class="row mb-3">
+                    <label for="informasiTambahan" class="col-md-4 col-form-label">Informasi Tambahan</label>
+                    <div class="col-md-8">
+                      <input type="text" class="form-control" id="informasiTambahan" placeholder="Informasi Tambahan">
+                    </div>
+                  </div>
+                </form>
+              </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-white" data-bs-dismiss="modal">Batal</button>
+                <button type="button" class="btn btn-resep ms-auto">Simpan</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+</div>
 
     <!-- Pagination -->
     <div class="paginate d-flex justify-content-center">

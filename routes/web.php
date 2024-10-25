@@ -31,7 +31,10 @@ Route::get('/password-verification', function(){
 });
 Route::get('/obat', [DashboardController::class, 'obat'])->name('daftar-obat');
 Route::get('/tambah-resep', [DashboardController::class,'tambahResep'])->name('tambah-resep');
+Route::get('/pasien', [DashboardController::class, 'pasien'])->name('daftar-pasien');
 
 Route::group(['middleware' => ['level:admin,dokter,apoteker,pengawas']], function () {
 Route::get('/beranda',[DashboardController::class,'beranda'])->name('beranda');
 });
+
+

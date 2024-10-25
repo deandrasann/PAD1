@@ -1,40 +1,54 @@
 @extends('footerheader.navbar')
 @section('content')
 <div class="container">
-    <div class="d-flex justify-content-between">
-        <h2 class="m-4">PASIEN</h2>
-        <!-- Button trigger modal -->
-        @if ($data_pasien->isEmpty())
-        <button type="button" class="btn btn-resep d-flex justify-content-center align-items-center p-4 m-2" data-bs-toggle="modal" data-bs-target="#tambahPasienModal" style="font-weight: bold">
-            Tambah Pasien
+        <h2 class="me-4">DATA PASIEN</h2>
+        <button type="button" class="btn btn-resep px-4 py-3 mb-2 mt-4">
+           <strong> + Tambah Pasien</strong>
         </button>
-        @endif
     </div>
 
     <div class="d-flex justify-content-center align-items-center p-4">
-        <div class="table-data table-responsivecard p-4 w-100 ">
-            <table class="table table-striped table-hover ">
+        <div class="card p-4 w-100">
+            <table class="table table-striped table-hover">
                 <thead class="table-primary">
                     <tr>
-                        <th class="px-4 py-2">Nomor</th>
-                        <th class="px-4 py-2">Nama Pasien</th>
                         <th class="px-4 py-2">No RM</th>
+                        <th class="px-4 py-2">Nama Pasien</th>
+                        <th class="px-4 py-2">Jenis kelamin</th>
                         <th class="px-4 py-2">Tanggal Lahir</th>
                         <th class="px-4 py-2">Alamat</th>
-                        <th class="px-4 py-2">Jenis Kelamin</th>
                         <th class="px-4 py-2">No Telp</th>
+                        <th class="px-4 py-2">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
                     @forelse ($data_pasien as $index => $item)
                     <tr>
-                        <td>{{ $index + 1 }}</td>
-                        <td>{{ $item->nama }}</td>
                         <td>{{ $item->no_rm }}</td>
-                        <td>{{ $item->tanggal_lahir }}</td>
-                        <td>{{ $item->alamat }}</td>
+                        <td>{{ $item->nama }}</td>
                         <td>{{ $item->jenis_kelamin }}</td>
+                        <td>{{ $item->tanggal_lahir }}</td>
+
+
+                        <td>{{ $item->alamat }}</td>
+
                         <td>{{ $item->no_telp }}</td>
+                        <td>
+                             <!-- Detail Button -->
+                            <button class="btn btn-resep p-2 px-3 detail-btn" data-bs-toggle="modal" data-bs-target="#detailObatModal">
+                                <img src="{{ asset('images/detail icon.png') }}" class="me-2">Detail
+                            </button>
+
+                            <!-- Edit Button -->
+                            <button class="btn btn-success p-2 px-3 edit-btn" data-bs-toggle="modal" data-bs-target="#editObatModal" >
+                                <img src="{{ asset('images/edit icon.png') }}" class="me-2">Edit
+                            </button>
+
+                            <!-- Delete Button -->
+                            <button class="btn btn-danger p-2 px-3 delete-btn" data-bs-toggle="modal" data-bs-target="#HapusObatModal">
+                                <img src="{{ asset('images/delete icon.png') }}" class="me-2">Hapus
+                            </button>
+                        </td></td>
                     </tr>
                     @empty
                     <tr>
@@ -55,7 +69,6 @@
             </div>
         </div>
     </div>
-</div>
 
 <!-- Modal -->
 <div class="modal fade" id="tambahPasienModal" tabindex="-1" aria-labelledby="tambahPasienModalLabel" aria-hidden="true">

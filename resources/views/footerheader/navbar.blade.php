@@ -31,7 +31,7 @@
 
 
 
-    <div class="d-flex align-items-center me-4">
+    <div class="d-flex align-items-end me-4">
             <form action="{{ route('logout') }}" method="POST">
                 @csrf
         <a href="{{ route('logout') }}" class="text-decoration-none d-flex align-items-center">
@@ -46,7 +46,7 @@
         </button>
         <div class="offcanvas-header d-flex flex-column align-items-center text-align-center">
                 @auth
-            <img src="{{asset('images/profile.png')}}" class="m-4">
+            <img src="{{asset('images/profile.png')}}" class="m-2">
             <h5 class="offcanvas-title" id="offcanvasScrollingLabel">{{ auth()->user()->username }}</h5>
             <p>{{ auth()->user()->nama_role }}</p>
                 @endauth
@@ -55,7 +55,7 @@
             <a href="{{route('tambah-resep')}}" type="button" class="btn btn-primary d-flex justify-content-center align-items-center m-2 mb-5" style="width: 257px; height: 62px; flex-shrink: 0; border-radius: 90px;background: #3378AA; box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);border:none"><strong>TAMBAH RESEP</strong> <img src="{{asset('images/tambah resep icon.png')}}" class="ms-4" style="width: 45px; height:45px"></a>
             <a href ="{{ route('beranda') }}" type="button" class="btn-custom ps-3 d-flex justify-content-start align-items-center m-2" > <img src="{{asset('images/home icon.png')}}" class="me-4" style="width: 30px; height:30px"> <strong>Beranda</strong></a>
             <a href ="{{ route('daftar-obat') }}" type="button" class="btn-custom ps-3 d-flex justify-content-start align-items-center m-2" > <img src="{{asset('images/obat icon.png')}}" class="me-4" style="width: 30px; height:30px"><strong>Obat</strong></a>
-            <button type="button" class="btn-custom ps-3 d-flex justify-content-start align-items-center m-2" > <img src="{{asset('images/home icon.png')}}" class="me-4" style="width: 30px; height:30px"><strong>Pasien</strong></button>
+            <a href ="{{ route('daftar-pasien') }}" type="button" class="btn-custom ps-3 d-flex justify-content-start align-items-center m-2" > <img src="{{asset('images/home icon.png')}}" class="me-4" style="width: 30px; height:30px"><strong>Pasien</strong></a>
             <button type="button" class="btn-custom ps-3 d-flex justify-content-start align-items-center m-2" > <img src="{{asset('images/obat icon.png')}}" class="me-4" style="width: 30px; height:30px"><strong>Rawat Inap</strong></button>
             <button type="button" class="btn-custom ps-3 d-flex justify-content-start align-items-center m-2" > <img src="{{asset('images/navbar menu/list pasien.png')}}" class="me-4" style="width: 30px; height:30px"><strong>List Pasien</strong></button>
             <button type="button" class="btn-custom ps-3 d-flex justify-content-start align-items-center m-2" > <img src="{{asset('images/navbar menu/riwayat pasien.png')}}" class="me-4" style="width: 30px; height:30px"><strong>Riwayat Pasien</strong></button>

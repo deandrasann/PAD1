@@ -20,9 +20,9 @@ class PasienController extends Controller
         //             ->get();
         if([$no_rm,$nama_pasien,$alamat,$tgl_lahir] !== null) {
         $data_pasien = DB::table('pasien')->where('no_rm', $no_rm,)
-                        ->orWhere('nama', 'like',"%" . $nama_pasien . "%")
-                        ->orWhere('alamat', 'like',"%" . $alamat . "%")
-                        ->orWhere('tanggal_lahir', $tgl_lahir)
+                        ->where('nama', 'like',"%" . $nama_pasien . "%")
+                        ->where('alamat', 'like',"%" . $alamat . "%")
+                        ->where('tanggal_lahir', $tgl_lahir)
                         ->paginate(5);
         } else {
             $data_pasien = DB::table('pasien')->get();

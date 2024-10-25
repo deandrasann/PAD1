@@ -37,7 +37,7 @@
 
 
 
-    <div class="d-flex align-items-center me-4">
+    <div class="d-flex align-items-end me-4">
         <form action="{{ route('logout') }}" method="POST">
             @csrf
             <a href="{{ route('logout') }}" class="text-decoration-none d-flex align-items-center">
@@ -74,7 +74,7 @@
                 class="btn-custom ps-3 d-flex justify-content-start align-items-center m-2"> <img
                     src="{{ asset('images/home icon.png') }}" class="me-4" style="width: 30px; height:30px">
                 <strong>Beranda</strong></a>
-            @endcan 
+            @endcan
             @can('admin+apoteker')
             <a href ="{{ route('daftar-obat') }}" type="button"
                 class="btn-custom ps-3 d-flex justify-content-start align-items-center m-2"> <img
@@ -82,9 +82,9 @@
                     style="width: 30px; height:30px"><strong>Obat</strong></a>
             @endcan
             @can('admin+apoteker')
-            <button type="button" class="btn-custom ps-3 d-flex justify-content-start align-items-center m-2"> <img
+            <a href ="{{ route('daftar-pasien') }}" type="button" class="btn-custom ps-3 d-flex justify-content-start align-items-center m-2"> <img
                     src="{{ asset('images/home icon.png') }}" class="me-4"
-                    style="width: 30px; height:30px"><strong>Pasien</strong></button>
+                    style="width: 30px; height:30px"><strong>Pasien</strong></a>
             @endcan
             @can('apoteker')
             <button type="button" class="btn-custom ps-3 d-flex justify-content-start align-items-center m-2"> <img

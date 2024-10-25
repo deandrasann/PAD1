@@ -20,6 +20,12 @@
     text-decoration: none;
 }
 
+.btn-white{
+    border: 1px solid black /* Black border */ !important;
+    background-color: white; /* Button background */
+}
+
+
 
 .btn-custom:hover{
     background-color: #2DA3F9;

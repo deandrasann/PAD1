@@ -12,8 +12,8 @@
     </div>
 
     <div class="d-flex justify-content-center align-items-center p-4">
-        <div class="card p-4 w-100">
-            <table class="table table-striped table-hover">
+        <div class="table-data table-responsivecard p-4 w-100 ">
+            <table class="table table-striped table-hover ">
                 <thead class="table-primary">
                     <tr>
                         <th class="px-4 py-2">Nomor</th>
@@ -29,7 +29,7 @@
                     @forelse ($data_pasien as $index => $item)
                     <tr>
                         <td>{{ $index + 1 }}</td>
-                        <td>{{ $item->nama }}</td>  
+                        <td>{{ $item->nama }}</td>
                         <td>{{ $item->no_rm }}</td>
                         <td>{{ $item->tanggal_lahir }}</td>
                         <td>{{ $item->alamat }}</td>

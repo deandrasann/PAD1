@@ -89,7 +89,7 @@
             @can('apoteker')
             <button type="button" class="btn-custom ps-3 d-flex justify-content-start align-items-center m-2"> <img
                     src="{{ asset('images/obat icon.png') }}" class="me-4"
-                    style="width: 30px; height:30px"><strong>Rawat Inap</strong></button>
+                    style="width: 30px; height:30px"><strong>Riwayat Resep</strong></button>
             @endcan
             @can('admin+pengawas')
             <button type="button" class="btn-custom ps-3 d-flex justify-content-start align-items-center m-2"> <img
@@ -101,12 +101,12 @@
                     src="{{ asset('images/navbar menu/riwayat pasien.png') }}" class="me-4"
                     style="width: 30px; height:30px"><strong>Riwayat Pasien</strong></button>
             @endcan
-            @can('apoteker')
+            @can('admin')
             <button type="button" class="btn-custom ps-3 d-flex justify-content-start align-items-center m-2"> <img
                     src="{{ asset('images/navbar menu/list pasien.png') }}" class="me-4"
                     style="width: 30px; height:30px"><strong>Apoteker</strong></button>
                     @endcan
-            @can('pengawas')
+            @can('admin')
             <button type="button" class="btn-custom ps-3 d-flex justify-content-start align-items-center m-2"> <img
                     src="{{ asset('images/navbar menu/riwayat pasien.png') }}" class="me-4"
                     style="width: 30px; height:30px"><strong>Pengawas</strong></button>

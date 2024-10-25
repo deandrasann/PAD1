@@ -58,7 +58,7 @@
         </button>
     </div>
 
-    <!-- Tabel Data Resep Obat -->
+   F <!-- Tabel Data Resep Obat -->
     <div class="table-data table-responsive">
         <table class="table table-striped table-hover">
             <thead class="table-primary">
@@ -155,7 +155,7 @@
                         </table>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kembali</button>
+                        <button type="button" class="btn btn-resep" data-bs-dismiss="modal">Kembali</button>
                     </div>
 
                 </div>
@@ -176,7 +176,7 @@
                         <p>Anda yakin ingin menghapus data obat ini?</p>
                         <div class="d-flex justify-content-around mt-3">
                             <button type="button" class="btn btn-white" data-bs-dismiss="modal">TIDAK</button>
-                            <button type="button" class="btn btn-danger">YA</button>
+                            <button type="button" class="btn btn-danger px-4">YA</button>
                         </div>
                     </div>
                 </div>
@@ -285,7 +285,7 @@
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="editObatModalLabel">Tambah Obat</h5>
+              <h5 class="modal-title" id="editObatModalLabel">Edit Obat</h5>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">

@@ -82,9 +82,9 @@
                     style="width: 30px; height:30px"><strong>Obat</strong></a>
             @endcan
             @can('admin+apoteker')
-            <button type="button" class="btn-custom ps-3 d-flex justify-content-start align-items-center m-2"> <img
+            <a href ="{{ route('daftar-pasien') }}" type="button" class="btn-custom ps-3 d-flex justify-content-start align-items-center m-2"> <img
                     src="{{ asset('images/home icon.png') }}" class="me-4"
-                    style="width: 30px; height:30px"><strong>Pasien</strong></button>
+                    style="width: 30px; height:30px"><strong>Pasien</strong></a>
             @endcan
             @can('apoteker')
             <button type="button" class="btn-custom ps-3 d-flex justify-content-start align-items-center m-2"> <img

@@ -27,11 +27,12 @@ class DashboardController extends Controller
     }
     public function tambahResep(){
         $data_pasien = DB::table('pasien')->get();
-        return view('tambah_resep', compact('data_pasien'));
+        return view('pasien-resep', compact('data_pasien'));
     }
     public function pasienTerdaftar(){
         return view('pasien_terdaftar');
     }
+
     public function pasien() {
         $data_pasien = DB::table('pasien')->paginate(5);
         return view('daftar-pasien', compact('data_pasien'));

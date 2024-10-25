@@ -37,4 +37,8 @@ class DashboardController extends Controller
         $data_pasien = DB::table('pasien')->paginate(5);
         return view('daftar-pasien', compact('data_pasien'));
     }
+    public function resepTiapPasien(){
+        $data = DB::table('users')->paginate(5);
+        return view('resep-tiap-pasien', compact('data'));
+    }
 }

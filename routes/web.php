@@ -37,6 +37,8 @@ Route::group(['middleware' => ['level:admin,dokter,apoteker,pengawas']], functio
     Route::get('/obat', [DashboardController::class, 'obat'])->name('daftar-obat');
     Route::get('/tambah-resep', [DashboardController::class, 'tambahResep'])->name('tambah-resep');
     Route::get('/beranda', [DashboardController::class, 'beranda'])->name('beranda');
+    Route::get('/resep-pasien', [DashboardController::class, 'resepTiapPasien'])->name('resep-tiap-pasien');
+
 });
 
 

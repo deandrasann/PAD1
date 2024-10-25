@@ -37,14 +37,8 @@
                     <td>{{ $item->alamat }}</td>
                     <td>{{ $item->no_telp }}</td>
                     <td>
-                        <button class="btn btn-resep p-2 px-3 detail-btn" data-bs-toggle="modal" data-bs-target="#detailPasienModal">
-                            <img src="{{ asset('images/detail icon.png') }}" class="me-2">Detail
-                        </button>
-                        <button class="btn btn-success p-2 px-3 edit-btn" data-bs-toggle="modal" data-bs-target="#editPasienModal">
-                            <img src="{{ asset('images/edit icon.png') }}" class="me-2">Edit
-                        </button>
-                        <button class="btn btn-danger p-2 px-3 delete-btn" data-bs-toggle="modal" data-bs-target="#hapusPasienModal">
-                            <img src="{{ asset('images/delete icon.png') }}" class="me-2">Hapus
+                        <button class="btn btn-resep p-2 px-3 detail-btn" type="submit" onclick="document.location='{{route('resep-tiap-pasien')}}'">
+                            <img  src="{{ asset('images/detail icon.png') }}" class="me-2"> Detail
                         </button>
                     </td>
                 </tr>
@@ -106,136 +100,8 @@
         </div>
 
         {{-- Detail Pasien --}}
-        <div class="modal fade" id="detailPasienModal" tabindex="-1" aria-labelledby="detailPasienModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-lg modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="detailPasienModalLabel">Detail Data Obat</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <table class="table table-borderless">
-                            <tbody>
-                                <tr>
-                                    <th>No RM</th>
-                                    <td>: {{ $item->no_rm }}</td>
-                                </tr>
-                                <tr>
-                                    <th>Nama</th>
-                                    <td>: {{ $item->nama }}</td>
-                                </tr>
-                                <tr>
-                                    <th>Jenis Kelamin</th>
-                                    <td>:  {{ $item->jenis_kelamin }}</td>
-                                </tr>
-                                <tr>
-                                    <th>Tanggal Lahir</th>
-                                    <td>:  {{ $item->tanggal_lahir}}</td>
-                                </tr>
-                                <tr>
-                                    <th>No telpon</th>
-                                    <td>: {{ $item->no_telp }} </td>
-                                </tr>
-                                <tr>
-                                    <th>Alamat</th>
-                                    <td>:  {{ $item->alamat }}</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-resep" data-bs-dismiss="modal">Kembali</button>
-                    </div>
 
-                </div>
-            </div>
-        </div>
-        <div class="modal fade" id="hapusPasienModal" tabindex="-1" aria-labelledby="hapusPasienModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content ">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="hapusPasienModalLabel">Hapus Data Obat</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body text-center">
-                        <img src="{{ asset('images/warning icon.png') }}" alt="Warning">
-                        <p>Anda yakin ingin menghapus data obat ini?</p>
-                        <div class="d-flex justify-content-around mt-3">
-                            <button type="button" class="btn btn-white" data-bs-dismiss="modal">TIDAK</button>
-                            <button type="button" class="btn btn-danger px-4">YA</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
 
-         {{-- Edit Obat Modal --}}
-    <div class="modal fade" id="editPasienModal" tabindex="-1" aria-labelledby="editPasienModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-dialog-centered">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="editPasienModalLabel">Edit Pasien</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form>
-                  <!-- Nama Obat -->
-                  <div class="row mb-3">
-                    <label for="namaObat" class="col-md-4 col-form-label">No RM</label>
-                    <div class="col-md-8">
-                      <input type="text" class="form-control" id="namaObat" value=" {{ old('no_rm', $item->no_rm )}}">
-                    </div>
-                  </div>
-
-                  <!-- Bentuk Obat -->
-                  <div class="row mb-3">
-                    <label for="bentukObat" class="col-md-4 col-form-label">Nama</label>
-                    <div class="col-md-8">
-                      <input type="text" class="form-control" id="bentukObat" value=" {{ old('nama', $item->nama )}}">
-                    </div>
-                  </div>
-
-                  <!-- Kebutuhan Sediaan & Satuan -->
-                  <div class="row mb-3">
-                    <label for="kekuatanSediaan" class="col-md-4 col-form-label">Tanggal Lahir</label>
-                    <div class="col-md-8">
-                      <input type="text" class="form-control" id="kekuatanSediaan" value=" {{ old('tanggal_lahir', $item->tanggal_lahir)}}">
-                    </div>
-                  </div>
-
-                  <!-- Efek Samping -->
-                  <div class="row mb-3">
-                    <label for="efekSamping" class="col-md-4 col-form-label">Jenis Kelamin</label>
-                    <div class="col-md-8">
-                      <input type="text" class="form-control" id="efekSamping" value="{{ old('jenis_kelamin', $item->jenis_kelamin )}}">
-                    </div>
-                  </div>
-
-                  <!-- Kontraindikasi -->
-                  <div class="row mb-3">
-                    <label for="kontraindikasi" class="col-md-4 col-form-label">No Telepon</label>
-                    <div class="col-md-8">
-                      <input type="text" class="form-control" id="kontraindikasi" value="{{ old('no_telp', $item->no_telp )}}">
-                    </div>
-                  </div>
-
-                  <!-- Interaksi Obat -->
-                  <div class="row mb-3">
-                    <label for="interaksiObat" class="col-md-4 col-form-label">Alamat</label>
-                    <div class="col-md-8">
-                      <input type="text" class="form-control" id="interaksiObat" value="{{ old('alamat', $item->alamat)}}">
-                    </div>
-                </div>
-                </form>
-              </div>
-
-            <div class="modal-footer">
-                <button type="button" class="btn btn-white" data-bs-dismiss="modal">Batal</button>
-                <button type="button" class="btn btn-resep ms-auto">Simpan</button>
-            </div>
-          </div>
-        </div>
-      </div>
 
         <!-- Pagination -->
         {{-- <div class="paginate d-flex justify-content-center">

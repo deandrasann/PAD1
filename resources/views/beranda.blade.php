@@ -3,7 +3,7 @@
 <title>Beranda</title>
 <h2 >Beranda</h2>
 
-@can('apoteker')
+@can('admin+apoteker')
 <div class="misahin role apoteker">
     <div class="info d-flex flex-wrap justify-content-start">
         <div class="container-row-1 py-3 pe-3 my-3 me-3 d-flex justify-content-end align-items-start px-4">
@@ -48,7 +48,7 @@
     </div>
 </div>
 @endcan
-@can('pengawas')
+@can('admin+pengawas')
 <div class="misahin role PMO">
     <div class="info d-flex flex-wrap justify-content-start">
         <div class="container-row-1 py-3 pe-3 my-3 me-3 d-flex justify-content-end align-items-start px-4">

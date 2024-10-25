@@ -38,13 +38,13 @@
                     </tr>
                     @empty
                     <tr>
+                        <td colspan="7" style="text-align: center">Pasien Tidak Ditemukan</td>
+                        {{-- <td>Tidak Ada Data</td>
                         <td>Tidak Ada Data</td>
                         <td>Tidak Ada Data</td>
                         <td>Tidak Ada Data</td>
                         <td>Tidak Ada Data</td>
-                        <td>Tidak Ada Data</td>
-                        <td>Tidak Ada Data</td>
-                        <td>Tidak Ada Data</td>
+                        <td>Tidak Ada Data</td> --}}
                     </tr>
                     @endforelse
                 </tbody>

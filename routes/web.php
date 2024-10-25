@@ -12,7 +12,7 @@ Route::get('/', function () {
 });
 
 Route::group(['middleware' => ['level:admin,dokter,apoteker,pengawas,pasien']], function () {
-Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 });
 
 Route::get('/login', [AuthController::class, 'index'])->name('login');
@@ -23,18 +23,20 @@ Route::get('/pasien-terdaftar', [PasienController::class, 'index'])->name('pasie
 
 
 
-Route::get('/forgot-password', function(){
+Route::get('/forgot-password', function () {
     return view('forgot-password');
 });
-Route::get('/password-verification', function(){
+Route::get('/password-verification', function () {
     return view('new-pass-verification');
 });
-Route::get('/obat', [DashboardController::class, 'obat'])->name('daftar-obat');
-Route::get('/tambah-resep', [DashboardController::class,'tambahResep'])->name('tambah-resep');
+
 Route::get('/pasien', [DashboardController::class, 'pasien'])->name('daftar-pasien');
 
 Route::group(['middleware' => ['level:admin,dokter,apoteker,pengawas']], function () {
-Route::get('/beranda',[DashboardController::class,'beranda'])->name('beranda');
+
+    Route::get('/obat', [DashboardController::class, 'obat'])->name('daftar-obat');
+    Route::get('/tambah-resep', [DashboardController::class, 'tambahResep'])->name('tambah-resep');
+    Route::get('/beranda', [DashboardController::class, 'beranda'])->name('beranda');
 });
 
 

@@ -87,9 +87,9 @@
                     style="width: 30px; height:30px"><strong>Pasien</strong></a>
             @endcan
             @can('apoteker')
-            <button type="button" class="btn-custom ps-3 d-flex justify-content-start align-items-center m-2"> <img
+            <a href ="{{ route('riwayat-resep') }}" type="button" class="btn-custom ps-3 d-flex justify-content-start align-items-center m-2"> <img
                     src="{{ asset('images/obat icon.png') }}" class="me-4"
-                    style="width: 30px; height:30px"><strong>Riwayat Resep</strong></button>
+                    style="width: 30px; height:30px"><strong>Riwayat Resep</strong></a>
             @endcan
             @can('admin+pengawas')
             <button type="button" class="btn-custom ps-3 d-flex justify-content-start align-items-center m-2"> <img
@@ -97,7 +97,7 @@
                     style="width: 30px; height:30px"><strong>List Pasien</strong></button>
             @endcan
             @can('admin+pengawas')
-            <button type="button" class="btn-custom ps-3 d-flex justify-content-start align-items-center m-2"> <img
+            <button  type="button" class="btn-custom ps-3 d-flex justify-content-start align-items-center m-2"> <img
                     src="{{ asset('images/navbar menu/riwayat pasien.png') }}" class="me-4"
                     style="width: 30px; height:30px"><strong>Riwayat Pasien</strong></button>
             @endcan

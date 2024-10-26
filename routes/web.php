@@ -38,6 +38,8 @@ Route::group(['middleware' => ['level:admin,dokter,apoteker,pengawas']], functio
     Route::get('/tambah-resep', [DashboardController::class, 'tambahResep'])->name('tambah-resep');
     Route::get('/beranda', [DashboardController::class, 'beranda'])->name('beranda');
     Route::get('/resep-pasien', [DashboardController::class, 'resepTiapPasien'])->name('resep-tiap-pasien');
+    Route::get('/detail-resep-obat',[DashboardController::class, 'detailDataObat'])->name('detail-resep-obat');
+    Route::get('/riwayat-resep',[DashboardController::class, 'riwayatResep'])->name('riwayat-resep');
 
 });
 

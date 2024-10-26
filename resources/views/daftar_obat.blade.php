@@ -58,7 +58,7 @@
         </button>
     </div>
 
-   F <!-- Tabel Data Resep Obat -->
+ <!-- Tabel Data Resep Obat -->
     <div class="table-data table-responsive">
         <table class="table table-striped table-hover">
             <thead class="table-primary">

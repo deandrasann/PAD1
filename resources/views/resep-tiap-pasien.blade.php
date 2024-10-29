@@ -46,10 +46,10 @@
                 </div>
             </div>
 
-            <a href="#" class="container-row-2 p-4" data-bs-toggle="modal" data-bs-target="#cetakObat">
-                <img src="{{ asset('images/printer.png') }}">
-            </a>
-        </div>
+        <a href='{{route('detail-resep-obat')}}' class="container-row-2 p-4">
+            <img src="{{ asset('images/printer.png') }}">
+        </a>
+    </div>
 
         <button type="button" class="btn btn-resep mb-4 mt-2" data-bs-toggle="modal" data-bs-target="#tambahObatModal">
             + Tambah Obat

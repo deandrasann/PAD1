@@ -16,6 +16,7 @@ class ObatSeeder extends Seeder
         $obat = collect([
             [
                'id_apoteker' => 1,
+               'id_pasien' => 1,
                 'nama_obat' => 'Paracetamol',
                 'takaran_minum' => '500 mg',
                 'jml_kali_minum' => '3 kali/hari',
@@ -35,6 +36,7 @@ class ObatSeeder extends Seeder
             ],
             [
                 'id_apoteker' => 1,
+                'id_pasien' => 2,
                 'nama_obat' => 'Amoxicillin',
                 'takaran_minum' => '250 mg',
                 'jml_kali_minum' => '3 kali/hari',
@@ -54,6 +56,7 @@ class ObatSeeder extends Seeder
             ],
             [
                 'id_apoteker' => 1,
+                'id_pasien' => 3,
                 'nama_obat' => 'Cetirizine',
                 'takaran_minum' => '10 mg',
                 'jml_kali_minum' => '1 kali/hari',
@@ -73,6 +76,7 @@ class ObatSeeder extends Seeder
             ],
             [
                 'id_apoteker' => 1,
+                'id_pasien' => 4,
                 'nama_obat' => 'Loperamide',
                 'takaran_minum' => '2 mg',
                 'jml_kali_minum' => '2 kali/hari',
@@ -92,6 +96,7 @@ class ObatSeeder extends Seeder
             ],
             [
                 'id_apoteker' => 1,
+                'id_pasien' => 5,
                 'nama_obat' => 'Ibuprofen',
                 'takaran_minum' => '400 mg',
                 'jml_kali_minum' => '3 kali/hari',
@@ -111,6 +116,7 @@ class ObatSeeder extends Seeder
             ],
             [
                 'id_apoteker' => 1,
+                'id_pasien' => 6,
                 'nama_obat' => 'Simvastatin',
                 'takaran_minum' => '10 mg',
                 'jml_kali_minum' => '1 kali/hari',
@@ -130,6 +136,7 @@ class ObatSeeder extends Seeder
             ],
             [
                 'id_apoteker' => 1,
+                'id_pasien' => 7,
                 'nama_obat' => 'Metformin',
                 'takaran_minum' => '500 mg',
                 'jml_kali_minum' => '2 kali/hari',
@@ -149,6 +156,7 @@ class ObatSeeder extends Seeder
             ],
             [
                 'id_apoteker' => 1,
+                'id_pasien' => 8,
                 'nama_obat' => 'Atorvastatin',
                 'takaran_minum' => '20 mg',
                 'jml_kali_minum' => '1 kali/hari',
@@ -168,6 +176,7 @@ class ObatSeeder extends Seeder
             ],
             [
                 'id_apoteker' => 1,
+                'id_pasien' => 9,
                 'nama_obat' => 'Aspirin',
                 'takaran_minum' => '100 mg',
                 'jml_kali_minum' => '1 kali/hari',
@@ -187,6 +196,7 @@ class ObatSeeder extends Seeder
             ],
             [
                 'id_apoteker' => 1,
+                'id_pasien' => 10,
                 'nama_obat' => 'Omeprazole',
                 'takaran_minum' => '20 mg',
                 'jml_kali_minum' => '1 kali/hari',

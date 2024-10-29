@@ -17,6 +17,7 @@ return new class extends Migration
             $table->collation = 'utf8mb4_general_ci';
             $table->integer('kode_obat',true);
             $table->integer('id_apoteker');
+            $table->integer('id_pasien');
             $table->string('nama_obat');
             $table->string('takaran_minum');
             $table->string('jml_kali_minum');
@@ -38,6 +39,13 @@ return new class extends Migration
             ->foreign('id_apoteker')
             ->references('id_apoteker')
             ->on('apoteker')
+            ->cascadeOnUpdate()
+            ->cascadeOnDelete();
+
+            $table
+            ->foreign('id_pasien')
+            ->references('id_pasien')
+            ->on('pasien')
             ->cascadeOnUpdate()
             ->cascadeOnDelete();
         });

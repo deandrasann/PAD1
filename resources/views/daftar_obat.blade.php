@@ -58,7 +58,7 @@
         </button>
     </div>
 
-   F <!-- Tabel Data Resep Obat -->
+   <!-- Tabel Data Resep Obat -->
     <div class="table-data table-responsive">
         <table class="table table-striped table-hover">
             <thead class="table-primary">
@@ -73,7 +73,7 @@
             <tbody>
                 @foreach ($data as $index => $item)
                     <tr>
-                        <td>{{ $index + 1 }}</td>
+                        <td>{{ $data->firstItem() + $index}}</td>
                         <td>{{ $item->nama_role }}</td>
                         <td>{{ $item->username }}</td>
                         <td>{{ $item->email }}</td>

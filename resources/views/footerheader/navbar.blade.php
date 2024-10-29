@@ -83,13 +83,13 @@
             @endcan
             @can('admin+apoteker')
             <a href ="{{ route('daftar-pasien') }}" type="button" class="btn-custom ps-3 d-flex justify-content-start align-items-center m-2"> <img
-                    src="{{ asset('images/home icon.png') }}" class="me-4"
-                    style="width: 30px; height:30px"><strong>Pasien</strong></a>
+                    src="{{ asset('images/pasien icon.png') }}" class="me-4"
+                    style="width: 24px; height:24px"><strong>Pasien</strong></a>
             @endcan
             @can('apoteker')
             <a href ="{{ route('riwayat-resep') }}" type="button" class="btn-custom ps-3 d-flex justify-content-start align-items-center m-2"> <img
-                    src="{{ asset('images/obat icon.png') }}" class="me-4"
-                    style="width: 30px; height:30px"><strong>Riwayat Resep</strong></a>
+                    src="{{ asset('images/riwayat resep.png') }}" class="me-4"
+                    style="width: 24px; height:24px"><strong>Riwayat Resep</strong></a>
             @endcan
             @can('admin+pengawas')
             <button type="button" class="btn-custom ps-3 d-flex justify-content-start align-items-center m-2"> <img
@@ -102,9 +102,9 @@
                     style="width: 30px; height:30px"><strong>Riwayat Pasien</strong></button>
             @endcan
             @can('admin')
-            <button type="button" class="btn-custom ps-3 d-flex justify-content-start align-items-center m-2"> <img
+            <a href ="{{ route('jumlah-apoteker') }}"  type="button" class="btn-custom ps-3 d-flex justify-content-start align-items-center m-2"> <img
                     src="{{ asset('images/navbar menu/list pasien.png') }}" class="me-4"
-                    style="width: 30px; height:30px"><strong>Apoteker</strong></button>
+                    style="width: 30px; height:30px"><strong>Apoteker</strong></a>
                     @endcan
             @can('admin')
             <button type="button" class="btn-custom ps-3 d-flex justify-content-start align-items-center m-2"> <img

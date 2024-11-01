@@ -2,10 +2,10 @@
 
 @section('content')
 <div class="container mt-3">
-    <h2>JUMLAH APOTEKER</h2>
+    <h2>JUMLAH PENGAWAS</h2>
 
     <button type="button" class="btn btn-resep mb-4 mt-2" data-bs-toggle="modal" data-bs-target="#tambahApotekerModal">
-        + Tambah Apoteker
+        + Tambah Pengawas
     </button>
 
     <!-- Search Bar -->

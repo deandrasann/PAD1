@@ -41,6 +41,7 @@ Route::group(['middleware' => ['level:admin,dokter,apoteker,pengawas']], functio
     Route::get('/detail-resep-obat',[DashboardController::class, 'detailDataObat'])->name('detail-resep-obat');
     Route::get('/riwayat-resep',[DashboardController::class, 'riwayatResep'])->name('riwayat-resep');
     Route::get('/jumlah-apoteker',[DashboardController::class, 'jumlahApoteker'])->name('jumlah-apoteker');
+    Route::get('/jumlah-pengawas',[DashboardController::class, 'jumlahPengawas'])->name('jumlah-pengawas');
 
 });
 

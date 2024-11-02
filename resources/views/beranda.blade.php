@@ -126,6 +126,8 @@
     </div>
 </div>
 @endcan
+
+@can('apoteker')
 <div class="table-data table-responsive">
     <table class="table table-striped table-hover">
         <thead class="table-primary">
@@ -152,5 +154,7 @@
         </tbody>
     </table>
 </div>
+@endcan
+
 
 @endsection

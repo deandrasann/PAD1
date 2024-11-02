@@ -44,6 +44,7 @@ Route::group(['middleware' => ['auth','level:admin,dokter,apoteker,pengawas']], 
     Route::get('/riwayat-resep',[DashboardController::class, 'riwayatResep'])->name('riwayat-resep');
     Route::get('/jumlah-apoteker',[DashboardController::class, 'jumlahApoteker'])->name('jumlah-apoteker');
     Route::delete('/resep-pasien/{id}',[DashboardController::class, 'destroy'])->name('resep.destroy');
+    Route::get('/jumlah-pengawas',[DashboardController::class, 'jumlahPengawas'])->name('jumlah-pengawas');
 
 });
 

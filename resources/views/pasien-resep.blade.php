@@ -117,5 +117,3 @@
     </div>
 </div>
 @endsection
-
-<!-- Bootstrap JS and Popper -->

@@ -6,6 +6,7 @@ use App\Models\AdminModel;
 use App\Models\PasienModel;
 use App\Models\User;
 use App\Models\ApotekerModel;
+use App\Models\ObatModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -19,14 +20,26 @@ class DashboardController extends Controller
 
     public function obat()
     {
-        $data = User::latest()->paginate(2);
+        $data = DB::table('obat')->paginate(5);
         return view('daftar_obat', compact('data'));
     }
+
+    public function obatdestroy($id) {
+        $delete_obat = ObatModel::where('kode_obat', $id)->delete();
+        if ($delete_obat){
+            return back();
+        };
+    }
+
     public function beranda()
     {
         $data = User::all();
-        return view('beranda', compact('data'));
+        $data_pasien = DB::table('pasien')->count('id_pasien');
+        $data_obat = DB::table('obat')->count('kode_obat');
+        // dd($data_pasien);
+        return view('beranda', compact('data', 'data_pasien', 'data_obat'));
     }
+
     public function tambahResep(Request $request){
         if ($request->has('search')) {
             $search = $request->input('search');
@@ -41,8 +54,18 @@ class DashboardController extends Controller
         }
         return view('pasien-resep', compact('data_pasien'));
     }
-    public function detail($id) {
 
+    public function store(Request $request,$id) {
+        $tambah_obat = DB::insert([
+            'nama_obat' => $request->input('nama_obat')
+        ]);
+    }
+
+    public function destroy($id) {
+        $delete_obat = ObatModel::where('kode_obat', $id)->delete();
+        if ($delete_obat){
+            return back();
+        };
     }
     public function pasienTerdaftar(){
         return view('pasien_terdaftar');
@@ -62,13 +85,18 @@ class DashboardController extends Controller
         $obat = DB::table('obat')->where('kode_obat', $kode_obat)->first();
 
         $data = DB::table('obat')->where('id_pasien', $id)->paginate(5); 
+        $apoteker_obat = DB::table('apoteker')->get();
+        // ApotekerModel::join('obat', 'apoteker.id_apoteker', '=', 'obat.id_apoteker')
+        //         ->select('obat.*', 'apoteker.id_apoteker', 'apoteker.nama_apoteker')
+        //         ->distinct()
+        //         ->get();
         $resep_obat = PasienModel::join('resep', 'pasien.id_pasien', '=', 'resep.id_pasien')
                 ->where('pasien.id_pasien', $id)
                 ->select('pasien.*', 'resep.*')
                 ->first();
-        // dd($resep_obat);
+        // dd($apoteker_obat);
         // $resep_obat1 = DB::table('resep')->get();
-        return view('resep-tiap-pasien', compact('data', 'obat', 'resep_obat'));
+        return view('resep-tiap-pasien', compact('data', 'obat', 'resep_obat', 'apoteker_obat'));
     }
     public function detailDataObat(){
         return view('detail-data-obat');

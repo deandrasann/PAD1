@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container mt-4">
-        <h2>DATA RESEP OBAT</h2>
+        <h2>Data Resep Obat {{ $resep_obat->nama }}</h2>
 
         <div class="d-flex justify-content-between align-items-center">
             <div class="card my-4" style="width: 26rem;">
@@ -80,7 +80,7 @@
                         <tr>
                             <td>{{ $data->firstItem() + $index }}</td>
                             <td>{{ $item->indikasi }}</td>
-                            <td>{{ $item->waktu_minum }}</td>
+                            <td>{{ $item->golongan_obat }}</td>
                             <td>{{ $item->nama_obat }}</td>
                             <td>
                                 <!-- Detail Button -->
@@ -88,7 +88,7 @@
                                 <img src="{{ asset('images/detail icon.png') }}" class="me-2">Detail
                             </button> --}}
                                 <button class="btn btn-resep p-2 px-3 detail-btn" data-nama="{{ $item->nama_obat }}"
-                                    data-indikasi="{{ $item->indikasi }}" data-golongan="{{ $item->waktu_minum }}"
+                                    data-indikasi="{{ $item->indikasi }}" data-golongan="{{ $item->golongan_obat }}"
                                     data-efek="{{ $item->efek_samping }}" data-kontra="{{ $item->kontraindikasi }}"
                                     data-pola="{{ $item->pola_makan }}" data-tambahan="{{ $item->informasi_tambahan }}"
                                     data-bs-toggle="modal" data-bs-target="#detailObatModal">
@@ -101,7 +101,7 @@
                                 </button>
                                 <!-- Delete Button -->
                                 <button class="btn btn-danger p-2 px-3 delete-btn" data-bs-toggle="modal"
-                                    data-bs-target="#HapusObatModal">
+                                    data-bs-target="#HapusObatModal{{ $item->kode_obat }}">
                                     <img src="{{ asset('images/delete icon.png') }}" class="me-2">Hapus
                                 </button>
                             </td>
@@ -135,44 +135,6 @@
                                     <th>Nama Obat </th>
                                     <td id="modalNama"></td>
                                 </tr>
-                                {{-- <tr>
-                                    <th>Indikasi</th>
-                                    <td>: Anti Hipertensi (menurunkan tekanan darah)</td>
-                                </tr>
-                                <tr>
-                                    <th>Golongan Obat</th>
-                                    <td>: Bengkak di pergelangan kaki, sakit kepala, wajah merah</td>
-                                </tr>
-                                <tr>
-                                    <th>Efek Samping</th>
-                                    <td>: Ibu menyusui</td>
-                                </tr>
-                                <tr>
-                                    <th>Kontraindikasi</th>
-                                    <td>: </td>
-                                </tr>
-                                <tr>
-                                    <th>Pola makan dan Hidup Sehat</th>
-                                    <td>
-                                        <ol>
-                                            <li>Perbanyak konsumsi air putih, sayuran, buah, ikan.</li>
-                                            <li>Kurangi konsumsi makanan/minuman manis, berlemak, garam.</li>
-                                            <li>Kurangi makanan instan (sosis, makanan kaleng).</li>
-                                            <li>Ganti konsumsi susu dengan yang rendah lemak.</li>
-                                        </ol>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>Informasi Tambahan</th>
-                                    <td>
-                                        <ol>
-                                            <li>Hindari mengubah posisi tubuh secara tiba-tiba dari duduk ke berdiri atau berbaring ke duduk.</li>
-                                            <li>Rutin cek tekanan darah anda.</li>
-                                            <li>Hindari rokok.</li>
-                                            <li>Olahraga aerobik 30 menit tiap minggu.</li>
-                                        </ol>
-                                    </td>
-                                </tr> --}}
                                 <tr>
                                     <th>Indikasi</th>
                                     <td id="modalIndikasi"></td>
@@ -210,7 +172,8 @@
         </div>
         {{-- Hapus Obat Modal --}}
         <!-- Hapus Obat Modal -->
-        <div class="modal fade" id="HapusObatModal" tabindex="-1" aria-labelledby="HapusObatModalLabel"
+        @foreach($data as $key)
+        <div class="modal fade" id="HapusObatModal{{ $key->kode_obat }}" tabindex="-1" aria-labelledby="HapusObatModalLabel"
             aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content ">
@@ -221,14 +184,19 @@
                     <div class="modal-body text-center">
                         <img src="{{ asset('images/warning icon.png') }}" alt="Warning">
                         <p>Anda yakin ingin menghapus data obat ini?</p>
+                        <form action="{{ route('resep.destroy', $key->kode_obat)}}" method="POST">
                         <div class="d-flex justify-content-around mt-3">
                             <button type="button" class="btn btn-white" data-bs-dismiss="modal">TIDAK</button>
-                            <button type="button" class="btn btn-danger px-4">YA</button>
-                        </div>
+                              @csrf
+                              @method('DELETE')
+                            <button type="submit" class="btn btn-danger px-4">YA</button>
+                          </div>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
+        @endforeach
         {{-- Tambah Obat Modal --}}
         <div class="modal fade" id="tambahObatModal" tabindex="-1" aria-labelledby="tambahObatModalLabel"
             aria-hidden="true">
@@ -239,12 +207,25 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form>
+                        <form action="{{ route('reseptiappasien.store') }}" method="POST">
+                          @csrf
                             <!-- Nama Obat -->
+                            <div class="row mb-3">
+                              <label for="namaapoteker" class="col-md-4 col-form-label">Nama Apoteker</label>
+                              <div class="col-md-8">
+                                <select id="namaapoteker" name="id_apoteker" class="form-select" >
+                                  <option disabled selected>--Pilih Apoteker --</option>
+                                  @foreach($apoteker_obat as $ao)
+                                  <option value="{{ $ao->id_apoteker }}" {{ old('nama_apoteker') == $ao->nama_apoteker ? 'selected' : null}}>{{ $ao->nama_apoteker }}</option>
+                                  @endforeach
+                              </select>
+                              </div>
+                          </div>
+
                             <div class="row mb-3">
                                 <label for="namaObat" class="col-md-4 col-form-label">Nama Obat</label>
                                 <div class="col-md-8">
-                                    <input type="text" class="form-control" id="namaObat" placeholder="Nama obat">
+                                    <input type="text" class="form-control" id="namaObat" class="nama_obat" placeholder="Nama obat">
                                 </div>
                             </div>
 
@@ -252,7 +233,7 @@
                             <div class="row mb-3">
                                 <label for="bentukObat" class="col-md-4 col-form-label">Bentuk Obat</label>
                                 <div class="col-md-8">
-                                    <input type="text" class="form-control" id="bentukObat"
+                                    <input type="text" class="form-control" id="bentukObat" class="bentuk_obat"
                                         placeholder="Bentuk obat">
                                 </div>
                             </div>
@@ -261,7 +242,7 @@
                             <div class="row mb-3">
                                 <label for="kekuatanSediaan" class="col-md-4 col-form-label">Kebutuhan Sediaan</label>
                                 <div class="col-md-5">
-                                    <input type="text" class="form-control" id="kekuatanSediaan"
+                                    <input type="text" class="form-control" id="kekuatanSediaan" class="kekuatan_sediaan"
                                         placeholder="Kebutuhan Sediaan">
                                 </div>
                                 <div class="col-md-3">
@@ -273,7 +254,7 @@
                             <div class="row mb-3">
                                 <label for="efekSamping" class="col-md-4 col-form-label">Efek Samping</label>
                                 <div class="col-md-8">
-                                    <input type="text" class="form-control" id="efekSamping"
+                                    <input type="text" class="form-control" id="efekSamping" class="efek_samping"
                                         placeholder="Efek Samping">
                                 </div>
                             </div>
@@ -282,7 +263,7 @@
                             <div class="row mb-3">
                                 <label for="kontraindikasi" class="col-md-4 col-form-label">Kontraindikasi</label>
                                 <div class="col-md-8">
-                                    <input type="text" class="form-control" id="kontraindikasi"
+                                    <input type="text" class="form-control" id="kontraindikasi" class="kontraindikasi"
                                         placeholder="Kontraindikasi">
                                 </div>
                             </div>
@@ -291,7 +272,7 @@
                             <div class="row mb-3">
                                 <label for="interaksiObat" class="col-md-4 col-form-label">Interaksi Obat</label>
                                 <div class="col-md-8">
-                                    <input type="text" class="form-control" id="interaksiObat"
+                                    <input type="text" class="form-control" id="interaksiObat" class="interaksi_obat"
                                         placeholder="Interaksi Obat">
                                 </div>
                             </div>
@@ -301,7 +282,7 @@
                                 <label for="petunjukPenyimpanan" class="col-md-4 col-form-label">Petunjuk
                                     Penyimpanan</label>
                                 <div class="col-md-8">
-                                    <input type="text" class="form-control" id="petunjukPenyimpanan"
+                                    <input type="text" class="form-control" id="petunjukPenyimpanan" class="petunjuk_penyimpanan"
                                         placeholder="Petunjuk Penyimpanan">
                                 </div>
                             </div>
@@ -310,7 +291,7 @@
                             <div class="row mb-3">
                                 <label for="polaMakan" class="col-md-4 col-form-label">Pola Makan dan Hidup Sehat</label>
                                 <div class="col-md-8">
-                                    <input type="text" class="form-control" id="polaMakan"
+                                    <input type="text" class="form-control" id="polaMakan" class="pola_makan"
                                         placeholder="Pola Makan dan Hidup Sehat">
                                 </div>
                             </div>
@@ -319,7 +300,7 @@
                             <div class="row mb-3">
                                 <label for="informasiTambahan" class="col-md-4 col-form-label">Informasi Tambahan</label>
                                 <div class="col-md-8">
-                                    <input type="text" class="form-control" id="informasiTambahan"
+                                    <input type="text" class="form-control" id="informasiTambahan" class="informasi_tambahan"
                                         placeholder="Informasi Tambahan">
                                 </div>
                             </div>

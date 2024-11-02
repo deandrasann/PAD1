@@ -32,15 +32,18 @@ Route::get('/password-verification', function () {
 
 Route::get('/pasien', [DashboardController::class, 'pasien'])->name('daftar-pasien');
 
-Route::group(['middleware' => ['level:admin,dokter,apoteker,pengawas']], function () {
+Route::group(['middleware' => ['auth','level:admin,dokter,apoteker,pengawas']], function () {
 
     Route::get('/obat', [DashboardController::class, 'obat'])->name('daftar-obat');
+    Route::delete('/obat/{id}', [DashboardController::class, 'obatdestroy'])->name('obat.destroy');
     Route::get('/tambah-resep', [DashboardController::class, 'tambahResep'])->name('tambah-resep');
     Route::get('/beranda', [DashboardController::class, 'beranda'])->name('beranda');
     Route::get('/resep-pasien/{id}', [DashboardController::class, 'resepTiapPasien'])->name('resep-tiap-pasien');
+    Route::post('/resep-pasien', [DashboardController::class, 'store'])->name('reseptiappasien.store');
     Route::get('/detail-resep-obat',[DashboardController::class, 'detailDataObat'])->name('detail-resep-obat');
     Route::get('/riwayat-resep',[DashboardController::class, 'riwayatResep'])->name('riwayat-resep');
     Route::get('/jumlah-apoteker',[DashboardController::class, 'jumlahApoteker'])->name('jumlah-apoteker');
+    Route::delete('/resep-pasien/{id}',[DashboardController::class, 'destroy'])->name('resep.destroy');
 
 });
 

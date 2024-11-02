@@ -54,7 +54,7 @@ class DashboardController extends Controller
         return view('admin.jumlah-apoteker', compact('data_apoteker'));
     }
         public function jumlahPengawas(){
-        $data_apoteker = DB::table('users')->paginate(5);
+        $data_pengawas = DB::table('users')->paginate(5);
         return view('admin.jumlah-pengawas', compact('data_pengawas'));
     }
 }

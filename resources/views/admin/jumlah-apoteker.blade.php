@@ -60,7 +60,7 @@
 
 <!-- Modals -->
     <!-- Hapus Obat Modal -->
-    <div class="modal fade" id="HapusObatModal" tabindex="-1" aria-labelledby="HapusObatModalLabel" aria-hidden="true">
+    <div class="modal fade" id="hapusApotekerModal" tabindex="-1" aria-labelledby="hapusApotekerModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content ">
                 <div class="modal-header">
@@ -80,7 +80,7 @@
     </div>
     <!-- Edit Obat Modal -->
      {{-- Edit Obat Modal --}}
-     <div class="modal fade" id="editObatModal" tabindex="-1" aria-labelledby="editObatModalLabel" aria-hidden="true">
+     <div class="modal fade" id="editApotekerModal" tabindex="-1" aria-labelledby="editApotekerModalLabel" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">

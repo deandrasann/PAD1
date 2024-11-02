@@ -29,7 +29,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($data_apoteker as $index => $item)
+                @foreach ($data_pengawas as $index => $item)
                     <tr>
                         <td>{{ $index + 1 }}</td>
                         <td>{{ $item->nama_role }}</td>
@@ -37,12 +37,12 @@
                         <td>{{ $item->email }}</td>
                         <td class="d-flex justify-content-center align-items-center">
                             <!-- Edit Button -->
-                            <button class="btn btn-success p-2 px-3 mx-2" data-bs-toggle="modal" data-bs-target="#editApotekerModal">
+                            <button class="btn btn-success p-2 px-3 mx-2" data-bs-toggle="modal" data-bs-target="#editPengawasModal">
                                 <img src="{{ asset('images/edit icon.png') }}" class="me-2" alt="Edit Icon">Edit
                             </button>
 
                             <!-- Delete Button -->
-                            <button class="btn btn-danger p-2 px-3 mx-2" data-bs-toggle="modal" data-bs-target="#hapusApotekerModal">
+                            <button class="btn btn-danger p-2 px-3 mx-2" data-bs-toggle="modal" data-bs-target="#hapusPengawasModal">
                                 <img src="{{ asset('images/delete icon.png') }}" class="me-2" alt="Delete Icon">Hapus
                             </button>
                         </td>
@@ -54,22 +54,22 @@
 
     <!-- Pagination -->
     <div class="paginate d-flex justify-content-center">
-        {{ $data_apoteker->links() }}
+        {{ $data_pengawas->links() }}
     </div>
 </div>
 
 <!-- Modals -->
     <!-- Hapus Obat Modal -->
-    <div class="modal fade" id="HapusObatModal" tabindex="-1" aria-labelledby="HapusObatModalLabel" aria-hidden="true">
+    <div class="modal fade" id="hapusPengawasModal" tabindex="-1" aria-labelledby="hapusPengawasModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content ">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="HapusObatModalLabel">Hapus Apoteker</h5>
+                    <h5 class="modal-title" id="HapusPengawasModalLabel">Hapus Pengawas</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body text-center">
                     <img src="{{ asset('images/warning icon.png') }}" alt="Warning">
-                    <p>Anda yakin ingin menghapus apotker ini?</p>
+                    <p>Anda yakin ingin menghapus pengawas ini?</p>
                     <div class="d-flex justify-content-around mt-3">
                         <button type="button" class="btn btn-white" data-bs-dismiss="modal">TIDAK</button>
                         <button type="button" class="btn btn-danger px-4">YA</button>
@@ -80,11 +80,11 @@
     </div>
     <!-- Edit Obat Modal -->
      {{-- Edit Obat Modal --}}
-     <div class="modal fade" id="editObatModal" tabindex="-1" aria-labelledby="editObatModalLabel" aria-hidden="true">
+     <div class="modal fade" id="editPengawasModal" tabindex="-1" aria-labelledby="editPengawasModalLabel" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="editObatModalLabel">Edit Obat</h5>
+              <h5 class="modal-title" id="editPengawasModalLabel">Edit Obat</h5>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">

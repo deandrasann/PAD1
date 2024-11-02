@@ -13,7 +13,7 @@
     <script src = "https://code.jquery.com/jquery-3.5.1.slim.min.js" ></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    </script>
+
 
 
 </head>
@@ -76,40 +76,36 @@
             @endcan
             @can('admin+apoteker')
             <a href ="{{ route('daftar-obat') }}" type="button"
-                class="btn-custom ps-3 d-flex justify-content-start align-items-center m-2"> <img
+                class="btn-custom ps-3 d-flex justify-content-start align-items-center m-2 mx-4"> <img
                     src="{{ asset('images/obat icon.png') }}" class="me-4"
                     style="width: 30px; height:30px"><strong>Obat</strong></a>
             @endcan
             @can('admin+apoteker')
-            <a href ="{{ route('daftar-pasien') }}" type="button" class="btn-custom ps-3 d-flex justify-content-start align-items-center m-2"> <img
+            <a href ="{{ route('daftar-pasien') }}" type="button" class="btn-custom ps-3 d-flex justify-content-start align-items-center m-2 mx-4"> <img
                     src="{{ asset('images/pasien icon.png') }}" class="me-4"
                     style="width: 24px; height:24px"><strong>Pasien</strong></a>
             @endcan
             @can('apoteker')
-            <a href ="{{ route('riwayat-resep') }}" type="button" class="btn-custom ps-3 d-flex justify-content-start align-items-center m-2"> <img
+            <a href ="{{ route('riwayat-resep') }}" type="button" class="btn-custom ps-3 d-flex justify-content-start align-items-center m-2 mx-4"> <img
                     src="{{ asset('images/riwayat resep.png') }}" class="me-4"
                     style="width: 24px; height:24px"><strong>Riwayat Resep</strong></a>
             @endcan
             @can('admin+pengawas')
-            <button type="button" class="btn-custom ps-3 d-flex justify-content-start align-items-center m-2"> <img
+            <button type="button" class="btn-custom ps-3 d-flex justify-content-start align-items-center m-2 mx-4"> <img
                     src="{{ asset('images/navbar menu/list pasien.png') }}" class="me-4"
                     style="width: 30px; height:30px"><strong>List Pasien</strong></button>
             @endcan
             @can('admin+pengawas')
-            <button  type="button" class="btn-custom ps-3 d-flex justify-content-start align-items-center m-2"> <img
+            <button  type="button" class="btn-custom ps-3 d-flex justify-content-start align-items-center m-2 mx-4"> <img
                     src="{{ asset('images/navbar menu/riwayat pasien.png') }}" class="me-4"
                     style="width: 30px; height:30px"><strong>Riwayat Pasien</strong></button>
             @endcan
             @can('admin')
-            <a href ="{{ route('jumlah-apoteker') }}"  type="button" class="btn-custom ps-3 d-flex justify-content-start align-items-center m-2"> <img
-                    src="{{ asset('images/navbar menu/list pasien.png') }}" class="me-4"
-                    style="width: 30px; height:30px"><strong>Apoteker</strong></a>
-                    @endcan
+                <a href ="{{ route('jumlah-apoteker') }}"  type="button" class="btn-custom ps-3 d-flex justify-content-start align-items-center m-2 mx-4"> <img src="{{ asset('images/navbar menu/list pasien.png') }}" class="me-4" style="width: 30px; height:30px"><strong>Apoteker</strong></a>
+            @endcan
             @can('admin')
-            <button type="button" class="btn-custom ps-3 d-flex justify-content-start align-items-center m-2"> <img
-                    src="{{ asset('images/navbar menu/riwayat pasien.png') }}" class="me-4"
-                    style="width: 30px; height:30px"><strong>Pengawas</strong></button>
-                    @endcan
+                <button type="button" class="btn-custom ps-3 d-flex justify-content-start align-items-center m-2 mx-4"> <img  src="{{ asset('images/navbar menu/riwayat pasien.png') }}" class="me-4"style="width: 30px; height:30px"><strong>Pengawas</strong></button>
+            @endcan
         </div>
 </nav>
 

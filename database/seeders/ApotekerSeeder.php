@@ -20,7 +20,7 @@ class ApotekerSeeder extends Seeder
                 'nama_apoteker' => 'apoteker1',
                 'email' => 'apoteker@gmail.com',
                 'foto' => 'ror1',
-            ]
+            ],
         ]);
 
         $apoteker->each(fn ($put) => DB::table('apoteker')->insert($put));

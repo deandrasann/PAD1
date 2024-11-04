@@ -19,10 +19,11 @@ class DatabaseSeeder extends Seeder
             AdminSeeder::class,
             DokterSeeder::class,
             ApotekerSeeder::class,
+            PasienSeeder::class,
             ObatSeeder::class,
             PengawasSeeder::class,
-            PasienSeeder::class,
             PemeriksaanSeeder::class,
+            ResepSeeder::class,
         ]);
     }
 }

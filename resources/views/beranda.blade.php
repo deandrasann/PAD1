@@ -28,7 +28,11 @@
 
         <div class="container-row-3 py-3 pe-3 my-3 me-3 d-flex justify-content-end align-items-start px-4">
             <div class="me-2">
-                <h2>0</h2>
+                <h2> @if($data_pasien == NULL)
+                    0
+                 @else
+                 {{ $data_pasien }}
+                 @endif</h2>
                 <p>Jumlah Pasien</p>
             </div>
             <div>
@@ -38,7 +42,11 @@
 
         <div class="container-row-4 py-3 pe-3 my-3 me-3 d-flex justify-content-end align-items-start px-4">
             <div class="me-4">
-                <h2>0</h2>
+                <h2> @if($data_obat == NULL)
+                    0
+                 @else
+                 {{ $data_obat }}
+                 @endif</h2>
                 <p>Jumlah obat</p>
             </div>
             <div>

@@ -17,27 +17,36 @@ return new class extends Migration
             $table->collation = 'utf8mb4_general_ci';
             $table->integer('kode_obat',true);
             $table->integer('id_apoteker');
-            $table->string('nama_obat');
-            $table->string('takaran_minum');
-            $table->string('jml_kali_minum');
-            $table->string('bentuk_obat');
-            $table->string('aturan_pakai');
-            $table->string('jumlah_obat');
-            $table->string('waktu_minum');
-            $table->text('keterangan');
-            $table->string('kontraindikasi');
-            $table->string('pola_makan');
-            $table->string('interaksi_obat');
-            $table->string('petunjuk_penyimpanan');
-            $table->string('kekuatan_sediaan');
-            $table->string('informasi_tambahan');
-            $table->string('efek_samping');
-            $table->string('indikasi');
+            $table->integer('id_pasien');
+            $table->string('nama_obat')->nullable();
+            $table->string('takaran_minum')->nullable();
+            $table->string('jml_kali_minum')->nullable();
+            $table->string('bentuk_obat')->nullable();
+            $table->string('aturan_pakai')->nullable();
+            $table->string('golongan_obat')->nullable();
+            $table->string('jumlah_obat')->nullable();
+            $table->string('waktu_minum')->nullable();
+            $table->text('keterangan')->nullable();
+            $table->string('kontraindikasi')->nullable();
+            $table->string('pola_makan')->nullable();
+            $table->string('interaksi_obat')->nullable();
+            $table->string('petunjuk_penyimpanan')->nullable();
+            $table->string('kekuatan_sediaan')->nullable();
+            $table->string('informasi_tambahan')->nullable();
+            $table->string('efek_samping')->nullable();
+            $table->string('indikasi')->nullable();
 
             $table
             ->foreign('id_apoteker')
             ->references('id_apoteker')
             ->on('apoteker')
+            ->cascadeOnUpdate()
+            ->cascadeOnDelete();
+
+            $table
+            ->foreign('id_pasien')
+            ->references('id_pasien')
+            ->on('pasien')
             ->cascadeOnUpdate()
             ->cascadeOnDelete();
         });

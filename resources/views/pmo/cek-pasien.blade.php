@@ -1,9 +1,9 @@
 @extends('footerheader.navbar-pmo')
 @section('content')
 <nav class="nav">
-    <a class="nav-link" href="#">Data Resep</a>
+    <a class="nav-link"  href="{{ route('pmo-cek-pasien') }}">Data Resep</a>
     <a class="nav-link" href="{{ route('pmo-data-resep') }}">Jadwal Minum Obat</a>
-    <a class="nav-link" href="#">Riwayat Minum Obat</a>
+    <a class="nav-link" href="{{route('pmo-riwayat-minum-obat')}}">Riwayat Minum Obat</a>
 </nav>
 <main class="m-3" style="color: black">
     <div class="row m-2">
@@ -65,7 +65,7 @@
         </div>
     </div>
     <div class="d-flex justify-content-end m-4">
-        <a href="#" class="btn btn-success p-2 px-3 edit-btn">
+        <a href ="{{ route('pmo-daftar-pasien') }}" class="btn btn-success p-2 px-3 edit-btn">
             Kembali
         </a>
     </div>

@@ -49,6 +49,7 @@ Route::group(['middleware' => ['auth','level:admin,dokter,apoteker,pengawas']], 
     Route::get('/pasien-pmo',[DashboardController::class, 'pasienPMO'])->name('pmo-daftar-pasien');
     Route::get('/cek-pasien',[DashboardController::class, 'cekpasienPMO'])->name('pmo-cek-pasien');
     Route::get('/data-resep',[DashboardController::class, 'dataResepPMO'])->name('pmo-data-resep');
+    Route::get('/riwayat-minum-obat', [DashboardController::class, 'riwayatMinumObat'])->name('pmo-riwayat-minum-obat');
 
 });
 

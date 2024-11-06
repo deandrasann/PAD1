@@ -126,5 +126,8 @@ class DashboardController extends Controller
     public function dataResepPMO(){
         return view('pmo.data-resep-pmo');
     }
+    public function riwayatMinumObat(){
+        return view('pmo.riwayat-minum-obat');
+    }
 }
 

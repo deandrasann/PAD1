@@ -120,6 +120,10 @@ class DashboardController extends Controller
         $data_pasien = DB::table('pasien')->paginate(5);
         return view('pmo.pmo-daftar-pasien', compact('data_pasien'));
     }
+    public function riwayatPasienPMO(){
+        $data_pasien = DB::table('pasien')->paginate(5);
+        return view('pmo.riwayat-pasien', compact('data_pasien'));
+    }
     public function cekpasienPMO(){
         return view('pmo.cek-pasien');
     }
@@ -128,6 +132,12 @@ class DashboardController extends Controller
     }
     public function riwayatMinumObat(){
         return view('pmo.riwayat-minum-obat');
+    }
+    public function riwayatMinumObat2(){
+        return view('pmo.riwayat-minum-obat2');
+    }
+    public function riwayatDataResep(){
+        return view('pmo.riwayat-resep');
     }
 }
 

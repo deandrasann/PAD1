@@ -1,10 +1,10 @@
 @extends('footerheader.navbar')
 @section('content')
 <div class="container">
-    <h2 class="me-4">DATA PASIEN</h2>
-    <button type="button" class="btn btn-resep px-4 py-3 mb-2 mt-4" data-bs-toggle="modal" data-bs-target="#tambahPasienModal">
+    <h2 class="me-4">LIST PASIEN</h2>
+    {{-- <button type="button" class="btn btn-resep px-4 py-3 mb-2 mt-4" data-bs-toggle="modal" data-bs-target="#tambahPasienModal">
        <strong> + Tambah Pasien</strong>
-    </button>
+    </button> --}}
     <div class="search-bar my-3">
         <input type="text" class="form-control" placeholder="Cari Obat">
         <button class="btn btn-link">
@@ -18,12 +18,13 @@
         <table class="table table-striped table-hover">
             <thead class="table-primary">
                 <tr>
-                    <th class="px-2 py-2">No RM</th>
+                    <th class="px-2 py-2">No</th>
+                    <th class="px-2 py-2">Tanggal Resep</th>
+                    <th class="px-4 py-2">No Resep</th>
                     <th class="px-4 py-2">Nama Pasien</th>
-                    <th class="px-4 py-2">Jenis kelamin</th>
                     <th class="px-4 py-2">Tanggal Lahir</th>
                     <th class="px-4 py-2">Alamat</th>
-                    <th class="px-4 py-2">No Telp</th>
+                    <th class="px-4 py-2">Jumlah obat</th>
                     <th class="px-4 py-2">Aksi</th>
                 </tr>
             </thead>
@@ -35,17 +36,12 @@
                     <td>{{ $item->jenis_kelamin }}</td>
                     <td>{{ $item->tanggal_lahir }}</td>
                     <td>{{ $item->alamat }}</td>
+                    <td>{{ $item->alamat }}</td>
                     <td>{{ $item->no_telp }}</td>
                     <td>
-                        <button class="btn btn-resep p-2 px-3 detail-btn" data-bs-toggle="modal" data-bs-target="#detailPasienModal">
-                            <img src="{{ asset('images/detail icon.png') }}" class="me-2">Detail
-                        </button>
-                        <button class="btn btn-success p-2 px-3 edit-btn" data-bs-toggle="modal" data-bs-target="#editPasienModal">
-                            <img src="{{ asset('images/edit icon.png') }}" class="me-2">Edit
-                        </button>
-                        <button class="btn btn-danger p-2 px-3 delete-btn" data-bs-toggle="modal" data-bs-target="#hapusPasienModal">
-                            <img src="{{ asset('images/delete icon.png') }}" class="me-2">Hapus
-                        </button>
+                        <a href="{{ route('pmo-cek-pasien') }}"class="btn btn-resep p-2 px-3 detail-btn">
+                            <img src="{{ asset('images/detail icon.png') }}" class="me-2">Cek Pasien
+                        </a>
                     </td>
                 </tr>
                 @empty

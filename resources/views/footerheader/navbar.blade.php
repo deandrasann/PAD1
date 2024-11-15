@@ -44,7 +44,7 @@
 
 {{-- Sidebar --}}
 
-<div class="container-fluid" style="z-index: 2;">
+<div class="container-fluid">
     <div class="row flex-nowrap">
         <div class="col-auto px-0">
             <div id="sidebar" class="collapse collapse-horizontal show border-end">
@@ -86,17 +86,12 @@
                             style="width: 24px; height:24px"><strong>Riwayat Resep</strong></a>
                     @endcan
                     @can('admin+pengawas')
-                    <a type="button" class="btn-custom ps-3 d-flex justify-content-start align-items-center m-2 mx-4"> <img
+                    <a href ="{{ route('pmo-daftar-pasien') }}" type="button" class="btn-custom ps-3 d-flex justify-content-start align-items-center m-2 mx-4"> <img
                             src="{{ asset('images/navbar menu/list pasien.png') }}" class="me-4"
                             style="width: 30px; height:30px"><strong>List Pasien</strong></button>
                     @endcan
                     @can('admin+pengawas')
-                    <a  type="button" class="btn-custom ps-3 d-flex justify-content-start align-items-center m-2 mx-4"> <img
-                            src="{{ asset('images/navbar menu/riwayat pasien.png') }}" class="me-4"
-                            style="width: 30px; height:30px"><strong>Riwayat Pasien</strong></a>
-                    @endcan
-                    @can('admin+pengawas')
-                    <a  type="button" class="btn-custom ps-3 d-flex justify-content-start align-items-center m-2 mx-4"> <img
+                    <a  href ="{{ route('riwayat-pasien-PMO') }}" type="button" class="btn-custom ps-3 d-flex justify-content-start align-items-center m-2 mx-4"> <img
                             src="{{ asset('images/navbar menu/riwayat pasien.png') }}" class="me-4"
                             style="width: 30px; height:30px"><strong>Riwayat Pasien</strong></a>
                     @endcan

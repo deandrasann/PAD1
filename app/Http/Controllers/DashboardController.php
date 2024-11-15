@@ -79,12 +79,12 @@ class DashboardController extends Controller
         // $itemid = $request->input('kode_obat');
         // // dd($request->all());
 
-        // $data2 = DB::table('obat')->where('kode_obat', $itemid)->first(); 
+        // $data2 = DB::table('obat')->where('kode_obat', $itemid)->first();
 
         $kode_obat = $request->input('kode_obat');
         $obat = DB::table('obat')->where('kode_obat', $kode_obat)->first();
 
-        $data = DB::table('obat')->where('id_pasien', $id)->paginate(5); 
+        $data = DB::table('obat')->where('id_pasien', $id)->paginate(5);
         $apoteker_obat = DB::table('apoteker')->get();
         // ApotekerModel::join('obat', 'apoteker.id_apoteker', '=', 'obat.id_apoteker')
         //         ->select('obat.*', 'apoteker.id_apoteker', 'apoteker.nama_apoteker')
@@ -112,6 +112,32 @@ class DashboardController extends Controller
         public function jumlahPengawas(){
         $data_pengawas = DB::table('users')->paginate(5);
         return view('admin.jumlah-pengawas', compact('data_pengawas'));
+    }
+    public function tambahApoteker(){
+        return view('admin.tambah-apoteker');
+    }
+    public function pasienPMO(){
+        $data_pasien = DB::table('pasien')->paginate(5);
+        return view('pmo.pmo-daftar-pasien', compact('data_pasien'));
+    }
+    public function riwayatPasienPMO(){
+        $data_pasien = DB::table('pasien')->paginate(5);
+        return view('pmo.riwayat-pasien', compact('data_pasien'));
+    }
+    public function cekpasienPMO(){
+        return view('pmo.cek-pasien');
+    }
+    public function dataResepPMO(){
+        return view('pmo.data-resep-pmo');
+    }
+    public function riwayatMinumObat(){
+        return view('pmo.riwayat-minum-obat');
+    }
+    public function riwayatMinumObat2(){
+        return view('pmo.riwayat-minum-obat2');
+    }
+    public function riwayatDataResep(){
+        return view('pmo.riwayat-resep');
     }
 }
 

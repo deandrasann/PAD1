@@ -22,7 +22,7 @@ class UsersSeeder extends Seeder
                 'username' => 'adminpenjaga',
                 'email' => 'admin@gmail.com',
                 'password' => Hash::make('admin123'),
-                'keterangan' => 'ini admin'
+                'keterangan' => 'ini admin',
             ],
             [
                 'id_pengguna' => '2',
@@ -31,7 +31,7 @@ class UsersSeeder extends Seeder
                 'username' => 'dokter1',
                 'email' => 'dokter@gmail.com',
                 'password' => Hash::make('dokter123'),
-                'keterangan' => 'ini dokter'
+                'keterangan' => 'ini dokter',
             ],
             [
                 'id_pengguna' => '3',
@@ -40,7 +40,7 @@ class UsersSeeder extends Seeder
                 'username' => 'apoteker1',
                 'email' => 'apoteker@gmail.com',
                 'password' => Hash::make('apoteker123'),
-                'keterangan' => 'ini apoteker'
+                'keterangan' => 'ini apoteker',
             ],
             [
                 'id_pengguna' => '4',
@@ -49,7 +49,7 @@ class UsersSeeder extends Seeder
                 'username' => 'pengawas1',
                 'email' => 'pengawas@gmail.com',
                 'password' => Hash::make('pengawas123'),
-                'keterangan' => 'ini pengawas'
+                'keterangan' => 'ini pengawas',
             ],
             [
                 'id_pengguna' => '5',
@@ -58,7 +58,7 @@ class UsersSeeder extends Seeder
                 'username' => 'pasien1',
                 'email' => 'pasien@gmail.com',
                 'password' => Hash::make('pasien123'),
-                'keterangan' => 'ini pasien'
+                'keterangan' => 'ini pasien',
             ],
         ]);
 

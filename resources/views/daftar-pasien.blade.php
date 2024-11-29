@@ -37,15 +37,33 @@
                     <td>{{ $item->alamat }}</td>
                     <td>{{ $item->no_telp }}</td>
                     <td>
-                        <button class="btn btn-resep p-2 px-3 detail-btn" data-bs-toggle="modal" data-bs-target="#detailPasienModal">
+                        {{-- <button class="btn btn-resep p-2 px-3 detail-btn" data-bs-toggle="modal" data-bs-target="#detailPasienModal">
+                            <img src="{{ asset('images/detail icon.png') }}" class="me-2">Detail
+                        </button> --}}
+                        <button class="btn btn-primary p-2 px-3 detail-btn" data-norm="{{ $item->no_rm }}"
+                            data-nama="{{ $item->nama }}" data-jenis="{{ $item->jenis_kelamin }}"
+                            data-tanggal="{{ $item->tanggal_lahir }}" data-alamat="{{ $item->alamat }}"
+                            data-notelp="{{ $item->no_telp }}"
+                            data-bs-toggle="modal" data-bs-target="#detailPasienModal">
                             <img src="{{ asset('images/detail icon.png') }}" class="me-2">Detail
                         </button>
-                        <button class="btn btn-success p-2 px-3 edit-btn" data-bs-toggle="modal" data-bs-target="#editPasienModal">
+                        
+                        {{-- <button class="btn btn-success p-2 px-3 edit-btn" data-bs-toggle="modal" data-bs-target="#editPasienModal">
                             <img src="{{ asset('images/edit icon.png') }}" class="me-2">Edit
-                        </button>
-                        <button class="btn btn-danger p-2 px-3 delete-btn" data-bs-toggle="modal" data-bs-target="#hapusPasienModal">
+                        </button> --}}
+
+                        <button class="btn btn-success editPasien p-2 px-3" onclick="openEditPasienModal({{$item->id_pasien}})" id="editPasien{{$item->id_pasien}}">
+                            <img src="{{ asset('images/edit icon.png') }}" class="me-2">Edit
+                            </button>
+
+                        {{-- <button class="btn btn-danger p-2 px-3 delete-btn" data-bs-toggle="modal" data-bs-target="#hapusPasienModal">
                             <img src="{{ asset('images/delete icon.png') }}" class="me-2">Hapus
-                        </button>
+                        </button> --}}
+                        <button class="btn btn-danger p-2 px-3 delete-btn" data-bs-toggle="modal"
+                        data-bs-target="#hapusPasienModal{{ $item->id_pasien }}">
+                        <img src="{{ asset('images/delete icon.png') }}" class="me-2">Hapus
+                    </button>
+
                     </td>
                 </tr>
                 @empty
@@ -64,17 +82,23 @@
                         <h5 class="modal-title" id="tambahPasienModalLabel">Tambah Pasien</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
+                    <form action="{{ route('pasien.store') }}" method="POST">
+                        @csrf
                     <div class="modal-body">
-                        <form>
                             <!-- Nama Pasien -->
                             <div class="mb-3">
+                                <label for="norm" class="form-label">No RM</label>
+                                <input type="numberrequired " class="form-control" id="norm" name="no_rm" placeholder="No RM" required>
+                            </div>
+
+                            <div class="mb-3">
                                 <label for="namaPasien" class="form-label">Nama Pasien</label>
-                                <input type="text" class="form-control" id="namaPasien" placeholder="Nama pasien">
+                                <input type="text" required class="form-control" name="nama" id="namaPasien" placeholder="Nama pasien">
                             </div>
                             <!-- Jenis Kelamin -->
                             <div class="mb-3">
                                 <label for="jenisKelamin" class="form-label">Jenis Kelamin</label>
-                                <select class="form-select" id="jenisKelamin">
+                                <select class="form-select" id="jenisKelamin" name="jenis_kelamin" required>
                                     <option selected>Pilih</option>
                                     <option value="Laki-laki">Laki-laki</option>
                                     <option value="Perempuan">Perempuan</option>
@@ -83,24 +107,30 @@
                             <!-- Tanggal Lahir -->
                             <div class="mb-3">
                                 <label for="tanggalLahir" class="form-label">Tanggal Lahir</label>
-                                <input type="date" class="form-control" id="tanggalLahir">
+                                <input type="date" required class="form-control" id="tanggalLahir" name="tanggal_lahir">
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="beratbadan" class="form-label">Berat Badan Pasien</label>
+                                <input type="text" required class="form-control" id="beratbadan" name="berat_badan" placeholder="Berat Badan Pasien">
                             </div>
                             <!-- Alamat -->
                             <div class="mb-3">
                                 <label for="alamat" class="form-label">Alamat</label>
-                                <input type="text" class="form-control" id="alamat" placeholder="Alamat pasien">
+                                <input type="text" required class="form-control" id="alamat" name="alamat" placeholder="Alamat pasien">
                             </div>
                             <!-- No Telp -->
                             <div class="mb-3">
                                 <label for="noTelp" class="form-label">No Telp</label>
-                                <input type="text" class="form-control" id="noTelp" placeholder="No telp pasien">
+                                <input type="text" required class="form-control" id="noTelp" name="no_telp" placeholder="No telp pasien">
                             </div>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                        <button type="button" class="btn btn-primary">Simpan</button>
-                    </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                            <button type="submit" class="btn btn-primary">Simpan</button>
+                        </div>
+                    </form>
+
                 </div>
             </div>
         </div>
@@ -118,27 +148,27 @@
                             <tbody>
                                 <tr>
                                     <th>No RM</th>
-                                    <td>: {{ $item->no_rm }}</td>
+                                    <td id="modalnorm"></td>
                                 </tr>
                                 <tr>
                                     <th>Nama</th>
-                                    <td>: {{ $item->nama }}</td>
+                                    <td id="modalnama"></td>
                                 </tr>
                                 <tr>
                                     <th>Jenis Kelamin</th>
-                                    <td>:  {{ $item->jenis_kelamin }}</td>
+                                    <td id="modaljenis"></td>
                                 </tr>
                                 <tr>
                                     <th>Tanggal Lahir</th>
-                                    <td>:  {{ $item->tanggal_lahir}}</td>
+                                    <td id="modaltanggal"></td>
                                 </tr>
                                 <tr>
                                     <th>No telpon</th>
-                                    <td>: {{ $item->no_telp }} </td>
+                                    <td id="modalnotelp"></td>
                                 </tr>
                                 <tr>
                                     <th>Alamat</th>
-                                    <td>:  {{ $item->alamat }}</td>
+                                    <td id="modalalamat"></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -150,24 +180,8 @@
                 </div>
             </div>
         </div>
-        <div class="modal fade" id="hapusPasienModal" tabindex="-1" aria-labelledby="hapusPasienModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content ">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="hapusPasienModalLabel">Hapus Data Obat</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body text-center">
-                        <img src="{{ asset('images/warning icon.png') }}" alt="Warning">
-                        <p>Anda yakin ingin menghapus data obat ini?</p>
-                        <div class="d-flex justify-content-around mt-3">
-                            <button type="button" class="btn btn-white" data-bs-dismiss="modal">TIDAK</button>
-                            <button type="button" class="btn btn-danger px-4">YA</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        
+       
 
          {{-- Edit Obat Modal --}}
     <div class="modal fade" id="editPasienModal" tabindex="-1" aria-labelledby="editPasienModalLabel" aria-hidden="true">
@@ -177,65 +191,92 @@
               <h5 class="modal-title" id="editPasienModalLabel">Edit Pasien</h5>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
+            <form action="" method="POST" id="formedit">
+                @csrf
             <div class="modal-body">
                 <form>
                   <!-- Nama Obat -->
                   <div class="row mb-3">
-                    <label for="namaObat" class="col-md-4 col-form-label">No RM</label>
+                    <label for="norm" class="col-md-4 col-form-label">No RM</label>
                     <div class="col-md-8">
-                      <input type="text" class="form-control" id="namaObat" value=" {{ old('no_rm', $item->no_rm )}}">
+                      <input type="text" class="form-control" id="nomorrm" name="no_rm" >
                     </div>
                   </div>
 
                   <!-- Bentuk Obat -->
                   <div class="row mb-3">
-                    <label for="bentukObat" class="col-md-4 col-form-label">Nama</label>
+                    <label for="nama" class="col-md-4 col-form-label">Nama</label>
                     <div class="col-md-8">
-                      <input type="text" class="form-control" id="bentukObat" value=" {{ old('nama', $item->nama )}}">
+                      <input type="text" class="form-control" id="nama" name="nama">                     
                     </div>
                   </div>
 
                   <!-- Kebutuhan Sediaan & Satuan -->
                   <div class="row mb-3">
-                    <label for="kekuatanSediaan" class="col-md-4 col-form-label">Tanggal Lahir</label>
+                    <label for="tanggal" class="col-md-4 col-form-label">Tanggal Lahir</label>
                     <div class="col-md-8">
-                      <input type="text" class="form-control" id="kekuatanSediaan" value=" {{ old('tanggal_lahir', $item->tanggal_lahir)}}">
+                      <input type="text" class="form-control" id="tanggal" name="tanggal_lahir">
                     </div>
                   </div>
 
                   <!-- Efek Samping -->
                   <div class="row mb-3">
-                    <label for="efekSamping" class="col-md-4 col-form-label">Jenis Kelamin</label>
+                    <label for="jenis" class="col-md-4 col-form-label">Jenis Kelamin</label>
                     <div class="col-md-8">
-                      <input type="text" class="form-control" id="efekSamping" value="{{ old('jenis_kelamin', $item->jenis_kelamin )}}">
+                      <input type="text" class="form-control" id="jenis" name="jenis_kelamin">
                     </div>
                   </div>
 
                   <!-- Kontraindikasi -->
                   <div class="row mb-3">
-                    <label for="kontraindikasi" class="col-md-4 col-form-label">No Telepon</label>
+                    <label for="notelp" class="col-md-4 col-form-label">No Telepon</label>
                     <div class="col-md-8">
-                      <input type="text" class="form-control" id="kontraindikasi" value="{{ old('no_telp', $item->no_telp )}}">
+                      <input type="text" class="form-control" id="notelp" name="no_telp">
                     </div>
                   </div>
 
                   <!-- Interaksi Obat -->
                   <div class="row mb-3">
-                    <label for="interaksiObat" class="col-md-4 col-form-label">Alamat</label>
+                    <label for="alamat" class="col-md-4 col-form-label">Alamat</label>
                     <div class="col-md-8">
-                      <input type="text" class="form-control" id="interaksiObat" value="{{ old('alamat', $item->alamat)}}">
+                      <input type="text" class="form-control" id="alamatedit" name="alamat">
                     </div>
                 </div>
-                </form>
-              </div>
-
+            </div>
+            
             <div class="modal-footer">
                 <button type="button" class="btn btn-white" data-bs-dismiss="modal">Batal</button>
-                <button type="button" class="btn btn-resep ms-auto">Simpan</button>
+                <button type="submit" class="btn btn-resep ms-auto">Simpan</button>
             </div>
-          </div>
+        </div>
+    </form>
         </div>
       </div>
+
+      @foreach ($data_pasien as $key)
+      <div class="modal fade" id="hapusPasienModal{{ $key->id_pasien }}" tabindex="-1" aria-labelledby="hapusPasienModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+              <div class="modal-content ">
+                  <div class="modal-header">
+                      <h5 class="modal-title" id="hapusPasienModalLabel">Hapus Data Obat</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body text-center">
+                      <img src="{{ asset('images/warning icon.png') }}" alt="Warning">
+                      <p>Anda yakin ingin menghapus data obat ini?</p>
+                      <form action="{{ route('pasien.destroy', $key->id_pasien)}}" method="POST">
+                      <div class="d-flex justify-content-around mt-3">
+                          <button type="button" class="btn btn-white" data-bs-dismiss="modal">TIDAK</button>
+                          @csrf
+                          @method('DELETE')
+                          <button type="submit" class="btn btn-danger px-4">YA</button>
+                      </div>
+                  </div>
+              </form>
+              </div>
+            </div>
+        </div>
+        @endforeach
 
         <!-- Pagination -->
         <div class="paginate d-flex justify-content-center">
@@ -245,4 +286,50 @@
 </div>
 @endsection
 
-<!-- Bootstrap JS and Popper -->
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const detailButtons = document.querySelectorAll('.detail-btn');
+
+        detailButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const norm = this.getAttribute('data-norm');
+                const nama = this.getAttribute('data-nama');
+                const jenis = this.getAttribute('data-jenis');
+                const tanggal = this.getAttribute('data-tanggal');
+                const alamat = this.getAttribute('data-alamat');
+                const notelp = this.getAttribute('data-notelp');
+
+                // Mengisi data ke dalam modal
+                document.getElementById('modalnorm').textContent = norm;
+                document.getElementById('modalnama').textContent = nama;
+                document.getElementById('modaljenis').textContent = jenis;
+                document.getElementById('modaltanggal').textContent = tanggal;
+                document.getElementById('modalalamat').textContent = alamat;
+                document.getElementById('modalnotelp').textContent = notelp;
+            });
+        });
+    });
+</script>
+
+<script>
+    function openEditPasienModal(id) {
+   // document.getElementById('editObatModal').style.visibility="true";
+   $('#editPasienModal').modal('show');
+   var editButton = document.getElementById("editPasien"+id);
+   var row = editButton.closest("tr");
+   var data = row.getElementsByTagName('td');
+
+   document.getElementById("formedit").action = "{{route('pasien.update', '')}}/" + id;  
+   document.getElementById("nomorrm").value = data[0].innerText;  
+   document.getElementById("nama").value = data[1].innerText;  
+   document.getElementById("tanggal").value = data[3].innerText;  
+   document.getElementById("jenis").value = data[2].innerText;  
+   document.getElementById("notelp").value = data[5].innerText;  
+   document.getElementById("alamatedit").value = data[4].innerText;  
+   // document.getElementById("editCategoryDescription").value = data[1].innerText;  
+   // document.getElementById("editCategoryDescription").value = data[2].innerText;  
+   // console.log(data);
+   
+ }
+</script>

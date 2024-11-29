@@ -16,6 +16,7 @@ class PengawasSeeder extends Seeder
         $pengawsas = collect([
             [
                 'id_pengawas' => '1',
+                'id_pengguna' => '4',
                 'kode_klinik' => '1',
                 'nama_pengawas' => 'pengawas1',
                 'email' => 'pengawas@gmail.com',

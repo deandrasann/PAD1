@@ -51,7 +51,7 @@
                 <div id="sidebar-nav" class="list-group border-0 rounded-0 text-sm-start min-vh-100" style="background: var(--Linear-Gradient, linear-gradient(180deg, #0D426C 12.3%, #338CC1 62%, #BDE5FF 100%)); backdrop-filter: blur(2px); backdrop-filter: blur(2px); color:#FFFFFF">
                     <div class="offcanvas-header d-flex flex-column align-items-center text-align-center m-4">
                         @auth
-                            <img src="{{ asset('images/profile.png') }}" class="m-4">
+                            <img src="{{ asset('images/user_profile1.png') }}" class="m-4" width="200px" height="200px" >
                             <h5 class="offcanvas-title" id="offcanvasScrollingLabel">{{ auth()->user()->username }}</h5>
                             <p>{{ auth()->user()->nama_role }}</p>
                         @endauth

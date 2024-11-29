@@ -17,6 +17,15 @@ class PengawasModel extends Model
     // PK integer AI
     public $incrementing = true;
 
+    protected $fillable = [
+        'id_pengawas',
+        'id_pengguna',
+        'kode_klinik',
+        'nama_pengawas',
+        'email',
+        'foto'
+    ];
+
     public function pengawas() {
         return $this->belongsTo(User::class, 'id_pengguna','id_pengguna');
     }

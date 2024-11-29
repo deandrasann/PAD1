@@ -19,7 +19,7 @@ return new class extends Migration
             $table->integer('id_pengguna');
             $table->string('nama_apoteker');
             $table->string('email');
-            $table->string('foto');
+            $table->string('foto')->nullable();
 
             $table
             ->foreign('id_pengguna')

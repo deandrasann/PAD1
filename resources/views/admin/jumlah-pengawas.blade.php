@@ -1,177 +1,163 @@
 @extends('footerheader.navbar')
 
 @section('content')
-<div class="container mt-3">
-    <h2>JUMLAH PENGAWAS</h2>
+    @if ($message = Session::get('success'))
+        <div class="alert alert-success">
+            {{ $message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"
+                style="position: absolute; right: 10px; top: 10px;"></button>
+        </div>
+    @elseif($message = Session::get('error'))
+        <div class="alert alert-error alert-dismissible fade show" role="alert">
+            {{ $message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
 
-    <button type="button" class="btn btn-resep mb-4 mt-2" data-bs-toggle="modal" data-bs-target="#tambahApotekerModal">
-        + Tambah Pengawas
-    </button>
+    <div class="container mt-3">
+        <h2>DATA PENGAWAS</h2>
 
-    <!-- Search Bar -->
-    <div class="search-bar mb-3 d-flex">
-        <input type="text" class="form-control" placeholder="Cari apoteker">
-        <button class="btn btn-link">
-            <img src="{{ asset('images/search icon.png') }}" alt="Search Icon">
-        </button>
-    </div>
+        <a type="button" class="btn btn-resep my-4" href="{{ route('tambah-pengawas') }}">
+            + Tambah Pengawas
+        </a>
 
-    <!-- Tabel Data Apoteker -->
-    <div class="card p-4 table-responsive">
-        <table class="table table-striped table-hover">
-            <thead class="table-primary">
-                <tr>
-                    <th>No</th>
-                    <th style="width:250px">Username</th>
-                    <th style="width:250px">Nama User</th>
-                    <th style="width:400px">Email</th>
-                    <th>Aksi</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($data_pengawas as $index => $item)
+        <!-- Search Bar -->
+        <div class="search-bar mb-3 d-flex">
+            <input type="text" class="form-control" placeholder="Cari apoteker">
+            <button class="btn btn-link">
+                <img src="{{ asset('images/search icon.png') }}" alt="Search Icon">
+            </button>
+        </div>
+
+        <!-- Tabel Data Apoteker -->
+        <div class="card p-4 table-responsive">
+            <table class="table table-striped table-hover">
+                <thead class="table-primary">
                     <tr>
-                        <td>{{ $index + 1 }}</td>
-                        <td>{{ $item->nama_role }}</td>
-                        <td>{{ $item->username }}</td>
-                        <td>{{ $item->email }}</td>
-                        <td class="d-flex justify-content-center align-items-center">
-                            <!-- Edit Button -->
-                            <button class="btn btn-success p-2 px-3 mx-2" data-bs-toggle="modal" data-bs-target="#editPengawasModal">
-                                <img src="{{ asset('images/edit icon.png') }}" class="me-2" alt="Edit Icon">Edit
-                            </button>
-
-                            <!-- Delete Button -->
-                            <button class="btn btn-danger p-2 px-3 mx-2" data-bs-toggle="modal" data-bs-target="#hapusPengawasModal">
-                                <img src="{{ asset('images/delete icon.png') }}" class="me-2" alt="Delete Icon">Hapus
-                            </button>
-                        </td>
+                        <th>No</th>
+                        <th style="width:250px">Username</th>
+                        <th style="width:250px">Nama Pengawas</th>
+                        <th style="width:400px">Email</th>
+                        <th>Aksi</th>
                     </tr>
-                @endforeach
-            </tbody>
-        </table>
-    </div>
+                </thead>
+                <tbody>
+                    @foreach ($data_pengawas as $index => $item)
+                        <tr>
+                            <td>{{ $index + 1 }}</td>
+                            <td>{{ $item->username }}</td>
+                            <td>{{ $item->nama_pengawas }}</td>
+                            <td>{{ $item->email }}</td>
+                            <td class="d-flex justify-content-center align-items-center">
+                                <!-- Edit Button -->
+                                <button class="btn btn-success editPengawas p-2 px-3 mx-2"
+                                    onclick="openEditPengawasModal({{ $item->id_pengawas }})"
+                                    id="editPengawas{{ $item->id_pengawas }}">
+                                    <img src="{{ asset('images/edit icon.png') }}" class="me-2">Edit
+                                </button>
 
-    <!-- Pagination -->
-    <div class="paginate d-flex justify-content-center">
-        {{ $data_pengawas->links() }}
-    </div>
-</div>
 
-<!-- Modals -->
-    <!-- Hapus Obat Modal -->
-    <div class="modal fade" id="hapusPengawasModal" tabindex="-1" aria-labelledby="hapusPengawasModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content ">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="HapusPengawasModalLabel">Hapus Pengawas</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body text-center">
-                    <img src="{{ asset('images/warning icon.png') }}" alt="Warning">
-                    <p>Anda yakin ingin menghapus pengawas ini?</p>
-                    <div class="d-flex justify-content-around mt-3">
-                        <button type="button" class="btn btn-white" data-bs-dismiss="modal">TIDAK</button>
-                        <button type="button" class="btn btn-danger px-4">YA</button>
-                    </div>
-                </div>
-            </div>
+                                <!-- Delete Button -->
+                                <button class="btn btn-danger p-2 px-3 mx-2 delete-btn" data-bs-toggle="modal"
+                                    data-bs-target="#hapusPengawasModal{{ $item->id_pengawas }}">
+                                    <img src="{{ asset('images/delete icon.png') }}" class="me-2">Hapus
+                                </button>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Pagination -->
+        <div class="paginate d-flex justify-content-center">
+            {{ $data_pengawas->links() }}
         </div>
     </div>
-    <!-- Edit Obat Modal -->
-     {{-- Edit Obat Modal --}}
-     <div class="modal fade" id="editPengawasModal" tabindex="-1" aria-labelledby="editPengawasModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="editPengawasModalLabel">Edit Obat</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form>
-                  <!-- Nama Obat -->
-                  <div class="row mb-3">
-                    <label for="namaObat" class="col-md-4 col-form-label">Nama Obat</label>
-                    <div class="col-md-8">
-                      <input type="text" class="form-control" id="namaObat" placeholder="Nama obat">
-                    </div>
-                  </div>
 
-                  <!-- Bentuk Obat -->
-                  <div class="row mb-3">
-                    <label for="bentukObat" class="col-md-4 col-form-label">Bentuk Obat</label>
-                    <div class="col-md-8">
-                      <input type="text" class="form-control" id="bentukObat" placeholder="Bentuk obat">
-                    </div>
-                  </div>
+    <!-- Modals -->
 
-                  <!-- Kebutuhan Sediaan & Satuan -->
-                  <div class="row mb-3">
-                    <label for="kekuatanSediaan" class="col-md-4 col-form-label">Kebutuhan Sediaan</label>
-                    <div class="col-md-5">
-                      <input type="text" class="form-control" id="kekuatanSediaan" placeholder="Kebutuhan Sediaan">
+    <!-- Hapus Obat Modal -->
+    @foreach ($data_pengawas as $key)
+        <div class="modal fade" id="hapusPengawasModal{{ $key->id_pengawas }}" tabindex="-1"
+            aria-labelledby="hapusPengawasModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content ">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="HapusPengawasModalLabel">Hapus Pengawas</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div class="col-md-3">
-                      <input type="text" class="form-control" id="satuan" placeholder="Satuan">
+                    <div class="modal-body text-center">
+                        <img src="{{ asset('images/warning icon.png') }}" alt="Warning">
+                        <p>Anda yakin ingin menghapus pengawas ini?</p>
+                        <form action="{{ route('pengawas.destroy', $key->id_pengawas) }}" method="POST">
+                            <div class="d-flex justify-content-around mt-3">
+                                <button type="button" class="btn btn-white" data-bs-dismiss="modal">TIDAK</button>
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger px-4">YA</button>
+                            </div>
                     </div>
-                  </div>
-
-                  <!-- Efek Samping -->
-                  <div class="row mb-3">
-                    <label for="efekSamping" class="col-md-4 col-form-label">Efek Samping</label>
-                    <div class="col-md-8">
-                      <input type="text" class="form-control" id="efekSamping" placeholder="Efek Samping">
-                    </div>
-                  </div>
-
-                  <!-- Kontraindikasi -->
-                  <div class="row mb-3">
-                    <label for="kontraindikasi" class="col-md-4 col-form-label">Kontraindikasi</label>
-                    <div class="col-md-8">
-                      <input type="text" class="form-control" id="kontraindikasi" placeholder="Kontraindikasi">
-                    </div>
-                  </div>
-
-                  <!-- Interaksi Obat -->
-                  <div class="row mb-3">
-                    <label for="interaksiObat" class="col-md-4 col-form-label">Interaksi Obat</label>
-                    <div class="col-md-8">
-                      <input type="text" class="form-control" id="interaksiObat" placeholder="Interaksi Obat">
-                    </div>
-                  </div>
-
-                  <!-- Petunjuk Penyimpanan -->
-                  <div class="row mb-3">
-                    <label for="petunjukPenyimpanan" class="col-md-4 col-form-label">Petunjuk Penyimpanan</label>
-                    <div class="col-md-8">
-                      <input type="text" class="form-control" id="petunjukPenyimpanan" placeholder="Petunjuk Penyimpanan">
-                    </div>
-                  </div>
-
-                  <!-- Pola Makan dan Hidup Sehat -->
-                  <div class="row mb-3">
-                    <label for="polaMakan" class="col-md-4 col-form-label">Pola Makan dan Hidup Sehat</label>
-                    <div class="col-md-8">
-                      <input type="text" class="form-control" id="polaMakan" placeholder="Pola Makan dan Hidup Sehat">
-                    </div>
-                  </div>
-
-                  <!-- Informasi Tambahan -->
-                  <div class="row mb-3">
-                    <label for="informasiTambahan" class="col-md-4 col-form-label">Informasi Tambahan</label>
-                    <div class="col-md-8">
-                      <input type="text" class="form-control" id="informasiTambahan" placeholder="Informasi Tambahan">
-                    </div>
-                  </div>
-                </form>
-              </div>
-
-            <div class="modal-footer">
-                <button type="button" class="btn btn-white" data-bs-dismiss="modal">Batal</button>
-                <button type="button" class="btn btn-resep ms-auto">Simpan</button>
+                    </form>
+                </div>
             </div>
           </div>
+          @endforeach
+
+    <div class="modal fade" id="editPengawasModal" tabindex="-1" aria-labelledby="editPengawasModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editPengawasModalLabel">Edit Pengawas</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="" method="POST" id="formedit">
+                    @csrf
+                    <div class="modal-body">
+                        <form>
+                            <!-- Nama Obat -->
+                            <div class="row mb-3">
+                                <label for="username" class="col-md-4 col-form-label">Username</label>
+                                <div class="col-md-8">
+                                    <input type="text" class="form-control" id="usernameedit" name="username">
+                                </div>
+                            </div>
+
+                            <!-- Bentuk Obat -->
+                            <div class="row mb-3">
+                                <label for="nama" class="col-md-4 col-form-label">Nama Pengawas</label>
+                                <div class="col-md-8">
+                                    <input type="text" class="form-control" id="nama" name="nama_pengawas">
+                                </div>
+                            </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-white" data-bs-dismiss="modal">Batal</button>
+                        <button type="submit" class="btn btn-resep ms-auto">Simpan</button>
+                    </div>
+            </div>
+            </form>
         </div>
-      </div>
+    </div>
 
 @endsection
+
+<script>
+    function openEditPengawasModal(id) {
+        // document.getElementById('editObatModal').style.visibility="true";
+        $('#editPengawasModal').modal('show');
+        var editButton = document.getElementById("editPengawas" + id);
+        var row = editButton.closest("tr");
+        var data = row.getElementsByTagName('td');
+
+        document.getElementById("formedit").action = "{{ route('pengawas.update', '') }}/" + id;
+        document.getElementById("usernameedit").value = data[1].innerText;
+        document.getElementById("nama").value = data[2].innerText;
+        // document.getElementById("editCategoryDescription").value = data[1].innerText;  
+        // document.getElementById("editCategoryDescription").value = data[2].innerText;  
+        // console.log(data);
+
+    }
+</script>

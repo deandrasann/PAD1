@@ -5,8 +5,8 @@
 <div class="container mt-5">
     <div class="card">
         <div class="card-body">
-            <h3 class="card-title mb-4">TAMBAH APOTEKER</h3>
-            <form action="{{ route('apoteker.store') }}" method="POST">
+            <h3 class="card-title mb-4">TAMBAH PENGAWAS</h3>
+            <form action="{{ route('pengawas.store') }}" method="POST">
                 @csrf
                 <div class="row mb-3">
                     <div class="col-md-6">
@@ -15,8 +15,8 @@
                     </div>
                     
                     <div class="col-md-6">
-                        <label for="namaApoteker" class="form-label">Nama Apoteker</label>
-                        <input type="text" class="form-control" id="namaApoteker" name="nama_apoteker" placeholder="Nama Apoteker">
+                        <label for="namapengawas" class="form-label">Nama Pengawas</label>
+                        <input type="text" class="form-control" id="namapengawas" name="nama_pengawas" placeholder="Nama Pengawas">
                     </div>
                 </div>
                 <div class="row mb-3">
@@ -31,7 +31,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-12 text-end">
-                        <button type="button" class="btn btn-secondary me-2" onclick="document.location='{{route('jumlah-apoteker')}}'">Kembali</button>
+                        <button type="button" class="btn btn-secondary me-2" onclick="document.location='{{route('jumlah-pengawas')}}'">Kembali</button>
                         <button type="submit" class="btn btn-resep">Simpan</button>
                     </div>
                 </div>

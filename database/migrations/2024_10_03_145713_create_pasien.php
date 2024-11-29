@@ -16,7 +16,7 @@ return new class extends Migration
             $table->charset = 'utf8mb4';
             $table->collation = 'utf8mb4_general_ci';
             $table->integer('id_pasien',true);
-            $table->integer('no_rm');
+            $table->integer('no_rm')->nullable();
             $table->string('nama');
             $table->string('alamat')->nullable();
             $table->string('jenis_kelamin')->nullable();

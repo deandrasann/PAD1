@@ -17,6 +17,12 @@ class ApotekerModel extends Model
     // PK integer AI
     public $incrementing = true;
 
+    protected $fillable = [
+        'id_pengguna',
+        'nama_apoteker',
+        'email',
+        'foto',
+    ];
 
     public function apoteker() {
         return $this->belongsTo(User::class, 'id_pengguna','id_pengguna');

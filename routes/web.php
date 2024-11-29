@@ -52,7 +52,7 @@ Route::group(['middleware' => ['auth','level:admin,dokter,apoteker,pengawas']], 
     Route::get('/riwayat-minum-obat', [DashboardController::class, 'riwayatMinumObat'])->name('pmo-riwayat-minum-obat');
     Route::get('/riwayat-pasien', [DashboardController::class, 'riwayatPasienPMO'])->name('riwayat-pasien-PMO');
     Route::get('/riwayat-data-resep', [DashboardController::class, 'riwayatDataResep'])->name('riwayat-data-resep');
-    Route::get('/riwayat-minum-obat-2', [DashboardController::class, 'riwayatMinumObat2'])->name('riwayat-');
+    Route::get('/riwayat-minum-obat-2', [DashboardController::class, 'riwayatMinumObat2'])->name('riwayat-minum-obat-2');
 
 });
 

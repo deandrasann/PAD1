@@ -21,7 +21,7 @@
         <!-- Left Section: Sidebar Toggle & Logo -->
         <div class="d-flex align-items-center">
             <a class="navbar-brand d-flex align-items-center" href="#">
-                <img src="{{ asset('images/logo.png') }}" alt="Logo" width="200" height="auto" class="me-3">
+                <img src="{{ asset('images/logo.png') }}" alt="Logo" width="150" height="auto" class="me-3">
             </a>
             <!-- Sidebar Toggle Icon -->
             <a href="#" data-bs-target="#sidebar" data-bs-toggle="collapse" class="navbar-brand d-flex align-items-center me-3">

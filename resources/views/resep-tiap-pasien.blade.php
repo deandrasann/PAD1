@@ -56,12 +56,14 @@
         </button>
 
         <!-- Search Bar -->
+        <form action="{{ route('resep-tiap-pasien', $resep_obat->id_pasien) }}" method="GET">
         <div class="search-bar mb-3">
-            <input type="text" class="form-control" placeholder="Cari Obat">
-            <button class="btn btn-link">
+            <input type="text" class="form-control" placeholder="Cari Obat" name="search" value="{{ request("search") }}" autocomplete="off">
+            <button class="btn btn-link" type="submit">
                 <img src="{{ asset('images/search icon.png') }}">
             </button>
         </div>
+        </form>
 
         <!-- Tabel Data Resep Obat -->
         <div class="table-data table-responsive">

@@ -21,12 +21,14 @@
     </a>
 
     <!-- Search Bar -->
+    <form action="{{ route('jumlah-apoteker') }}" method="GET">
     <div class="search-bar mb-3 d-flex">
-        <input type="text" class="form-control" placeholder="Cari apoteker">
-        <button class="btn btn-link">
+        <input type="text" class="form-control" placeholder="Cari apoteker" name="search" value="{{ request("search") }}" autocomplete="off">
+        <button class="btn btn-link" type="submit">
             <img src="{{ asset('images/search icon.png') }}" alt="Search Icon">
         </button>
     </div>
+    </form>
 
     <!-- Tabel Data Apoteker -->
     <div class="card p-4 table-responsive">
@@ -41,7 +43,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($data_apoteker as $index => $item)
+                @forelse ($data_apoteker as $index => $item)
                     <tr>
                         <td>{{ $index + 1 }}</td>
                         <td>{{ $item->username }}</td>
@@ -70,7 +72,11 @@
                         </button>
                         </td>
                     </tr>
-                @endforeach
+                    @empty 
+                    <tr>
+                        <td colspan="7" class="text-center">Tidak Ada Data</td>
+                    </tr>
+                @endforelse
             </tbody>
         </table>
     </div>

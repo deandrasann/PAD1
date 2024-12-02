@@ -8,11 +8,23 @@ use Illuminate\Support\Facades\DB;
 
 class ObatController extends Controller
 {
-    public function obat()
+    public function obat(Request $request)
     {
-        $data = DB::table('obat')->paginate(5);
+
+        if ($request->has('search')) {
+            $search = $request->input('search');
+            $data_obat = DB::table('obat')->orWhere('indikasi', $search)
+            ->orWhere('golongan_obat', 'like',"%" . $search . "%")
+            ->orWhere('nama_obat', 'like',"%" . $search . "%")
+            ->paginate(5);
+        } else {
+            $data_obat = DB::table('obat')
+                ->paginate(5);
+        }
+
+        // $data = DB::table('obat')->paginate(5);
         $apoteker_obat = DB::table('apoteker')->get();
-        return view('daftar_obat', compact('data', 'apoteker_obat'));
+        return view('daftar_obat', compact('data_obat', 'apoteker_obat'));
     }
 
     public function obatstore(Request $request) {

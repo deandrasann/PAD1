@@ -13,12 +13,28 @@ class ResepController extends Controller
         // $itemid = $request->input('kode_obat');
         // // dd($request->all());
 
+        if ($request->has('search')) {
+            $search = $request->input('search');
+            $data = DB::table('obat')
+            ->where('id_pasien', $id)
+            ->where(function($query) use ($search) {  // Gunakan closure untuk kondisi pencarian
+                $query->orWhere('indikasi', 'like', "%" . $search . "%")
+                      ->orWhere('golongan_obat', 'like', "%" . $search . "%")
+                      ->orWhere('nama_obat', 'like', "%" . $search . "%");
+            })
+            ->paginate(5);
+        } else {
+            $data = DB::table('obat')
+            ->where('id_pasien', $id)
+            ->paginate(5);
+        }
+        
         // $data2 = DB::table('obat')->where('kode_obat', $itemid)->first();
 
         $kode_obat = $request->input('kode_obat');
         $obat = DB::table('obat')->where('kode_obat', $kode_obat)->first();
 
-        $data = DB::table('obat')->where('id_pasien', $id)->paginate(5);
+        // $data = DB::table('obat')->where('id_pasien', $id)->paginate(5);
         $apoteker_obat = DB::table('apoteker')->get();
         // ApotekerModel::join('obat', 'apoteker.id_apoteker', '=', 'obat.id_apoteker')
         //         ->select('obat.*', 'apoteker.id_apoteker', 'apoteker.nama_apoteker')

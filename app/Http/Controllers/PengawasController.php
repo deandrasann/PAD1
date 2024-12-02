@@ -10,12 +10,25 @@ use Illuminate\Support\Facades\Hash;
 
 class PengawasController extends Controller
 {
-    public function index(){
-        $data_pengawas =  DB::table('users')
-        ->join('pengawas', 'users.id_pengguna', '=', 'pengawas.id_pengguna')
-        ->select('users.*', 'pengawas.*')
-        ->paginate(5);
+    public function index(Request $request){
+        // $data_pengawas =  DB::table('users')
+        // ->join('pengawas', 'users.id_pengguna', '=', 'pengawas.id_pengguna')
+        // ->select('users.*', 'pengawas.*')
+        // ->paginate(5);
     // dd($data_pengawas);
+    if ($request->has('search')) {
+        $search = $request->input('search');
+        $data_pengawas = DB::table('users')
+        ->join('pengawas', 'users.id_pengguna', '=', 'pengawas.id_pengguna')
+        ->orWhere('users.username', 'like',"%" . $search . "%")
+        ->orWhere('pengawas.nama_pengawas', 'like',"%" . $search . "%")
+        ->orWhere('users.email', 'like',"%" . $search . "%")
+        ->paginate(5);
+    } else {
+        $data_pengawas = DB::table('users')
+        ->join('pengawas', 'users.id_pengguna', '=', 'pengawas.id_pengguna')
+        ->paginate(5);
+    }
 
     return view('admin.jumlah-pengawas', compact('data_pengawas'));
     }

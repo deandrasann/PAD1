@@ -9,12 +9,14 @@
         </button>
 
         <!-- Search Bar -->
+        <form action="{{ route('daftar-obat') }}" method="GET">
         <div class="search-bar mb-3">
-            <input type="text" class="form-control" placeholder="Cari Obat">
-            <button class="btn btn-link">
+            <input type="text" class="form-control" placeholder="Cari Pasien" name="search" value="{{ request("search") }}" autocomplete="off">
+            <button class="btn btn-link" type="submit">
                 <img src="{{ asset('images/search icon.png') }}">
             </button>
         </div>
+    </form>
 
         <!-- Tabel Data Resep Obat -->
         <div class="table-data table-responsive">
@@ -29,9 +31,9 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @forelse ($data as $index => $item)
+                    @forelse ($data_obat as $index => $item)
                         <tr>
-                            <td>{{ $data->firstItem() + $index }}</td>
+                            <td>{{ $data_obat->firstItem() + $index }}</td>
                             <td>{{ $item->indikasi }}</td>
                             <td>{{ $item->golongan_obat }}</td>
                             <td>{{ $item->nama_obat }}</td>
@@ -72,7 +74,7 @@
                 </tbody>
             </table>
             <div class="paginate d-flex justify-content-center">
-                {{ $data->links() }}
+                {{ $data_obat->links() }}
             </div>
         </div>
 
@@ -129,7 +131,7 @@
 
         {{-- Hapus Obat Modal --}}
         <!-- Hapus Obat Modal -->
-        @foreach($data as $item)
+        @foreach($data_obat as $item)
         <div class="modal fade" id="HapusObatModal{{ $item->kode_obat }}" tabindex="-1" aria-labelledby="HapusObatModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content ">

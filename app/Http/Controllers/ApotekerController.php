@@ -10,13 +10,29 @@ use Illuminate\Support\Facades\Hash;
 
 class ApotekerController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $data_apoteker = DB::table('users')
-            ->join('apoteker', 'users.id_pengguna', '=', 'apoteker.id_pengguna')
-            ->select('users.*', 'apoteker.*')
-            ->paginate(5);
+        // $data_apoteker = DB::table('users')
+        //     ->join('apoteker', 'users.id_pengguna', '=', 'apoteker.id_pengguna')
+        //     ->select('users.*', 'apoteker.*')
+        //     ->paginate(5);
         // dd($data_apoteker);
+        if ($request->has('search')) {
+            $search = $request->input('search');
+            $data_apoteker = DB::table('users')
+            ->join('apoteker', 'users.id_pengguna', '=', 'apoteker.id_pengguna')
+            ->orWhere('users.username', 'like',"%" . $search . "%")
+            ->orWhere('apoteker.nama_apoteker', 'like',"%" . $search . "%")
+            ->orWhere('users.email', 'like',"%" . $search . "%")
+            ->paginate(5);
+        } else {
+            $data_apoteker = DB::table('users')
+            ->join('apoteker', 'users.id_pengguna', '=', 'apoteker.id_pengguna')
+            ->paginate(5);
+        }
+        // $data = DB::table('users')
+        // ->join('apoteker', 'users.id_pengguna', '=', 'apoteker.id_pengguna')->get();
+        // dd($data);
 
         return view('admin.jumlah-apoteker', compact('data_apoteker'));
     }

@@ -22,13 +22,14 @@
         </a>
 
         <!-- Search Bar -->
+        <form action="{{ route('jumlah-pengawas') }}" method="GET">
         <div class="search-bar mb-3 d-flex">
-            <input type="text" class="form-control" placeholder="Cari apoteker">
+            <input type="text" class="form-control" placeholder="Cari apoteker" name="search" value="{{ request("search") }}" autocomplete="off">
             <button class="btn btn-link">
                 <img src="{{ asset('images/search icon.png') }}" alt="Search Icon">
             </button>
         </div>
-
+    </form>
         <!-- Tabel Data Apoteker -->
         <div class="card p-4 table-responsive">
             <table class="table table-striped table-hover">

@@ -5,12 +5,16 @@
     <button type="button" class="btn btn-resep px-4 py-3 mb-2 mt-4" data-bs-toggle="modal" data-bs-target="#tambahPasienModal">
        <strong> + Tambah Pasien</strong>
     </button>
+
+    <form action="{{ route('daftar-pasien') }}" method="GET">
     <div class="search-bar my-3">
-        <input type="text" class="form-control" placeholder="Cari Obat">
-        <button class="btn btn-link">
+        <input type="text" class="form-control" placeholder="Cari Obat" name="search" value="{{ request("search") }}" autocomplete="off">
+        <button class="btn btn-link" type="submit">
             <img src="{{ asset('images/search icon.png') }}">
         </button>
     </div>
+    </form>
+
 </div>
 
 <div class="d-flex justify-content-center align-items-center p-4">

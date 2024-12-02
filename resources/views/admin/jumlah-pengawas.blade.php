@@ -45,7 +45,7 @@
                 <tbody>
                     @foreach ($data_pengawas as $index => $item)
                         <tr>
-                            <td>{{ $index + 1 }}</td>
+                            <td>{{ $data_pengawas->firstItem() + $index }}</td>
                             <td>{{ $item->username }}</td>
                             <td>{{ $item->nama_pengawas }}</td>
                             <td>{{ $item->email }}</td>
@@ -68,14 +68,13 @@
                     @endforeach
                 </tbody>
             </table>
+            <div class="paginate d-flex justify-content-center">
+                {{ $data_pengawas->links() }}
+            </div>
         </div>
 
         <!-- Pagination -->
-        <div class="paginate d-flex justify-content-center">
-            {{ $data_pengawas->links() }}
-        </div>
-    </div>
-
+       
     <!-- Modals -->
 
     <!-- Hapus Obat Modal -->

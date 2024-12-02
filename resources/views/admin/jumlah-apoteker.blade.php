@@ -45,27 +45,17 @@
             <tbody>
                 @forelse ($data_apoteker as $index => $item)
                     <tr>
-                        <td>{{ $index + 1 }}</td>
+                        <td>{{ $data_apoteker->firstItem() + $index }}</td>
                         <td>{{ $item->username }}</td>
                         <td>{{ $item->nama_apoteker }}</td>
                         <td>{{ $item->email }}</td>
                         <td class="d-flex justify-content-center align-items-center">
                             <!-- Edit Button -->
-                            {{-- <a class="btn btn-success p-2 px-3 mx-2" data-bs-toggle="modal" data-bs-target="#editApotekerModal">
-                                <img src="{{ asset('images/edit icon.png') }}" class="me-2" alt="Edit Icon">Edit
-                            </a> --}}
-
-                            {{-- <button class="btn btn-resep p-2 px-3 detail-btn" type="submit" onclick="document.location='{{route('apoteker.update', $item->id_apoteker)}}'">
-                                <img  src="{{ asset('images/detail icon.png') }}" class="me-2"> Detail
-                        </button> --}}
                             <button class="btn btn-success editPasien p-2 px-3 mx-2" onclick="openEditApotekerModal({{$item->id_apoteker}})" id="editApoteker{{$item->id_apoteker}}">
                                 <img src="{{ asset('images/edit icon.png') }}" class="me-2">Edit
                             </button>
 
                             <!-- Delete Button -->
-                            {{-- <button class="btn btn-danger p-2 px-3 mx-2" data-bs-toggle="modal" data-bs-target="#hapusApotekerModal">
-                                <img src="{{ asset('images/delete icon.png') }}" class="me-2" alt="Delete Icon">Hapus
-                            </button> --}}
                             <button class="btn btn-danger p-2 px-3 mx-2 delete-btn" data-bs-toggle="modal"
                             data-bs-target="#hapusApotekerModal{{ $item->id_apoteker }}">
                             <img src="{{ asset('images/delete icon.png') }}" class="me-2">Hapus
@@ -79,13 +69,13 @@
                 @endforelse
             </tbody>
         </table>
+        <div class="paginate d-flex justify-content-center">
+            {{ $data_apoteker->links() }}
+        </div>
     </div>
 
     <!-- Pagination -->
-    <div class="paginate d-flex justify-content-center">
-        {{ $data_apoteker->links() }}
-    </div>
-</div>
+    
 
 
 <div class="modal fade" id="editApotekerModal" tabindex="-1" aria-labelledby="editApotekerModalLabel" aria-hidden="true">

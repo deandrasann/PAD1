@@ -60,9 +60,9 @@ class User extends Authenticatable
         return $this->belongsTo(ApotekerModel::class, 'id_pengguna','id_pengguna');
     }
     public function pengawas() {
-        return $this->belongsTo(ApotekerModel::class, 'id_pengguna','id_pengguna');
+        return $this->belongsTo(PengawasModel::class, 'id_pengguna','id_pengguna');
     }
     public function pasien() {
-        return $this->belongsTo(ApotekerModel::class, 'id_pengguna','id_pengguna');
+        return $this->belongsTo(PasienModel::class, 'id_pengguna','id_pengguna');
     }
 }

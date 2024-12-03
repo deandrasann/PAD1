@@ -15,7 +15,7 @@ return new class extends Migration
             $table->engine = 'InnoDB';
             $table->charset = 'utf8mb4';
             $table->collation = 'utf8mb4_general_ci';
-            $table->integer('kode_resep',true);
+            $table->integer('kode_detail_resep',true);
             $table->integer('no_resep');
             $table->integer('kode_obat');
             $table->integer('nama_obat');

@@ -6,7 +6,7 @@
     <div class="card">
         <div class="card-body">
             <h3 class="card-title mb-4">TAMBAH PENGAWAS</h3>
-            <form action="{{ route('pengawas.store') }}" method="POST">
+            <form action="{{ route('pengawas.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="row mb-3">
                     <div class="col-md-6">
@@ -27,6 +27,16 @@
                     <div class="col-md-6">
                         <label for="password" class="form-label">Password</label>
                         <input type="password" class="form-control" id="password" name="password" placeholder="Password">
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label for="photo" class="form-label">Foto</label>
+                        <input type="file" class="form-control @error('foto') is-invalid @enderror"
+                                    id="photo" name="foto" value="{{ old('foto') }}">
+                                @if ($errors->has('foto'))
+                                    <span class="text-danger">{{ $errors->first('foto') }}</span>
+                                @endif
                     </div>
                 </div>
                 <div class="row">

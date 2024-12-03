@@ -38,6 +38,21 @@ class PengawasController extends Controller
     }
 
     public function pengawasStore(Request $request) {
+        $request->validate([ 
+            'foto' => 'required|mimes:jpeg,jpg,png|max:3096'
+            ]);
+            if ($request->hasFile('foto')) {
+                $filenameWithExt = $request->file('foto')->getClientOriginalName();
+                $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+                $extension = $request->file('foto')->getClientOriginalExtension();
+    
+                $basename = uniqid() . time();
+                $filenameSimpan =  $filename . '_' . time() . '_' . $extension;
+                $path = $request->file('foto')->storeAs('avatars', $filenameSimpan);
+            } else {
+                $path = 'avatars/noimage.png';
+            }
+
         DB::beginTransaction(); // Memulai transaksi database
 
         try {
@@ -52,13 +67,14 @@ class PengawasController extends Controller
             $user = User::create($userData); // Simpan data ke tabel User
 
             // Data untuk tabel Apoteker (menggunakan id_user dari tabel User)
-            $apotekerData = [
+            $pengawasData = [
                 'id_pengguna' => $user->id_pengguna, // Menggunakan ID yang baru dibuat dari tabel User
                 'kode_klinik' => '1',
                 'nama_pengawas' => $request->input('nama_pengawas'),
                 'email' => $user->email,
+                'foto' => $path
             ];
-            PengawasModel::create($apotekerData); // Simpan data ke tabel Apoteker
+            PengawasModel::create($pengawasData); // Simpan data ke tabel Apoteker
 
             DB::commit(); // Jika semua operasi berhasil, lakukan commit
             return redirect()->route('jumlah-pengawas')->with('success', 'Data berhasil ditambahkan.');

@@ -9,10 +9,11 @@
         </div>
         <div class="container">
             <table class="table table-borderless">
+                @foreach ($data_detail_obat as $item)
                 <tbody>
                     <tr>
                         <th>Nama</th>
-                        <td>: </td>
+                        <td>: {{ $item->nama_obat }} </td>
                     </tr>
                     <tr>
                         <th>Dosis</th>
@@ -20,31 +21,31 @@
                     </tr>
                     <tr>
                         <th>Aturan Pakai</th>
-                        <td>: </td>
+                        <td>: {{ $item->aturan_pakai }} </td>
                     </tr>
                     <tr>
                         <th>Waktu Kali Minum</th>
-                        <td>: </td>
+                        <td>: {{ $item->jml_kali_minum }}</td>
                     </tr>
                     <tr>
                         <th>Jumlah Obat</th>
-                        <td>: </td>
+                        <td>:  {{ $item->jumlah_obat }}</td>
                     </tr>
                     <tr>
                         <th>Efek Samping</th>
-                        <td>: </td>
+                        <td>:  {{ $item->efek_samping }}</td>
                     </tr>
                     <tr>
                         <th>Kontraindikasi</th>
-                        <td>: </td>
+                        <td>:  {{ $item->kontraindikasi }}</td>
                     </tr>
                     <tr>
                         <th>Interaksi Obat</th>
-                        <td>: </td>
+                        <td>: {{ $item->interaksi_obat }}</td>
                     </tr>
                     <tr>
                         <th>Petunjuk Penyimpanan</th>
-                        <td>: </td>
+                        <td>: {{ $item->petunjuk_penyimpanan }}</td>
 
                     </tr>
                     <tr>
@@ -69,6 +70,7 @@
                             </ol>
                         </td>
                     </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>

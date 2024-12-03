@@ -44,6 +44,21 @@ class ApotekerController extends Controller
 
     public function ApotekerStore(Request $request)
     {
+        $request->validate([ 
+            'foto' => 'required|mimes:jpeg,jpg,png|max:3096'
+            ]);
+            if ($request->hasFile('foto')) {
+                $filenameWithExt = $request->file('foto')->getClientOriginalName();
+                $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+                $extension = $request->file('foto')->getClientOriginalExtension();
+    
+                $basename = uniqid() . time();
+                $filenameSimpan =  $filename . '_' . time() . '_' . $extension;
+                $path = $request->file('foto')->storeAs('avatars', $filenameSimpan);
+            } else {
+                $path = 'avatars/noimage.png';
+            }
+
         DB::beginTransaction(); // Memulai transaksi database
 
         try {
@@ -64,6 +79,7 @@ class ApotekerController extends Controller
                 'id_pengguna' => $user->id_pengguna, // Menggunakan ID yang baru dibuat dari tabel User
                 'nama_apoteker' => $request->input('nama_apoteker'),
                 'email' => $user->email,
+                'foto' => $path
             ];
             ApotekerModel::create($apotekerData); // Simpan data ke tabel Apoteker
 

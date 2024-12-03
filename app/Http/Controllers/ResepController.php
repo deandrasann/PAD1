@@ -111,4 +111,9 @@ class ResepController extends Controller
             return back();
         };
     }
+
+    public function detailDataObat(){
+        $data_detail_obat = DB::table('obat')->get();
+        return view('detail-data-obat', compact('data_detail_obat'));
+    }
 }

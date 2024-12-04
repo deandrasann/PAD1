@@ -95,7 +95,7 @@
                                 </button>
                                 <!-- Delete Button -->
                                 <button class="btn btn-danger p-2 px-3 delete-btn" data-bs-toggle="modal"
-                                    data-bs-target="#HapusObatModal{{ $item->kode_obat }}">
+                                    data-bs-target="#HapusObatModal{{ $item->id_pasien }}">
                                     <img src="{{ asset('images/delete icon.png') }}" class="me-2">Hapus
                                 </button>
                             </td>
@@ -167,7 +167,7 @@
         {{-- Hapus Obat Modal --}}
         <!-- Hapus Obat Modal -->
         @foreach($data as $key)
-        <div class="modal fade" id="HapusObatModal{{ $key->kode_obat }}" tabindex="-1" aria-labelledby="HapusObatModalLabel"
+        <div class="modal fade" id="HapusObatModal{{ $key->id_pasien }}" tabindex="-1" aria-labelledby="HapusObatModalLabel"
             aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content ">
@@ -178,7 +178,7 @@
                     <div class="modal-body text-center">
                         <img src="{{ asset('images/warning icon.png') }}" alt="Warning">
                         <p>Anda yakin ingin menghapus data resep ini?</p>
-                        <form action="{{ route('resep.destroy', $key->kode_obat)}}" method="POST">
+                        <form action="{{ route('resep.destroy', $key->id_pasien)}}" method="POST">
                         <div class="d-flex justify-content-around mt-3">
                             <button type="button" class="btn btn-white" data-bs-dismiss="modal">TIDAK</button>
                               @csrf

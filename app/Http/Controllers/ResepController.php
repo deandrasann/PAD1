@@ -83,7 +83,7 @@ class ResepController extends Controller
 
 
     public function destroy($id) {
-        $delete_resep = ResepModel::where('kode_obat', $id)->update(['status_resep' => 'deleted']);
+        $delete_resep = ResepModel::where('id_pasien', $id)->update(['status_resep' => 'deleted']);
         if ($delete_resep){
             return back();
         };

@@ -75,7 +75,7 @@ class ResepController extends Controller
             'id_dokter' => $request->input('id_dokter'),
             'kode_obat' => $request->input('kode_obat'),
             'tgl_resep' => NOW(),
-            'total_harga' => $request->input('total_harga')
+            'harga_satuan' => $request->input('harga_satuan')
         ]);
         $idpasien = $request->id_pasien;
         return redirect()->route('resep-tiap-pasien', ['id' => $idpasien])->with('success', 'berhasil menambahkan data');

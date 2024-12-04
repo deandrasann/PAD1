@@ -22,7 +22,7 @@ return new class extends Migration
             $table->integer('dosis');
             $table->integer('aturan_pakai');
             $table->integer('jumlah_resep');
-            $table->integer('harga_satuan');
+            $table->integer('total_harga');
 
 
             $table

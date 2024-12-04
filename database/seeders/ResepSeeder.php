@@ -21,7 +21,7 @@ class ResepSeeder extends Seeder
                 'id_pasien'    => 1,
                 'kode_obat'    => 1,
                 'tgl_resep'    => Carbon::now()->toDateString(),
-                'total_harga'  => '100000',
+                'harga_satuan'  => '100000',
             ],
             [
                 'no_antrian'   => 2,
@@ -29,7 +29,7 @@ class ResepSeeder extends Seeder
                 'id_pasien'    => 2,
                 'kode_obat'    => 2,
                 'tgl_resep'    => Carbon::now()->toDateString(),
-                'total_harga'  => '150000',
+                'harga_satuan'  => '150000',
             ],
             [
                 'no_antrian'   => 3,
@@ -37,7 +37,7 @@ class ResepSeeder extends Seeder
                 'id_pasien'    => 3,
                 'kode_obat'    => 3,
                 'tgl_resep'    => Carbon::now()->toDateString(),
-                'total_harga'  => '200000',
+                'harga_satuan'  => '200000',
             ],
             [
                 'no_antrian'   => 4,
@@ -45,7 +45,7 @@ class ResepSeeder extends Seeder
                 'id_pasien'    => 4,
                 'kode_obat'    => 4,
                 'tgl_resep'    => Carbon::now()->toDateString(),
-                'total_harga'  => '250000',
+                'harga_satuan'  => '250000',
             ],
             [
                 'no_antrian'   => 5,
@@ -53,7 +53,7 @@ class ResepSeeder extends Seeder
                 'id_pasien'    => 5,
                 'kode_obat'    => 5,
                 'tgl_resep'    => Carbon::now()->toDateString(),
-                'total_harga'  => '120000',
+                'harga_satuan'  => '120000',
             ],
             [
                 'no_antrian'   => 6,
@@ -61,7 +61,7 @@ class ResepSeeder extends Seeder
                 'id_pasien'    => 6,
                 'kode_obat'    => 6,
                 'tgl_resep'    => Carbon::now()->toDateString(),
-                'total_harga'  => '300000',
+                'harga_satuan'  => '300000',
             ],
             [
                 'no_antrian'   => 7,
@@ -69,7 +69,7 @@ class ResepSeeder extends Seeder
                 'id_pasien'    => 7,
                 'kode_obat'    => 7,
                 'tgl_resep'    => Carbon::now()->toDateString(),
-                'total_harga'  => '400000',
+                'harga_satuan'  => '400000',
             ],
             [
                 'no_antrian'   => 8,
@@ -77,7 +77,7 @@ class ResepSeeder extends Seeder
                 'id_pasien'    => 8,
                 'kode_obat'    => 8,
                 'tgl_resep'    => Carbon::now()->toDateString(),
-                'total_harga'  => '350000',
+                'harga_satuan'  => '350000',
             ],
             [
                 'no_antrian'   => 9,
@@ -85,7 +85,7 @@ class ResepSeeder extends Seeder
                 'id_pasien'    => 9,
                 'kode_obat'    => 9,
                 'tgl_resep'    => Carbon::now()->toDateString(),
-                'total_harga'  => '220000',
+                'harga_satuan'  => '220000',
             ],
             [
                 'no_antrian'   => 10,
@@ -93,7 +93,7 @@ class ResepSeeder extends Seeder
                 'id_pasien'    => 10,
                 'kode_obat'    => 10,
                 'tgl_resep'    => Carbon::now()->toDateString(),
-                'total_harga'  => '180000',
+                'harga_satuan'  => '180000',
             ]
         ]);
 

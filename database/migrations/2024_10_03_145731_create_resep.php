@@ -22,7 +22,7 @@ return new class extends Migration
             $table->integer('kode_obat');
             $table->enum('status_resep', ['setuju ', 'deleted'])->default('setuju')->nullable();
             $table->date('tgl_resep');
-            $table->string('total_harga')->nullable();
+            $table->string('harga_satuan')->nullable();
 
 
             $table

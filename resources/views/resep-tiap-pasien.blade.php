@@ -249,7 +249,7 @@
                             <div class="row mb-3">
                                 <label for="hargaresep" class="col-md-4 col-form-label">Harga Resep</label>
                                 <div class="col-md-8">
-                                    <input type="text" class="form-control" id="hargaresep" name="total_harga" class="total_harga" placeholder="Harga Resep">
+                                    <input type="text" class="form-control" id="hargaresep" name="harga_satuan" class="harga_satuan" placeholder="Harga Resep">
                                 </div>
                             </div>
                            

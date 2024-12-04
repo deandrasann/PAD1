@@ -15,7 +15,7 @@
 </head>
 
 {{-- Navbar --}}
-<nav class="navbar sticky-top bg-body-tertiary p-4" style="background: linear-gradient(90deg, #0D426C 22.99%, #338CC1 95.86%); width: 100%;">
+<nav class="navbar sticky-top bg-body-tertiary px-4 py-2" style="background: linear-gradient(90deg, #0D426C 22.99%, #338CC1 95.86%); width: 100%;">
     <div class="container-fluid d-flex justify-content-between align-items-center">
 
         <!-- Left Section: Sidebar Toggle & Logo -->
@@ -24,7 +24,7 @@
                 <img src="{{ asset('images/logo.png') }}" alt="Logo" width="150" height="auto" class="me-3">
             </a>
             <!-- Sidebar Toggle Icon -->
-            <a href="#" data-bs-target="#sidebar" data-bs-toggle="collapse" class="navbar-brand d-flex align-items-center me-3">
+            <a href="#" data-bs-target="#sidebar" data-bs-toggle="collapse" class="navbar-brand d-flex align-items-center">
                 <img src="{{ asset('images/navbar menu/navbar icon.png') }}" alt="Menu">
             </a>
         </div>
@@ -34,7 +34,7 @@
                 @csrf
                 <a href="{{ route('logout') }}" class="text-decoration-none d-flex align-items-center">
                     <img src="{{ asset('images/navbar menu/logout.png') }}" alt="Logout Icon" class="icon">
-                    <span class="logout-text ms-2 text-white">Logout</span>
+                    <span class="logout-text text-white">Logout</span>
                 </a>
             </form>
         </div>

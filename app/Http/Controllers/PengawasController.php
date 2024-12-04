@@ -2,48 +2,42 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\ApotekerModel;
+use App\Models\PengawasModel;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
-class ApotekerController extends Controller
+class PengawasController extends Controller
 {
-    public function index(Request $request)
-    {
-        // $data_apoteker = DB::table('users')
-        //     ->join('apoteker', 'users.id_pengguna', '=', 'apoteker.id_pengguna')
-        //     ->select('users.*', 'apoteker.*')
-        //     ->paginate(5);
-        // dd($data_apoteker);
-        if ($request->has('search')) {
-            $search = $request->input('search');
-            $data_apoteker = DB::table('users')
-            ->join('apoteker', 'users.id_pengguna', '=', 'apoteker.id_pengguna')
-            ->orWhere('users.username', 'like',"%" . $search . "%")
-            ->orWhere('apoteker.nama_apoteker', 'like',"%" . $search . "%")
-            ->orWhere('users.email', 'like',"%" . $search . "%")
-            ->paginate(5);
-        } else {
-            $data_apoteker = DB::table('users')
-            ->join('apoteker', 'users.id_pengguna', '=', 'apoteker.id_pengguna')
-            ->paginate(5);
-        }
-        // $data = DB::table('users')
-        // ->join('apoteker', 'users.id_pengguna', '=', 'apoteker.id_pengguna')->get();
-        // dd($data);
-
-        return view('admin.jumlah-apoteker', compact('data_apoteker'));
+    public function index(Request $request){
+        // $data_pengawas =  DB::table('users')
+        // ->join('pengawas', 'users.id_pengguna', '=', 'pengawas.id_pengguna')
+        // ->select('users.*', 'pengawas.*')
+        // ->paginate(5);
+    // dd($data_pengawas);
+    if ($request->has('search')) {
+        $search = $request->input('search');
+        $data_pengawas = DB::table('users')
+        ->join('pengawas', 'users.id_pengguna', '=', 'pengawas.id_pengguna')
+        ->orWhere('users.username', 'like',"%" . $search . "%")
+        ->orWhere('pengawas.nama_pengawas', 'like',"%" . $search . "%")
+        ->orWhere('users.email', 'like',"%" . $search . "%")
+        ->paginate(5);
+    } else {
+        $data_pengawas = DB::table('users')
+        ->join('pengawas', 'users.id_pengguna', '=', 'pengawas.id_pengguna')
+        ->paginate(5);
     }
 
-    public function tambahApoteker()
-    {
-        return view('admin.tambah-apoteker');
+    return view('admin.jumlah-pengawas', compact('data_pengawas'));
     }
 
-    public function ApotekerStore(Request $request)
-    {
+    public function tambahpengawas() {
+        return view('admin.tambah-pengawas');
+    }
+
+    public function pengawasStore(Request $request) {
         $request->validate([ 
             'foto' => 'required|mimes:jpeg,jpg,png|max:3096'
             ]);
@@ -64,35 +58,33 @@ class ApotekerController extends Controller
         try {
             // Data untuk tabel User
             $userData = [
-                'id_role' => 'R03',
-                'nama_role' => 'apoteker',
+                'id_role' => 'R04',
+                'nama_role' => 'pengawas',
                 'username' => $request->input('username'),
                 'email' => $request->input('email'),
                 'password' => Hash::make($request->input('password')),
             ];
             $user = User::create($userData); // Simpan data ke tabel User
 
-            // dd($user);
-
             // Data untuk tabel Apoteker (menggunakan id_user dari tabel User)
-            $apotekerData = [
+            $pengawasData = [
                 'id_pengguna' => $user->id_pengguna, // Menggunakan ID yang baru dibuat dari tabel User
-                'nama_apoteker' => $request->input('nama_apoteker'),
+                'kode_klinik' => '1',
+                'nama_pengawas' => $request->input('nama_pengawas'),
                 'email' => $user->email,
                 'foto' => $path
             ];
-            ApotekerModel::create($apotekerData); // Simpan data ke tabel Apoteker
+            PengawasModel::create($pengawasData); // Simpan data ke tabel Apoteker
 
             DB::commit(); // Jika semua operasi berhasil, lakukan commit
-            return redirect()->route('jumlah-apoteker')->with('success', 'Data berhasil ditambahkan.');
+            return redirect()->route('jumlah-pengawas')->with('success', 'Data berhasil ditambahkan.');
         } catch (\Exception $e) {
             DB::rollback(); // Jika terjadi kesalahan, rollback perubahan
-            return redirect()->route('jumlah-apoteker')->with('error', 'Gagal menambahkan data: ' . $e->getMessage());
+            return redirect()->route('jumlah-pengawas')->with('error', 'Gagal menambahkan data: ' . $e->getMessage());
         }
     }
 
-    public function ApotekerUpdate(Request $request, $id)
-    {
+    public function pengawasupdate(Request $request, $id) {
         // $coba = ApotekerModel::where('id_pengguna', '=', 3)->first();
         // dd($id_apoteker);
         // dd($id_apoteker); variabel id_apoteker sudah berhasil mendapatkan id apotekernya
@@ -104,39 +96,38 @@ class ApotekerController extends Controller
             // $coba = ApotekerModel::where('id_pengguna', '=', 3)->first();
             // dd($coba);
 
-            $coba1 = ApotekerModel::where('id_apoteker', '=', $id)->first();
+            $coba1 = PengawasModel::where('id_pengawas', '=', $id)->first();
             $id_pengguna = $coba1->id_pengguna;
             // dd($coba1);
 
-            $dataPasien = [
+            $dataUser = [
                 'username' => $request->input('username'),
                 // 'email' => $request->input('email'),
                 // 'password' => Hash::make($request->input('password')),
             ];
 
             // Data untuk tabel DetailPasien
-            $dataApoteker = [
-                'nama_apoteker' => $request->input('nama_apoteker'),
+            $dataPengawas = [
+                'nama_pengawas' => $request->input('nama_pengawas'),
             ];
 
             // Update data pada tabel Pasien
-            ApotekerModel::where('id_apoteker', $id)->update($dataApoteker);
+            PengawasModel::where('id_pengawas', $id)->update($dataPengawas);
 
             // Update data pada tabel DetailPasien
-            User::where('id_pengguna', $id_pengguna)->update($dataPasien);
+            User::where('id_pengguna', $id_pengguna)->update($dataUser);
 
             DB::commit(); // Jika semua operasi berhasil, lakukan commit
-            return redirect()->route('jumlah-apoteker')->with('success', 'Data berhasil diperbarui.');
+            return redirect()->route('jumlah-pengawas')->with('success', 'Data berhasil diperbarui.');
         } catch (\Exception $e) {
             DB::rollback(); // Jika terjadi kesalahan, rollback perubahan
-            return redirect()->route('jumlah-apoteker')->with('error', 'Gagal memperbarui data: ' . $e->getMessage());
+            return redirect()->route('jumlah-pengawas')->with('error', 'Gagal memperbarui data: ' . $e->getMessage());
         }
     }
 
-    public function ApotekerDestroy($id)
-    {
-        $delete_apoteker = ApotekerModel::where('id_apoteker', $id)->delete();
-        if ($delete_apoteker) {
+    public function pengawasdestroy($id){
+        $delete_pengawas = PengawasModel::where('id_pengawas', $id)->delete();
+        if ($delete_pengawas){
             return back();
         };
     }

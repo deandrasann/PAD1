@@ -15,14 +15,14 @@ return new class extends Migration
             $table->engine = 'InnoDB';
             $table->charset = 'utf8mb4';
             $table->collation = 'utf8mb4_general_ci';
-            $table->integer('kode_resep',true);
+            $table->integer('kode_detail_resep',true);
             $table->integer('no_resep');
             $table->integer('kode_obat');
             $table->integer('nama_obat');
             $table->integer('dosis');
             $table->integer('aturan_pakai');
             $table->integer('jumlah_resep');
-            $table->integer('harga_satuan');
+            $table->integer('total_harga');
 
 
             $table

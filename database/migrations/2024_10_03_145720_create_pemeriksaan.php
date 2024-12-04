@@ -17,7 +17,7 @@ return new class extends Migration
             $table->collation = 'utf8mb4_general_ci';
             $table->integer('no_antrian',true);
             $table->integer('nama_dokter');
-            $table->integer('nama_pasien');
+            $table->integer('id_pasien');
             $table->string('kode_icd');
             $table->string('anamnesa');
             $table->string('pemeriksaan_fisik');
@@ -35,7 +35,7 @@ return new class extends Migration
             ->cascadeOnDelete();
 
             $table
-            ->foreign('nama_pasien')
+            ->foreign('id_pasien')
             ->references('id_pasien')
             ->on('pasien')
             ->cascadeOnUpdate()

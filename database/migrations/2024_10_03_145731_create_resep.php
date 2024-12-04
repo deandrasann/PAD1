@@ -19,8 +19,10 @@ return new class extends Migration
             $table->integer('no_antrian');
             $table->integer('id_dokter');
             $table->integer('id_pasien');
+            $table->integer('kode_obat');
+            $table->enum('status_resep', ['setuju ', 'deleted'])->default('setuju')->nullable();
             $table->date('tgl_resep');
-            $table->string('total_harga');
+            $table->string('harga_satuan')->nullable();
 
 
             $table
@@ -44,6 +46,12 @@ return new class extends Migration
             ->cascadeOnUpdate()
             ->cascadeOnDelete();
 
+            $table
+            ->foreign('kode_obat')
+            ->references('kode_obat')
+            ->on('obat')
+            ->cascadeOnUpdate()
+            ->cascadeOnDelete();
             
         });
     }

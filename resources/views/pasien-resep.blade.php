@@ -10,7 +10,7 @@
 
     <form action="{{ route('tambah-resep') }}" method="GET">
     <div class="search-bar mt-5">
-        <input type="text" class="form-control" placeholder="Cari Obat" name="search" value="{{ request("search") }}">
+        <input type="text" class="form-control" placeholder="Cari Pasien" name="search" value="{{ request("search") }}">
         <button class="btn btn-link" type="submit">
             <img src="{{ asset('images/search icon.png') }}">
         </button>
@@ -44,6 +44,7 @@
                     <td>{{ $item->alamat }}</td>
                     <td>{{ $item->no_telp }}</td>
                     <td>
+                        {{-- <button class="btn btn-resep p-2 px-3 detail-btn" type="submit" onclick="document.location='{{route('resep-tiap-pasien', $item->id_pasien)}}'"> --}}
                         <button class="btn btn-resep p-2 px-3 detail-btn" type="submit" onclick="document.location='{{route('resep-tiap-pasien', $item->id_pasien)}}'">
                             <img  src="{{ asset('images/detail icon.png') }}" class="me-2"> Detail
                         </button>

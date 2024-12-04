@@ -17,4 +17,11 @@ class KlinikModel extends Model
     // PK integer AI
     public $incrementing = true;
 
+    protected $fillable = [
+        'id_klinik',
+        'kode_klinik',
+        'kode_bpjs',
+        'nama_klinik',
+    ];
+
 }

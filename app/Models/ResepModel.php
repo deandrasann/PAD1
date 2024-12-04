@@ -17,4 +17,14 @@ class ResepModel extends Model
     // PK integer AI
     public $incrementing = true;
 
+    protected $fillable = [
+        'no_antrian',
+        'id_dokter',
+        'id_pasien',
+        'kode_obat',
+        'tgl_resep',
+        'total_harga',
+        'status_resep'
+    ];
+
 }

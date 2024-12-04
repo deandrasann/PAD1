@@ -81,7 +81,11 @@
 
         <div class="container-row-3 py-3 pe-3 my-3 me-3 d-flex justify-content-end align-items-start px-4">
             <div class="me-2">
-                <h2>0</h2>
+                <h2>@if($data_pasien == NULL)
+                    0
+                 @else
+                 {{ $data_pasien }}
+                 @endif</h2>
                 <p>Riwayat Pasien</p>
             </div>
             <div>
@@ -91,7 +95,11 @@
 
         <div class="container-row-4 py-3 pe-3 my-3 me-3 d-flex justify-content-end align-items-start px-4">
             <div class="me-3">
-                <h2>0</h2>
+               <h2>@if($data_pasien == NULL)
+                    0
+                 @else
+                 {{ $data_pasien }}
+                 @endif</h2>
                 <p>Total Pasien</p>
             </div>
             <div>
@@ -107,7 +115,11 @@
     <div class="info d-flex flex-wrap justify-content-start">
         <div class="container-row-1 py-3 pe-3 my-3 me-3 d-flex justify-content-end align-items-start px-4">
             <div class="me-4">
-                <h2>0</h2>
+                <h2>@if($data_apoteker == NULL)
+                    0
+                 @else
+                 {{ $data_apoteker }}
+                 @endif</h2>
                 <p>Jumlah Apoteker</p>
             </div>
             <div>
@@ -116,7 +128,11 @@
         </div>
         <div class="container-row-2 py-3 pe-3 my-3 me-3 d-flex justify-content-end align-items-start px-4">
             <div class="me-4">
-                <h2>0</h2>
+                <h2>@if($data_pengawas == NULL)
+                    0
+                 @else
+                 {{ $data_pengawas }}
+                 @endif</h2>
                 <p>Jumlah Pengawas</p>
             </div>
             <div>

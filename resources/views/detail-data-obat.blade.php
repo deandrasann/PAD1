@@ -5,7 +5,7 @@
 <div class="d-flex justify-content-center align-items-center p-4">
     <div class="card p-4 w-100">
         <div class="container">
-            <h2 class="my-4">DATA DATA OBAT</h2>
+            <h2 class="my-4">Resep Obat </h2>
         </div>
         <div class="container">
             <table class="table table-borderless">

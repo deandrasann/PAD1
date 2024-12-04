@@ -56,7 +56,7 @@
         </button>
 
         <!-- Search Bar -->
-        <form action="{{ route('cobatambahresep', $resep_obat->id_pasien) }}" method="GET">
+        <form action="{{ route('resep-tiap-pasien', $resep_obat->id_pasien) }}" method="GET">
         <div class="search-bar mb-3">
             <input type="text" class="form-control" placeholder="Cari Resep" name="search" value="{{ request("search") }}" autocomplete="off">
             <button class="btn btn-link" type="submit">
@@ -172,12 +172,12 @@
             <div class="modal-dialog">
                 <div class="modal-content ">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="HapusObatModalLabel">Hapus Data Obat</h5>
+                        <h5 class="modal-title" id="HapusObatModalLabel">Hapus Data Resep</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body text-center">
                         <img src="{{ asset('images/warning icon.png') }}" alt="Warning">
-                        <p>Anda yakin ingin menghapus data obat ini?</p>
+                        <p>Anda yakin ingin menghapus data resep ini?</p>
                         <form action="{{ route('resep.destroy', $key->kode_obat)}}" method="POST">
                         <div class="d-flex justify-content-around mt-3">
                             <button type="button" class="btn btn-white" data-bs-dismiss="modal">TIDAK</button>

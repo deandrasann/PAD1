@@ -7,6 +7,7 @@ use App\Http\Controllers\ObatController;
 use App\Http\Controllers\PasienController;
 use App\Http\Controllers\PengawasController;
 use App\Http\Controllers\ResepController;
+use App\Http\Controllers\TambahResepController;
 use Database\Seeders\PasienSeeder;
 use Illuminate\Support\Facades\Route;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
@@ -49,7 +50,6 @@ Route::group(['middleware' => ['auth','level:admin,dokter,apoteker,pengawas']], 
     Route::get('/beranda', [DashboardController::class, 'beranda'])->name('beranda');
     Route::get('/resep-pasien/{id}', [ResepController::class, 'resepTiapPasien'])->name('resep-tiap-pasien');
     Route::post('/resep-pasien', [ResepController::class, 'store'])->name('reseptiappasien.store');
-    Route::post('/resep-pasien/{id}', [ResepController::class, 'update'])->name('reseptiappasien.update');
     Route::get('/detail-resep-obat',[ResepController::class, 'detailDataObat'])->name('detail-resep-obat');
     Route::get('/riwayat-resep',[DashboardController::class, 'riwayatResep'])->name('riwayat-resep');
     Route::get('/jumlah-apoteker',[ApotekerController::class, 'index'])->name('jumlah-apoteker');

@@ -16,7 +16,7 @@ class PemeriksaanSeeder extends Seeder
         $pemeriksaaan = collect([
             [
                 'nama_dokter' => 1, // ID dokter
-                'nama_pasien' => 1, // ID pasien
+                'id_pasien' => 1, // ID pasien
                 'kode_icd' => 'A00',
                 'anamnesa' => 'Demam tinggi dan batuk',
                 'pemeriksaan_fisik' => 'Tensi normal, suara napas sedikit mengi',
@@ -28,7 +28,7 @@ class PemeriksaanSeeder extends Seeder
             ],
             [
                 'nama_dokter' => 1,
-                'nama_pasien' => 1,
+                'id_pasien' => 2,
                 'kode_icd' => 'B01',
                 'anamnesa' => 'Nyeri perut bagian bawah',
                 'pemeriksaan_fisik' => 'Nyeri tekan di perut kiri',
@@ -40,7 +40,7 @@ class PemeriksaanSeeder extends Seeder
             ],
             [
                 'nama_dokter' => 1,
-                'nama_pasien' => 1,
+                'id_pasien' => 3,
                 'kode_icd' => 'C03',
                 'anamnesa' => 'Sakit kepala berat',
                 'pemeriksaan_fisik' => 'Kepala sensitif, pusing',
@@ -52,7 +52,7 @@ class PemeriksaanSeeder extends Seeder
             ],
             [
                 'nama_dokter' => 1,
-                'nama_pasien' => 1,
+                'id_pasien' => 4,
                 'kode_icd' => 'D02',
                 'anamnesa' => 'Batuk berdahak',
                 'pemeriksaan_fisik' => 'Suara napas tereduksi',
@@ -64,7 +64,7 @@ class PemeriksaanSeeder extends Seeder
             ],
             [
                 'nama_dokter' => 1,
-                'nama_pasien' => 1,
+                'id_pasien' => 5,
                 'kode_icd' => 'E04',
                 'anamnesa' => 'Kelelahan dan haus berlebih',
                 'pemeriksaan_fisik' => 'BMI tinggi, glukosa darah meningkat',
@@ -76,7 +76,7 @@ class PemeriksaanSeeder extends Seeder
             ],
             [
                 'nama_dokter' => 1,
-                'nama_pasien' => 1,
+                'id_pasien' => 6,
                 'kode_icd' => 'F01',
                 'anamnesa' => 'Kecemasan berlebihan',
                 'pemeriksaan_fisik' => 'Pulsasi cepat, berkeringat',
@@ -88,7 +88,7 @@ class PemeriksaanSeeder extends Seeder
             ],
             [
                 'nama_dokter' => 1,
-                'nama_pasien' => 1,
+                'id_pasien' => 7,
                 'kode_icd' => 'G02',
                 'anamnesa' => 'Kesemutan di tangan dan kaki',
                 'pemeriksaan_fisik' => 'Refleks menurun',
@@ -100,7 +100,7 @@ class PemeriksaanSeeder extends Seeder
             ],
             [
                 'nama_dokter' => 1,
-                'nama_pasien' => 1,
+                'id_pasien' => 8,
                 'kode_icd' => 'H01',
                 'anamnesa' => 'Penglihatan kabur',
                 'pemeriksaan_fisik' => 'Tes penglihatan menurun',
@@ -112,7 +112,7 @@ class PemeriksaanSeeder extends Seeder
             ],
             [
                 'nama_dokter' => 1,
-                'nama_pasien' => 1,
+                'id_pasien' => 9,
                 'kode_icd' => 'I01',
                 'anamnesa' => 'Nyeri dada',
                 'pemeriksaan_fisik' => 'EKG normal, detak jantung cepat',
@@ -124,7 +124,7 @@ class PemeriksaanSeeder extends Seeder
             ],
             [
                 'nama_dokter' => 1,
-                'nama_pasien' => 1,
+                'id_pasien' => 10,
                 'kode_icd' => 'J02',
                 'anamnesa' => 'Sakit tenggorokan',
                 'pemeriksaan_fisik' => 'Radang tenggorokan, amandel membesar',

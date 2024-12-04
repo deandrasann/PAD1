@@ -81,7 +81,11 @@
 
         <div class="container-row-3 py-3 pe-3 my-3 me-3 d-flex justify-content-end align-items-start px-4">
             <div class="me-2">
-                <h2>0</h2>
+                <h2>@if($data_pasien == NULL)
+                    0
+                 @else
+                 {{ $data_pasien }}
+                 @endif</h2>
                 <p>Riwayat Pasien</p>
             </div>
             <div>
@@ -91,7 +95,11 @@
 
         <div class="container-row-4 py-3 pe-3 my-3 me-3 d-flex justify-content-end align-items-start px-4">
             <div class="me-3">
-                <h2>0</h2>
+               <h2>@if($data_pasien == NULL)
+                    0
+                 @else
+                 {{ $data_pasien }}
+                 @endif</h2>
                 <p>Total Pasien</p>
             </div>
             <div>

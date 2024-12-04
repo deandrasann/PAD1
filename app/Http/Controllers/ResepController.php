@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\ObatModel;
 use App\Models\PasienModel;
+use App\Models\ResepModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -15,8 +16,9 @@ class ResepController extends Controller
 
         if ($request->has('search')) {
             $search = $request->input('search');
-            $data = DB::table('obat')
-            ->where('id_pasien', $id)
+            $data = DB::table('resep')->join('obat', 'resep.kode_obat', '=', 'obat.kode_obat')
+            ->where('resep.id_pasien', $id)
+            ->where('resep.status_resep', 'setuju')
             ->where(function($query) use ($search) {  // Gunakan closure untuk kondisi pencarian
                 $query->orWhere('indikasi', 'like', "%" . $search . "%")
                       ->orWhere('golongan_obat', 'like', "%" . $search . "%")
@@ -24,8 +26,9 @@ class ResepController extends Controller
             })
             ->paginate(5);
         } else {
-            $data = DB::table('obat')
-            ->where('id_pasien', $id)
+            $data = DB::table('resep')->join('obat', 'resep.kode_obat', '=', 'obat.kode_obat')
+            ->where('resep.id_pasien', $id)
+            ->where('resep.status_resep', 'setuju')
             ->paginate(5);
         }
         
@@ -35,7 +38,9 @@ class ResepController extends Controller
         $obat = DB::table('obat')->where('kode_obat', $kode_obat)->first();
 
         // $data = DB::table('obat')->where('id_pasien', $id)->paginate(5);
-        $apoteker_obat = DB::table('apoteker')->get();
+        $data_dokter = DB::table('dokter')->get();
+        $data_obat = DB::table('obat')->get();
+        $data_pemeriksaan = DB::table('pemeriksaan')->get();
         // ApotekerModel::join('obat', 'apoteker.id_apoteker', '=', 'obat.id_apoteker')
         //         ->select('obat.*', 'apoteker.id_apoteker', 'apoteker.nama_apoteker')
         //         ->distinct()
@@ -44,9 +49,9 @@ class ResepController extends Controller
                 ->where('pasien.id_pasien', $id)
                 ->select('pasien.*', 'resep.*')
                 ->first();
-        // dd($apoteker_obat);
+        // dd($data_dokter);
         // $resep_obat1 = DB::table('resep')->get();
-        return view('resep-tiap-pasien', compact('data', 'obat', 'resep_obat', 'apoteker_obat'));
+        return view('resep-tiap-pasien', compact('data', 'obat', 'resep_obat','data_dokter', 'data_obat', 'data_pemeriksaan'));
     }
     public function tambahResep(Request $request){
         if ($request->has('search')) {
@@ -64,50 +69,22 @@ class ResepController extends Controller
     }
 
     public function store(Request $request) {
-        $tambah_obat = ObatModel::insert([
+        $tambah_resep = ResepModel::insert([
+            'no_antrian' => $request->input('no_antrian'),
             'id_pasien' => $request->input('id_pasien'),
-            'id_apoteker' => $request->input('id_apoteker'),
-            'nama_obat' => $request->input('nama_obat'),
-            'bentuk_obat' => $request->input('bentuk_obat'),
-            'kekuatan_sediaan' => $request->input('kekuatan_sediaan'),
-            'efek_samping' => $request->input('efek_samping'),
-            'kontraindikasi' => $request->input('kontraindikasi'),
-            'interaksi_obat' => $request->input('interaksi_obat'),
-            'petunjuk_penyimpanan' => $request->input('petunjuk_penyimpanan'),
-            'pola_makan' => $request->input('pola_makan'),
-            'informasi_tambahan' => $request->input('informasi_tambahan'),
-            'indikasi' => $request->input('indikasi'),
-            'golongan_obat' => $request->input('golongan_obat'),
-
+            'id_dokter' => $request->input('id_dokter'),
+            'kode_obat' => $request->input('kode_obat'),
+            'tgl_resep' => NOW(),
+            'total_harga' => $request->input('total_harga')
         ]);
         $idpasien = $request->id_pasien;
         return redirect()->route('resep-tiap-pasien', ['id' => $idpasien])->with('success', 'berhasil menambahkan data');
     }
 
-    public function update(Request $request, $id) {
-        $data = [
-            'nama_obat' => $request->input('nama_obat'),
-            'bentuk_obat' => $request->input('bentuk_obat'),
-            'kekuatan_sediaan' => $request->input('kekuatan_sediaan'),
-            'efek_samping' => $request->input('efek_samping'),
-            'kontraindikasi' => $request->input('kontraindikasi'),
-            'indikasi' => $request->input('indikasi'),
-            'interaksi_obat' => $request->input('interaksi_obat'),
-            'petunjuk_penyimpanan' => $request->input('petunjuk_penyimpanan'),
-            'golongan_obat' => $request->input('golongan_obat'),
-            'pola_makan' => $request->input('pola_makan'),
-            'informasi_tambahan' => $request->input('informasi_tambahan'),
-        ];
-        $data_obat = ObatModel::find($id);
-        $idpasien = $request->id_pasien;
-        $upd = ObatModel::where('kode_obat', '=', $data_obat->kode_obat)->update($data);
-        // dd($upd);
-        return redirect()->route('resep-tiap-pasien', ['id' => $idpasien])->with('success', 'berhasil mengubah data');
-    }
 
     public function destroy($id) {
-        $delete_obat = ObatModel::where('kode_obat', $id)->delete();
-        if ($delete_obat){
+        $delete_resep = ResepModel::where('kode_obat', $id)->update(['status_resep' => 'deleted']);
+        if ($delete_resep){
             return back();
         };
     }

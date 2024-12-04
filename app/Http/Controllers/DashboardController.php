@@ -25,8 +25,9 @@ class DashboardController extends Controller
         $data_obat = DB::table('obat')->count('kode_obat');
         $data_apoteker = DB::table('apoteker')->count('id_apoteker');
         $data_pengawas = DB::table('pengawas')->count('id_pengawas');
+        $data_pasien = DB::table('pasien')->count('id_pasien');
         // dd($data_pasien);
-        return view('beranda', compact('data', 'data_pasien', 'data_obat', 'data_apoteker', 'data_pengawas'));
+        return view('beranda', compact('data', 'data_pasien', 'data_obat', 'data_apoteker', 'data_pengawas', 'data_pasien'));
     }
 
     public function pasienTerdaftar(){

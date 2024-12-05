@@ -6,6 +6,7 @@ use App\Models\DetailResepModel;
 use App\Models\ObatModel;
 use App\Models\PasienModel;
 use App\Models\ResepModel;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -98,7 +99,7 @@ class ResepController extends Controller
                 'id_dokter' => $request->input('id_dokter'),
                 'id_pengawas' => $request->input('id_pengawas'),
                 'kode_obat' => $request->input('kode_obat'),
-                'tgl_resep' => NOW(),
+                'tgl_resep' => Carbon::now('Asia/Jakarta')->format('Y-m-d H:i:s'),
                 'dosis' => $request->input('dosis'),
             ];
     

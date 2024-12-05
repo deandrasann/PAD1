@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,80 +19,106 @@
         }
     </style>
 </head>
+
 <body>
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-3 p-4 border-end border-bottom">
                 <div class="d-flex flex-column align-items-center">
                     <h1>Data Pasien</h1>
-                    <img src="images/profil-pmo.png" class="profile-img m-4">
+                    <img src="{{ asset('images/pengawas_minum_obat.jpeg') }}" class="profile-img m-4" width="200px"
+                        height="200px">
                     <div>
-                        <ul class="list-group mt-4 width-250" >
-                            <li class="list-group-item p-3 d-flex align-items-start" style="color: #2E6084; width: 250px;">
-                                <div class="me-2">
-                                    <img src="images/navbar pmo/vector-2.png" class="img-fluid" alt="Icon" style="max-width: 50px; height: auto;">
-                                </div>
-                                <div>
-                                    <strong>No RM:</strong> <br> 87658
-                                </div>
-                            </li>
-                            <li class="list-group-item p-3 d-flex align-items-start" style="color: #2E6084; width: 250px;">
-                                <div class="me-2">
-                                    <img src="images/navbar pmo/vector.png" class="img-fluid" alt="Icon" style="max-width: 50px; height: auto;">
-                                </div>
-                                <div>
-                                    <strong>Nama:</strong> <br> Nama
-                                </div>
-                            </li>
-                            <li class="list-group-item p-3 d-flex align-items-start" style="color: #2E6084; width: 250px;">
-                                <div class="me-2">
-                                    <img src="images/navbar pmo/vector-1.png" class="img-fluid" alt="Icon" style="max-width: 50px; height: auto;">
-                                </div>
-                                <div>
-                                    <strong>Jenis Kelamin:</strong> <br> Jenis Kelamin
-                                </div>
-                            </li>
-                            <li class="list-group-item p-3 d-flex align-items-start" style="color: #2E6084; width: 250px;">
-                                <div class="me-2">
-                                    <img src="images/navbar pmo/vector-5.png" class="img-fluid" alt="Icon" style="max-width: 50px; height: auto;">
-                                </div>
-                                <div>
-                                    <strong>Tanggal Lahir:</strong> <br> Tanggal Lahir
-                                </div>
-                            </li>
-                            <li class="list-group-item p-3 d-flex align-items-start" style="color: #2E6084; width: 250px;">
-                                <div class="me-2">
-                                    <img src="images/navbar pmo/vector-4.png" class="img-fluid" alt="Icon" style="max-width: 50px; height: auto;">
-                                </div>
-                                <div>
-                                    <strong>No Telepon:</strong> <br> Tanggal Lahir
-                                </div>
-                            </li>
-                            <li class="list-group-item p-3 d-flex align-items-start" style="color: #2E6084; width: 250px;">
-                                <div class="me-2">
-                                    <img src="images/navbar pmo/vector-3.png" class="img-fluid" alt="Icon" style="max-width: 50px; height: auto;">
-                                </div>
-                                <div>
-                                    <strong>Alamat:</strong> <br> Alamat
-                                </div>
-                            </li>
-
-
-                            {{-- <li class="list-group-item p-3"><strong>Nama:</strong> Viska Ayu</li>
-                            <li class="list-group-item p-3"><strong>Jenis Kelamin:</strong> Perempuan</li>
-                            <li class="list-group-item p-3" ><strong>Tanggal Lahir:</strong> 01 Februari 1994</li>
-                            <li class="list-group-item p-3"><strong>No Telp:</strong> 081263748388</li>
-                            <li class="list-group-item p-3"><strong>Alamat:</strong> Karanganyar</li> --}}
-                        </ul>
+                        @php
+                          $id = request()->route('id'); // Menangkap id pasien yang diteruskan melalui URL
+                            // Eksekusi query untuk mengambil data pasien berdasarkan id
+                            $data_pasien = DB::table('resep')
+                                ->join('detail_resep', 'resep.no_resep', '=', 'detail_resep.no_resep')
+                                ->join('pasien', 'resep.id_pasien', '=', 'pasien.id_pasien')
+                                ->where('resep.id_pasien', $id)
+                                ->where('resep.status_resep', 'setuju')
+                                ->select(
+                                    'resep.*',
+                                    'detail_resep.*',
+                                    'pasien.*',
+                                    DB::raw('TIMESTAMPDIFF(YEAR, pasien.tanggal_lahir, CURDATE()) AS umur'),
+                                )
+                                ->first();
+                        @endphp
+                         @if ($data_pasien)
+                             <ul class="list-group mt-4 width-250">
+                                 <li class="list-group-item p-3 d-flex align-items-start" style="color: #2E6084; width: 250px;">
+                                     <div class="me-2">
+                                         <img src="{{ asset('images/navbar pmo/vector-2.png') }}" class="img-fluid" alt="Icon" style="max-width: 50px; height: auto;">
+                                     </div>
+                                     <div>
+                                         <strong>No RM:</strong> <br> {{ $data_pasien->no_rm }}
+                                     </div>
+                                 </li>
+                                 <li class="list-group-item p-3 d-flex align-items-start" style="color: #2E6084; width: 250px;">
+                                     <div class="me-2">
+                                         <img src="{{ asset('images/navbar pmo/vector.png') }}" class="img-fluid" alt="Icon" style="max-width: 50px; height: auto;">
+                                     </div>
+                                     <div>
+                                         <strong>Nama:</strong> <br> {{ $data_pasien->nama }}
+                                     </div>
+                                 </li>
+                                 <li class="list-group-item p-3 d-flex align-items-start" style="color: #2E6084; width: 250px;">
+                                     <div class="me-2">
+                                         <img src="{{ asset('images/navbar pmo/vector-1.png') }}" class="img-fluid" alt="Icon" style="max-width: 50px; height: auto;">
+                                     </div>
+                                     <div>
+                                         <strong>Jenis Kelamin:</strong> <br> {{ $data_pasien->jenis_kelamin }}
+                                     </div>
+                                    </li>
+                                 <li class="list-group-item p-3 d-flex align-items-start" style="color: #2E6084; width: 250px;">
+                                     <div class="me-2">
+                                         <img src="{{ asset('images/navbar pmo/vector-5.png') }}" class="img-fluid" alt="Icon" style="max-width: 50px; height: auto;">
+                                     </div>
+                                     <div>
+                                         <strong>Tanggal Lahir:</strong> <br> {{ \Carbon\Carbon::parse($data_pasien->tanggal_lahir)->format('d-m-Y') }}
+                                     </div>
+                                 </li>
+                                 <li class="list-group-item p-3 d-flex align-items-start" style="color: #2E6084; width: 250px;">
+                                     <div class="me-2">
+                                         <img src="{{ asset('images/navbar pmo/vector-4.png') }}" class="img-fluid" alt="Icon" style="max-width: 50px; height: auto;">
+                                     </div>
+                                     <div>
+                                         <strong>No Telepon:</strong> <br> {{ $data_pasien->no_telp }}
+                                     </div>
+                                 </li>
+                                 <li class="list-group-item p-3 d-flex align-items-start" style="color: #2E6084; width: 250px;">
+                                     <div class="me-2">
+                                         <img src="{{ asset('images/navbar pmo/vector-3.png') }}" class="img-fluid" alt="Icon" style="max-width: 50px; height: auto;">
+                                     </div>
+                                     <div>
+                                         <strong>Alamat:</strong> <br> {{ $data_pasien->alamat }}
+                                     </div>
+                                 </li>
+                                </ul>
+                     @endif
+                 
                     </div>
                 </div>
             </div>
             <div class="col-md-9">
                 <div class="body m-5">
+                    @if ($message = Session::get('success'))
+                    <div class="alert alert-success">
+                        {{ $message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" style="position: absolute; right: 10px; top: 10px;"></button>
+                    </div>
+                    @elseif($message = Session::get('error'))
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            {{ $message }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    @endif
                     @yield('content')
                 </div>
             </div>
         </div>
     </div>
 </body>
+
 </html>

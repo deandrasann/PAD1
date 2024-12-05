@@ -58,12 +58,7 @@ class DashboardController extends Controller
         $data_pasien = DB::table('pasien')->paginate(5);
         return view('pmo.riwayat-pasien', compact('data_pasien'));
     }
-    public function dataResepPMO(){
-        return view('pmo.data-resep-pmo');
-    }
-    public function riwayatMinumObat(){
-        return view('pmo.riwayat-minum-obat');
-    }
+    
     public function riwayatMinumObat2(){
         return view('pmo.riwayat-minum-obat2');
     }

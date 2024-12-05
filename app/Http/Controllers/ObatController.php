@@ -10,7 +10,6 @@ class ObatController extends Controller
 {
     public function obat(Request $request)
     {
-
         if ($request->has('search')) {
             $search = $request->input('search');
             $data_obat = DB::table('obat')->orWhere('indikasi', $search)

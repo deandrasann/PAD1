@@ -22,8 +22,9 @@ return new class extends Migration
             $table->integer('id_pengawas');
             $table->integer('kode_obat');
             $table->enum('status_resep', ['setuju ', 'deleted'])->default('setuju')->nullable();
-            $table->date('tgl_resep');
+            $table->string('tgl_resep')->nullable();
             $table->string('dosis')->nullable();
+            $table->enum('status_pengobatan', ['Proses Pengobatan ', 'Pengobatan Selesai'])->default('Proses Pengobatan')->nullable();
             // $table->string('harga_satuan')->nullable();
 
 

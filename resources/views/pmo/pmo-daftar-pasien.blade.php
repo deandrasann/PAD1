@@ -42,7 +42,7 @@
                     <td>{{ $item->alamat }}</td>
                     <td>{{ $item->no_telp }}</td>
                     <td>
-                        <a href="{{ route('pmo-cek-pasien') }}"class="btn btn-resep p-2 px-3 detail-btn">
+                    <a href="{{ route('pmo-cek-pasien', $item->id_pasien) }}"class="btn btn-resep p-2 px-3 detail-btn">
                             <img src="{{ asset('images/detail icon.png') }}" class="me-2">Cek Pasien
                         </a>
                     </td>

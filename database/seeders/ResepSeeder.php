@@ -21,7 +21,7 @@ class ResepSeeder extends Seeder
                 'id_pasien'    => 1,
                 'id_pengawas'    => 1,
                 'kode_obat'    => 1,
-                'tgl_resep'    => Carbon::now()->toDateString(),
+                'tgl_resep' => Carbon::now('Asia/Jakarta')->format('Y-m-d H:i:s'),
                 'dosis'    => 5,
             ],
             [
@@ -30,7 +30,7 @@ class ResepSeeder extends Seeder
                 'id_pasien'    => 2,
                 'id_pengawas'    => 1,
                 'kode_obat'    => 2,
-                'tgl_resep'    => Carbon::now()->toDateString(),
+                'tgl_resep' => Carbon::now('Asia/Jakarta')->format('Y-m-d H:i:s'),
                 'dosis'    => 5,
             ],
             [
@@ -39,7 +39,7 @@ class ResepSeeder extends Seeder
                 'id_pasien'    => 3,
                 'id_pengawas'    => 1,
                 'kode_obat'    => 3,
-                'tgl_resep'    => Carbon::now()->toDateString(),
+                'tgl_resep' => Carbon::now('Asia/Jakarta')->format('Y-m-d H:i:s'),
                 'dosis'    => 5,
             ],
             [
@@ -48,7 +48,7 @@ class ResepSeeder extends Seeder
                 'id_pasien'    => 4,
                 'id_pengawas'    => 1,
                 'kode_obat'    => 4,
-                'tgl_resep'    => Carbon::now()->toDateString(),
+                'tgl_resep' => Carbon::now('Asia/Jakarta')->format('Y-m-d H:i:s'),
                 'dosis'    => 5,
             ],
             [
@@ -57,7 +57,7 @@ class ResepSeeder extends Seeder
                 'id_pasien'    => 5,
                 'id_pengawas'    => 1,
                 'kode_obat'    => 5,
-                'tgl_resep'    => Carbon::now()->toDateString(),
+                'tgl_resep' => Carbon::now('Asia/Jakarta')->format('Y-m-d H:i:s'),
                 'dosis'    => 5,
             ],
             [
@@ -66,7 +66,7 @@ class ResepSeeder extends Seeder
                 'id_pasien'    => 6,
                 'id_pengawas'    => 1,
                 'kode_obat'    => 6,
-                'tgl_resep'    => Carbon::now()->toDateString(),
+                'tgl_resep' => Carbon::now('Asia/Jakarta')->format('Y-m-d H:i:s'),
                 'dosis'    => 5,
             ],
             [
@@ -75,7 +75,7 @@ class ResepSeeder extends Seeder
                 'id_pasien'    => 7,
                 'id_pengawas'    => 1,
                 'kode_obat'    => 7,
-                'tgl_resep'    => Carbon::now()->toDateString(),
+                'tgl_resep' => Carbon::now('Asia/Jakarta')->format('Y-m-d H:i:s'),
                 'dosis'    => 5,
             ],
             [
@@ -84,7 +84,7 @@ class ResepSeeder extends Seeder
                 'id_pasien'    => 8,
                 'id_pengawas'    => 1,
                 'kode_obat'    => 8,
-                'tgl_resep'    => Carbon::now()->toDateString(),
+                'tgl_resep' => Carbon::now('Asia/Jakarta')->format('Y-m-d H:i:s'),
                 'dosis'    => 5,
             ],
             [
@@ -93,7 +93,7 @@ class ResepSeeder extends Seeder
                 'id_pasien'    => 9,
                 'id_pengawas'    => 1,
                 'kode_obat'    => 9,
-                'tgl_resep'    => Carbon::now()->toDateString(),
+                'tgl_resep' => Carbon::now('Asia/Jakarta')->format('Y-m-d H:i:s'),
                 'dosis'    => 5,
             ],
             [
@@ -102,7 +102,7 @@ class ResepSeeder extends Seeder
                 'id_pasien'    => 10,
                 'id_pengawas'    => 1,
                 'kode_obat'    => 10,
-                'tgl_resep'    => Carbon::now()->toDateString(),
+                'tgl_resep' => Carbon::now('Asia/Jakarta')->format('Y-m-d H:i:s'),
                 'dosis'    => 5,
             ]
         ]);

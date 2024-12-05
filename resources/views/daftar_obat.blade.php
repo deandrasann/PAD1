@@ -43,7 +43,7 @@
                                 class=" 
                             @if ($item->status_ketersediaan_obat == 'Stocked') text-success font-weight-bold
                             @elseif($item->status_ketersediaan_obat == 'Draft')
-                                text-info font-weight-bold
+                                text-warning font-weight-bold
                             @elseif($item->status_ketersediaan_obat == 'Habis')
                                 text-danger font-weight-bold @endif">
                                 {{ $item->status_ketersediaan_obat }}

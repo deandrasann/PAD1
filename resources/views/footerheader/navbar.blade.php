@@ -17,7 +17,7 @@
 
 {{-- Navbar --}}
 <nav class="navbar sticky-top bg-body-tertiary px-4 py-2" style="background: linear-gradient(90deg, #0D426C 22.99%, #338CC1 95.86%); width: 100%;">
-    <div class="container-fluid d-flex justify-content-between align-items-end">
+    <div class="container-fluid d-flex justify-content-between align-items-center">
 
         <!-- Left Section: Sidebar Toggle & Logo -->
         <div class="d-flex align-items-center">

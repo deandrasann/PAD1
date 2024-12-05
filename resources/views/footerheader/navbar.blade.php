@@ -16,8 +16,7 @@
 </head>
 
 {{-- Navbar --}}
-<nav class="navbar sticky-top bg-body-tertiary p-4"
-    style="background: linear-gradient(90deg, #0D426C 22.99%, #338CC1 95.86%); width: 100%;">
+<nav class="navbar sticky-top bg-body-tertiary px-4 py-2" style="background: linear-gradient(90deg, #0D426C 22.99%, #338CC1 95.86%); width: 100%;">
     <div class="container-fluid d-flex justify-content-between align-items-center">
 
         <!-- Left Section: Sidebar Toggle & Logo -->
@@ -26,8 +25,7 @@
                 <img src="{{ asset('images/logo.png') }}" alt="Logo" width="150" height="auto" class="me-3">
             </a>
             <!-- Sidebar Toggle Icon -->
-            <a href="#" data-bs-target="#sidebar" data-bs-toggle="collapse"
-                class="navbar-brand d-flex align-items-center me-3">
+            <a href="#" data-bs-target="#sidebar" data-bs-toggle="collapse" class="navbar-brand d-flex align-items-center">
                 <img src="{{ asset('images/navbar menu/navbar icon.png') }}" alt="Menu">
             </a>
         </div>
@@ -37,7 +35,7 @@
                 @csrf
                 <a href="{{ route('logout') }}" class="text-decoration-none d-flex align-items-center">
                     <img src="{{ asset('images/navbar menu/logout.png') }}" alt="Logout Icon" class="icon">
-                    <span class="logout-text ms-2 text-white">Logout</span>
+                    <span class="logout-text text-white">Logout</span>
                 </a>
             </form>
         </div>
@@ -82,12 +80,15 @@
                             <p>{{ auth()->user()->nama_role }}</p>
                         @endauth
                     </div>
+
+                    @can('apoteker')
                     <a href="{{ route('tambah-resep') }}" type="button"
                         class="btn btn-primary d-flex justify-content-center align-items-center m-4"
                         style="flex-shrink: 0; border-radius: 90px;background: #3378AA; box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);border:none"><strong>TAMBAH
                             RESEP</strong> <img src="{{ asset('images/tambah resep icon.png') }}" class="ms-4"
                             style="width: 45px; height:45px">
                     </a>
+                    @endcan
 
                     @can('admin+apoteker+pengawas')
                         <a href ="{{ route('beranda') }}" type="button"
@@ -95,13 +96,13 @@
                                 src="{{ asset('images/home icon.png') }}" class="me-4" style="width: 30px; height:30px">
                             <strong>Beranda</strong></a>
                     @endcan
-                    @can('admin+apoteker')
+                    @can('apoteker')
                         <a href ="{{ route('daftar-obat') }}" type="button"
                             class="btn-custom ps-3 d-flex justify-content-start align-items-center m-2 mx-4"> <img
                                 src="{{ asset('images/obat icon.png') }}" class="me-4"
                                 style="width: 30px; height:30px"><strong>Obat</strong></a>
                     @endcan
-                    @can('admin+apoteker')
+                    @can('apoteker')
                         <a href ="{{ route('daftar-pasien') }}" type="button"
                             class="btn-custom ps-3 d-flex justify-content-start align-items-center m-2 mx-4"> <img
                                 src="{{ asset('images/pasien icon.png') }}" class="me-4"
@@ -113,13 +114,13 @@
                                 src="{{ asset('images/riwayat resep.png') }}" class="me-4"
                                 style="width: 24px; height:24px"><strong>Riwayat Resep</strong></a>
                     @endcan
-                    @can('admin+pengawas')
+                    @can('pengawas')
                         <a href ="{{ route('pmo-daftar-pasien') }}" type="button"
                             class="btn-custom ps-3 d-flex justify-content-start align-items-center m-2 mx-4"> <img
                                 src="{{ asset('images/navbar menu/list pasien.png') }}" class="me-4"
                                 style="width: 30px; height:30px"><strong>List Pasien</strong></button>
                         @endcan
-                        @can('admin+pengawas')
+                        @can('pengawas')
                             <a href ="{{ route('riwayat-pasien-PMO') }}" type="button"
                                 class="btn-custom ps-3 d-flex justify-content-start align-items-center m-2 mx-4"> <img
                                     src="{{ asset('images/navbar menu/riwayat pasien.png') }}" class="me-4"

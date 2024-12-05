@@ -82,4 +82,8 @@ class PasienController extends Controller
             return back();
         };
     }
+
+    public function hasilScan(){
+        return view('hasil-scan-pasien');
+    }
 }

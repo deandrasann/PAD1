@@ -51,7 +51,7 @@
                         </button>
                         </td>
                     </tr>
-                    @empty 
+                    @empty
                     <tr>
                         <td colspan="7" class="text-center">Tidak Ada Data</td>
                     </tr>
@@ -64,14 +64,14 @@
     </div>
 
     <!-- Pagination -->
-    
+
 
 
 <div class="modal fade" id="editApotekerModal" tabindex="-1" aria-labelledby="editApotekerModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="editApotekerModalLabel">Edit Pasien</h5>
+          <h5 class="modal-title" id="editApotekerModalLabel">Edit Apoteker</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <form action="" method="POST" id="formedit">
@@ -90,11 +90,11 @@
               <div class="row mb-3">
                 <label for="nama" class="col-md-4 col-form-label">Nama Apoteker</label>
                 <div class="col-md-8">
-                  <input type="text" class="form-control" id="nama" name="nama_apoteker">                     
+                  <input type="text" class="form-control" id="nama" name="nama_apoteker">
                 </div>
               </div>
         </div>
-        
+
         <div class="modal-footer">
             <button type="button" class="btn btn-white" data-bs-dismiss="modal">Batal</button>
             <button type="submit" class="btn btn-resep ms-auto">Simpan</button>
@@ -143,12 +143,12 @@
    var row = editButton.closest("tr");
    var data = row.getElementsByTagName('td');
 
-   document.getElementById("formedit").action = "{{route('apoteker.update', '')}}/" + id;  
-   document.getElementById("usernameedit").value = data[1].innerText;  
-   document.getElementById("nama").value = data[2].innerText;    
-   // document.getElementById("editCategoryDescription").value = data[1].innerText;  
-   // document.getElementById("editCategoryDescription").value = data[2].innerText;  
+   document.getElementById("formedit").action = "{{route('apoteker.update', '')}}/" + id;
+   document.getElementById("usernameedit").value = data[1].innerText;
+   document.getElementById("nama").value = data[2].innerText;
+   // document.getElementById("editCategoryDescription").value = data[1].innerText;
+   // document.getElementById("editCategoryDescription").value = data[2].innerText;
    // console.log(data);
-   
+
  }
 </script>

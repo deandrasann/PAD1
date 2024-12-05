@@ -44,14 +44,14 @@
                         {{-- <button class="btn btn-resep p-2 px-3 detail-btn" data-bs-toggle="modal" data-bs-target="#detailPasienModal">
                             <img src="{{ asset('images/detail icon.png') }}" class="me-2">Detail
                         </button> --}}
-                        <button class="btn btn-primary p-2 px-3 detail-btn" data-norm="{{ $item->no_rm }}"
+                        <button class="btn btn-resep p-2 px-3 detail-btn" data-norm="{{ $item->no_rm }}"
                             data-nama="{{ $item->nama }}" data-jenis="{{ $item->jenis_kelamin }}"
                             data-tanggal="{{ $item->tanggal_lahir }}" data-alamat="{{ $item->alamat }}"
                             data-notelp="{{ $item->no_telp }}"
                             data-bs-toggle="modal" data-bs-target="#detailPasienModal">
                             <img src="{{ asset('images/detail icon.png') }}" class="me-2">Detail
                         </button>
-                        
+
                         {{-- <button class="btn btn-success p-2 px-3 edit-btn" data-bs-toggle="modal" data-bs-target="#editPasienModal">
                             <img src="{{ asset('images/edit icon.png') }}" class="me-2">Edit
                         </button> --}}
@@ -138,13 +138,17 @@
                 </div>
             </div>
         </div>
+          <!-- Pagination -->
+          <div class="paginate d-flex justify-content-center">
+            {{ $data_pasien->links() }}
+        </div>
 
-        {{-- Detail Pasien --}}
+        <!-- Detail Pasien Modal -->
         <div class="modal fade" id="detailPasienModal" tabindex="-1" aria-labelledby="detailPasienModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="detailPasienModalLabel">Detail Data Obat</h5>
+                        <h5 class="modal-title" id="detailPasienModalLabel">Detail Data Pasien</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
@@ -180,12 +184,11 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-resep" data-bs-dismiss="modal">Kembali</button>
                     </div>
-
                 </div>
             </div>
         </div>
-        
-       
+
+
 
          {{-- Edit Obat Modal --}}
     <div class="modal fade" id="editPasienModal" tabindex="-1" aria-labelledby="editPasienModalLabel" aria-hidden="true">
@@ -211,7 +214,7 @@
                   <div class="row mb-3">
                     <label for="nama" class="col-md-4 col-form-label">Nama</label>
                     <div class="col-md-8">
-                      <input type="text" class="form-control" id="nama" name="nama">                     
+                      <input type="text" class="form-control" id="nama" name="nama">
                     </div>
                   </div>
 
@@ -247,7 +250,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <div class="modal-footer">
                 <button type="button" class="btn btn-white" data-bs-dismiss="modal">Batal</button>
                 <button type="submit" class="btn btn-resep ms-auto">Simpan</button>
@@ -262,12 +265,12 @@
           <div class="modal-dialog">
               <div class="modal-content ">
                   <div class="modal-header">
-                      <h5 class="modal-title" id="hapusPasienModalLabel">Hapus Data Obat</h5>
+                      <h5 class="modal-title" id="hapusPasienModalLabel">Hapus Data Pasien</h5>
                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                   </div>
                   <div class="modal-body text-center">
                       <img src="{{ asset('images/warning icon.png') }}" alt="Warning">
-                      <p>Anda yakin ingin menghapus data obat ini?</p>
+                      <p>Anda yakin ingin menghapus data pasien ini?</p>
                       <form action="{{ route('pasien.destroy', $key->id_pasien)}}" method="POST">
                       <div class="d-flex justify-content-around mt-3">
                           <button type="button" class="btn btn-white" data-bs-dismiss="modal">TIDAK</button>
@@ -282,11 +285,8 @@
         </div>
         @endforeach
 
-        <!-- Pagination -->
-        <div class="paginate d-flex justify-content-center">
-            {{ $data_pasien->links() }}
-        </div>
     </div>
+
 </div>
 @endsection
 
@@ -324,16 +324,16 @@
    var row = editButton.closest("tr");
    var data = row.getElementsByTagName('td');
 
-   document.getElementById("formedit").action = "{{route('pasien.update', '')}}/" + id;  
-   document.getElementById("nomorrm").value = data[0].innerText;  
-   document.getElementById("nama").value = data[1].innerText;  
-   document.getElementById("tanggal").value = data[3].innerText;  
-   document.getElementById("jenis").value = data[2].innerText;  
-   document.getElementById("notelp").value = data[5].innerText;  
-   document.getElementById("alamatedit").value = data[4].innerText;  
-   // document.getElementById("editCategoryDescription").value = data[1].innerText;  
-   // document.getElementById("editCategoryDescription").value = data[2].innerText;  
+   document.getElementById("formedit").action = "{{route('pasien.update', '')}}/" + id;
+   document.getElementById("nomorrm").value = data[0].innerText;
+   document.getElementById("nama").value = data[1].innerText;
+   document.getElementById("tanggal").value = data[3].innerText;
+   document.getElementById("jenis").value = data[2].innerText;
+   document.getElementById("notelp").value = data[5].innerText;
+   document.getElementById("alamatedit").value = data[4].innerText;
+   // document.getElementById("editCategoryDescription").value = data[1].innerText;
+   // document.getElementById("editCategoryDescription").value = data[2].innerText;
    // console.log(data);
-   
+
  }
 </script>

@@ -205,8 +205,9 @@
                         <div class="row mb-3">
                             <label for="noPemeriksaan" class="col-md-4 col-form-label">Nomor Antrian</label>
                             <div class="col-md-8">
-                              <select id="noPemeriksaan" name="no_antrian" class="form-select" >
-                                <option disabled selected>--Pilih NomorAntrian --</option>
+                              {{-- <select id="noPemeriksaan" name="no_antrian" class="form-select" > --}}
+                            <select id="noPemeriksaan" name="no_antrian" class="form-select" onmousedown="if(this.options.length>5){this.size=5;}">
+                                <option disabled selected>--Pilih Nomor Antrian --</option>
                                 @foreach($data_pemeriksaan as $pemeriksaaan)
                                 <option value="{{ $pemeriksaaan->no_antrian }}" {{ old('no_antrian') == $pemeriksaaan->no_antrian ? 'selected' : null}}>{{ $pemeriksaaan->no_antrian }}</option>
                                 @endforeach
@@ -216,7 +217,7 @@
                         <br>
 
                             <div class="row mb-3">
-                              <label for="namadokter" class="col-md-4 col-form-label">Nama Dokter</label>
+                              <label for="namadokter" class="col-md-4 col-form-label" onmousedown="if(this.options.length>5){this.size=5;}">Nama Dokter</label>
                               <div class="col-md-8">
                                 <select id="namadokter" name="id_dokter" class="form-select" >
                                   <option disabled selected>--Pilih Dokter --</option>
@@ -236,7 +237,7 @@
                             <div class="row mb-3">
                                 <label for="namaObat" class="col-md-4 col-form-label">Nama Obat</label>
                                 <div class="col-md-8">
-                                  <select id="namaObat" name="kode_obat" class="form-select">
+                                  <select id="namaObat" name="kode_obat" class="form-select" onmousedown="if(this.options.length>5){this.size=5;}">
                                     <option disabled selected>--Pilih Obat --</option>
                                     @foreach($data_obat as $obat)
                                     <option value="{{ $obat->kode_obat }}" {{ old('nama_obat') == $obat->nama_obat ? 'selected' : null}}>{{ $obat->nama_obat }}</option>
@@ -253,7 +254,7 @@
                             </div> --}}
                            
                         </div>
-                        
+
                         <div class="modal-footer">
                             <button type="button" class="btn btn-white" data-bs-dismiss="modal">Batal</button>
                             <button type="submit" class="btn btn-resep ms-auto">Simpan</button>

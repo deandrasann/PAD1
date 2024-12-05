@@ -6,6 +6,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ObatController;
 use App\Http\Controllers\PasienController;
 use App\Http\Controllers\PengawasController;
+use App\Http\Controllers\PengawasMinumObatController;
 use App\Http\Controllers\ResepController;
 use Illuminate\Support\Facades\Route;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
@@ -73,8 +74,8 @@ Route::group(['middleware' => ['auth', 'level:admin']], function () {
 Route::group(['middleware' => ['auth', 'level:admin,pengawas']], function () {
 
     Route::get('/riwayat-resep', [DashboardController::class, 'riwayatResep'])->name('riwayat-resep');
-    Route::get('/pasien-pmo', [DashboardController::class, 'pasienPMO'])->name('pmo-daftar-pasien');
-    Route::get('/cek-pasien', [DashboardController::class, 'cekpasienPMO'])->name('pmo-cek-pasien');
+    Route::get('/pasien-pmo', [PengawasMinumObatController::class, 'pasienPMO'])->name('pmo-daftar-pasien');
+    Route::get('/cek-pasien', [PengawasMinumObatController::class, 'cekpasienPMO'])->name('pmo-cek-pasien');
     Route::get('/data-resep', [DashboardController::class, 'dataResepPMO'])->name('pmo-data-resep');
     Route::get('/riwayat-minum-obat', [DashboardController::class, 'riwayatMinumObat'])->name('pmo-riwayat-minum-obat');
     Route::get('/riwayat-pasien', [DashboardController::class, 'riwayatPasienPMO'])->name('riwayat-pasien-PMO');

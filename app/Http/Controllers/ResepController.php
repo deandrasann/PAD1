@@ -41,7 +41,9 @@ class ResepController extends Controller
 
         // $data = DB::table('obat')->where('id_pasien', $id)->paginate(5);
         $data_dokter = DB::table('dokter')->get();
-        $data_obat = DB::table('obat')->get();
+        $data_obat = DB::table('obat')
+        ->where('status_ketersediaan_obat', 'stocked') // Menyaring berdasarkan status_ketersediaan_obat 'stocked'
+        ->get();;
         $data_pemeriksaan = DB::table('pemeriksaan')->get();
         $data_pengawas = DB::table('pengawas')->get();
         // ApotekerModel::join('obat', 'apoteker.id_apoteker', '=', 'obat.id_apoteker')
@@ -126,6 +128,10 @@ class ResepController extends Controller
                 DB::rollback();
                 return redirect()->back()->with('error', 'Dosis melebihi kekuatan sediaan obat!');
             }
+            
+            if ($new_kekuatan_sediaan == 0) {
+                $obat->update(['status_ketersediaan_obat' => 'Habis']);
+            }
     
             // Update nilai kekuatan_sediaan
             $obat->update(['kekuatan_sediaan' => $new_kekuatan_sediaan]);
@@ -156,7 +162,7 @@ class ResepController extends Controller
             // Jika terjadi kesalahan, rollback perubahan
             DB::rollback();
             $idpasien = $request->id_pasien;
-            return redirect()->route('resep-tiap-pasien', ['id' => $idpasien])->with('error', 'Gagal menambahkan Resep: ' . $e->getMessage());
+            return redirect()->route('resep-tiap-pasien', ['id' => $idpasien])->with('error', 'Gagal menambahkan Resep:');
         }
     }
     

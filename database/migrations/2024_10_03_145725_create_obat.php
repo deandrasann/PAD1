@@ -35,6 +35,7 @@ return new class extends Migration
             $table->string('informasi_tambahan')->nullable();
             $table->string('efek_samping')->nullable();
             $table->string('indikasi')->nullable();
+            $table->enum('status_ketersediaan_obat', ['Stocked ', 'Draft','Habis'])->default('Stocked')->nullable();
 
             $table
             ->foreign('id_apoteker')

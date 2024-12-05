@@ -37,6 +37,7 @@ class ObatModel extends Model
         'informasi_tambahan',
         'efek_samping',
         'indikasi',
+        'status_ketersediaan_obat',
     ];
     
 }

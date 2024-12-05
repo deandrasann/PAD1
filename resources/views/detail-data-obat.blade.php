@@ -23,7 +23,7 @@
                             </tr>
                             <tr>
                                 <th>Nama Pasien</th>
-                                <td>: {{ $item->nama }}, ({{ $item->umur }} / {{ $item->jenis_kelamin }})</td>
+                                <td>: {{ $item->nama }}, ({{ $item->umur }} Tahun / {{ $item->jenis_kelamin }})</td>
                             </tr>
                             <tr>
                                 <th>Nama Obat</th>

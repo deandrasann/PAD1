@@ -54,16 +54,9 @@ class DashboardController extends Controller
         return view('admin.jumlah-pengawas', compact('data_pengawas'));
     }
     
-    public function pasienPMO(){
-        $data_pasien = DB::table('pasien')->paginate(5);
-        return view('pmo.pmo-daftar-pasien', compact('data_pasien'));
-    }
     public function riwayatPasienPMO(){
         $data_pasien = DB::table('pasien')->paginate(5);
         return view('pmo.riwayat-pasien', compact('data_pasien'));
-    }
-    public function cekpasienPMO(){
-        return view('pmo.cek-pasien');
     }
     public function dataResepPMO(){
         return view('pmo.data-resep-pmo');

@@ -39,6 +39,7 @@ Route::get('/pasien', [PasienController::class, 'pasien'])->name('daftar-pasien'
 Route::post('/pasien', [PasienController::class, 'PasienStore'])->name('pasien.store');
 Route::post('/pasien/{id}', [PasienController::class, 'PasienUpdate'])->name('pasien.update');
 Route::delete('/pasien/{id}', [PasienController::class, 'PasienDestroy'])->name('pasien.destroy');
+Route::get('/hasil-scan', [PasienController::class, 'hasilScan'])->name('hasil.scan');
 
 Route::group(['middleware' => ['auth','level:admin,dokter,apoteker,pengawas']], function () {
 

@@ -265,12 +265,12 @@
           <div class="modal-dialog">
               <div class="modal-content ">
                   <div class="modal-header">
-                      <h5 class="modal-title" id="hapusPasienModalLabel">Hapus Data Obat</h5>
+                      <h5 class="modal-title" id="hapusPasienModalLabel">Hapus Data Pasien</h5>
                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                   </div>
                   <div class="modal-body text-center">
                       <img src="{{ asset('images/warning icon.png') }}" alt="Warning">
-                      <p>Anda yakin ingin menghapus data obat ini?</p>
+                      <p>Anda yakin ingin menghapus data pasien ini?</p>
                       <form action="{{ route('pasien.destroy', $key->id_pasien)}}" method="POST">
                       <div class="d-flex justify-content-around mt-3">
                           <button type="button" class="btn btn-white" data-bs-dismiss="modal">TIDAK</button>

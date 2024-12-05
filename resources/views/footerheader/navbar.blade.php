@@ -66,12 +66,15 @@
                             <p>{{ auth()->user()->nama_role }}</p>
                         @endauth
                     </div>
+
+                    @can('apoteker')
                     <a href="{{ route('tambah-resep') }}" type="button"
                         class="btn btn-primary d-flex justify-content-center align-items-center m-4"
                         style="flex-shrink: 0; border-radius: 90px;background: #3378AA; box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);border:none"><strong>TAMBAH
                             RESEP</strong> <img src="{{ asset('images/tambah resep icon.png') }}" class="ms-4"
                             style="width: 45px; height:45px">
                     </a>
+                    @endcan
 
                     @can('admin+apoteker+pengawas')
                         <a href ="{{ route('beranda') }}" type="button"
@@ -79,13 +82,13 @@
                                 src="{{ asset('images/home icon.png') }}" class="me-4" style="width: 30px; height:30px">
                             <strong>Beranda</strong></a>
                     @endcan
-                    @can('admin+apoteker')
+                    @can('apoteker')
                         <a href ="{{ route('daftar-obat') }}" type="button"
                             class="btn-custom ps-3 d-flex justify-content-start align-items-center m-2 mx-4"> <img
                                 src="{{ asset('images/obat icon.png') }}" class="me-4"
                                 style="width: 30px; height:30px"><strong>Obat</strong></a>
                     @endcan
-                    @can('admin+apoteker')
+                    @can('apoteker')
                         <a href ="{{ route('daftar-pasien') }}" type="button"
                             class="btn-custom ps-3 d-flex justify-content-start align-items-center m-2 mx-4"> <img
                                 src="{{ asset('images/pasien icon.png') }}" class="me-4"
@@ -97,13 +100,13 @@
                                 src="{{ asset('images/riwayat resep.png') }}" class="me-4"
                                 style="width: 24px; height:24px"><strong>Riwayat Resep</strong></a>
                     @endcan
-                    @can('admin+pengawas')
+                    @can('pengawas')
                         <a href ="{{ route('pmo-daftar-pasien') }}" type="button"
                             class="btn-custom ps-3 d-flex justify-content-start align-items-center m-2 mx-4"> <img
                                 src="{{ asset('images/navbar menu/list pasien.png') }}" class="me-4"
                                 style="width: 30px; height:30px"><strong>List Pasien</strong></button>
                         @endcan
-                        @can('admin+pengawas')
+                        @can('pengawas')
                             <a href ="{{ route('riwayat-pasien-PMO') }}" type="button"
                                 class="btn-custom ps-3 d-flex justify-content-start align-items-center m-2 mx-4"> <img
                                     src="{{ asset('images/navbar menu/riwayat pasien.png') }}" class="me-4"

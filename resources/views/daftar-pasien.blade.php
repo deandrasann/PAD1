@@ -8,7 +8,7 @@
 
     <form action="{{ route('daftar-pasien') }}" method="GET">
     <div class="search-bar my-3">
-        <input type="text" class="form-control" placeholder="Cari Obat" name="search" value="{{ request("search") }}" autocomplete="off">
+        <input type="text" class="form-control" placeholder="Cari Pasien" name="search" value="{{ request("search") }}" autocomplete="off">
         <button class="btn btn-link" type="submit">
             <img src="{{ asset('images/search icon.png') }}">
         </button>

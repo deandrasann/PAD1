@@ -12,63 +12,23 @@
                 @foreach ($data_detail_obat as $item)
                 <tbody>
                     <tr>
-                        <th>Nama</th>
-                        <td>: {{ $item->nama_obat }} </td>
+                        <th>Nama Pasien</th>
+                        <td>: {{ $item->nama }} </td>
                     </tr>
                     <tr>
-                        <th>Dosis</th>
-                        <td>: </td>
+                        <th>Nama Obat</th>
+                        <td>: {{ $item->nama_obat }}</td>
                     </tr>
                     <tr>
                         <th>Aturan Pakai</th>
-                        <td>: {{ $item->aturan_pakai }} </td>
+                        <td>: {{ $item->jml_kali_minum }} Sehari {{ $item->takaran_minum }} </td>
                     </tr>
                     <tr>
-                        <th>Waktu Kali Minum</th>
-                        <td>: {{ $item->jml_kali_minum }}</td>
+                        <th>Waktu Minum</th>
+                        <td>: {{ $item->aturan_pakai }}</td>
                     </tr>
                     <tr>
-                        <th>Jumlah Obat</th>
-                        <td>:  {{ $item->jumlah_obat }}</td>
-                    </tr>
-                    <tr>
-                        <th>Efek Samping</th>
-                        <td>:  {{ $item->efek_samping }}</td>
-                    </tr>
-                    <tr>
-                        <th>Kontraindikasi</th>
-                        <td>:  {{ $item->kontraindikasi }}</td>
-                    </tr>
-                    <tr>
-                        <th>Interaksi Obat</th>
-                        <td>: {{ $item->interaksi_obat }}</td>
-                    </tr>
-                    <tr>
-                        <th>Petunjuk Penyimpanan</th>
-                        <td>: {{ $item->petunjuk_penyimpanan }}</td>
-
-                    </tr>
-                    <tr>
-                        <th>Pola makan dan Hidup Sehat</th>
-                        <td>
-                            <ol>
-                                <li>Perbanyak konsumsi air putih, sayuran, buah, ikan.</li>
-                                <li>Kurangi konsumsi makanan/minuman manis, berlemak, garam.</li>
-                                <li>Kurangi makanan instan (sosis, makanan kaleng).</li>
-                                <li>Ganti konsumsi susu dengan yang rendah lemak.</li>
-                            </ol>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>Informasi Tambahan</th>
-                        <td>
-                            <ol>
-                                <li>Hindari mengubah posisi tubuh secara tiba-tiba dari duduk ke berdiri atau berbaring ke duduk.</li>
-                                <li>Rutin cek tekanan darah anda.</li>
-                                <li>Hindari rokok.</li>
-                                <li>Olahraga aerobik 30 menit tiap minggu.</li>
-                            </ol>
-                        </td>
+                        <td colspan="2"><hr></td>
                     </tr>
                     @endforeach
                 </tbody>

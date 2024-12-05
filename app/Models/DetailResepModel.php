@@ -17,4 +17,11 @@ class DetailResepModel extends Model
     // PK integer AI
     public $incrementing = true;
 
+    protected $fillable = [
+        'no_resep',
+        'kode_obat',
+        'jumlah_resep',
+        'total_harga',
+    ];
+
 }

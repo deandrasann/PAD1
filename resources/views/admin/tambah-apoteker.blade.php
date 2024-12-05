@@ -11,22 +11,34 @@
                 <div class="row mb-3">
                     <div class="col-md-6">
                         <label for="username" class="form-label">Username</label>
-                        <input type="text" class="form-control" id="username" name="username" placeholder="Username">
+                        <input type="text" class="form-control @error('username') is-invalid @enderror" id="username" name="username" placeholder="Username" value="{{ old('username') }}">
+                        @if ($errors->has('username'))
+                        <span class="text-danger">{{ $errors->first('username') }}</span>
+                    @endif
                     </div>
                     
                     <div class="col-md-6">
                         <label for="namaApoteker" class="form-label">Nama Apoteker</label>
-                        <input type="text" class="form-control" id="namaApoteker" name="nama_apoteker" placeholder="Nama Apoteker">
+                        <input type="text" class="form-control @error('nama_apoteker') is-invalid @enderror" id="namaApoteker" name="nama_apoteker" placeholder="Nama Apoteker" value="{{ old('nama_apoteker') }}">
+                        @if ($errors->has('nama_apoteker'))
+                        <span class="text-danger">{{ $errors->first('nama_apoteker') }}</span>
+                    @endif
                     </div>
                 </div>
                 <div class="row mb-3">
                     <div class="col-md-6">
                         <label for="email" class="form-label">Email</label>
-                        <input type="email" class="form-control" id="email" name="email" placeholder="Email">
+                        <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email" placeholder="Email" value="{{ old('email') }}">
+                        @if ($errors->has('email'))
+                        <span class="text-danger">{{ $errors->first('email') }}</span>
+                    @endif
                     </div>
                     <div class="col-md-6">
                         <label for="password" class="form-label">Password</label>
-                        <input type="password" class="form-control" id="password" name="password" placeholder="Password">
+                        <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" name="password" placeholder="Password">
+                        @if ($errors->has('password'))
+                        <span class="text-danger">{{ $errors->first('password') }}</span>
+                    @endif
                     </div>
                 </div>
                 <div class="row mb-3">

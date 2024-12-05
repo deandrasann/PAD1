@@ -19,7 +19,6 @@ class ApotekerSeeder extends Seeder
                 'id_pengguna' => '3',
                 'nama_apoteker' => 'apoteker1',
                 'email' => 'apoteker@gmail.com',
-                'foto' => 'ror1',
             ],
         ]);
 

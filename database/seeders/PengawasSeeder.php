@@ -20,7 +20,6 @@ class PengawasSeeder extends Seeder
                 'kode_klinik' => '1',
                 'nama_pengawas' => 'pengawas1',
                 'email' => 'pengawas@gmail.com',
-                'foto' => 'ror2',
             ]
         ]);
 

@@ -17,12 +17,8 @@ return new class extends Migration
             $table->collation = 'utf8mb4_general_ci';
             $table->integer('kode_detail_resep',true);
             $table->integer('no_resep');
-            $table->integer('kode_obat');
-            $table->integer('nama_obat');
-            $table->integer('dosis');
-            $table->integer('aturan_pakai');
             $table->integer('jumlah_resep');
-            $table->integer('total_harga');
+            // $table->integer('total_harga');
 
 
             $table
@@ -32,12 +28,6 @@ return new class extends Migration
             ->cascadeOnUpdate()
             ->cascadeOnDelete();
 
-            $table
-            ->foreign('kode_obat')
-            ->references('kode_obat')
-            ->on('obat')
-            ->cascadeOnUpdate()
-            ->cascadeOnDelete();
         });
     }
 

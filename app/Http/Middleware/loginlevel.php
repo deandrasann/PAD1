@@ -15,10 +15,12 @@ class loginlevel
      */
     public function handle(Request $request, Closure $next, ...$levels): Response
     {
+        $page_name = $request->route()->getName() ?? 'halaman tidak dikenal'; 
+
         if(in_array($request->user()->nama_role, $levels))
         {
             return $next($request);
         }
-        return redirect('/dashboard');
+        return back()->with('error', 'Anda tidak berwenang untuk mengakses halaman ' . $page_name);
     }
 }

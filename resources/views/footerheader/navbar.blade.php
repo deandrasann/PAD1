@@ -56,13 +56,27 @@
                     <div class="offcanvas-header d-flex flex-column align-items-center text-align-center m-4">
                         @auth
                             @if (Auth::user()->nama_role == 'apoteker')
-                                <img src="{{ asset('storage/' . Auth::user()->apoteker->foto) }}" class="m-4"
-                                    width="200px" height="200px">
-                            @elseif(Auth::user()->nama_role == 'pengawas')
-                                <img src="{{ asset('storage/' . Auth::user()->pengawas->foto) }}" class="m-4"
-                                    width="200px" height="200px">
+                                <!-- Jika role 'apoteker', periksa apakah foto ada -->
+                                @if (Auth::user()->apoteker && Auth::user()->apoteker->foto)
+                                    <img src="{{ asset('storage/' . Auth::user()->apoteker->foto) }}" class="m-4"
+                                        width="200px" height="200px">
+                                @else
+                                    <img src="{{ asset('images/user_profile1.png') }}" class="m-4" width="200px"
+                                        height="200px">
+                                @endif
+                            @elseif (Auth::user()->nama_role == 'pengawas')
+                                <!-- Jika role 'pengawas', periksa apakah foto ada -->
+                                @if (Auth::user()->pengawas && Auth::user()->pengawas->foto)
+                                    <img src="{{ asset('storage/' . Auth::user()->pengawas->foto) }}" class="m-4"
+                                        width="200px" height="200px">
+                                @else
+                                    <img src="{{ asset('images/user_profile1.png') }}" class="m-4" width="200px"
+                                        height="200px">
+                                @endif
                             @else
-                                <img src="{{ asset('images/user_profile1.png') }}" alt="" width="200px" height="200px">
+                                <!-- Untuk role lainnya, tampilkan foto default -->
+                                <img src="{{ asset('images/user_profile1.png') }}" alt="" width="200px"
+                                    height="200px">
                             @endif
                             <h5 class="offcanvas-title" id="offcanvasScrollingLabel">{{ auth()->user()->username }}</h5>
                             <p>{{ auth()->user()->nama_role }}</p>
@@ -130,11 +144,20 @@
         <main class="col ps-md-2 pt-2">
 
             <body>
-                <div class="body m-5">@yield('content')</div>
+                <div class="body m-5">@if ($message = Session::get('success'))
+                    <div class="alert alert-success">
+                        {{ $message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" style="position: absolute; right: 10px; top: 10px;"></button>
+                    </div>
+                    @elseif($message = Session::get('error'))
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            {{ $message }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    @endif
+                    @yield('content')</div>
             </body>
         </main>
-    </div>
-</div>
 
 
 </html>

@@ -46,7 +46,7 @@
                 </div>
             </div>
 
-        <a href='{{route('detail-resep-obat', $resep_obat->id_pasien)}}' class="container-row-2 p-4">
+        <a href='{{route('detail-resep-obat', $resep_obat->id_pasien)}}' class="container-row-2 p-4" target="_blank">
             <img src="{{ asset('images/printer.png') }}">
         </a>
     </div>
@@ -193,7 +193,7 @@
         {{-- Tambah Obat Modal --}}
         <div class="modal fade" id="tambahObatModal" tabindex="-1" aria-labelledby="tambahObatModalLabel"
             aria-hidden="true">
-            <div class="modal-dialog">
+            <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="tambahObatModalLabel">Tambah Resep</h5>
@@ -227,6 +227,18 @@
                               </select>
                               </div>
                           </div>
+                        <br>
+                            <div class="row mb-3">
+                              <label for="namapengawas" class="col-md-4 col-form-label" onmousedown="if(this.options.length>5){this.size=5;}">Pengawas Minum Obat</label>
+                              <div class="col-md-8">
+                                <select id="namapengawas" name="id_pengawas" class="form-select" >
+                                  <option disabled selected>--Pilih Pengawas --</option>
+                                  @foreach($data_pengawas as $pengawas)
+                                  <option value="{{ $pengawas->id_pengawas }}" {{ old('nama_pengawas') == $pengawas->nama_pengawas ? 'selected' : null}}>{{ $pengawas->nama_pengawas }}</option>
+                                  @endforeach
+                              </select>
+                              </div>
+                          </div>
 
                             <div class="row mb-3">
                                 <div class="col-md-8">
@@ -246,12 +258,12 @@
                                 </div>
                             </div>
 
-                            {{-- <div class="row mb-3">
-                                <label for="hargaresep" class="col-md-4 col-form-label">Harga Resep</label>
+                            <div class="row mb-3">
+                                <label for="dosis" class="col-md-4 col-form-label">Dosis</label>
                                 <div class="col-md-8">
-                                    <input type="text" class="form-control" id="hargaresep" name="harga_satuan" class="harga_satuan" value="{{ $ }}" placeholder="Harga Resep">
+                                    <input type="number" class="form-control" id="dosis" name="dosis" class="dosis" placeholder="Masukan Dosis Dalam Satuan mg">
                                 </div>
-                            </div> --}}
+                            </div>
                            
                         </div>
 

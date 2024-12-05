@@ -26,8 +26,13 @@ class DashboardController extends Controller
         $data_apoteker = DB::table('apoteker')->count('id_apoteker');
         $data_pengawas = DB::table('pengawas')->count('id_pengawas');
         $data_pasien = DB::table('pasien')->count('id_pasien');
+        $data_pasien_baru =DB::table('pasien')
+        ->leftJoin('resep', 'pasien.id_pasien', '=', 'resep.id_pasien')  // Join tabel pasien dengan resep berdasarkan id_pasien
+        ->whereNull('resep.kode_obat')  // Memilih pasien yang tidak memiliki kode_obat (NULL)
+        ->count(); 
+    
         // dd($data_pasien);
-        return view('beranda', compact('data', 'data_pasien', 'data_obat', 'data_apoteker', 'data_pengawas', 'data_pasien'));
+        return view('beranda', compact('data', 'data_pasien', 'data_obat', 'data_apoteker', 'data_pengawas', 'data_pasien', 'data_pasien_baru'));
     }
 
     public function pasienTerdaftar(){

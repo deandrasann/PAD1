@@ -1,5 +1,11 @@
 @extends('footerheader.navbar')
 @section('content')
+@if($message = Session::get('errors'))
+<div class="alert alert-danger alert-dismissible fade show" role="alert">
+    {{ $message }}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+@endif
 <title>Beranda</title>
 <h2 >Beranda</h2>
 
@@ -18,7 +24,11 @@
 
         <div class="container-row-2 py-3 pe-3 my-3 me-3 d-flex justify-content-end align-items-start px-4">
             <div class="me-4">
-                <h2>0</h2>
+                <h2> @if($data_pasien_baru == NULL)
+                    0
+                 @else
+                 {{ $data_pasien_baru }}
+                 @endif</h2>
                 <p>Pasien Baru</p>
             </div>
             <div>

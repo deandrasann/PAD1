@@ -43,6 +43,7 @@ class ResepController extends Controller
         $data_dokter = DB::table('dokter')->get();
         $data_obat = DB::table('obat')->get();
         $data_pemeriksaan = DB::table('pemeriksaan')->get();
+        $data_pengawas = DB::table('pengawas')->get();
         // ApotekerModel::join('obat', 'apoteker.id_apoteker', '=', 'obat.id_apoteker')
         //         ->select('obat.*', 'apoteker.id_apoteker', 'apoteker.nama_apoteker')
         //         ->distinct()
@@ -53,7 +54,7 @@ class ResepController extends Controller
             ->first();
         // dd($data_dokter);
         // $resep_obat1 = DB::table('resep')->get();
-        return view('resep-tiap-pasien', compact('data', 'obat', 'resep_obat', 'data_dokter', 'data_obat', 'data_pemeriksaan'));
+        return view('resep-tiap-pasien', compact('data', 'obat', 'resep_obat', 'data_dokter', 'data_obat', 'data_pemeriksaan','data_pengawas'));
     }
     public function tambahResep(Request $request)
     {
@@ -86,40 +87,79 @@ class ResepController extends Controller
 
     public function store(Request $request)
     {
-        DB::beginTransaction();
+        DB::beginTransaction(); // Memulai transaksi database
         try {
-            // Data untuk tabel User
+            // Data untuk tabel Resep
             $tambah_resep = [
                 'no_antrian' => $request->input('no_antrian'),
                 'id_pasien' => $request->input('id_pasien'),
                 'id_dokter' => $request->input('id_dokter'),
+                'id_pengawas' => $request->input('id_pengawas'),
                 'kode_obat' => $request->input('kode_obat'),
                 'tgl_resep' => NOW(),
+                'dosis' => $request->input('dosis'),
             ];
-            $resep = ResepModel::create($tambah_resep); // Simpan data ke tabel User
-
-            // dd($user);
-
+    
+            // Simpan data ke tabel Resep
+            $resep = ResepModel::create($tambah_resep);
+    
+            // Setelah menyimpan resep, kita akan mengurangi nilai kekuatan_sediaan di tabel obat
+            $kode_obat = $request->input('kode_obat');
+            $dosis = $request->input('dosis');
+    
+            // Ambil data obat berdasarkan kode_obat yang dimasukkan
+            $obat = ObatModel::where('kode_obat', $kode_obat)->first();
+    
+            // Periksa apakah obat ditemukan
+            if (!$obat) {
+                // Jika obat tidak ditemukan, rollback transaksi dan kembalikan error
+                DB::rollback();
+                return redirect()->back()->with('error', 'Obat tidak ditemukan!');
+            }
+    
+            // Kurangi kekuatan_sediaan dengan dosis yang dimasukkan
+            $new_kekuatan_sediaan = $obat->kekuatan_sediaan - $dosis;
+    
+            // Pastikan kekuatan_sediaan tidak menjadi negatif
+            if ($new_kekuatan_sediaan < 0) {
+                // Jika dosis melebihi kekuatan_sediaan yang ada, rollback transaksi dan beri pesan error
+                DB::rollback();
+                return redirect()->back()->with('error', 'Dosis melebihi kekuatan sediaan obat!');
+            }
+    
+            // Update nilai kekuatan_sediaan
+            $obat->update(['kekuatan_sediaan' => $new_kekuatan_sediaan]);
+    
+            // Hitung jumlah resep yang telah disetujui untuk pasien
             $jumlah_resep = DB::table('resep')
-            ->where('id_pasien', $request->input('id_pasien')) // Menggunakan id_pasien
-            ->where('status_resep', 'setuju') // Kondisi status_resep 'setuju'
-            ->count(); // Hitung jumlah resep yang memiliki status 'setuju'
-
-            // Data untuk tabel Apoteker (menggunakan id_user dari tabel User)
+                ->where('id_pasien', $request->input('id_pasien')) // Menggunakan id_pasien
+                ->where('status_resep', 'setuju') // Kondisi status_resep 'setuju'
+                ->count(); // Hitung jumlah resep yang memiliki status 'setuju'
+    
+            // Data untuk tabel Detail Resep
             $tambah_detail = [
-                'no_resep' => $resep->no_resep, // Menggunakan ID yang baru dibuat dari tabel User
+                'no_resep' => $resep->no_resep, // Menggunakan ID yang baru dibuat dari tabel Resep
                 'jumlah_resep' => $jumlah_resep,
             ];
-            DetailResepModel::create($tambah_detail); // Simpan data ke tabel Apoteker
-
-            DB::commit(); // Jika semua operasi berhasil, lakukan commit
+    
+            // Simpan data ke tabel DetailResep
+            DetailResepModel::create($tambah_detail);
+    
+            // Commit transaksi jika semua operasi berhasil
+            DB::commit();
+    
+            // Redirect ke halaman resep pasien
             $idpasien = $request->id_pasien;
             return redirect()->route('resep-tiap-pasien', ['id' => $idpasien])->with('success', 'Resep berhasil ditambahkan.');
+            
         } catch (\Exception $e) {
-            DB::rollback(); // Jika terjadi kesalahan, rollback perubahan
-            return redirect()->route('jumlah-apoteker')->with('error', 'Gagal menambahkan Resep: ' . $e->getMessage());
+            // Jika terjadi kesalahan, rollback perubahan
+            DB::rollback();
+            $idpasien = $request->id_pasien;
+            return redirect()->route('resep-tiap-pasien', ['id' => $idpasien])->with('error', 'Gagal menambahkan Resep: ' . $e->getMessage());
         }
     }
+    
 
 
     public function destroy($id)
@@ -175,7 +215,7 @@ class ResepController extends Controller
         ->join('pasien', 'resep.id_pasien', '=', 'pasien.id_pasien')
         ->where('resep.id_pasien', $id)
         ->where('resep.status_resep', 'setuju')
-        ->select('resep.*', 'detail_resep.*', 'obat.*','pasien.nama')->get();
+        ->select('resep.*', 'detail_resep.*', 'obat.*','pasien.nama', 'pasien.jenis_kelamin', DB::raw('TIMESTAMPDIFF(YEAR, pasien.tanggal_lahir, CURDATE()) AS umur'))->get();
         // dd($data_detail_obat);
         return view('detail-data-obat', compact('data_detail_obat'));
     }

@@ -21,6 +21,6 @@ class loginlevel
         {
             return $next($request);
         }
-        return back()->with('error', 'Anda tidak berwenang untuk mengakses halaman ' . $page_name);
+        return back()->with('errors', 'Anda tidak berwenang untuk mengakses halaman ' . $page_name);
     }
 }

@@ -6,7 +6,7 @@
        <strong> + Tambah Pasien</strong>
     </button> --}}
     <div class="search-bar my-3">
-        <input type="text" class="form-control" placeholder="Cari Obat">
+        <input type="text" class="form-control" placeholder="Cari Pasien">
         <button class="btn btn-link">
             <img src="{{ asset('images/search icon.png') }}">
         </button>

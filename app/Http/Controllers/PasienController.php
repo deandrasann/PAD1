@@ -93,6 +93,6 @@ class PasienController extends Controller
         return view('pasien.laporan-minum-obat');
     }
     public function riwayatMinumObat(){
-        return view('pasien.riwayat-minum-obat');
+        return view('pasien.riwayat-minum-obat-pasien');
     }
 }

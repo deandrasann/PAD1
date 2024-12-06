@@ -4,6 +4,7 @@
     <a class="nav-link" href="{{ route('hasil.scan') }}">Data Resep</a>
     <a class="nav-link" href="{{ route('jadwal.obat') }}">Jadwal Minum Obat</a>
     <a class="nav-link" href="{{ route('laporan.obat') }}">Laporan Minum Obat</a>
+    <a class="nav-link" href="{{ route('riwayat.minum.obat.pasien') }}">Riwayat Minum Obat</a>
 </nav>
 <div class="d-flex justfy-content-start">
     <div class="col-md-5 m-4">
@@ -23,6 +24,7 @@
                 <tr>
                     <td>2</td>
                     <td>Data 2</td>
+                    <td>Dosis 2</td>
                 </tr>
                 {{-- @empty --}}
                 {{-- <tr>
@@ -50,6 +52,7 @@
                 <tr>
                     <td>2</td>
                     <td>Data 2</td>
+                    <td>Dosis 2</td>
                 </tr>
                 {{-- @empty --}}
                 {{-- <tr>
@@ -78,6 +81,7 @@
                 <tr>
                     <td>2</td>
                     <td>Data 2</td>
+                    <td>Dosis 2</td>
                 </tr>
                 {{-- @empty --}}
                 {{-- <tr>
@@ -105,6 +109,7 @@
                 <tr>
                     <td>2</td>
                     <td>Data 2</td>
+                    <td>Dosis 2</td>
                 </tr>
                 {{-- @empty --}}
                 {{-- <tr>

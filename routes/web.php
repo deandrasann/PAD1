@@ -42,6 +42,7 @@ Route::delete('/pasien/{id}', [PasienController::class, 'PasienDestroy'])->name(
 Route::get('/hasil-scan', [PasienController::class, 'hasilScan'])->name('hasil.scan');
 Route::get('/jadwal-minum-obat', [PasienController::class, 'jadwalMinumObat'])->name('jadwal.obat');
 Route::get('/laporan-minum-obat', [PasienController::class, 'laporanMinumObat'])->name('laporan.obat');
+Route::get('/riwayat-minum-obat-pasien', [PasienController::class, 'riwayatMinumObat'])->name('riwayat.minum.obat.pasien');
 
 Route::group(['middleware' => ['auth','level:admin,dokter,apoteker,pengawas']], function () {
 

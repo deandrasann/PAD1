@@ -4,6 +4,7 @@
     <a class="nav-link"  href="{{ route('hasil.scan') }}">Data Resep</a>
     <a class="nav-link" href="{{ route('jadwal.obat') }}">Jadwal Minum Obat</a>
     <a class="nav-link" href="{{ route('laporan.obat') }}">Laporan Minum Obat</a>
+    <a class="nav-link" href="{{ route('riwayat.minum.obat.pasien') }}">Riwayat Minum Obat</a>
 
 </nav>
 <h2 class="my-4">Data Resep Pasien</h2>

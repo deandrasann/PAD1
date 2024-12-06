@@ -77,20 +77,19 @@
         <form action="" method="POST" id="formedit">
             @csrf
         <div class="modal-body">
-            <form>
               <!-- Nama Obat -->
               <div class="row mb-3">
                 <label for="username" class="col-md-4 col-form-label">Username</label>
                 <div class="col-md-8">
-                  <input type="text" class="form-control" id="usernameedit" name="username" >
+                  <input type="text" class="form-control" id="usernameedit" name="username" value="{{ old('username') }}" required>
                 </div>
               </div>
 
               <!-- Bentuk Obat -->
               <div class="row mb-3">
-                <label for="nama" class="col-md-4 col-form-label">Nama Apoteker</label>
+                <label for="namaapotekeredit" class="col-md-4 col-form-label">Nama Apoteker</label>
                 <div class="col-md-8">
-                  <input type="text" class="form-control" id="nama" name="nama_apoteker">
+                  <input type="text" class="form-control" id="namaapotekeredit" name="nama_apoteker" required>
                 </div>
               </div>
         </div>
@@ -145,7 +144,7 @@
 
    document.getElementById("formedit").action = "{{route('apoteker.update', '')}}/" + id;
    document.getElementById("usernameedit").value = data[1].innerText;
-   document.getElementById("nama").value = data[2].innerText;
+   document.getElementById("namaapotekeredit").value = data[2].innerText;
    // document.getElementById("editCategoryDescription").value = data[1].innerText;
    // document.getElementById("editCategoryDescription").value = data[2].innerText;
    // console.log(data);

@@ -97,11 +97,11 @@ class ApotekerController extends Controller
 
     public function ApotekerUpdate(Request $request, $id)
     {
-        $request->validate([ 
-            'username' => 'required|max:100',
-            'nama_apoteker' => 'required|max:100',
-            'foto' => 'required|mimes:jpeg,jpg,png|max:3096'
-            ]);
+        // $request->validate([ 
+        //     'username' => 'required|max:100',
+        //     'nama_apoteker' => 'required|max:100',
+        //     'foto' => 'required|mimes:jpeg,jpg,png|max:3096'
+        //     ]);
         // $coba = ApotekerModel::where('id_pengguna', '=', 3)->first();
         // dd($id_apoteker);
         // dd($id_apoteker); variabel id_apoteker sudah berhasil mendapatkan id apotekernya
@@ -138,7 +138,7 @@ class ApotekerController extends Controller
             return redirect()->route('jumlah-apoteker')->with('success', 'Data berhasil diperbarui.');
         } catch (\Exception $e) {
             DB::rollback(); // Jika terjadi kesalahan, rollback perubahan
-            return redirect()->route('jumlah-apoteker')->with('error', 'Gagal memperbarui data');
+            return redirect()->route('jumlah-apoteker')->with('error', 'Gagal memperbarui data' .$e->getMessage());
         }
     }
 

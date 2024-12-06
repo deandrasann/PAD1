@@ -103,63 +103,63 @@ class ResepController extends Controller
                 'tgl_resep' => Carbon::now('Asia/Jakarta')->format('Y-m-d H:i:s'),
                 'dosis' => $request->input('dosis'),
             ];
-    
+
             // Simpan data ke tabel Resep
             $resep = ResepModel::create($tambah_resep);
-    
+
             // Setelah menyimpan resep, kita akan mengurangi nilai kekuatan_sediaan di tabel obat
             $kode_obat = $request->input('kode_obat');
             $dosis = $request->input('dosis');
-    
+
             // Ambil data obat berdasarkan kode_obat yang dimasukkan
             $obat = ObatModel::where('kode_obat', $kode_obat)->first();
-    
+
             // Periksa apakah obat ditemukan
             if (!$obat) {
                 // Jika obat tidak ditemukan, rollback transaksi dan kembalikan error
                 DB::rollback();
                 return redirect()->back()->with('error', 'Obat tidak ditemukan!');
             }
-    
+
             // Kurangi kekuatan_sediaan dengan dosis yang dimasukkan
             $new_kekuatan_sediaan = $obat->kekuatan_sediaan - $dosis;
-    
+
             // Pastikan kekuatan_sediaan tidak menjadi negatif
             if ($new_kekuatan_sediaan < 0) {
                 // Jika dosis melebihi kekuatan_sediaan yang ada, rollback transaksi dan beri pesan error
                 DB::rollback();
                 return redirect()->back()->with('error', 'Dosis melebihi kekuatan sediaan obat!');
             }
-            
+
             if ($new_kekuatan_sediaan == 0) {
                 $obat->update(['status_ketersediaan_obat' => 'Habis']);
             }
-    
+
             // Update nilai kekuatan_sediaan
             $obat->update(['kekuatan_sediaan' => $new_kekuatan_sediaan]);
-    
+
             // Hitung jumlah resep yang telah disetujui untuk pasien
             $jumlah_resep = DB::table('resep')
                 ->where('id_pasien', $request->input('id_pasien')) // Menggunakan id_pasien
                 ->where('status_resep', 'setuju') // Kondisi status_resep 'setuju'
                 ->count(); // Hitung jumlah resep yang memiliki status 'setuju'
-    
+
             // Data untuk tabel Detail Resep
             $tambah_detail = [
                 'no_resep' => $resep->no_resep, // Menggunakan ID yang baru dibuat dari tabel Resep
                 'jumlah_resep' => $jumlah_resep,
             ];
-    
+
             // Simpan data ke tabel DetailResep
             DetailResepModel::create($tambah_detail);
-    
+
             // Commit transaksi jika semua operasi berhasil
             DB::commit();
-    
+
             // Redirect ke halaman resep pasien
             $idpasien = $request->id_pasien;
             return redirect()->route('resep-tiap-pasien', ['id' => $idpasien])->with('success', 'Resep berhasil ditambahkan.');
-            
+
         } catch (\Exception $e) {
             // Jika terjadi kesalahan, rollback perubahan
             DB::rollback();
@@ -167,22 +167,22 @@ class ResepController extends Controller
             return redirect()->route('resep-tiap-pasien', ['id' => $idpasien])->with('error', 'Gagal menambahkan Resep:');
         }
     }
-    
+
 
 
     public function destroy($id)
     {
         DB::beginTransaction();
-    
+
     try {
         // Ambil data resep yang terkait dengan no_resep
         $resep = ResepModel::where('no_resep', $id)->first();
-        
+
         // Pastikan status resep adalah 'setuju' sebelum melanjutkan (Jika perlu)
         if ($resep && $resep->status_resep !== 'deleted') {
             // Update status_resep menjadi 'deleted' di tabel resep
             $updateResep = ResepModel::where('no_resep', $id)->update(['status_resep' => 'deleted']);
-            
+
             if ($updateResep) {
                 // Ambil jumlah_resep yang terkait dengan no_resep di tabel detail_resep
                 $detailResep = DB::table('detail_resep')
@@ -192,7 +192,7 @@ class ResepController extends Controller
                 if ($detailResep) {
                     // Kurangi jumlah_resep sebanyak 1 (jika lebih dari 0)
                     $newJumlahResep = $detailResep->jumlah_resep - 1;
-                    
+
                     // Update jumlah_resep dengan nilai baru (kurangi 1)
                     DB::table('detail_resep')
                         ->where('no_resep', $id)
@@ -207,7 +207,7 @@ class ResepController extends Controller
         }
 
         return back()->with('error', 'Resep tidak ditemukan atau statusnya sudah diubah.');
-        
+
     } catch (\Exception $e) {
         // Rollback transaksi jika terjadi error
         DB::rollBack();

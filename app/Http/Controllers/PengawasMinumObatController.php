@@ -12,6 +12,7 @@ class PengawasMinumObatController extends Controller
 {
     public function pasienPMO(Request $request)
     {
+        DB::statement("SET sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''))");
         if ($request->has('search')) {
             $search = $request->input('search');
             $data_pasien = DB::table('pasien')
@@ -26,6 +27,7 @@ class PengawasMinumObatController extends Controller
                 ->groupBy('pasien.id_pasien') // Group berdasarkan id_pasien untuk memastikan hanya 1 pasien yang ditampilkan
                 ->select('pasien.*') // Ambil semua kolom pasien
                 ->paginate(5);
+                dd($data_pasien);
         } else {
             $data_pasien = DB::table('pasien')
                 ->join('resep', 'pasien.id_pasien', '=', 'resep.id_pasien') // Join dengan tabel resep

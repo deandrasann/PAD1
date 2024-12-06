@@ -55,7 +55,7 @@
             </tbody>
         </table>
 
-       
+
 
         <!-- Pagination -->
         <div class="paginate d-flex justify-content-center">

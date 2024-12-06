@@ -1,11 +1,10 @@
 @extends('footerheader.navbar-pmo')
 @section('content')
 <nav class="nav">
-    <a class="nav-link"  href="{{ route('hasil.scan') }}">Data Resep</a>
+    <a class="nav-link" href="{{ route('hasil.scan') }}">Data Resep</a>
     <a class="nav-link" href="{{ route('jadwal.obat') }}">Jadwal Minum Obat</a>
     <a class="nav-link" href="{{ route('laporan.obat') }}">Laporan Minum Obat</a>
     <a class="nav-link" href="{{ route('riwayat.minum.obat.pasien') }}">Riwayat Minum Obat</a>
-
 </nav>
 <h2 class="my-4">Data Resep Pasien</h2>
 <main class="m-3" style="color: black">
@@ -25,8 +24,8 @@
         <div class="col-5">-</div>
     </div>
     <div class="d-flex justify-content-center align-items-center p-4">
-        <div class="card p-4 w-100">
-            <table class="table table-striped table-hover">
+        <div class="card p-4 w-100 custom-card">
+            <table class="table table-striped table-hover custom-table">
                 <thead class="table-primary">
                     <tr>
                         <th class="py-2">No RM</th>
@@ -36,40 +35,26 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {{-- @forelse ($data_pasien as $index => $item) --}}
                     <tr>
                         <td></td>
                         <td></td>
                         <td></td>
-                        {{-- <td>{{ $item->no_rm }}</td>
-                        <td>{{ $item->nama }}</td>
-                        <td>{{ $item->jenis_kelamin }}</td>
-                        <td>{{ $item->tanggal_lahir }}</td>
-                        <td>{{ $item->alamat }}</td>
-                        <td>{{ $item->no_telp }}</td> --}}
                         <td style="width: 250px">
                             <div class="d-flex">
                                 <button class="btn btn-resep p-2 detail-btn me-2" data-bs-toggle="modal" data-bs-target="#detailObatModal">
                                     <img src="{{ asset('images/detail icon.png') }}" class="me-2">Detail
                                 </button>
                                 <button class="btn btn-danger p-2 delete-btn" data-bs-toggle="modal" data-bs-target="#HapusObatModal">
-                                    <img src="{{ asset('images/atur icon.png') }}" class="me-2">Atur
+                                    <img src="{{ asset('images/atur icon.png') }}" class="me-2">Atur Jadwal
                                 </button>
                             </div>
                         </td>
                     </tr>
-                    {{-- @empty --}}
-                    {{-- <tr>
-                        <td colspan="7" class="text-center">Tidak Ada Data</td>
-                    </tr> --}}
-                    {{-- @endforelse --}}
                 </tbody>
-
             </table>
         </div>
     </div>
 </main>
-
 
 <!-- Detail Modal -->
 <div class="modal fade" id="detailObatModal" tabindex="-1" aria-labelledby="detailObatModalLabel"

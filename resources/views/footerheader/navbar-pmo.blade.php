@@ -18,6 +18,17 @@
         body {
             color: #2E6084;
         }
+        .custom-card {
+            max-width: 100%;
+            overflow-x: auto;
+        }
+        .custom-table {
+            width: 100%;
+            min-width: 600px; /* Adjust as needed */
+        }
+        .custom-table th, .custom-table td {
+            white-space: nowrap;
+        }
     </style>
 </head>
 <body>
@@ -77,13 +88,6 @@
                                     <strong>Alamat:</strong> <br> Alamat
                                 </div>
                             </li>
-
-
-                            {{-- <li class="list-group-item p-3"><strong>Nama:</strong> Viska Ayu</li>
-                            <li class="list-group-item p-3"><strong>Jenis Kelamin:</strong> Perempuan</li>
-                            <li class="list-group-item p-3" ><strong>Tanggal Lahir:</strong> 01 Februari 1994</li>
-                            <li class="list-group-item p-3"><strong>No Telp:</strong> 081263748388</li>
-                            <li class="list-group-item p-3"><strong>Alamat:</strong> Karanganyar</li> --}}
                         </ul>
                     </div>
                 </div>

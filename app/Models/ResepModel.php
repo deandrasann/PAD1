@@ -25,7 +25,8 @@ class ResepModel extends Model
         'kode_obat',
         'tgl_resep',
         'status_resep',
-        'dosis'
+        'dosis',
+        'jadwal_minum_obat',
     ];
 
 }

@@ -18,7 +18,7 @@
                         <tbody>
                             <tr>
                                 <div>
-                                    <img src="{{ asset('images/barcodee.png') }}" width="200px" height="200px" class="ml-auto">
+                                    {!! $qrCode !!}
                                 </div>
                             </tr>
                             <tr>

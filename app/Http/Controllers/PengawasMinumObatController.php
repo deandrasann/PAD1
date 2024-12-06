@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\PasienModel;
+use App\Models\ResepModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -89,5 +90,25 @@ class PengawasMinumObatController extends Controller
     {
         $pasien = PasienModel::find($id);
         return view('pmo.data-resep-pmo', compact('pasien'));
+    }
+
+    public function cobacoba($id) {
+         // Ambil semua resep yang ada
+         $pasien = PasienModel::find($id);
+         $data_pasien = ResepModel::where('id_pasien', $id)
+         ->where('status_pengobatan', 'Proses Pengobatan')
+         ->get();
+
+         $data_jadwal = DB::table('resep')
+         ->join('detail_resep', 'resep.no_resep', '=', 'detail_resep.no_resep')
+         ->join('obat', 'resep.kode_obat', '=', 'obat.kode_obat')
+         ->join('pasien', 'resep.id_pasien', '=', 'pasien.id_pasien')
+         ->where('resep.id_pasien', $id)
+         ->where('resep.status_pengobatan', 'Proses Pengobatan')
+         ->select('resep.*', 'detail_resep.*', 'obat.*','pasien.nama')->get();
+        //  dd($data_jadwal);
+         $jadwal = $data_pasien->pluck('jadwal_minum_obat')->unique();
+         // Kirim data ke view
+         return view('cobajadwalminumobat', compact('data_pasien', 'pasien', 'jadwal', 'data_jadwal'));
     }
 }

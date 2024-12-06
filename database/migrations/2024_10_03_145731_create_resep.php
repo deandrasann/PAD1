@@ -24,6 +24,7 @@ return new class extends Migration
             $table->enum('status_resep', ['setuju ', 'deleted'])->default('setuju')->nullable();
             $table->string('tgl_resep')->nullable();
             $table->string('dosis')->nullable();
+            $table->string('jadwal_minum_obat')->nullable();
             $table->enum('status_pengobatan', ['Proses Pengobatan ', 'Pengobatan Selesai'])->default('Proses Pengobatan')->nullable();
             // $table->string('harga_satuan')->nullable();
 

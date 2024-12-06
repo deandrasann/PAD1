@@ -19,7 +19,7 @@ return new class extends Migration
             $table->integer('kode_obat');
             $table->integer('nama_obat');
             $table->integer('aturan_pakai');
-            $table->string('waktu');
+            $table->string('waktu_miunum_obat');
             $table->string('status');
     
     

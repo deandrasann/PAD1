@@ -9,6 +9,7 @@ use App\Models\ResepModel;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class ResepController extends Controller
 {
@@ -223,7 +224,12 @@ class ResepController extends Controller
         ->where('resep.id_pasien', $id)
         ->where('resep.status_resep', 'setuju')
         ->select('resep.*', 'detail_resep.*', 'obat.*','pasien.nama', 'pasien.jenis_kelamin', DB::raw('TIMESTAMPDIFF(YEAR, pasien.tanggal_lahir, CURDATE()) AS umur'))->get();
+
+        $url = 'http://192.168.210.10:8000/cek-pasien/' . $id;
+
+        // Generate QR Code
+        $qrCode = QrCode::size(200)->generate($url);
         // dd($data_detail_obat);
-        return view('detail-data-obat', compact('data_detail_obat'));
+        return view('detail-data-obat', compact('data_detail_obat', 'qrCode'));
     }
 }

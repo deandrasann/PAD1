@@ -1,10 +1,9 @@
 @extends('footerheader.navbar-pmo')
-
 @section('content')
 <nav class="nav">
-    <a class="nav-link" href="{{ route('pmo-cek-pasien') }}">Data Resep</a>
-    <a class="nav-link" href="{{ route('pmo-data-resep') }}">Jadwal Minum Obat</a>
-    <a class="nav-link" href="{{route('pmo-riwayat-minum-obat')}}">Riwayat Minum Obat</a>
+    <a class="nav-link" href="{{ route('hasil.scan') }}">Data Resep</a>
+    <a class="nav-link" href="{{ route('jadwal.obat') }}">Jadwal Minum Obat</a>
+    <a class="nav-link" href="{{ route('laporan.obat') }}">Laporan Minum Obat</a>
 </nav>
 <div class="d-flex justfy-content-start">
     <div class="col-md-5 m-4">
@@ -24,7 +23,6 @@
                 <tr>
                     <td>2</td>
                     <td>Data 2</td>
-                    <td>Dosis 2</td>
                 </tr>
                 {{-- @empty --}}
                 {{-- <tr>
@@ -52,7 +50,6 @@
                 <tr>
                     <td>2</td>
                     <td>Data 2</td>
-                    <td>Dosis 2</td>
                 </tr>
                 {{-- @empty --}}
                 {{-- <tr>
@@ -81,7 +78,6 @@
                 <tr>
                     <td>2</td>
                     <td>Data 2</td>
-                    <td>Dosis 2</td>
                 </tr>
                 {{-- @empty --}}
                 {{-- <tr>
@@ -109,7 +105,6 @@
                 <tr>
                     <td>2</td>
                     <td>Data 2</td>
-                    <td>Dosis 2</td>
                 </tr>
                 {{-- @empty --}}
                 {{-- <tr>
@@ -119,11 +114,6 @@
             </tbody>
         </table>
     </div>
-</div>
-<div class="d-flex justify-content-end m-5">
-    <a href ="{{ route('pmo-daftar-pasien') }}" class="btn btn-success p-2 px-3 edit-btn">
-        Kembali
-    </a>
 </div>
 
 @endsection

@@ -209,5 +209,58 @@
     box-shadow: none !important;
 }
 
+.checklist-container {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.checklist-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.checklist-radio {
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #ccc;
+    border-radius: 50%; /* Ubah menjadi lingkaran */
+    display: inline-block;
+    position: relative;
+    cursor: pointer;
+}
+
+.checklist-radio:checked {
+    background-color: #28a745; /* Warna hijau untuk "Sudah" */
+    border-color: #28a745;
+}
+
+.checklist-radio:checked::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 12px;
+    height: 12px;
+    background-color: white;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.checklist-item:nth-child(2) .checklist-radio:checked {
+    background-color: #007bff; /* Warna biru untuk "Tunda" */
+    border-color: #007bff;
+}
+
+.checklist-item:nth-child(3) .checklist-radio:checked {
+    background-color: #dc3545; /* Warna merah untuk "Tidak" */
+    border-color: #dc3545;
+}
+
+.checklist-label {
+    font-size: 1rem;
+}
 
 

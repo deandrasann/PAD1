@@ -84,6 +84,15 @@ class PasienController extends Controller
     }
 
     public function hasilScan(){
-        return view('hasil-scan-pasien');
+        return view('pasien.hasil-scan-pasien');
+    }
+    public function jadwalMinumObat(){
+        return view('pasien.jadwal-minum-obat');
+    }
+    public function laporanMinumObat(){
+        return view('pasien.laporan-minum-obat');
+    }
+    public function riwayatMinumObat(){
+        return view('pasien.riwayat-minum-obat');
     }
 }

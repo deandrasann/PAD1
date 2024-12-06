@@ -34,8 +34,8 @@
                     <td>{{ $item->alamat }}</td>
                     <td>{{ $item->no_telp }}</td>
                     <td>
-                        <button class="btn btn-resep p-2 px-3 detail-btn" data-bs-toggle="modal" data-bs-target="#detailPasienModal">
-                            <img src="{{ asset('images/detail icon.png') }}" class="me-2">Detail
+                        <button class="btn btn-resep p-2 px-3 detail-btn" >
+                            <img src="{{ asset('images/detail icon.png') }}" src="{{ route('resep-tiap-pasien') }}" class="me-2">Detail
                         </button>
                     </td>
                 </tr>

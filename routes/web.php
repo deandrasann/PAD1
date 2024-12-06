@@ -40,6 +40,8 @@ Route::post('/pasien', [PasienController::class, 'PasienStore'])->name('pasien.s
 Route::post('/pasien/{id}', [PasienController::class, 'PasienUpdate'])->name('pasien.update');
 Route::delete('/pasien/{id}', [PasienController::class, 'PasienDestroy'])->name('pasien.destroy');
 Route::get('/hasil-scan', [PasienController::class, 'hasilScan'])->name('hasil.scan');
+Route::get('/jadwal-minum-obat', [PasienController::class, 'jadwalMinumObat'])->name('jadwal.obat');
+Route::get('/laporan-minum-obat', [PasienController::class, 'laporanMinumObat'])->name('laporan.obat');
 
 Route::group(['middleware' => ['auth','level:admin,dokter,apoteker,pengawas']], function () {
 

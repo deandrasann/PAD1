@@ -1,6 +1,12 @@
 @extends('footerheader.navbar-pmo')
 @section('content')
-<h2>Data Resep Pasien</h2>
+<nav class="nav">
+    <a class="nav-link"  href="{{ route('hasil.scan') }}">Data Resep</a>
+    <a class="nav-link" href="{{ route('jadwal.obat') }}">Jadwal Minum Obat</a>
+    <a class="nav-link" href="{{ route('laporan.obat') }}">Laporan Minum Obat</a>
+
+</nav>
+<h2 class="my-4">Data Resep Pasien</h2>
 <main class="m-3" style="color: black">
     <div class="row m-2">
         <div class="col-3"><strong>No Resep</strong></div>
@@ -46,7 +52,7 @@
                                     <img src="{{ asset('images/detail icon.png') }}" class="me-2">Detail
                                 </button>
                                 <button class="btn btn-danger p-2 delete-btn" data-bs-toggle="modal" data-bs-target="#HapusObatModal">
-                                    <img src="{{ asset('images/delete icon.png') }}" class="me-2">Hentikan
+                                    <img src="{{ asset('images/atur icon.png') }}" class="me-2">Atur
                                 </button>
                             </div>
                         </td>
@@ -141,22 +147,32 @@ aria-hidden="true" style="color: black">
     </div>
 </div>
 <!--Hapus Obat Modal-->
-<div class="modal fade " id="HapusObatModal" aria-labelledby="HapusObatModalLabel"
-    aria-hidden="true" style="color: black">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content ">
-            <div class="modal-body text-center">
-                <img src="{{ asset('images/warning icon.png') }}" alt="Warning">
-                <h3>Hentikan Obat</h3>
-                <p>Anda yakin ingin menghentikan obat ini?</p>
-                {{-- <form action="{{ route('resep.destroy', $key->kode_obat)}}" method="POST"> --}}
-                <div class="d-flex justify-content-around mt-3">
-                    <button type="button" class="btn btn-white" data-bs-dismiss="modal">TIDAK</button>
-                      @csrf
-                      @method('DELETE')
-                    <button type="submit" class="btn btn-danger px-4">YA</button>
-                  </div>
+<div class="modal fade" id="HapusObatModal" tabindex="-1" aria-labelledby="HapusObatModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="HapusObatModalLabel">Atur Jadwal Minum Obat Anda</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="mb-3">
+                        <label for="obat1" class="form-label">Obat 1</label>
+                        <input type="datetime-local" class="form-control" id="obat1" name="obat1">
+                    </div>
+                    <div class="mb-3">
+                        <label for="obat2" class="form-label">Obat 2</label>
+                        <input type="datetime-local" class="form-control" id="obat2" name="obat2">
+                    </div>
+                    <div class="mb-3">
+                        <label for="obat3" class="form-label">Obat 3</label>
+                        <input type="datetime-local" class="form-control" id="obat3" name="obat3">
+                    </div>
                 </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                <button type="button" class="btn btn-primary">Simpan</button>
             </div>
         </div>
     </div>

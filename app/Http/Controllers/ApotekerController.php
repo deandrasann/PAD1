@@ -45,6 +45,10 @@ class ApotekerController extends Controller
     public function ApotekerStore(Request $request)
     {
         $request->validate([ 
+            'username' => 'required|max:100',
+            'nama_apoteker' => 'required|max:100',
+            'email' => 'required|email',
+            'password' => 'required|min:3',
             'foto' => 'required|mimes:jpeg,jpg,png|max:3096'
             ]);
             if ($request->hasFile('foto')) {
@@ -87,12 +91,17 @@ class ApotekerController extends Controller
             return redirect()->route('jumlah-apoteker')->with('success', 'Data berhasil ditambahkan.');
         } catch (\Exception $e) {
             DB::rollback(); // Jika terjadi kesalahan, rollback perubahan
-            return redirect()->route('jumlah-apoteker')->with('error', 'Gagal menambahkan data: ' . $e->getMessage());
+            return redirect()->route('jumlah-apoteker')->with('error', 'Gagal menambahkan data');
         }
     }
 
     public function ApotekerUpdate(Request $request, $id)
     {
+        $request->validate([ 
+            'username' => 'required|max:100',
+            'nama_apoteker' => 'required|max:100',
+            'foto' => 'required|mimes:jpeg,jpg,png|max:3096'
+            ]);
         // $coba = ApotekerModel::where('id_pengguna', '=', 3)->first();
         // dd($id_apoteker);
         // dd($id_apoteker); variabel id_apoteker sudah berhasil mendapatkan id apotekernya
@@ -129,7 +138,7 @@ class ApotekerController extends Controller
             return redirect()->route('jumlah-apoteker')->with('success', 'Data berhasil diperbarui.');
         } catch (\Exception $e) {
             DB::rollback(); // Jika terjadi kesalahan, rollback perubahan
-            return redirect()->route('jumlah-apoteker')->with('error', 'Gagal memperbarui data: ' . $e->getMessage());
+            return redirect()->route('jumlah-apoteker')->with('error', 'Gagal memperbarui data');
         }
     }
 

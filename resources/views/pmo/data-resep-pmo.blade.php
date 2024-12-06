@@ -2,9 +2,9 @@
 
 @section('content')
 <nav class="nav">
-    <a class="nav-link" href="{{ route('pmo-cek-pasien') }}">Data Resep</a>
-    <a class="nav-link" href="{{ route('pmo-data-resep') }}">Jadwal Minum Obat</a>
-    <a class="nav-link" href="{{route('pmo-riwayat-minum-obat')}}">Riwayat Minum Obat</a>
+    <a class="nav-link"  href="{{ route('pmo-cek-pasien', $pasien->id_pasien) }}">Data Resep</a>
+    <a class="nav-link" href="{{ route('pmo-data-resep',  $pasien->id_pasien) }}">Jadwal Minum Obat</a>
+    <a class="nav-link" href="{{route('pmo-riwayat-minum-obat',  $pasien->id_pasien)}}">Riwayat Minum Obat</a>
 </nav>
 <div class="d-flex justfy-content-start">
     <div class="col-md-5 m-4">

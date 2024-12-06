@@ -46,7 +46,7 @@
                 </div>
             </div>
 
-        <a href='{{route('detail-resep-obat')}}' class="container-row-2 p-4">
+        <a href='{{route('detail-resep-obat', $resep_obat->id_pasien)}}' class="container-row-2 p-4" target="_blank">
             <img src="{{ asset('images/printer.png') }}">
         </a>
     </div>
@@ -95,7 +95,7 @@
                                 </button>
                                 <!-- Delete Button -->
                                 <button class="btn btn-danger p-2 px-3 delete-btn" data-bs-toggle="modal"
-                                    data-bs-target="#HapusObatModal{{ $item->kode_obat }}">
+                                    data-bs-target="#HapusObatModal{{ $item->no_resep }}">
                                     <img src="{{ asset('images/delete icon.png') }}" class="me-2">Hapus
                                 </button>
                             </td>
@@ -164,10 +164,9 @@
                 </div>
             </div>
         </div>
-        {{-- Hapus Obat Modal --}}
         <!-- Hapus Obat Modal -->
         @foreach($data as $key)
-        <div class="modal fade" id="HapusObatModal{{ $key->kode_obat }}" tabindex="-1" aria-labelledby="HapusObatModalLabel"
+        <div class="modal fade" id="HapusObatModal{{ $key->no_resep }}" tabindex="-1" aria-labelledby="HapusObatModalLabel"
             aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content ">
@@ -178,7 +177,7 @@
                     <div class="modal-body text-center">
                         <img src="{{ asset('images/warning icon.png') }}" alt="Warning">
                         <p>Anda yakin ingin menghapus data resep ini?</p>
-                        <form action="{{ route('resep.destroy', $key->kode_obat)}}" method="POST">
+                        <form action="{{ route('resep.destroy', $key->no_resep)}}" method="POST">
                         <div class="d-flex justify-content-around mt-3">
                             <button type="button" class="btn btn-white" data-bs-dismiss="modal">TIDAK</button>
                               @csrf
@@ -194,7 +193,7 @@
         {{-- Tambah Obat Modal --}}
         <div class="modal fade" id="tambahObatModal" tabindex="-1" aria-labelledby="tambahObatModalLabel"
             aria-hidden="true">
-            <div class="modal-dialog">
+            <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="tambahObatModalLabel">Tambah Resep</h5>
@@ -228,6 +227,18 @@
                               </select>
                               </div>
                           </div>
+                        <br>
+                            <div class="row mb-3">
+                              <label for="namapengawas" class="col-md-4 col-form-label" onmousedown="if(this.options.length>5){this.size=5;}">Pengawas Minum Obat</label>
+                              <div class="col-md-8">
+                                <select id="namapengawas" name="id_pengawas" class="form-select" >
+                                  <option disabled selected>--Pilih Pengawas --</option>
+                                  @foreach($data_pengawas as $pengawas)
+                                  <option value="{{ $pengawas->id_pengawas }}" {{ old('nama_pengawas') == $pengawas->nama_pengawas ? 'selected' : null}}>{{ $pengawas->nama_pengawas }}</option>
+                                  @endforeach
+                              </select>
+                              </div>
+                          </div>
 
                             <div class="row mb-3">
                                 <div class="col-md-8">
@@ -248,12 +259,12 @@
                             </div>
 
                             <div class="row mb-3">
-                                <label for="hargaresep" class="col-md-4 col-form-label">Harga Resep</label>
+                                <label for="dosis" class="col-md-4 col-form-label">Dosis</label>
                                 <div class="col-md-8">
-                                    <input type="text" class="form-control" id="hargaresep" name="harga_satuan" class="harga_satuan" placeholder="Harga Resep">
+                                    <input type="number" class="form-control" id="dosis" name="dosis" class="dosis" placeholder="Masukan Dosis Dalam Satuan mg">
                                 </div>
                             </div>
-
+                           
                         </div>
 
                         <div class="modal-footer">

@@ -80,7 +80,7 @@ class PengawasController extends Controller
             return redirect()->route('jumlah-pengawas')->with('success', 'Data berhasil ditambahkan.');
         } catch (\Exception $e) {
             DB::rollback(); // Jika terjadi kesalahan, rollback perubahan
-            return redirect()->route('jumlah-pengawas')->with('error', 'Gagal menambahkan data: ' . $e->getMessage());
+            return redirect()->route('jumlah-pengawas')->with('error', 'Gagal menambahkan data');
         }
     }
 
@@ -121,7 +121,7 @@ class PengawasController extends Controller
             return redirect()->route('jumlah-pengawas')->with('success', 'Data berhasil diperbarui.');
         } catch (\Exception $e) {
             DB::rollback(); // Jika terjadi kesalahan, rollback perubahan
-            return redirect()->route('jumlah-pengawas')->with('error', 'Gagal memperbarui data: ' . $e->getMessage());
+            return redirect()->route('jumlah-pengawas')->with('error', 'Gagal memperbarui data' );
         }
     }
 

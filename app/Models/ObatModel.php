@@ -17,4 +17,27 @@ class ObatModel extends Model
     // PK integer AI
     public $incrementing = true;
 
+    protected $fillable = [
+        'id_apoteker',
+        'id_pasien',
+        'nama_obat',
+        'takaran_minum',
+        'jml_kali_minum',
+        'bentuk_obat',
+        'aturan_pakai',
+        'golongan_obat',
+        'jumlah_obat',
+        'waktu_minum',
+        'keterangan',
+        'kontraindikasi',
+        'pola_makan',
+        'interaksi_obat',
+        'petunjuk_penyimpanan',
+        'kekuatan_sediaan',
+        'informasi_tambahan',
+        'efek_samping',
+        'indikasi',
+        'status_ketersediaan_obat',
+    ];
+    
 }

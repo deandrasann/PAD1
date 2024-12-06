@@ -1,42 +1,61 @@
-@extends('footerheader.navbar')
-@section('content')
-<div class="d-flex justify-content-center flex-column align-items-center p-4">
-    @foreach ($data_detail_obat as $item)
-    <div class="d-flex flex-row flex-center card p-4 w-100 mb-4">
-        <div class="container">
-            <h2 class="my-4">Resep Obat</h2>
-            <div class="d-flex flex-start">
-                <table class="table table-borderless">
-                    <tbody>
-                        <tr>
-                            <th>Nama Pasien</th>
-                            <td>: {{ $item->nama_obat }}</td>
-                        </tr>
-                        <tr>
-                            <th>Nama Obat</th>
-                            <td>: {{ $item->nama_obat }}</td>
-                        </tr>
-                        <tr>
-                            <th>Aturan Pakai</th>
-                            <td>: {{ $item->aturan_pakai }}</td>
-                        </tr>
-                        <tr>
-                            <th>Waktu Minum</th>
-                            <td>: {{ $item->jml_kali_minum }}</td>
-                        </tr>
-                    </tbody>
-                </table>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Detail-resep</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="d-flex justify-content-center flex-column align-items-center p-4">
+        @foreach ($data_detail_obat as $item)
+        <div class="d-flex flex-row flex-center card p-4 w-100 mb-4">
+            <div class="container">
+                <h2 class="my-4">Resep Obat {{ $item->nama }}</h2>
+                <div class="d-flex justify-content-between">
+                    <table class="table table-borderless">
+                        <tbody>
+                            <tr>
+                                <div>
+                                    {!! $qrCode !!}
+                                </div>
+                            </tr>
+                            <tr>
+                                <th>Nama Pasien</th>
+                                <td>: {{ $item->nama }}, ({{ $item->umur }} Tahun / {{ $item->jenis_kelamin }})</td>
+                            </tr>
+                            <tr>
+                                <th>Nama Obat</th>
+                                <td>: {{ $item->nama_obat }}</td>
+                            </tr>
+                            <tr>
+                                <th>Aturan Pakai</th>
+                                <td>: {{ $item->jml_kali_minum }} Sehari {{ $item->takaran_minum }}</td>
+                            </tr>
+                            <tr>
+                                <th>Waktu Minum</th>
+                                <td>: {{ $item->aturan_pakai }}</td>
+                            </tr>
+                            
+                            <tr>
+                                <td colspan="2"><hr></td>
+                            </tr>
+                            
+                        </tbody>
+                    </table>
+                </div>
             </div>
+            
         </div>
-        <div>
-            <img src="{{ asset('images/barcodee.png') }}">
-        </div>
+        @endforeach
     </div>
-    @endforeach
-</div>
+    
+    
+</body>
+</html>
 
 
-@endsection
 
 
 {{--
@@ -50,63 +69,23 @@
                 @foreach ($data_detail_obat as $item)
                 <tbody>
                     <tr>
-                        <th>Nama</th>
-                        <td>: {{ $item->nama_obat }} </td>
+                        <th>Nama Pasien</th>
+                        <td>: {{ $item->nama }} </td>
                     </tr>
                     <tr>
-                        <th>Dosis</th>
-                        <td>: </td>
+                        <th>Nama Obat</th>
+                        <td>: {{ $item->nama_obat }}</td>
                     </tr>
                     <tr>
                         <th>Aturan Pakai</th>
-                        <td>: {{ $item->aturan_pakai }} </td>
+                        <td>: {{ $item->jml_kali_minum }} Sehari {{ $item->takaran_minum }} </td>
                     </tr>
                     <tr>
-                        <th>Waktu Kali Minum</th>
-                        <td>: {{ $item->jml_kali_minum }}</td>
+                        <th>Waktu Minum</th>
+                        <td>: {{ $item->aturan_pakai }}</td>
                     </tr>
                     <tr>
-                        <th>Jumlah Obat</th>
-                        <td>:  {{ $item->jumlah_obat }}</td>
-                    </tr>
-                    <tr>
-                        <th>Efek Samping</th>
-                        <td>:  {{ $item->efek_samping }}</td>
-                    </tr>
-                    <tr>
-                        <th>Kontraindikasi</th>
-                        <td>:  {{ $item->kontraindikasi }}</td>
-                    </tr>
-                    <tr>
-                        <th>Interaksi Obat</th>
-                        <td>: {{ $item->interaksi_obat }}</td>
-                    </tr>
-                    <tr>
-                        <th>Petunjuk Penyimpanan</th>
-                        <td>: {{ $item->petunjuk_penyimpanan }}</td>
-
-                    </tr>
-                    <tr>
-                        <th>Pola makan dan Hidup Sehat</th>
-                        <td>
-                            <ol>
-                                <li>Perbanyak konsumsi air putih, sayuran, buah, ikan.</li>
-                                <li>Kurangi konsumsi makanan/minuman manis, berlemak, garam.</li>
-                                <li>Kurangi makanan instan (sosis, makanan kaleng).</li>
-                                <li>Ganti konsumsi susu dengan yang rendah lemak.</li>
-                            </ol>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>Informasi Tambahan</th>
-                        <td>
-                            <ol>
-                                <li>Hindari mengubah posisi tubuh secara tiba-tiba dari duduk ke berdiri atau berbaring ke duduk.</li>
-                                <li>Rutin cek tekanan darah anda.</li>
-                                <li>Hindari rokok.</li>
-                                <li>Olahraga aerobik 30 menit tiap minggu.</li>
-                            </ol>
-                        </td>
+                        <td colspan="2"><hr></td>
                     </tr>
                     @endforeach
                 </tbody>

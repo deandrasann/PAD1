@@ -2,17 +2,6 @@
 
 @section('content')
 
-@if ($message = Session::get('success'))
-<div class="alert alert-success">
-    {{ $message }}
-    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" style="position: absolute; right: 10px; top: 10px;"></button>
-</div>
-@elseif($message = Session::get('error'))
-    <div class="alert alert-error alert-dismissible fade show" role="alert">
-        {{ $message }}
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-@endif
 <div class="container mt-3">
     <h2>JUMLAH APOTEKER</h2>
 
@@ -20,10 +9,10 @@
         + Tambah Apoteker
     </a>
 
-    <!-- Search Bar -->
+    <!-- Search Bar --> 
     <form action="{{ route('jumlah-apoteker') }}" method="GET">
     <div class="search-bar mb-3 d-flex">
-        <input type="text" class="form-control" placeholder="Cari apoteker" name="search" value="{{ request("search") }}" autocomplete="off">
+        <input type="text" class="form-control" placeholder="Cari Apoteker" name="search" value="{{ request("search") }}" autocomplete="off">
         <button class="btn btn-link" type="submit">
             <img src="{{ asset('images/search icon.png') }}" alt="Search Icon">
         </button>

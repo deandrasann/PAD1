@@ -21,7 +21,6 @@ class AdminSeeder extends Seeder
                 'id_klinik' => '1',
                 'nama_admin' => 'adminpenjaga',
                 'email' => 'admin@gmail.com',
-                'foto' => 'ror',
             ]
         ]);
 

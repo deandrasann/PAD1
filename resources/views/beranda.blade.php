@@ -1,5 +1,11 @@
 @extends('footerheader.navbar')
 @section('content')
+@if($message = Session::get('errors'))
+<div class="alert alert-danger alert-dismissible fade show" role="alert">
+    {{ $message }}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+@endif
 <title>Beranda</title>
 <h2 >Beranda</h2>
 
@@ -18,7 +24,11 @@
 
         <div class="container-row-2 py-3 pe-3 my-3 me-3 d-flex justify-content-end align-items-start px-4">
             <div class="me-4">
-                <h2>0</h2>
+                <h2> @if($data_pasien_baru == NULL)
+                    0
+                 @else
+                 {{ $data_pasien_baru }}
+                 @endif</h2>
                 <p>Pasien Baru</p>
             </div>
             <div>
@@ -144,29 +154,40 @@
 @endcan
 
 @can('apoteker')
+@php
+    // Ambil data top 5 kode obat yang paling sering digunakan
+    $top_kode_obat = DB::table('resep')
+        ->join('obat', 'resep.kode_obat', '=', 'obat.kode_obat')  // Join dengan tabel obat
+        ->select('resep.kode_obat', 'obat.nama_obat', DB::raw('COUNT(*) as jumlah_penggunaan'))  // Ambil kode_obat dan nama_obat
+        ->groupBy('resep.kode_obat', 'obat.nama_obat')  // Kelompokkan berdasarkan kode_obat dan nama_obat
+        ->orderByDesc(DB::raw('COUNT(*)'))  // Urutkan berdasarkan jumlah_penggunaan terbanyak
+        ->limit(5)  // Ambil 5 hasil terbanyak
+        ->get();  // Ambil data dalam bentuk koleksi
+@endphp
 <div class="table-data table-responsive">
     <table class="table table-striped table-hover">
         <thead class="table-primary">
             <tr>
                 <th>No</th>
                 <th>Nama Obat </th>
-                <th >Jumlah</th>
+                <th>Jumlah</th>
 
             </tr>
         </thead>
         <tbody>
-            {{-- @foreach ($data as $index => $item) --}}
+            @if ($top_kode_obat->isNotEmpty())
+            @foreach ($top_kode_obat as $index => $item)
                 <tr>
-                    <td>-</td>
-                    <td>-</td>
-                    {{-- <td>{{ $index + 1 }}</td>
-                    <td>{{ $item->nama_role }}</td>
-                    <td>{{ $item->username }}</td> --}}
-                    <td>
-                        -
-                    </td>
+                    <td>{{ $index + 1 }}</td>
+                    <td>{{ $item->nama_obat }}</td>
+                    <td>{{ $item->jumlah_penggunaan }} kali</td>
                 </tr>
-            {{-- @endforeach --}}
+            @endforeach
+        @else
+            <tr>
+                <td colspan="3">Tidak ada data obat yang ditemukan.</td>
+            </tr>
+        @endif
         </tbody>
     </table>
 </div>

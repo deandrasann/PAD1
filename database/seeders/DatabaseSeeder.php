@@ -24,6 +24,7 @@ class DatabaseSeeder extends Seeder
             PengawasSeeder::class,
             PemeriksaanSeeder::class,
             ResepSeeder::class,
+            DetailResepSeeder::class
         ]);
     }
 }

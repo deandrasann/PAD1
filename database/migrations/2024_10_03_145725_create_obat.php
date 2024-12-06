@@ -31,10 +31,11 @@ return new class extends Migration
             $table->string('pola_makan')->nullable();
             $table->string('interaksi_obat')->nullable();
             $table->string('petunjuk_penyimpanan')->nullable();
-            $table->string('kekuatan_sediaan')->nullable();
+            $table->integer('kekuatan_sediaan')->nullable();
             $table->string('informasi_tambahan')->nullable();
             $table->string('efek_samping')->nullable();
             $table->string('indikasi')->nullable();
+            $table->enum('status_ketersediaan_obat', ['Stocked ', 'Draft','Habis'])->default('Stocked')->nullable();
 
             $table
             ->foreign('id_apoteker')

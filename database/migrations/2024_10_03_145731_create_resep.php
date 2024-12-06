@@ -19,10 +19,14 @@ return new class extends Migration
             $table->integer('no_antrian');
             $table->integer('id_dokter');
             $table->integer('id_pasien');
+            $table->integer('id_pengawas');
             $table->integer('kode_obat');
             $table->enum('status_resep', ['setuju ', 'deleted'])->default('setuju')->nullable();
-            $table->date('tgl_resep');
-            $table->string('harga_satuan')->nullable();
+            $table->string('tgl_resep')->nullable();
+            $table->string('dosis')->nullable();
+            $table->string('jadwal_minum_obat')->nullable();
+            $table->enum('status_pengobatan', ['Proses Pengobatan ', 'Pengobatan Selesai'])->default('Proses Pengobatan')->nullable();
+            // $table->string('harga_satuan')->nullable();
 
 
             $table
@@ -43,6 +47,13 @@ return new class extends Migration
             ->foreign('id_pasien')
             ->references('id_pasien')
             ->on('pasien')
+            ->cascadeOnUpdate()
+            ->cascadeOnDelete();
+
+            $table
+            ->foreign('id_pengawas')
+            ->references('id_pengawas')
+            ->on('pengawas')
             ->cascadeOnUpdate()
             ->cascadeOnDelete();
 

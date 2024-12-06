@@ -36,6 +36,10 @@ Route::get('/password-verification', function () {
 });
 
 Route::get('/beranda', [DashboardController::class, 'beranda'])->name('beranda');
+Route::get('/jadwal-minum-obat', [PasienController::class, 'jadwalMinumObat'])->name('jadwal.obat');
+Route::get('/laporan-minum-obat', [PasienController::class, 'laporanMinumObat'])->name('laporan.obat');
+Route::get('/riwayat-minum-obat-pasien', [PasienController::class, 'riwayatMinumObat'])->name('riwayat.minum.obat.pasien');
+
 
 Route::group(['middleware' => ['auth', 'level:admin,apoteker']], function () {
 
@@ -44,9 +48,6 @@ Route::group(['middleware' => ['auth', 'level:admin,apoteker']], function () {
     Route::post('/pasien/{id}', [PasienController::class, 'PasienUpdate'])->name('pasien.update');
     Route::delete('/pasien/{id}', [PasienController::class, 'PasienDestroy'])->name('pasien.destroy');
     Route::get('/hasil-scan', [PasienController::class, 'hasilScan'])->name('hasil.scan');
-Route::get('/jadwal-minum-obat', [PasienController::class, 'jadwalMinumObat'])->name('jadwal.obat');
-Route::get('/laporan-minum-obat', [PasienController::class, 'laporanMinumObat'])->name('laporan.obat');
-Route::get('/riwayat-minum-obat-pasien', [PasienController::class, 'riwayatMinumObat'])->name('riwayat.minum.obat.pasien');
 
     Route::get('/obat', [ObatController::class, 'obat'])->name('daftar-obat');
     Route::post('/obat', [ObatController::class, 'obatstore'])->name('daftarobat.store');

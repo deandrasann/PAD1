@@ -46,7 +46,13 @@ class ResepController extends Controller
         $data_obat = DB::table('obat')
         ->where('status_ketersediaan_obat', 'stocked') // Menyaring berdasarkan status_ketersediaan_obat 'stocked'
         ->get();;
-        $data_pemeriksaan = DB::table('pemeriksaan')->get();
+        $data_pemeriksaan = DB::table('pemeriksaan')
+        ->join('pasien', 'pemeriksaan.id_pasien', '=', 'pasien.id_pasien')  // Join dengan tabel pasien
+        ->join('dokter', 'pemeriksaan.nama_dokter', '=', 'dokter.id_dokter')  // Join dengan tabel dokter
+        ->where('pasien.id_pasien', $id)  // Filter berdasarkan id_pasien
+        ->select('pemeriksaan.no_antrian', 'pemeriksaan.tgl_diagnosa', 'pasien.nama as nama_pasien', 'pasien.alamat', 'dokter.nama_dokter as nama_dokter', 'dokter.id_dokter')  // Pilih kolom yang dibutuhkan
+        ->get();
+        // dd($data_pemeriksaan);
         $data_pengawas = DB::table('pengawas')->get();
         // ApotekerModel::join('obat', 'apoteker.id_apoteker', '=', 'obat.id_apoteker')
         //         ->select('obat.*', 'apoteker.id_apoteker', 'apoteker.nama_apoteker')
@@ -65,12 +71,16 @@ class ResepController extends Controller
         if ($request->has('search')) {
             $search = $request->input('search');
             $data_pasien = DB::table('pasien')->orWhere('no_rm', $search)
+                ->WhereNull('pasien.deleted_at')
                 ->orWhere('nama', 'like', "%" . $search . "%")
                 ->orWhere('alamat', 'like', "%" . $search . "%")
                 ->orWhere('tanggal_lahir', $search)
+                ->orderBy('nama', 'asc')
                 ->paginate(5);
         } else {
             $data_pasien = DB::table('pasien')
+                ->WhereNull('pasien.deleted_at')
+                ->orderBy('nama', 'asc')
                 ->paginate(5);
         }
         return view('pasien-resep', compact('data_pasien'));
@@ -98,12 +108,11 @@ class ResepController extends Controller
                 'no_antrian' => $request->input('no_antrian'),
                 'id_pasien' => $request->input('id_pasien'),
                 'id_dokter' => $request->input('id_dokter'),
-                'id_pengawas' => $request->input('id_pengawas'),
                 'kode_obat' => $request->input('kode_obat'),
                 'tgl_resep' => Carbon::now('Asia/Jakarta')->format('Y-m-d H:i:s'),
                 'dosis' => $request->input('dosis'),
             ];
-
+            // dd($tambah_resep);
             // Simpan data ke tabel Resep
             $resep = ResepModel::create($tambah_resep);
 
@@ -163,8 +172,11 @@ class ResepController extends Controller
         } catch (\Exception $e) {
             // Jika terjadi kesalahan, rollback perubahan
             DB::rollback();
+
+            $errorMessage = $e->getMessage();
+
             $idpasien = $request->id_pasien;
-            return redirect()->route('resep-tiap-pasien', ['id' => $idpasien])->with('error', 'Gagal menambahkan Resep:');
+            return redirect()->route('resep-tiap-pasien', ['id' => $idpasien])->with('error', 'Gagal menambahkan Resep:' . $errorMessage);
         }
     }
 

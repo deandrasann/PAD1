@@ -19,7 +19,6 @@ return new class extends Migration
             $table->integer('no_antrian');
             $table->integer('id_dokter');
             $table->integer('id_pasien');
-            $table->integer('id_pengawas');
             $table->integer('kode_obat');
             $table->enum('status_resep', ['setuju ', 'deleted'])->default('setuju')->nullable();
             $table->string('tgl_resep')->nullable();
@@ -47,13 +46,6 @@ return new class extends Migration
             ->foreign('id_pasien')
             ->references('id_pasien')
             ->on('pasien')
-            ->cascadeOnUpdate()
-            ->cascadeOnDelete();
-
-            $table
-            ->foreign('id_pengawas')
-            ->references('id_pengawas')
-            ->on('pengawas')
             ->cascadeOnUpdate()
             ->cascadeOnDelete();
 

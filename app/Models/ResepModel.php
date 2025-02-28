@@ -21,7 +21,6 @@ class ResepModel extends Model
         'no_antrian',
         'id_dokter',
         'id_pasien',
-        'id_pengawas',
         'kode_obat',
         'tgl_resep',
         'status_resep',

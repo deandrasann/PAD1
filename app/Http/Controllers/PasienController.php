@@ -33,15 +33,20 @@ class PasienController extends Controller
     public function pasien(Request $request) {
         if ($request->has('search')) {
             $search = $request->input('search');
-            $data_pasien = DB::table('pasien')->orWhere('no_rm', $search)
+            $data_pasien = DB::table('pasien')
+            ->WhereNull('pasien.deleted_at')
+            ->orWhere('no_rm', $search)
             ->orWhere('nama', 'like',"%" . $search . "%")
             ->orWhere('jenis_kelamin', 'like',"%" . $search . "%")
             ->orWhere('no_telp', 'like',"%" . $search . "%")
             ->orWhere('alamat', 'like',"%" . $search . "%")
             ->orWhere('tanggal_lahir', $search)
+            ->orderBy('nama', 'asc')
             ->paginate(5);
         } else {
             $data_pasien = DB::table('pasien')
+                ->WhereNull('pasien.deleted_at')
+                ->orderBy('nama', 'asc')
                 ->paginate(5);
         }
         // $data_pasien = DB::table('pasien')->paginate(5);

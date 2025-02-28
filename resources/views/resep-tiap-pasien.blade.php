@@ -7,63 +7,66 @@
         <div class="d-flex justify-content-between align-items-center">
             <div class="card my-4" style="width: 26rem;">
                 <div class="card-body">
-                    @if($resep_obat)
-                    <div class="row">
-                        <div class="col-5"><strong>No Resep</strong></div>
-                        <div class="col-1">:</div>
-                        <div class="col-5">{{ $resep_obat->no_resep }}</div>
-                    </div>
-                    <div class="row">
-                        <div class="col-5"><strong>Tanggal Resep</strong></div>
-                        <div class="col-1">:</div>
-                        <div class="col-5">{{ $resep_obat->tgl_resep }}</div>
-                    </div>
-                    <div class="row">
-                        <div class="col-5"><strong>Nama</strong></div>
-                        <div class="col-1">:</div>
-                        <div class="col-5">{{ $resep_obat->nama }}</div>
-                    </div>
-                    <div class="row">
-                        <div class="col-5"><strong>Jenis Kelamin</strong></div>
-                        <div class="col-1">:</div>
-                        <div class="col-5">{{ $resep_obat->jenis_kelamin }}</div>
-                    </div>
-                    <div class="row">
-                        <div class="col-5"><strong>No Telepon</strong></div>
-                        <div class="col-1">:</div>
-                        <div class="col-5">{{ $resep_obat->no_telp }}</div>
-                    </div>
-                    <div class="row">
-                        <div class="col-5"><strong>Alamat</strong></div>
-                        <div class="col-1">:</div>
-                        <div class="col-5">{{ $resep_obat->alamat }}</div>
-                    </div>
-            @else
-                <div class="alert alert-warning" role="alert">
-                    Tidak ada data resep yang ditemukan.
-                </div>
-            @endif
+                    @if ($resep_obat)
+                        <div class="row">
+                            <div class="col-5"><strong>No Resep</strong></div>
+                            <div class="col-1">:</div>
+                            <div class="col-5">{{ $resep_obat->no_resep }}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-5"><strong>Tanggal Resep</strong></div>
+                            <div class="col-1">:</div>
+                            <div class="col-5">{{ $resep_obat->tgl_resep }}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-5"><strong>Nama</strong></div>
+                            <div class="col-1">:</div>
+                            <div class="col-5">{{ $resep_obat->nama }}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-5"><strong>Jenis Kelamin</strong></div>
+                            <div class="col-1">:</div>
+                            <div class="col-5">{{ $resep_obat->jenis_kelamin }}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-5"><strong>No Telepon</strong></div>
+                            <div class="col-1">:</div>
+                            <div class="col-5">{{ $resep_obat->no_telp }}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-5"><strong>Alamat</strong></div>
+                            <div class="col-1">:</div>
+                            <div class="col-5">{{ $resep_obat->alamat }}</div>
+                        </div>
+                    @else
+                        <div class="alert alert-warning" role="alert">
+                            Tidak ada data resep yang ditemukan.
+                        </div>
+                    @endif
                 </div>
             </div>
 
-        <a href='{{route('detail-resep-obat', $resep_obat->id_pasien)}}' class="container-row-2 p-4" target="_blank">
-            <img src="{{ asset('images/printer.png') }}">
-        </a>
-    </div>
+            <a href='{{ route('detail-resep-obat', $resep_obat->id_pasien) }}' class="container-row-2 p-4" target="_blank">
+                <img src="{{ asset('images/printer.png') }}">
+            </a>
+        </div>
 
-        <button type="button" class="btn btn-resep mb-4 mt-2" data-bs-toggle="modal" data-bs-target="#tambahObatModal">
-            + Tambah Resep
-        </button>
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <!-- Search Bar -->
+            <form action="{{ route('resep-tiap-pasien', $resep_obat->id_pasien) }}" method="GET">
+                <div class="search-bar mb-3">
+                    <input type="text" class="form-control" placeholder="Cari Resep" name="search"
+                        value="{{ request('search') }}" autocomplete="off">
+                    <button class="btn btn-link" type="submit">
+                        <img src="{{ asset('images/search icon.png') }}">
+                    </button>
+                </div>
+            </form>
 
-        <!-- Search Bar -->
-        <form action="{{ route('resep-tiap-pasien', $resep_obat->id_pasien) }}" method="GET">
-        <div class="search-bar mb-3">
-            <input type="text" class="form-control" placeholder="Cari Resep" name="search" value="{{ request("search") }}" autocomplete="off">
-            <button class="btn btn-link" type="submit">
-                <img src="{{ asset('images/search icon.png') }}">
+            <button type="button" class="btn btn-resep mb-4 mt-2" data-bs-toggle="modal" data-bs-target="#tambahObatModal">
+                + Tambah Resep
             </button>
         </div>
-        </form>
 
         <!-- Tabel Data Resep Obat -->
         <div class="table-data table-responsive">
@@ -165,30 +168,31 @@
             </div>
         </div>
         <!-- Hapus Obat Modal -->
-        @foreach($data as $key)
-        <div class="modal fade" id="HapusObatModal{{ $key->no_resep }}" tabindex="-1" aria-labelledby="HapusObatModalLabel"
-            aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content ">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="HapusObatModalLabel">Hapus Data Resep</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body text-center">
-                        <img src="{{ asset('images/warning icon.png') }}" alt="Warning">
-                        <p>Anda yakin ingin menghapus data resep ini?</p>
-                        <form action="{{ route('resep.destroy', $key->no_resep)}}" method="POST">
-                        <div class="d-flex justify-content-around mt-3">
-                            <button type="button" class="btn btn-white" data-bs-dismiss="modal">TIDAK</button>
-                              @csrf
-                              @method('DELETE')
-                            <button type="submit" class="btn btn-danger px-4">YA</button>
-                          </div>
-                        </form>
+        @foreach ($data as $key)
+            <div class="modal fade" id="HapusObatModal{{ $key->no_resep }}" tabindex="-1"
+                aria-labelledby="HapusObatModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content ">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="HapusObatModalLabel">Hapus Data Resep</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body text-center">
+                            <img src="{{ asset('images/warning icon.png') }}" alt="Warning">
+                            <p>Anda yakin ingin menghapus data resep ini?</p>
+                            <form action="{{ route('resep.destroy', $key->no_resep) }}" method="POST">
+                                <div class="d-flex justify-content-around mt-3">
+                                    <button type="button" class="btn btn-white" data-bs-dismiss="modal">TIDAK</button>
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger px-4">YA</button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
         @endforeach
         {{-- Tambah Obat Modal --}}
         <div class="modal fade" id="tambahObatModal" tabindex="-1" aria-labelledby="tambahObatModalLabel"
@@ -200,71 +204,57 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <form action="{{ route('reseptiappasien.store') }}" method="POST">
-                      @csrf
-                    <div class="modal-body">
-                        <div class="row mb-3">
-                            <label for="noPemeriksaan" class="col-md-4 col-form-label">Nomor Antrian</label>
-                            <div class="col-md-8">
-                              {{-- <select id="noPemeriksaan" name="no_antrian" class="form-select" > --}}
-                            <select id="noPemeriksaan" name="no_antrian" class="form-select" onmousedown="if(this.options.length>5){this.size=5;}">
-                                <option disabled selected>--Pilih Nomor Antrian --</option>
-                                @foreach($data_pemeriksaan as $pemeriksaaan)
-                                <option value="{{ $pemeriksaaan->no_antrian }}" {{ old('no_antrian') == $pemeriksaaan->no_antrian ? 'selected' : null}}>{{ $pemeriksaaan->no_antrian }}</option>
-                                @endforeach
-                            </select>
+                        @csrf
+                        <div class="modal-body">
+                            <div class="row mb-3">
+                                <label for="noPemeriksaan" class="col-md-4 col-form-label">Nomor Antrian</label>
+                                <div class="col-md-8">
+                                        <input type="text" class="form-control" id="noPemeriksaan" name="no_antrian"
+                                        value="{{ $resep_obat->no_antrian }}" readonly style="background-color: #f0f0f0; color: #333; ">
+                                </div>
                             </div>
-                        </div>
-                        <br>
+                            <br>
 
                             <div class="row mb-3">
-                              <label for="namadokter" class="col-md-4 col-form-label" onmousedown="if(this.options.length>5){this.size=5;}">Nama Dokter</label>
-                              <div class="col-md-8">
-                                <select id="namadokter" name="id_dokter" class="form-select" >
-                                  <option disabled selected>--Pilih Dokter --</option>
-                                  @foreach($data_dokter as $dokter)
-                                  <option value="{{ $dokter->id_dokter }}" {{ old('nama_dokter') == $dokter->nama_dokter ? 'selected' : null}}>{{ $dokter->nama_dokter }}</option>
-                                  @endforeach
-                              </select>
-                              </div>
-                          </div>
-                        <br>
-                            <div class="row mb-3">
-                              <label for="namapengawas" class="col-md-4 col-form-label" onmousedown="if(this.options.length>5){this.size=5;}">Pengawas Minum Obat</label>
-                              <div class="col-md-8">
-                                <select id="namapengawas" name="id_pengawas" class="form-select" >
-                                  <option disabled selected>--Pilih Pengawas --</option>
-                                  @foreach($data_pengawas as $pengawas)
-                                  <option value="{{ $pengawas->id_pengawas }}" {{ old('nama_pengawas') == $pengawas->nama_pengawas ? 'selected' : null}}>{{ $pengawas->nama_pengawas }}</option>
-                                  @endforeach
-                              </select>
-                              </div>
-                          </div>
-
+                                <label for="namadokter" class="col-md-4 col-form-label">Nama Dokter</label>
+                                <div class="col-md-8">
+                                    @foreach ($data_pemeriksaan as $item)
+                                    <input type="text" class="form-control" id="namadokter" name="id_dokter"
+                                        value="{{ $item->id_dokter }}" {{ $item->id_dokter ? 'readonly' : 'disabled' }} style="background-color: #f0f0f0; color: #333;">
+                                    @endforeach
+                                </div>
+                            </div>
+                            <br>
                             <div class="row mb-3">
                                 <div class="col-md-8">
-                                    <input type="hidden" class="form-control" id="idpasien" name="id_pasien" value="{{ $resep_obat->id_pasien }}">
+                                    <input type="hidden" class="form-control" id="idpasien" name="id_pasien"
+                                        value="{{ $resep_obat->id_pasien }}">
                                 </div>
                             </div>
 
                             <div class="row mb-3">
                                 <label for="namaObat" class="col-md-4 col-form-label">Nama Obat</label>
                                 <div class="col-md-8">
-                                  <select id="namaObat" name="kode_obat" class="form-select" onmousedown="if(this.options.length>5){this.size=5;}">
-                                    <option disabled selected>--Pilih Obat --</option>
-                                    @foreach($data_obat as $obat)
-                                    <option value="{{ $obat->kode_obat }}" {{ old('nama_obat') == $obat->nama_obat ? 'selected' : null}}>{{ $obat->nama_obat }}</option>
-                                    @endforeach
-                                </select>
+                                    <select id="namaObat" name="kode_obat" class="form-select"
+                                        onmousedown="if(this.options.length>5){this.size=5;}">
+                                        <option disabled selected>--Pilih Obat --</option>
+                                        @foreach ($data_obat as $obat)
+                                            <option value="{{ $obat->kode_obat }}"
+                                                {{ old('nama_obat') == $obat->nama_obat ? 'selected' : null }}>
+                                                {{ $obat->nama_obat }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
 
                             <div class="row mb-3">
                                 <label for="dosis" class="col-md-4 col-form-label">Dosis</label>
                                 <div class="col-md-8">
-                                    <input type="number" class="form-control" id="dosis" name="dosis" class="dosis" placeholder="Masukan Dosis Dalam Satuan mg">
+                                    <input type="number" class="form-control" id="dosis" name="dosis"
+                                        class="dosis" placeholder="Masukan Dosis Dalam Satuan mg">
                                 </div>
                             </div>
-                           
+
                         </div>
 
                         <div class="modal-footer">
@@ -277,8 +267,6 @@
         </div>
 
     </div>
-
-
 @endsection
 <script>
     document.addEventListener('DOMContentLoaded', function() {

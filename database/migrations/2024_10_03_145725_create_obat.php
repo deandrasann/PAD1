@@ -36,6 +36,8 @@ return new class extends Migration
             $table->string('efek_samping')->nullable();
             $table->string('indikasi')->nullable();
             $table->enum('status_ketersediaan_obat', ['Stocked ', 'Draft','Habis'])->default('Stocked')->nullable();
+            $table->timestamps();
+            $table->softDeletes();
 
             $table
             ->foreign('id_apoteker')

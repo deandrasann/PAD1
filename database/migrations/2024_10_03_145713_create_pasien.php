@@ -23,6 +23,8 @@ return new class extends Migration
             $table->date('tanggal_lahir')->nullable();
             $table->string('no_telp')->nullable();
             $table->string('berat_badan')->nullable();
+            $table->timestamps();
+            $table->softDeletes();
         });
     }
 

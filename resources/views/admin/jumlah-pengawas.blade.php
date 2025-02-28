@@ -4,19 +4,22 @@
     <div class="container mt-3">
         <h2>DATA PENGAWAS</h2>
 
-        <a type="button" class="btn btn-resep my-4" href="{{ route('tambah-pengawas') }}">
-            + Tambah Pengawas
-        </a>
+        <div class="d-flex justify-content-between align-items-center mb-3">
 
-        <!-- Search Bar -->
-        <form action="{{ route('jumlah-pengawas') }}" method="GET">
-        <div class="search-bar mb-3 d-flex">
-            <input type="text" class="form-control" placeholder="Cari Pengawas" name="search" value="{{ request("search") }}" autocomplete="off">
-            <button class="btn btn-link">
-                <img src="{{ asset('images/search icon.png') }}" alt="Search Icon">
-            </button>
+            <!-- Search Bar -->
+            <form action="{{ route('jumlah-pengawas') }}" method="GET">
+                <div class="search-bar mt-2">
+                    <input type="text" class="form-control" placeholder="Cari Pengawas" name="search"
+                        value="{{ request('search') }}" autocomplete="off">
+                    <button class="btn btn-link">
+                        <img src="{{ asset('images/search icon.png') }}" alt="Search Icon">
+                    </button>
+                </div>
+            </form>
+            <a type="button" class="btn btn-resep mb-3 px-4 py-3" href="{{ route('tambah-pengawas') }}">
+                + Tambah Pengawas
+            </a>
         </div>
-    </form>
         <!-- Tabel Data Apoteker -->
         <div class="card p-4 table-responsive">
             <table class="table table-striped table-hover">
@@ -61,90 +64,89 @@
         </div>
 
         <!-- Pagination -->
-       
-    <!-- Modals -->
 
-    <!-- Hapus Obat Modal -->
-    @foreach ($data_pengawas as $key)
-        <div class="modal fade" id="hapusPengawasModal{{ $key->id_pengawas }}" tabindex="-1"
-            aria-labelledby="hapusPengawasModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content ">
+        <!-- Modals -->
+
+        <!-- Hapus Obat Modal -->
+        @foreach ($data_pengawas as $key)
+            <div class="modal fade" id="hapusPengawasModal{{ $key->id_pengawas }}" tabindex="-1"
+                aria-labelledby="hapusPengawasModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content ">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="HapusPengawasModalLabel">Hapus Pengawas</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body text-center">
+                            <img src="{{ asset('images/warning icon.png') }}" alt="Warning">
+                            <p>Anda yakin ingin menghapus pengawas ini?</p>
+                            <form action="{{ route('pengawas.destroy', $key->id_pengawas) }}" method="POST">
+                                <div class="d-flex justify-content-around mt-3">
+                                    <button type="button" class="btn btn-white" data-bs-dismiss="modal">TIDAK</button>
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger px-4">YA</button>
+                                </div>
+                        </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        @endforeach
+
+        <div class="modal fade" id="editPengawasModal" tabindex="-1" aria-labelledby="editPengawasModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-dialog-centered">
+                <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="HapusPengawasModalLabel">Hapus Pengawas</h5>
+                        <h5 class="modal-title" id="editPengawasModalLabel">Edit Pengawas</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div class="modal-body text-center">
-                        <img src="{{ asset('images/warning icon.png') }}" alt="Warning">
-                        <p>Anda yakin ingin menghapus pengawas ini?</p>
-                        <form action="{{ route('pengawas.destroy', $key->id_pengawas) }}" method="POST">
-                            <div class="d-flex justify-content-around mt-3">
-                                <button type="button" class="btn btn-white" data-bs-dismiss="modal">TIDAK</button>
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-danger px-4">YA</button>
-                            </div>
-                    </div>
-                    </form>
-                </div>
-            </div>
-          </div>
-          @endforeach
-
-    <div class="modal fade" id="editPengawasModal" tabindex="-1" aria-labelledby="editPengawasModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="editPengawasModalLabel">Edit Pengawas</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <form action="" method="POST" id="formedit">
-                    @csrf
-                    <div class="modal-body">
-                        <form>
-                            <!-- Nama Obat -->
-                            <div class="row mb-3">
-                                <label for="username" class="col-md-4 col-form-label">Username</label>
-                                <div class="col-md-8">
-                                    <input type="text" class="form-control" id="usernameedit" name="username">
+                    <form action="" method="POST" id="formedit">
+                        @csrf
+                        <div class="modal-body">
+                            <form>
+                                <!-- Nama Obat -->
+                                <div class="row mb-3">
+                                    <label for="username" class="col-md-4 col-form-label">Username</label>
+                                    <div class="col-md-8">
+                                        <input type="text" class="form-control" id="usernameedit" name="username">
+                                    </div>
                                 </div>
-                            </div>
 
-                            <!-- Bentuk Obat -->
-                            <div class="row mb-3">
-                                <label for="nama" class="col-md-4 col-form-label">Nama Pengawas</label>
-                                <div class="col-md-8">
-                                    <input type="text" class="form-control" id="nama" name="nama_pengawas">
+                                <!-- Bentuk Obat -->
+                                <div class="row mb-3">
+                                    <label for="nama" class="col-md-4 col-form-label">Nama Pengawas</label>
+                                    <div class="col-md-8">
+                                        <input type="text" class="form-control" id="nama" name="nama_pengawas">
+                                    </div>
                                 </div>
-                            </div>
-                    </div>
+                        </div>
 
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-white" data-bs-dismiss="modal">Batal</button>
-                        <button type="submit" class="btn btn-resep ms-auto">Simpan</button>
-                    </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-white" data-bs-dismiss="modal">Batal</button>
+                            <button type="submit" class="btn btn-resep ms-auto">Simpan</button>
+                        </div>
+                </div>
+                </form>
             </div>
-            </form>
         </div>
-    </div>
+    @endsection
 
-@endsection
+    <script>
+        function openEditPengawasModal(id) {
+            // document.getElementById('editObatModal').style.visibility="true";
+            $('#editPengawasModal').modal('show');
+            var editButton = document.getElementById("editPengawas" + id);
+            var row = editButton.closest("tr");
+            var data = row.getElementsByTagName('td');
 
-<script>
-    function openEditPengawasModal(id) {
-        // document.getElementById('editObatModal').style.visibility="true";
-        $('#editPengawasModal').modal('show');
-        var editButton = document.getElementById("editPengawas" + id);
-        var row = editButton.closest("tr");
-        var data = row.getElementsByTagName('td');
+            document.getElementById("formedit").action = "{{ route('pengawas.update', '') }}/" + id;
+            document.getElementById("usernameedit").value = data[1].innerText;
+            document.getElementById("nama").value = data[2].innerText;
+            // document.getElementById("editCategoryDescription").value = data[1].innerText;  
+            // document.getElementById("editCategoryDescription").value = data[2].innerText;  
+            // console.log(data);
 
-        document.getElementById("formedit").action = "{{ route('pengawas.update', '') }}/" + id;
-        document.getElementById("usernameedit").value = data[1].innerText;
-        document.getElementById("nama").value = data[2].innerText;
-        // document.getElementById("editCategoryDescription").value = data[1].innerText;  
-        // document.getElementById("editCategoryDescription").value = data[2].innerText;  
-        // console.log(data);
-
-    }
-</script>
+        }
+    </script>

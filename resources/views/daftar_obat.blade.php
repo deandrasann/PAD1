@@ -4,20 +4,23 @@
     <div class="container mt-4">
         <h2>DATA RESEP OBAT</h2>
 
-        <button type="button" class="btn btn-resep mb-4 mt-2" data-bs-toggle="modal" data-bs-target="#tambahObatModal">
-            + Tambah Obat
-        </button>
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <!-- Search Bar -->
+            <form action="{{ route('daftar-obat') }}" method="GET">
+                <div class="search-bar mt-2">
+                    <input type="text" class="form-control" placeholder="Cari Obat" name="search"
+                        value="{{ request('search') }}" autocomplete="off">
+                    <button class="btn btn-link" type="submit">
+                        <img src="{{ asset('images/search icon.png') }}">
+                    </button>
+                </div>
+            </form>
 
-        <!-- Search Bar -->
-        <form action="{{ route('daftar-obat') }}" method="GET">
-            <div class="search-bar mb-3">
-                <input type="text" class="form-control" placeholder="Cari Obat" name="search"
-                    value="{{ request('search') }}" autocomplete="off">
-                <button class="btn btn-link" type="submit">
-                    <img src="{{ asset('images/search icon.png') }}">
-                </button>
-            </div>
-        </form>
+            <button type="button" class="btn btn-resep mb-3 px-4 py-3" data-bs-toggle="modal"
+                data-bs-target="#tambahObatModal">
+                + Tambah Obat
+            </button>
+        </div>
 
         <!-- Tabel Data Resep Obat -->
         <div class="table-data table-responsive">
@@ -143,7 +146,6 @@
             </div>
         </div>
 
-        {{-- Hapus Obat Modal --}}
         <!-- Hapus Obat Modal -->
         @foreach ($data_obat as $item)
             <div class="modal fade" id="HapusObatModal{{ $item->kode_obat }}" tabindex="-1"
@@ -361,7 +363,8 @@
                                     <option disabled selected>--Pilih Status Ketersediaan Obat --</option>
                                     <option value="Stocked" {{ old('statussediaedit') == 'Stocked' ? 'selected' : '' }}>
                                         Stocked</option>
-                                    <option value="Draft" {{ old('statussediaedit') == 'Draft' ? 'selected' : '' }}>Draft</option>
+                                    <option value="Draft" {{ old('statussediaedit') == 'Draft' ? 'selected' : '' }}>Draft
+                                    </option>
                                     <option value="Habis" {{ old('statussediaedit') == 'Habis' ? 'selected' : '' }}>Habis
                                     </option>
                                 </select>

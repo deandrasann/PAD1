@@ -18,7 +18,7 @@
         </button>
     </div>
 
-    <!-- Table 1: Riwayat Minum Obat Hari Ini -->
+       <!-- Table 1: Riwayat Minum Obat Hari Ini -->
     <div class="table-responsive">
         <table class="table table-striped table-hover">
             <thead class="table-primary">

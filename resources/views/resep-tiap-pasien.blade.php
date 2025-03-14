@@ -209,8 +209,9 @@
                             <div class="row mb-3">
                                 <label for="noPemeriksaan" class="col-md-4 col-form-label">Nomor Antrian</label>
                                 <div class="col-md-8">
-                                        <input type="text" class="form-control" id="noPemeriksaan" name="no_antrian"
-                                        value="{{ $resep_obat->no_antrian }}" readonly style="background-color: #f0f0f0; color: #333; ">
+                                    <input type="text" class="form-control" id="noPemeriksaan" name="no_antrian"
+                                        value="{{ $resep_obat->no_antrian }}" readonly
+                                        style="background-color: #f0f0f0; color: #333; ">
                                 </div>
                             </div>
                             <br>
@@ -219,8 +220,12 @@
                                 <label for="namadokter" class="col-md-4 col-form-label">Nama Dokter</label>
                                 <div class="col-md-8">
                                     @foreach ($data_pemeriksaan as $item)
-                                    <input type="text" class="form-control" id="namadokter" name="id_dokter"
-                                        value="{{ $item->id_dokter }}" {{ $item->id_dokter ? 'readonly' : 'disabled' }} style="background-color: #f0f0f0; color: #333;">
+                                        {{-- <input type="text" class="form-control" id="namadokter" name="id_dokter"
+                                        value="{{ $item->id_dokter }}" {{ $item->id_dokter ? 'readonly' : 'disabled' }}style="background-color: #f0f0f0; color: #333;"> --}}
+                                        <input type="text" class="form-control" id="namadokter"
+                                            value="{{ $item->nama_dokter }}" readonly
+                                            style="background-color: #f0f0f0; color: #333;">
+                                        <input type="hidden" name="id_dokter" value="{{ $item->id_dokter }}">
                                     @endforeach
                                 </div>
                             </div>
@@ -235,13 +240,11 @@
                             <div class="row mb-3">
                                 <label for="namaObat" class="col-md-4 col-form-label">Nama Obat</label>
                                 <div class="col-md-8">
-                                    <select id="namaObat" name="kode_obat" class="form-select"
-                                        onmousedown="if(this.options.length>5){this.size=5;}">
-                                        <option disabled selected>--Pilih Obat --</option>
-                                        @foreach ($data_obat as $obat)
-                                            <option value="{{ $obat->kode_obat }}"
-                                                {{ old('nama_obat') == $obat->nama_obat ? 'selected' : null }}>
-                                                {{ $obat->nama_obat }}</option>
+                                    <select class="form-control" id="namaObat" name="kode_obat" style="max-height: 100px; overflow-y: auto;">
+                                        @foreach($data_obat as $item)
+                                            <option value="{{ $item->kode_obat }}" {{ $item->kode_obat == $item->kode_obat ? 'selected' : '' }}>
+                                                {{ $item->nama_obat }}
+                                            </option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -294,3 +297,5 @@
         });
     });
 </script>
+
+

@@ -63,6 +63,45 @@
                 <img src="{{ asset('images/beranda/jumlah obat.png')}}" class="ms-3">
             </div>
         </div>
+        <div class="container-row-2 py-3 pe-3 my-3 me-3 d-flex justify-content-end align-items-start px-4">
+            <div class="me-4">
+                <h2>@if($data_pengawas == NULL)
+                    0
+                 @else
+                 {{ $data_pengawas }}
+                 @endif</h2>
+                <p>Pasien Hari Ini</p>
+            </div>
+            <div>
+                <img src="{{ asset('images/beranda/jumlah pasien.png')}}" class="ms-3">
+            </div>
+        </div>
+        <div class="container-row-2 py-3 pe-3 my-3 me-3 d-flex justify-content-end align-items-start px-4">
+            <div class="me-4">
+                <h2>@if($data_pengawas == NULL)
+                    0
+                 @else
+                 {{ $data_pengawas }}
+                 @endif</h2>
+                <p>Sudah Dilayani</p>
+            </div>
+            <div>
+                <img src="{{ asset('images/beranda/jumlah pasien.png')}}" class="ms-3">
+            </div>
+        </div>
+        <div class="container-row-2 py-3 pe-3 my-3 me-3 d-flex justify-content-end align-items-start px-4">
+            <div class="me-4">
+                <h2>@if($data_pengawas == NULL)
+                    0
+                 @else
+                 {{ $data_pengawas }}
+                 @endif</h2>
+                <p>Belum Dilayani</p>
+            </div>
+            <div>
+                <img src="{{ asset('images/beranda/jumlah pasien.png')}}" class="ms-3">
+            </div>
+        </div>
     </div>
 </div>
 @endcan
@@ -152,6 +191,8 @@
     </div>
 </div>
 @endcan
+
+
 
 @can('apoteker')
 @php

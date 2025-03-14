@@ -3,6 +3,7 @@
 use App\Http\Controllers\ApotekerController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DokterController;
 use App\Http\Controllers\ObatController;
 use App\Http\Controllers\PasienController;
 use App\Http\Controllers\PengawasController;
@@ -75,6 +76,14 @@ Route::group(['middleware' => ['auth', 'level:admin']], function () {
     Route::post('/jumlah-pengawas/{id}', [PengawasController::class, 'pengawasupdate'])->name('pengawas.update');
     Route::delete('/jumlah-pengawas/{id}', [PengawasController::class, 'pengawasdestroy'])->name('pengawas.destroy');
 });
+
+// Route::group(['middleware' => ['auth', 'level:dokter']], function () {
+//     Route::get('/resume-medis', [DokterController::class, 'resumeMedis'])->name('resume-medis');
+// });
+
+Route::get('/resume-medis', [DokterController::class, 'resumeMedis'])->name('resume-medis');
+Route::get('/riwayat-konsultasi', [DokterController::class, 'riwayatKonsultasi'])->name('riwayat-konsultasi');
+
 
 Route::group(['middleware' => ['auth', 'level:admin,pengawas']], function () {
 

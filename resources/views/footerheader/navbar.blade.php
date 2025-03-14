@@ -139,6 +139,14 @@
                                     src="{{ asset('images/navbar menu/riwayat pasien.png') }}" class="me-4"
                                     style="width: 30px; height:30px"><strong>Pengawas</strong></a>
                         @endcan
+                        <a href ="{{ route('jumlah-pengawas') }}" type="button"
+                                class="btn-custom ps-3 d-flex justify-content-start align-items-center m-2 mx-4"> <img
+                                    src="{{ asset('images\carbon_cabin-care.png') }}" class="me-4"
+                                    style="width: 30px; height:30px"><strong>Rawat Jalan</strong></a>
+                        <a href ="{{ route('jumlah-pengawas') }}" type="button"
+                        class="btn-custom ps-3 d-flex justify-content-start align-items-center m-2 mx-4"> <img
+                            src="{{ asset('images/navbar menu/riwayat pasien.png') }}" class="me-4"
+                            style="width: 30px; height:30px"><strong>Pasien</strong></a>
 
                 </div>
             </div>

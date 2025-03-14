@@ -83,6 +83,7 @@ Route::group(['middleware' => ['auth', 'level:admin']], function () {
 
 Route::get('/resume-medis', [DokterController::class, 'resumeMedis'])->name('resume-medis');
 Route::get('/riwayat-konsultasi', [DokterController::class, 'riwayatKonsultasi'])->name('riwayat-konsultasi');
+Route::get('/rawat-jalan', [DokterController::class, 'rawatJalan'])->name('rawat-jalan');
 
 
 Route::group(['middleware' => ['auth', 'level:admin,pengawas']], function () {

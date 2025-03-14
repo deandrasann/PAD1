@@ -336,9 +336,7 @@
             });
         });
     });
-</script>
 
-<script>
     function openEditPasienModal(id) {
         // document.getElementById('editObatModal').style.visibility="true";
         $('#editPasienModal').modal('show');

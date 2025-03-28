@@ -237,7 +237,7 @@
                                         <hr>
                                         <button type="button" class="btn btn-resep px-2 py-2 mb-2 mt-4" data-bs-toggle="modal"
                                             data-bs-target="#tambahObatModal">
-                                            <strong> + Tambah Obat</strong>
+                                            <strong><a href="{{ route('tambah-obat-dokter') }}" style="color: white; text-decoration:none">+ Tambah Obat </a> </strong>
                                         </button>
 
                                         <div class="mb-4 mt-4">

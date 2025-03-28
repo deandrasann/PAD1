@@ -16,4 +16,7 @@ class DokterController extends Controller
     public function rawatJalan(){
         return \view('dokter.rawat-jalan');
     }
+    public function tambahObat(){
+        return \view('dokter.tambah-obat-dokter');
+    }
 }

@@ -1,4 +1,6 @@
-
+p{
+    font-family: "Robto", sans-serif;
+}
 .navbar::-webkit-scrollbar{
     display: none;
 }
@@ -47,7 +49,13 @@
     background-color: #2DA3F9;
 }
 .btn-custom:active{
-    background-color: #2DA3F9;
+    background-color: #2DA3F9 !important;
+}
+
+.delete-icon{
+    color: red;
+    background-color: transparent;
+    border: none;
 }
 
 .card{
@@ -263,19 +271,14 @@
     font-size: 1rem;
 }
 
-.nav-link:active{
-    text-decoration: underline #000000;
-}
-
-body {
-    margin-top:40px;
-}
 .stepwizard-step p {
     margin-top: 10px;
 }
 .stepwizard-row {
     display: table-row;
 }
+
+
 .stepwizard {
     display: table;
     width: 50%;
@@ -310,3 +313,10 @@ body {
     border-radius: 15px;
 }
 
+    .btn.btn-outline-primary :hover{
+        background-color: #1F73B6 !important;
+        color:white !important;
+    }
+    .btn.btn-outline-primary{
+        color:#1F73B6 !important;
+    }

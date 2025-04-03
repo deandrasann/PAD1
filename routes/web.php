@@ -42,7 +42,7 @@ Route::get('/laporan-minum-obat', [PasienController::class, 'laporanMinumObat'])
 Route::get('/riwayat-minum-obat-pasien', [PasienController::class, 'riwayatMinumObat'])->name('riwayat.minum.obat.pasien');
 
 
-Route::group(['middleware' => ['auth', 'level:admin,apoteker']], function () {
+Route::group(['middleware' => ['auth', 'level:admin,apoteker,dokter']], function () {
 
     Route::get('/pasien', [PasienController::class, 'pasien'])->name('daftar-pasien');
     Route::post('/pasien', [PasienController::class, 'PasienStore'])->name('pasien.store');

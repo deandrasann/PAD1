@@ -2,87 +2,98 @@
 @section('content')
     <div class="container">
         <h2 class="me-4">DATA PASIEN</h2>
-        <div class="d-flex justify-content-between align-items-center mb-3">
 
-            <form action="{{ route('daftar-pasien') }}" method="GET">
-                <div class="search-bar mt-4">
-                    <input type="text" class="form-control" placeholder="Cari Pasien" name="search"
+        <!-- Search + Tambah Button -->
+        <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-3 gap-3">
+            <form action="{{ route('daftar-pasien') }}" method="GET" class="w-100">
+                <div class="search-bar mt-2 position-relative">
+                    <input type="text" class="form-control pe-5" placeholder="Cari Pasien" name="search"
                         value="{{ request('search') }}" autocomplete="off">
-                    <button class="btn btn-link" type="submit">
-                        <img src="{{ asset('images/search icon.png') }}">
+                    <button class="btn position-absolute top-50 end-0 translate-middle-y me-2" type="submit">
+                        <img src="{{ asset('images/search icon.png') }}" alt="Search">
                     </button>
                 </div>
             </form>
 
-            <button type="button" class="btn btn-resep px-4 py-3 mb-2" data-bs-toggle="modal"
-                data-bs-target="#tambahPasienModal">
-                <strong> + Tambah Pasien</strong>
-            </button>
+            <div class="text-md-end">
+                <button type="button" class="btn btn-resep px-4 py-3" data-bs-toggle="modal"
+                    data-bs-target="#tambahPasienModal">
+                    <strong> + Tambah Pasien</strong>
+                </button>
+            </div>
+        </div>
+
+        <!-- Table Card -->
+        <div class="card p-3">
+            <div class="table-responsive">
+                <table class="table table-striped table-hover align-middle">
+                    <thead class="table-primary">
+                        <tr>
+                            <th>No RM</th>
+                            <th>Nama Pasien</th>
+                            <th>Jenis kelamin</th>
+                            <th>Tanggal Lahir</th>
+                            <th>Alamat</th>
+                            <th>No Telp</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @forelse ($data_pasien as $index => $item)
+                            <tr>
+                                <td>{{ $item->no_rm }}</td>
+                                <td>{{ $item->nama }}</td>
+                                <td>{{ $item->jenis_kelamin }}</td>
+                                <td>{{ $item->tanggal_lahir }}</td>
+                                <td>{{ $item->alamat }}</td>
+                                <td>{{ $item->no_telp }}</td>
+                                <td>
+                                    <div class="d-flex flex-wrap gap-1">
+                                        <!-- Detail Button -->
+                                        <button class="btn btn-resep btn-sm detail-btn"
+                                            data-norm="{{ $item->no_rm }}"
+                                            data-nama="{{ $item->nama }}"
+                                            data-jenis="{{ $item->jenis_kelamin }}"
+                                            data-tanggal="{{ $item->tanggal_lahir }}"
+                                            data-alamat="{{ $item->alamat }}"
+                                            data-notelp="{{ $item->no_telp }}"
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#detailPasienModal">
+                                            <img src="{{ asset('images/detail icon.png') }}" class="me-1" alt="Detail">Detail
+                                        </button>
+
+                                        <!-- Edit Button -->
+                                        <button class="btn btn-success btn-sm editPasien"
+                                            onclick="openEditPasienModal({{ $item->id_pasien }})"
+                                            id="editPasien{{ $item->id_pasien }}">
+                                            <img src="{{ asset('images/edit icon.png') }}" class="me-1" alt="Edit">Edit
+                                        </button>
+
+                                        <!-- Delete Button -->
+                                        <button class="btn btn-danger btn-sm delete-btn"
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#hapusPasienModal{{ $item->id_pasien }}">
+                                            <img src="{{ asset('images/delete icon.png') }}" class="me-1" alt="Hapus">Hapus
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="7" class="text-center">Tidak Ada Data</td>
+                            </tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Pagination -->
+            <div class="paginate d-flex justify-content-center mt-3">
+                {{ $data_pasien->links() }}
+            </div>
         </div>
     </div>
 
-    <div class="d-flex justify-content-center align-items-center p-4">
-        <div class="card p-4 w-100">
-            <table class="table table-striped table-hover">
-                <thead class="table-primary">
-                    <tr>
-                        <th class="px-2 py-2">No RM</th>
-                        <th class="px-4 py-2">Nama Pasien</th>
-                        <th class="px-4 py-2">Jenis kelamin</th>
-                        <th class="px-4 py-2">Tanggal Lahir</th>
-                        <th class="px-4 py-2">Alamat</th>
-                        <th class="px-4 py-2">No Telp</th>
-                        <th class="px-4 py-2">Aksi</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @forelse ($data_pasien as $index => $item)
-                        <tr>
-                            <td>{{ $item->no_rm }}</td>
-                            <td>{{ $item->nama }}</td>
-                            <td>{{ $item->jenis_kelamin }}</td>
-                            <td>{{ $item->tanggal_lahir }}</td>
-                            <td>{{ $item->alamat }}</td>
-                            <td>{{ $item->no_telp }}</td>
-                            <td>
-                                {{-- <button class="btn btn-resep p-2 px-3 detail-btn" data-bs-toggle="modal" data-bs-target="#detailPasienModal">
-                            <img src="{{ asset('images/detail icon.png') }}" class="me-2">Detail
-                        </button> --}}
-                                <button class="btn btn-resep p-2 px-3 detail-btn" data-norm="{{ $item->no_rm }}"
-                                    data-nama="{{ $item->nama }}" data-jenis="{{ $item->jenis_kelamin }}"
-                                    data-tanggal="{{ $item->tanggal_lahir }}" data-alamat="{{ $item->alamat }}"
-                                    data-notelp="{{ $item->no_telp }}" data-bs-toggle="modal"
-                                    data-bs-target="#detailPasienModal">
-                                    <img src="{{ asset('images/detail icon.png') }}" class="me-2">Detail
-                                </button>
-
-                                {{-- <button class="btn btn-success p-2 px-3 edit-btn" data-bs-toggle="modal" data-bs-target="#editPasienModal">
-                            <img src="{{ asset('images/edit icon.png') }}" class="me-2">Edit
-                        </button> --}}
-
-                                <button class="btn btn-success editPasien p-2 px-3"
-                                    onclick="openEditPasienModal({{ $item->id_pasien }})"
-                                    id="editPasien{{ $item->id_pasien }}">
-                                    <img src="{{ asset('images/edit icon.png') }}" class="me-2">Edit
-                                </button>
-
-                                {{-- <button class="btn btn-danger p-2 px-3 delete-btn" data-bs-toggle="modal" data-bs-target="#hapusPasienModal">
-                            <img src="{{ asset('images/delete icon.png') }}" class="me-2">Hapus
-                        </button> --}}
-                                <button class="btn btn-danger p-2 px-3 delete-btn" data-bs-toggle="modal"
-                                    data-bs-target="#hapusPasienModal{{ $item->id_pasien }}">
-                                    <img src="{{ asset('images/delete icon.png') }}" class="me-2">Hapus
-                                </button>
-
-                            </td>
-                        </tr>
-                    @empty
-                        <tr>
-                            <td colspan="7" class="text-center">Tidak Ada Data</td>
-                        </tr>
-                    @endforelse
-                </tbody>
-            </table>
 
             <!-- Tambah Pasien Modal -->
             <div class="modal fade" id="tambahPasienModal" tabindex="-1" aria-labelledby="tambahPasienModalLabel"
@@ -150,10 +161,6 @@
 
                     </div>
                 </div>
-            </div>
-            <!-- Pagination -->
-            <div class="paginate d-flex justify-content-center">
-                {{ $data_pasien->links() }}
             </div>
 
             <!-- Detail Pasien Modal -->

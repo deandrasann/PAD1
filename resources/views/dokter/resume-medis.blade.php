@@ -176,10 +176,10 @@
                                 <td colspan="2">
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <label class="my-2">Tinggi Badan</label>
+                                            <label class="my-2">Diastole</label>
                                             <div class="input-group w-50">
-                                                <input type="number" class="form-control">
-                                                <span class="input-group-text">cm</span>
+                                                <input type="number" class="form-control" value="70" disabled>
+                                                <span class="input-group-text">mmhg</span>
                                             </div>
                                         </div>
                                     </div>

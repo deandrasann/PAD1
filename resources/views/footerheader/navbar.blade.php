@@ -156,7 +156,7 @@
                         @endcan
 
                         @can('dokter')
-                        <a href ="{{ route('jumlah-pengawas') }}" type="button"
+                        <a href ="{{ route('rawat-jalan') }}" type="button"
                                 class="btn-custom ps-3 d-flex justify-content-start align-items-center m-2 mx-4"> <img
                                     src="{{ asset('images\carbon_cabin-care.png') }}" class="me-4"
                                     style="width: 30px; height:30px"><strong>Rawat Jalan</strong></a>

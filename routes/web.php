@@ -85,6 +85,11 @@ Route::get('/resume-medis', [DokterController::class, 'resumeMedis'])->name('res
 Route::get('/riwayat-konsultasi', [DokterController::class, 'riwayatKonsultasi'])->name('riwayat-konsultasi');
 Route::get('/rawat-jalan', [DokterController::class, 'rawatJalan'])->name('rawat-jalan');
 Route::get('/tambah-obat-dokter', [DokterController::class, 'tambahObat'])->name('tambah-obat-dokter');
+Route::get('/view-pasien-dokter', [DokterController::class, 'viewPasienDokter'])->name('view-pasien-dokter');
+Route::get('/detail-data-pasien', [DokterController::class, 'detailPasien'])->name('detail-data-pasien');
+Route::get('/riwayat-konsultasi-pasien', [DokterController::class, 'riwayatKonsultasiPasien'])->name('riwayat-konsultasi-pasien');
+Route::get('/lihat-obat-pasien', [DokterController::class, 'lihatObatPasien'])->name('lihat-obat-pasien');
+
 
 
 Route::group(['middleware' => ['auth', 'level:admin,pengawas']], function () {

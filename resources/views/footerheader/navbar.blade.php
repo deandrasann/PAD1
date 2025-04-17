@@ -154,17 +154,21 @@
                                     src="{{ asset('images/navbar menu/riwayat pasien.png') }}" class="me-4"
                                     style="width: 30px; height:30px"><strong>Pengawas</strong></a>
                         @endcan
-
-                        @can('dokter')
+                        @can('apoteker')
                         <a href ="{{ route('rawat-jalan') }}" type="button"
                                 class="btn-custom ps-3 d-flex justify-content-start align-items-center m-2 mx-4"> <img
                                     src="{{ asset('images\carbon_cabin-care.png') }}" class="me-4"
-                                    style="width: 30px; height:30px"><strong>Rawat Jalan</strong></a>
-                        <a href ="{{ route('daftar-pasien') }}" type="button"
-                        class="btn-custom ps-3 d-flex justify-content-start align-items-center m-2 mx-4"> <img
-                            src="{{ asset('images/navbar menu/riwayat pasien.png') }}" class="me-4"
+                                    style="width: 30px; height:30px"><strong>Rawat Jalan</strong>
+                        </a>
+                        @endcan
+                        @can('apoteker')
+                        <a href ="{{ route('view-pasien-dokter') }}" type="button"
+                            class="btn-custom ps-3 d-flex justify-content-start align-items-center m-2 mx-4"> <img
+                            src="{{ asset('images/pasien icon.png') }}" class="me-4"
                             style="width: 30px; height:30px"><strong>Pasien</strong></a>
                         @endcan
+
+
                 </div>
             </div>
         </div>

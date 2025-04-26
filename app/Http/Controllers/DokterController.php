@@ -54,4 +54,7 @@ class DokterController extends Controller
     public function lihatObatPasien(){
         return \view('dokter.lihat-obat-pasien');
     }
+    public function coba(){
+        return view('cobadropdown');
+    }
 }

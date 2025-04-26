@@ -240,9 +240,10 @@
                             <div class="row mb-3">
                                 <label for="namaObat" class="col-md-4 col-form-label">Nama Obat</label>
                                 <div class="col-md-8">
-                                    <select class="form-control" id="namaObat" name="kode_obat" style="max-height: 100px; overflow-y: auto;">
-                                        @foreach($data_obat as $item)
-                                            <option value="{{ $item->kode_obat }}" {{ $item->kode_obat == $item->kode_obat ? 'selected' : '' }}>
+                                    <select class="form-control" id="namaObat" name="kode_obat" style="width: 100%;">
+                                        <option value="" disabled selected>-- Pilih Nama Obat --</option>
+                                        @foreach ($data_obat as $item)
+                                            <option value="{{ $item->kode_obat }}">
                                                 {{ $item->nama_obat }}
                                             </option>
                                         @endforeach
@@ -253,8 +254,9 @@
                             <div class="row mb-3">
                                 <label for="dosis" class="col-md-4 col-form-label">Dosis</label>
                                 <div class="col-md-8">
-                                    <input type="number" class="form-control" id="dosis" name="dosis"
-                                        class="dosis" placeholder="Masukan Dosis Dalam Satuan mg">
+                                    <select class="form-control" id="dosis" name="dosis" style="width: 100%;">
+                                        <option value="" disabled selected>-- Pilih Dosis --</option>
+                                    </select>
                                 </div>
                             </div>
 
@@ -270,6 +272,54 @@
         </div>
 
     </div>
+    <script>
+        $(document).ready(function() {
+            $("#namaObat").select2({
+                placeholder: '-- Pilih Nama Obat --', // Samain placeholder
+                allowClear: true, // (Optional) Biar bisa hapus pilihan
+                dropdownParent: $('#tambahObatModal') // Biar dropdown tampil dalam modal
+            });
+        });
+
+        $("#dosis").select2({
+            placeholder: '-- Pilih Dosis --',
+            allowClear: true,
+            dropdownParent: $('#tambahObatModal')
+        });
+
+        $('#namaObat').on('change', function() {
+            var kode_obat = $(this).val();
+
+            if (kode_obat) {
+                $.ajax({
+                    url: '{{ route('resep.get-dosis') }}',
+                    type: 'GET',
+                    data: {
+                        kode_obat: kode_obat
+                    },
+                    success: function(response) {
+                        $('#dosis').empty().append(
+                            '<option value="" disabled selected>-- Pilih Dosis --</option>');
+
+                        if (response.dosis_options.length > 0) {
+                            response.dosis_options.forEach(function(dosis) {
+                                $('#dosis').append('<option value="' + dosis + '">' + dosis +
+                                    ' mg</option>');
+                            });
+                        } else {
+                            $('#dosis').append(
+                                '<option value="" disabled>Tidak ada dosis tersedia</option>');
+                        }
+
+                        $('#dosis').trigger('change');
+                    }
+                });
+            } else {
+                $('#dosis').empty().append('<option value="" disabled selected>-- Pilih Dosis --</option>').trigger(
+                    'change');
+            }
+        });
+    </script>
 @endsection
 <script>
     document.addEventListener('DOMContentLoaded', function() {
@@ -297,5 +347,3 @@
         });
     });
 </script>
-
-

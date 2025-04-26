@@ -5,20 +5,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    {{-- link styles --}}
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="icon" type="image/logo simple" href="images/pavicon.png">
+    {{-- scripts --}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <title>apotech.id</title>
 </head>
 
 {{-- Navbar --}}
-<nav class="navbar sticky-top bg-body-tertiary px-4 py-2" style="background: linear-gradient(90deg, #0D426C 22.99%, #338CC1 95.86%); width: 100%;">
+<nav class="navbar sticky-top bg-body-tertiary px-4 py-2"
+    style="background: linear-gradient(90deg, #0D426C 22.99%, #338CC1 95.86%); width: 100%;">
     <div class="container-fluid d-flex justify-content-between align-items-center">
 
         <!-- Left Section: Sidebar Toggle & Logo -->
@@ -27,7 +30,8 @@
                 <img src="{{ asset('images/logo.png') }}" alt="Logo" width="150" height="auto" class="me-3">
             </a>
             <!-- Sidebar Toggle Icon -->
-            <a href="#" data-bs-target="#sidebar" data-bs-toggle="collapse" class="navbar-brand d-flex align-items-center">
+            <a href="#" data-bs-target="#sidebar" data-bs-toggle="collapse"
+                class="navbar-brand d-flex align-items-center">
                 <img src="{{ asset('images/navbar menu/navbar icon.png') }}" alt="Menu">
             </a>
         </div>
@@ -59,24 +63,23 @@
                                 <!-- Jika role 'apoteker', periksa apakah foto ada -->
                                 @if (Auth::user()->apoteker && Auth::user()->apoteker->foto)
                                     <img src="{{ asset('storage/' . Auth::user()->apoteker->foto) }}" class="m-4"
-                                        width="200px" height="200px">
+                                        width="144px" height="128px">
                                 @else
-                                    <img src="{{ asset('images/user_profile1.png') }}" class="m-4" width="200px"
-                                        height="200px">
+                                    <img src="{{ asset('images/profile.png') }}" class="m-4" width="144px"
+                                        height="128px">
                                 @endif
                             @elseif (Auth::user()->nama_role == 'pengawas')
                                 <!-- Jika role 'pengawas', periksa apakah foto ada -->
                                 @if (Auth::user()->pengawas && Auth::user()->pengawas->foto)
                                     <img src="{{ asset('storage/' . Auth::user()->pengawas->foto) }}" class="m-4"
-                                        width="200px" height="200px">
+                                        width="144px" height="128px">
                                 @else
-                                    <img src="{{ asset('images/user_profile1.png') }}" class="m-4" width="200px"
-                                        height="200px">
+                                    <img src="{{ asset('images/profile.png') }}" class="m-4" width="144px"
+                                        height="128px">
                                 @endif
                             @else
                                 <!-- Untuk role lainnya, tampilkan foto default -->
-                                <img src="{{ asset('images/user_profile1.png') }}" alt="" width="200px"
-                                    height="200px">
+                                <img src="{{ asset('images/profile.png') }}" alt="" width="144px" height="128px">
                             @endif
                             <h5 class="offcanvas-title" id="offcanvasScrollingLabel">{{ auth()->user()->username }}</h5>
                             <p>{{ auth()->user()->nama_role }}</p>
@@ -84,12 +87,12 @@
                     </div>
 
                     @can('apoteker')
-                    <a href="{{ route('tambah-resep') }}" type="button"
-                        class="btn btn-primary d-flex justify-content-center align-items-center m-4"
-                        style="flex-shrink: 0; border-radius: 90px;background: #3378AA; box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);border:none"><strong>TAMBAH
-                            RESEP</strong> <img src="{{ asset('images/tambah resep icon.png') }}" class="ms-4"
-                            style="width: 45px; height:45px">
-                    </a>
+                        <a href="{{ route('tambah-resep') }}" type="button"
+                            class="btn btn-primary d-flex justify-content-center align-items-center m-4"
+                            style="flex-shrink: 0; border-radius: 90px;background: #3378AA; box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);border:none"><strong>TAMBAH
+                                RESEP</strong> <img src="{{ asset('images/tambah resep icon.png') }}" class="ms-4"
+                                style="width: 45px; height:45px">
+                        </a>
                     @endcan
 
                     @can('admin+apoteker+pengawas')
@@ -98,12 +101,12 @@
                                 src="{{ asset('images/home icon.png') }}" class="me-4" style="width: 30px; height:30px">
                             <strong>Beranda</strong></a>
                     @endcan
-                    
+
                     @can('dokter')
-                    <a href ="{{ route('beranda') }}" type="button"
-                        class="btn-custom ps-3 d-flex justify-content-start align-items-center m-2 mx-4"> <img
-                            src="{{ asset('images/home icon.png') }}" class="me-4" style="width: 30px; height:30px">
-                        <strong>Beranda</strong></a>
+                        <a href ="{{ route('beranda') }}" type="button"
+                            class="btn-custom ps-3 d-flex justify-content-start align-items-center m-2 mx-4"> <img
+                                src="{{ asset('images/home icon.png') }}" class="me-4" style="width: 30px; height:30px">
+                            <strong>Beranda</strong></a>
                     @endcan
 
                     @can('apoteker')
@@ -154,18 +157,16 @@
                                     src="{{ asset('images/navbar menu/riwayat pasien.png') }}" class="me-4"
                                     style="width: 30px; height:30px"><strong>Pengawas</strong></a>
                         @endcan
-                        @can('apoteker')
-                        <a href ="{{ route('rawat-jalan') }}" type="button"
+                        @can('dokter')
+                            <a href ="{{ route('rawat-jalan') }}" type="button"
                                 class="btn-custom ps-3 d-flex justify-content-start align-items-center m-2 mx-4"> <img
                                     src="{{ asset('images\carbon_cabin-care.png') }}" class="me-4"
                                     style="width: 30px; height:30px"><strong>Rawat Jalan</strong>
-                        </a>
-                        @endcan
-                        @can('apoteker')
-                        <a href ="{{ route('view-pasien-dokter') }}" type="button"
-                            class="btn-custom ps-3 d-flex justify-content-start align-items-center m-2 mx-4"> <img
-                            src="{{ asset('images/pasien icon.png') }}" class="me-4"
-                            style="width: 30px; height:30px"><strong>Pasien</strong></a>
+                            </a>
+                            <a href ="{{ route('view-pasien-dokter') }}" type="button"
+                                class="btn-custom ps-3 d-flex justify-content-start align-items-center m-2 mx-4"> <img
+                                    src="{{ asset('images/pasien icon.png') }}" class="me-4"
+                                    style="width: 30px; height:30px"><strong>Pasien</strong></a>
                         @endcan
 
 
@@ -175,18 +176,22 @@
         <main class="col ps-md-2 pt-2">
 
             <body>
-                <div class="body m-5">@if ($message = Session::get('success'))
-                    <div class="alert alert-success">
-                        {{ $message }}
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" style="position: absolute; right: 10px; top: 10px;"></button>
-                    </div>
+                <div class="body m-5">
+                    @if ($message = Session::get('success'))
+                        <div class="alert alert-success">
+                            {{ $message }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"
+                                style="position: absolute; right: 10px; top: 10px;"></button>
+                        </div>
                     @elseif($message = Session::get('error'))
                         <div class="alert alert-danger alert-dismissible fade show" role="alert">
                             {{ $message }}
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                aria-label="Close"></button>
                         </div>
                     @endif
-                    @yield('content')</div>
+                    @yield('content')
+                </div>
             </body>
         </main>
 

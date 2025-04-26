@@ -58,6 +58,7 @@ Route::group(['middleware' => ['auth', 'level:admin,apoteker,dokter']], function
     Route::get('/tambah-resep', [ResepController::class, 'tambahResep'])->name('tambah-resep');
     Route::post('/tambah-resep', [ResepController::class, 'TambahPasien'])->name('tambahpasien');
     Route::get('/resep-pasien/{id}', [ResepController::class, 'resepTiapPasien'])->name('resep-tiap-pasien');
+    Route::get('/resep/get-dosis', [ResepController::class, 'getDosis'])->name('resep.get-dosis');
     Route::post('/resep-pasien', [ResepController::class, 'store'])->name('reseptiappasien.store');
     Route::get('/detail-resep-obat/{id}', [ResepController::class, 'detailDataObat'])->name('detail-resep-obat');
     Route::delete('/resep-pasien/{id}', [ResepController::class, 'destroy'])->name('resep.destroy');

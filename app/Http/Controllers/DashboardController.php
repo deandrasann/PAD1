@@ -41,10 +41,47 @@ class DashboardController extends Controller
 
     
     
-    public function riwayatResep(){
-        $data_pasien = DB::table('pasien')->paginate(5);
-        return view('riwayat-resep-obat', compact('data_pasien'));
+    public function riwayatResep(Request $request){
+        if ($request->has('search')) {
+            $search = $request->input('search');
+        
+            $data_resep = DB::table('resep')
+                ->join('pasien', 'resep.id_pasien', '=', 'pasien.id_pasien')
+                ->select(
+                    'pasien.id_pasien',
+                    'pasien.nama',
+                    'pasien.tanggal_lahir',
+                    'pasien.alamat',
+                    DB::raw('GROUP_CONCAT(DISTINCT resep.no_resep ORDER BY resep.no_resep ASC SEPARATOR ", ") as no_resep'),
+                    DB::raw('GROUP_CONCAT(DISTINCT resep.tgl_resep ORDER BY resep.tgl_resep ASC SEPARATOR ", ") as tgl_resep'),
+                    DB::raw('COUNT(resep.no_resep) as jumlah_obat')
+                )
+                ->where(function ($query) use ($search) {
+                    $query->where('pasien.nama', 'like', '%' . $search . '%')
+                          ->orWhere('pasien.alamat', 'like', '%' . $search . '%')
+                          ->orWhere('resep.tgl_resep', 'like', '%' . $search . '%')
+                          ->orWhere('resep.no_resep', 'like', '%' . $search . '%');
+                })
+                ->groupBy('pasien.id_pasien', 'pasien.nama', 'pasien.tanggal_lahir', 'pasien.alamat')
+                ->paginate(5);
+        } else {
+            $data_resep = DB::table('resep')
+                ->join('pasien', 'resep.id_pasien', '=', 'pasien.id_pasien')
+                ->select(
+                    'pasien.id_pasien',
+                    'pasien.nama',
+                    'pasien.tanggal_lahir',
+                    'pasien.alamat',
+                    DB::raw('GROUP_CONCAT(DISTINCT resep.no_resep ORDER BY resep.no_resep ASC SEPARATOR ", ") as no_resep'),
+                    DB::raw('GROUP_CONCAT(DISTINCT resep.tgl_resep ORDER BY resep.tgl_resep ASC SEPARATOR ", ") as tgl_resep'),
+                    DB::raw('COUNT(resep.no_resep) as jumlah_obat')
+                )
+                ->groupBy('pasien.id_pasien', 'pasien.nama', 'pasien.tanggal_lahir', 'pasien.alamat')
+                ->paginate(5);
+        }        
+        return view('riwayat-resep-obat', compact('data_resep'));
     }
+
     public function jumlahApoteker(){
         $data_apoteker = DB::table('users')->paginate(5);
         return view('admin.jumlah-apoteker', compact('data_apoteker'));

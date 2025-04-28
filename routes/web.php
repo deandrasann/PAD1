@@ -93,7 +93,7 @@ Route::get('/lihat-obat-pasien', [DokterController::class, 'lihatObatPasien'])->
 
 
 
-Route::group(['middleware' => ['auth', 'level:admin,pengawas']], function () {
+Route::group(['middleware' => ['auth', 'level:admin,pengawas,apoteker']], function () {
 
     Route::get('/riwayat-resep', [DashboardController::class, 'riwayatResep'])->name('riwayat-resep');
     Route::get('/pasien-pmo', [PengawasMinumObatController::class, 'pasienPMO'])->name('pmo-daftar-pasien');

@@ -4,21 +4,21 @@
         <h2 class="me-4">DATA PASIEN</h2>
 
         <!-- Search + Tambah Button -->
-        <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-3 gap-3">
-            <form action="{{ route('daftar-pasien') }}" method="GET" class="w-100">
-                <div class="search-bar mt-2 position-relative">
-                    <input type="text" class="form-control pe-5" placeholder="Cari Pasien" name="search"
-                        value="{{ request('search') }}" autocomplete="off">
-                    <button class="btn position-absolute top-50 end-0 translate-middle-y me-2" type="submit">
-                        <img src="{{ asset('images/search icon.png') }}" alt="Search">
-                    </button>
-                </div>
-            </form>
-
-            <div class="text-md-end">
-                <button type="button" class="btn btn-resep px-4 py-3" data-bs-toggle="modal"
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <!-- Search Bar -->
+                <form action="{{ route('daftar-pasien') }}" method="GET">
+                    <div class="search-bar mt-2">
+                        <input type="text" class="form-control" placeholder="Cari Pasien" name="search"
+                            value="{{ request('search') }}">
+                        <button class="btn btn-link" type="submit">
+                            <img src="{{ asset('images/search icon.png') }}">
+                        </button>
+                    </div>
+                </form>
+    
+                <button type="button" class="btn btn-resep mb-3 px-4 py-3" data-bs-toggle="modal"
                     data-bs-target="#tambahPasienModal">
-                    <strong> + Tambah Pasien</strong>
+                    + Tambah Pasien
                 </button>
             </div>
         </div>
@@ -35,7 +35,7 @@
                             <th>Tanggal Lahir</th>
                             <th>Alamat</th>
                             <th>No Telp</th>
-                            <th>Aksi</th>
+                            <th style="text-align: center;">Aksi</th>
                         </tr>
                     </thead>
                     <tbody>

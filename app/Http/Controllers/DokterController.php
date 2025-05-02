@@ -12,10 +12,10 @@ use Illuminate\Support\Facades\DB;
 class DokterController extends Controller
 {
     public function resumeMedis(){
-        return \view('dokter.resume-medis');
+        return view('dokter.resume-medis');
     }
     public function riwayatKonsultasi(){
-        return \view('dokter.riwayat-konsultasi');
+        return view('dokter.riwayat-konsultasi');
     }
     public function rawatJalan(){
         return \view('dokter.rawat-jalan');
@@ -53,5 +53,8 @@ class DokterController extends Controller
     }
     public function lihatObatPasien(){
         return \view('dokter.lihat-obat-pasien');
+    }
+    public function coba(){
+        return view('cobadropdown');
     }
 }

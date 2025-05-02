@@ -99,6 +99,26 @@ class ResepController extends Controller
         return redirect()->route('tambah-resep')->with('success', 'Berhasil Menambahkan Pasien');
     }
 
+    public function getDosis(Request $request)
+    {
+        $kode_obat = $request->kode_obat;
+
+        $obat = ObatModel::where('kode_obat', $kode_obat)->first();
+    
+        if (!$obat) {
+            return response()->json(['dosis_options' => []]);
+        }
+    
+        $max_dosis = $obat->kekuatan_sediaan;
+    
+        $dosis_options = [];
+        for ($i = 1; $i <= $max_dosis; $i++) {
+            $dosis_options[] = $i;
+        }
+    
+        return response()->json(['dosis_options' => $dosis_options]);
+    }
+
     public function store(Request $request)
     {
         DB::beginTransaction(); // Memulai transaksi database
@@ -237,7 +257,7 @@ class ResepController extends Controller
         ->where('resep.status_resep', 'setuju')
         ->select('resep.*', 'detail_resep.*', 'obat.*','pasien.nama', 'pasien.jenis_kelamin', DB::raw('TIMESTAMPDIFF(YEAR, pasien.tanggal_lahir, CURDATE()) AS umur'))->get();
 
-        $url = 'http://192.168.210.10:8000/cek-pasien/' . $id;
+        $url = 'http://10.33.73.151:8000/cek-pasien/' . $id;
 
         // Generate QR Code
         $qrCode = QrCode::size(200)->generate($url);

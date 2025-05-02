@@ -2,22 +2,23 @@
 @section('content')
     <div class="container">
         <h2 class="me-4">DATA PASIEN</h2>
-        @if ($data_pasien->isEmpty())
-            <button type="button" class="btn btn-resep px-4 py-3 mb-2 mt-4" data-bs-toggle="modal"
-                data-bs-target="#tambahPasienModal">
-                <strong> + Tambah Pasien</strong>
-            </button>
-        @endif
-
-        <form action="{{ route('tambah-resep') }}" method="GET">
-            <div class="search-bar mt-5">
-                <input type="text" class="form-control" placeholder="Cari Pasien" name="search"
-                    value="{{ request('search') }}">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <form action="{{ route('tambah-resep') }}" method="GET" class="d-flex">
+                <div class="search-bar">
+                    <input type="text" class="form-control" placeholder="Cari Pasien" name="search"
+                        value="{{ request('search') }}">
+                </div>
                 <button class="btn btn-link" type="submit">
-                    <img src="{{ asset('images/search icon.png') }}">
+                    <img src="{{ asset('images/search icon.png') }}" alt="Search" style="width: 24px; height: 24px;">
                 </button>
-            </div>
-        </form>
+            </form>
+        
+            @if ($data_pasien->isEmpty())
+                <button type="button" class="btn btn-resep px-4 py-3" data-bs-toggle="modal" data-bs-target="#tambahPasienModal">
+                    <strong>+ Tambah Pasien</strong>
+                </button>
+            @endif
+        </div>
     </div>
 
     <div class="d-flex justify-content-center align-items-center p-4">

@@ -5,23 +5,46 @@
     .nav-link.active {
         color: white !important;
     }
+    .nav-link:hover {
+    color: white !important;
+}
+.nav-pills .nav-link {
+    color: #2DA3F9 !important;
+    background-color: transparent;
+}
+
+.nav-pills .nav-link.active {
+    color: white !important;
+    background-color: #2DA3F9 !important; /* Atau warna background lain */
+}
+
+.nav-pills .nav-link:hover {
+    color: white !important;
+}
 
 </style>
 
-<ul class="nav nav-pills flex-column flex-sm-row mb-3" id="pills-tab" role="tablist">
+<ul class="nav nav-pills flex-row flex-wrap mb-3 gap-2 justify-content-between" id="pills-tab" role="tablist">
     <li class="nav-item" role="presentation">
-        <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true" style="color: white">Pemeriksaan</button>
+        <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill"
+            data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home"
+            aria-selected="true">Pemeriksaan</button>
     </li>
     <li class="nav-item" role="presentation">
-        <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false" style="color: white">Jadwal Minum Obat</button>
+        <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill"
+            data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile"
+            aria-selected="false">Jadwal</button>
     </li>
     <li class="nav-item" role="presentation">
-        <button class="nav-link" id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#pills-contact" type="button" role="tab" aria-controls="pills-contact" aria-selected="false" style="color: white">Riwayat Minum Obat</button>
+        <button class="nav-link" id="pills-contact-tab" data-bs-toggle="pill"
+            data-bs-target="#pills-contact" type="button" role="tab" aria-controls="pills-contact"
+            aria-selected="false">Riwayat</button>
     </li>
 </ul>
+
   <div class="tab-content" id="pills-tabContent">
     <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
-        <div class="card p-4">
+        <div class="card p-4 my-2">
             <div class="my-2">
                 <strong>
                     <div class="label">Tanggal Pemeriksaan</div>

@@ -178,7 +178,7 @@
 <body>
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-3 p-4 border-end border-bottom">
+            <div class="col-md-3 py-4 border-end border-bottom">
                 <div class="d-flex flex-column align-items-center">
                     <h1>Data Pasien</h1>
                     <img src="images/pengawas_minum_obat.jpeg" class="profile-img m-4" width="200px"
@@ -238,7 +238,7 @@
                 </div>
             </div>
             <div class="col-md-9">
-                <div class="body m-5">
+                <div class="body m-2">
                     <!-- Success message placeholder -->
                     <div class="alert alert-success" style="display: none;">
                         [Success message]

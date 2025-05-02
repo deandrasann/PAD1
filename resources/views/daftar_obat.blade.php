@@ -45,7 +45,7 @@
                             <td>{{ $item->nama_obat }}</td>
                             <td>{{ $item->kekuatan_sediaan }}</td>
                             <td
-                                class=" 
+                                class="
                             @if ($item->status_ketersediaan_obat == 'Stocked') text-success font-weight-bold
                             @elseif($item->status_ketersediaan_obat == 'Draft')
                                 text-warning font-weight-bold
@@ -194,7 +194,7 @@
                                         <option value="" disabled selected>--Pilih Apoteker --</option>
                                         @foreach ($apoteker_obat as $ao)
                                             <option value="{{ $ao->id_apoteker }}"
-                                                {{ old('nama_apoteker') == $ao->nama_apoteker ? 'selected' : null }}>
+                                                {{ old('nama_apoteker') == $ao->nama_apoteker ? 'selected' : null }} >
                                                 {{ $ao->nama_apoteker }}</option>
                                         @endforeach
                                     </select>
@@ -206,6 +206,7 @@
                                 <div class="col-md-8">
                                     <input type="text" class="form-control" id="namaObat" name="nama_obat"
                                         class="nama_obat" placeholder="Nama obat" required>
+                                        class="nama_obat" placeholder="Nama obat" required>
                                 </div>
                             </div>
 
@@ -215,12 +216,14 @@
                                 <div class="col-md-8">
                                     <input type="text" class="form-control" id="bentukObat" name="bentuk_obat"
                                         class="bentuk_obat" placeholder="Bentuk obat" required>
+                                        class="bentuk_obat" placeholder="Bentuk obat" required>
                                 </div>
                             </div>
                             <div class="row mb-3">
-                                <label for="golonganobat" class="col-md-4 col-form-label">Golongan Obat</label>
+                                <label for="golonganobat" class="col-md-4 col-form-label" >Golongan Obat</label>
                                 <div class="col-md-8">
                                     <input type="text" class="form-control" id="golonganobat" name="golongan_obat"
+                                        class="golongan_obat" placeholder="Golongan obat" required>
                                         class="golongan_obat" placeholder="Golongan obat" required>
                                 </div>
                             </div>
@@ -230,6 +233,7 @@
                                 <label for="kekuatanSediaan" class="col-md-4 col-form-label">Kebutuhan Sediaan</label>
                                 <div class="col-md-5">
                                     <input type="text" class="form-control" id="kekuatanSediaan"
+                                        name="kekuatan_sediaan" class="kekuatan_sediaan" placeholder="Kebutuhan Sediaan" required>
                                         name="kekuatan_sediaan" class="kekuatan_sediaan" placeholder="Kebutuhan Sediaan" required>
                                 </div>
                             </div>
@@ -257,6 +261,7 @@
                                 <div class="col-md-8">
                                     <input type="text" class="form-control" id="indikasi" name="indikasi"
                                         class="indikasi" placeholder="indikasi" required>
+                                        class="indikasi" placeholder="indikasi" required>
                                 </div>
                             </div>
 
@@ -265,6 +270,7 @@
                                 <label for="interaksiObat" class="col-md-4 col-form-label">Interaksi Obat</label>
                                 <div class="col-md-8">
                                     <input type="text" class="form-control" id="interaksiObat" name="interaksi_obat"
+                                        class="interaksi_obat" placeholder="Interaksi Obat" required>
                                         class="interaksi_obat" placeholder="Interaksi Obat" required>
                                 </div>
                             </div>

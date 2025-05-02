@@ -68,9 +68,11 @@
           <div class="mb-3">
             <label for="password" class="form-label">Password</label>
             <div class="input-group">
-              <input type="password" class="form-control" id="password" name="password" required>
-                <button class="btn btn-outline-secondary" type="button" id="button-addon2"><img src="{{asset('images\hidden.png')}}" style="width: 20px; height: 20px; "></button>
-            </div>
+                <input type="password" class="form-control" id="password" name="password" required>
+                <button class="btn btn-outline-secondary" type="button" id="togglePassword">
+                  <img id="eyeIcon" src="{{ asset('images/hidden.png') }}" style="width: 20px; height: 20px;">
+                </button>
+              </div>
           </div>
           <div class="form-check mb-3 d-flex justify-content-between align-items-center">
             <div>
@@ -96,4 +98,20 @@
     </div>
   </div>
 </body>
+
+<script>
+    const toggleBtn = document.getElementById("togglePassword");
+    const passwordInput = document.getElementById("password");
+    const eyeIcon = document.getElementById("eyeIcon");
+
+    toggleBtn.addEventListener("click", function () {
+      const type = passwordInput.getAttribute("type") === "password" ? "text" : "password";
+      passwordInput.setAttribute("type", type);
+
+      // Ganti ikon jika tersedia gambar show.png dan hidden.png
+      eyeIcon.src = type === "password"
+        ? "{{ asset('images/hidden.png') }}"
+        : "{{ asset('images/show.png') }}";
+    });
+  </script>
 </html>

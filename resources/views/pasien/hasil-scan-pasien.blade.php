@@ -1,6 +1,134 @@
 @extends('footerheader.navbar-pmo')
 @section('content')
-<nav class="nav">
+
+<style>
+    .nav-link.active {
+        color: white !important;
+    }
+    .nav-link:hover {
+    color: white !important;
+}
+.nav-pills .nav-link {
+    color: #2DA3F9 !important;
+    background-color: transparent;
+}
+
+.nav-pills .nav-link.active {
+    color: white !important;
+    background-color: #2DA3F9 !important; /* Atau warna background lain */
+}
+
+.nav-pills .nav-link:hover {
+    color: white !important;
+}
+
+</style>
+
+<ul class="nav nav-pills flex-row flex-wrap mb-3 gap-2 justify-content-between" id="pills-tab" role="tablist">
+    <li class="nav-item" role="presentation">
+        <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill"
+            data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home"
+            aria-selected="true">Pemeriksaan</button>
+    </li>
+    <li class="nav-item" role="presentation">
+        <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill"
+            data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile"
+            aria-selected="false">Jadwal</button>
+    </li>
+    <li class="nav-item" role="presentation">
+        <button class="nav-link" id="pills-contact-tab" data-bs-toggle="pill"
+            data-bs-target="#pills-contact" type="button" role="tab" aria-controls="pills-contact"
+            aria-selected="false">Riwayat</button>
+    </li>
+</ul>
+
+  <div class="tab-content" id="pills-tabContent">
+    <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+        <div class="card p-4 my-2">
+            <div class="my-2">
+                <strong>
+                    <div class="label">Tanggal Pemeriksaan</div>
+                    <div>24/10/2024</div>
+                </strong>
+
+            </div>
+
+            <div class="doctor-info">
+                <div>dr. Andi Junaidi</div>
+                <div>Poli Umum</div>
+            </div>
+            <a href="#" class="d-flex justify-content-end" style="text-decoration: none; color:black"> Lihat Obat ></a>
+        </div>
+    </div>
+    <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+        <div class="card p-4">
+            <div class="time-info d-flex justify-content-between mb-3">
+                <div class="fw-bold">Tanggal : 12-11-2018</div>
+                <div class="fw-bold">Jam : 06:00 AM</div>
+            </div>
+            <hr>
+
+            <!-- Informasi Obat -->
+            <div class="mb-4">
+                <p class="card-title fw-bold">Nama Obat: Amlodipine Tablet 10 mg</p>
+                <p class="card-text">Aturan Pakai: 3 kali sehari 1 tablet</p>
+            </div>
+
+            <!-- Status -->
+            <div>
+                <h6 class="mb-3">Status:</h6>
+                <div class="d-flex align-items-start flex-column  ">
+                    <div class="form-check status-option">
+                        <input class="form-check-input" type="radio" name="status" id="sudahMinum" checked>
+                        <label class="form-check-label text-success" for="sudahMinum ">
+                            Sudah Minum
+                        </label>
+                    </div>
+                    <div class="form-check status-option">
+                        <input class="form-check-input" type="radio" name="status" id="tundaMinum">
+                        <label class="form-check-label text-primary" for="tundaMinum">
+                            Tunda Minum
+                        </label>
+                    </div>
+                    <div class="form-check status-option">
+                        <input class="form-check-input" type="radio" name="status" id="tidakMinum">
+                        <label class="form-check-label text-danger" for="tidakMinum">
+                            Tidak Minum
+                        </label>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-end">
+                    <button class="btn btn-resep">Simpan</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
+        <div class="card p-4">
+            <div class="time-info d-flex justify-content-between mb-3">
+                <div class="fw-bold">Tanggal : 12-11-2018</div>
+                <div class="fw-bold">Jam : 06:00 AM</div>
+            </div>
+            <hr>
+
+            <!-- Informasi Obat -->
+            <div class="mb-4">
+                <p class="card-title fw-bold">Nama Obat: Amlodipine Tablet 10 mg</p>
+                <p class="card-text">Aturan Pakai: 3 kali sehari 1 tablet</p>
+            </div>
+
+            <!-- Status -->
+            <div>
+                <hp class="mb-3">Status:</p>
+                <p class="text-success">Sudah Minum</p>
+            </div>
+
+        </div>
+    </div>
+  </div>
+
+{{-- <nav class="nav">
     <a class="nav-link" href="{{ route('hasil.scan') }}">Data Resep</a>
     <a class="nav-link" href="{{ route('jadwal.obat') }}">Jadwal Minum Obat</a>
     <a class="nav-link" href="{{ route('laporan.obat') }}">Laporan Minum Obat</a>
@@ -67,7 +195,7 @@ aria-hidden="true" style="color: black">
             </div>
             <div class="modal-body">
                 {{-- @foreach ($data as $item) --}}
-                <table class="table table-borderless">
+                {{-- <table class="table table-borderless">
                     <tbody>
                         <tr>
                             <th>Nama Obat </th>
@@ -124,16 +252,16 @@ aria-hidden="true" style="color: black">
                     </tbody>
                 </table>
                 {{-- @endforeach --}}
-            </div>
+            {{-- </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-resep" data-bs-dismiss="modal">Kembali</button>
             </div>
 
         </div>
     </div>
-</div>
+</div> --}}
 <!--Hapus Obat Modal-->
-<div class="modal fade" id="HapusObatModal" tabindex="-1" aria-labelledby="HapusObatModalLabel" aria-hidden="true">
+{{-- <div class="modal fade" id="HapusObatModal" tabindex="-1" aria-labelledby="HapusObatModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -162,5 +290,5 @@ aria-hidden="true" style="color: black">
             </div>
         </div>
     </div>
-</div>
+</div> --}}
 @endsection

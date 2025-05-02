@@ -9,6 +9,7 @@ use App\Http\Controllers\PasienController;
 use App\Http\Controllers\PengawasController;
 use App\Http\Controllers\PengawasMinumObatController;
 use App\Http\Controllers\ResepController;
+use App\Http\Controllers\ResepsionisController;
 use App\Models\RiwayatMinumObatModel;
 use Illuminate\Support\Facades\Route;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
@@ -16,6 +17,8 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/cobaresepsionis', [ResepsionisController::class, 'index'])->name('resepsionis');
 
 Route::group(['middleware' => ['level:admin,dokter,apoteker,pengawas,pasien']], function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');

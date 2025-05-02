@@ -230,7 +230,7 @@
                                     <div class="row mb-3">
                                         <label for="norm" class="col-md-4 col-form-label">No RM</label>
                                         <div class="col-md-8">
-                                            <input type="text" class="form-control" id="nomorrm" name="no_rm">
+                                            <input type="text" class="form-control" id="nomorrm" name="no_rm" disabled>
                                         </div>
                                     </div>
 

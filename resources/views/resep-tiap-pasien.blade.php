@@ -284,7 +284,12 @@
         $("#dosis").select2({
             placeholder: '-- Pilih Dosis --',
             allowClear: true,
-            dropdownParent: $('#tambahObatModal')
+            dropdownParent: $('#tambahObatModal'),
+            language: {
+                noResults: function() {
+                    return "Obat belum dipilih";
+                }
+            }
         });
 
         $('#namaObat').on('change', function() {

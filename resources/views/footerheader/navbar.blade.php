@@ -95,6 +95,15 @@
                         </a>
                     @endcan
 
+                    @can('apoteker')
+                        <a href="{{ route('resepsionis') }}" type="button"
+                            class="btn btn-primary d-flex justify-content-center align-items-center m-4"
+                            style="flex-shrink: 0; border-radius: 90px;background: #3378AA; box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);border:none"><strong>TAMBAH
+                                Daftar Rawat Jalan</strong> <img src="{{ asset('images/tambah resep icon.png') }}" class="ms-4"
+                                style="width: 45px; height:45px">
+                        </a>
+                    @endcan
+
                     @can('admin+apoteker+pengawas')
                         <a href ="{{ route('beranda') }}" type="button"
                             class="btn-custom ps-3 d-flex justify-content-start align-items-center m-2 mx-4"> <img

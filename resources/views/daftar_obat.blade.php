@@ -28,10 +28,11 @@
                 <thead class="table-primary">
                     <tr>
                         <th>No</th>
-                        <th style="width:210px;">Indikasi</th>
-                        <th style="width:210px;">Golongan Obat</th>
-                        <th style="width:180px;">Nama Obat</th>
-                        <th style="width:210px;">Status Ketersediaan Obat</th>
+                        <th>Indikasi</th>
+                        <th>Golongan Obat</th>
+                        <th>Nama Obat</th>
+                        <th>Kekuatan Sediaan</th>
+                        <th>Status Ketersediaan Obat</th>
                         <th style="text-align: center">Aksi</th>
                     </tr>
                 </thead>
@@ -42,6 +43,7 @@
                             <td>{{ $item->indikasi }}</td>
                             <td>{{ $item->golongan_obat }}</td>
                             <td>{{ $item->nama_obat }}</td>
+                            <td>{{ $item->kekuatan_sediaan }}</td>
                             <td
                                 class=" 
                             @if ($item->status_ketersediaan_obat == 'Stocked') text-success font-weight-bold
@@ -188,8 +190,8 @@
                             <div class="row mb-3">
                                 <label for="namaapoteker" class="col-md-4 col-form-label">Nama Apoteker</label>
                                 <div class="col-md-8">
-                                    <select id="namaapoteker" name="id_apoteker" class="form-select">
-                                        <option disabled selected>--Pilih Apoteker --</option>
+                                    <select id="namaapoteker" name="id_apoteker" class="form-select" required>
+                                        <option value="" disabled selected>--Pilih Apoteker --</option>
                                         @foreach ($apoteker_obat as $ao)
                                             <option value="{{ $ao->id_apoteker }}"
                                                 {{ old('nama_apoteker') == $ao->nama_apoteker ? 'selected' : null }}>
@@ -203,7 +205,7 @@
                                 <label for="namaObat" class="col-md-4 col-form-label">Nama Obat</label>
                                 <div class="col-md-8">
                                     <input type="text" class="form-control" id="namaObat" name="nama_obat"
-                                        class="nama_obat" placeholder="Nama obat">
+                                        class="nama_obat" placeholder="Nama obat" required>
                                 </div>
                             </div>
 
@@ -212,14 +214,14 @@
                                 <label for="bentukObat" class="col-md-4 col-form-label">Bentuk Obat</label>
                                 <div class="col-md-8">
                                     <input type="text" class="form-control" id="bentukObat" name="bentuk_obat"
-                                        class="bentuk_obat" placeholder="Bentuk obat">
+                                        class="bentuk_obat" placeholder="Bentuk obat" required>
                                 </div>
                             </div>
                             <div class="row mb-3">
                                 <label for="golonganobat" class="col-md-4 col-form-label">Golongan Obat</label>
                                 <div class="col-md-8">
                                     <input type="text" class="form-control" id="golonganobat" name="golongan_obat"
-                                        class="golongan_obat" placeholder="Golongan obat">
+                                        class="golongan_obat" placeholder="Golongan obat" required>
                                 </div>
                             </div>
 
@@ -228,7 +230,7 @@
                                 <label for="kekuatanSediaan" class="col-md-4 col-form-label">Kebutuhan Sediaan</label>
                                 <div class="col-md-5">
                                     <input type="text" class="form-control" id="kekuatanSediaan"
-                                        name="kekuatan_sediaan" class="kekuatan_sediaan" placeholder="Kebutuhan Sediaan">
+                                        name="kekuatan_sediaan" class="kekuatan_sediaan" placeholder="Kebutuhan Sediaan" required>
                                 </div>
                             </div>
 
@@ -237,7 +239,7 @@
                                 <label for="efekSamping" class="col-md-4 col-form-label">Efek Samping</label>
                                 <div class="col-md-8">
                                     <input type="text" class="form-control" id="efekSamping" name="efek_samping"
-                                        class="efek_samping" placeholder="Efek Samping">
+                                        class="efek_samping" placeholder="Efek Samping" required>
                                 </div>
                             </div>
 
@@ -246,7 +248,7 @@
                                 <label for="kontraindikasi" class="col-md-4 col-form-label">Kontraindikasi</label>
                                 <div class="col-md-8">
                                     <input type="text" class="form-control" id="kontraindikasi" name="kontraindikasi"
-                                        class="kontraindikasi" placeholder="Kontraindikasi">
+                                        class="kontraindikasi" placeholder="Kontraindikasi" required>
                                 </div>
                             </div>
 
@@ -254,7 +256,7 @@
                                 <label for="indikasi" class="col-md-4 col-form-label">indikasi</label>
                                 <div class="col-md-8">
                                     <input type="text" class="form-control" id="indikasi" name="indikasi"
-                                        class="indikasi" placeholder="indikasi">
+                                        class="indikasi" placeholder="indikasi" required>
                                 </div>
                             </div>
 
@@ -263,7 +265,7 @@
                                 <label for="interaksiObat" class="col-md-4 col-form-label">Interaksi Obat</label>
                                 <div class="col-md-8">
                                     <input type="text" class="form-control" id="interaksiObat" name="interaksi_obat"
-                                        class="interaksi_obat" placeholder="Interaksi Obat">
+                                        class="interaksi_obat" placeholder="Interaksi Obat" required>
                                 </div>
                             </div>
 
@@ -274,7 +276,7 @@
                                 <div class="col-md-8">
                                     <input type="text" class="form-control" id="petunjukPenyimpanan"
                                         name="petunjuk_penyimpanan" class="petunjuk_penyimpanan"
-                                        placeholder="Petunjuk Penyimpanan">
+                                        placeholder="Petunjuk Penyimpanan" required>
                                 </div>
                             </div>
 
@@ -283,7 +285,7 @@
                                 <label for="polaMakan" class="col-md-4 col-form-label">Pola Makan dan Hidup Sehat</label>
                                 <div class="col-md-8">
                                     <input type="text" class="form-control" id="polaMakan" name="pola_makan"
-                                        class="pola_makan" placeholder="Pola Makan dan Hidup Sehat">
+                                        class="pola_makan" placeholder="Pola Makan dan Hidup Sehat" required>
                                 </div>
                             </div>
 
@@ -293,7 +295,7 @@
                                 <div class="col-md-8">
                                     <input type="text" class="form-control" id="informasiTambahan"
                                         name="informasi_tambahan" class="informasi_tambahan"
-                                        placeholder="Informasi Tambahan">
+                                        placeholder="Informasi Tambahan" required>
                                 </div>
                             </div>
                         </div>
@@ -360,7 +362,6 @@
                             <label for="statussediaedit" class="col-md-4 col-form-label">Status Ketersediaan</label>
                             <div class="col-md-8">
                                 <select id="statussediaedit" name="status_ketersediaan_obat" class="form-select">
-                                    <option disabled selected>--Pilih Status Ketersediaan Obat --</option>
                                     <option value="Stocked" {{ old('statussediaedit') == 'Stocked' ? 'selected' : '' }}>
                                         Stocked</option>
                                     <option value="Draft" {{ old('statussediaedit') == 'Draft' ? 'selected' : '' }}>Draft
@@ -497,8 +498,24 @@
         document.getElementById("petunjukpenyimpananeditan").value = data[12].innerText;
         document.getElementById("polamakaneditan").value = data[13].innerText;
         document.getElementById("informasitambahaneditan").value = data[14].innerText;
-        document.getElementById("statussediaedit").value = data[15].innerText;
+        // document.getElementById("statussediaedit").value = data[15].innerText;
         // console.log(data);
+        // ==== PERBAIKAN PADA BAGIAN STATUS KETERSEDIAAN ====
+        let status = data[15].innerText.trim(); // Pastikan tidak ada spasi
+        let select = document.getElementById("statussediaedit");
 
+        // Reset semua selected
+        for (let i = 0; i < select.options.length; i++) {
+            select.options[i].selected = false;
+        }
+
+        // Set option yang cocok jadi selected
+        for (let i = 0; i < select.options.length; i++) {
+            if (select.options[i].value === status) {
+                select.options[i].selected = true;
+                break;
+            }
+
+        }
     }
 </script>

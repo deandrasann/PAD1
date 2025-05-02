@@ -13,10 +13,11 @@
     </div>
 </div>
 
-<div class="d-flex justify-content-center align-items-center p-4">
+<div class="d-flex justify-content-center align-items-center">
     <div class="card p-4 w-100">
-        <table class="table table-striped table-hover">
-            <thead class="table-primary">
+        <div class="table-responsive">
+            <table class="table table-striped table-hover">
+                <thead class="table-primary">
                 <tr>
                     <th class="px-2 py-2">No</th>
                     <th class="px-2 py-2">Tanggal Resep</th>
@@ -110,7 +111,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <table class="table table-borderless">
+                        <table class="table table-responsive table-borderless">
                             <tbody>
                                 <tr>
                                     <th>No RM</th>
@@ -237,6 +238,7 @@
         <div class="paginate d-flex justify-content-center">
             {{ $data_pasien->links() }}
         </div>
+    </div>
     </div>
 </div>
 @endsection

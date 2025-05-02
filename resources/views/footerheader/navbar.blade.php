@@ -12,7 +12,6 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="icon" type="image/logo simple" href="images/pavicon.png">
     <title>apotech.id</title>
 </head>
@@ -92,14 +91,12 @@
                     </a>
                     @endcan
 
-                @can('admin+apoteker+pengawas')
-                <a href ="{{ route('beranda') }}"
-                    class="btn-custom ps-3 d-flex justify-content-start align-items-center m-2 mx-4
-                    {{request()->routeIs('beranda') ? 'active' : '' }}">
-                    <img src="{{ asset('images/home icon.png') }}" class="me-4" style="width: 30px; height:30px">
-                    <strong>Beranda</strong>
-                </a>
-                @endcan
+                    @can('admin+apoteker+pengawas')
+                        <a href ="{{ route('beranda') }}" type="button"
+                            class="btn-custom ps-3 d-flex justify-content-start align-items-center m-2 mx-4"> <img
+                                src="{{ asset('images/home icon.png') }}" class="me-4" style="width: 30px; height:30px">
+                            <strong>Beranda</strong></a>
+                    @endcan
                     @can('apoteker')
                         <a href ="{{ route('daftar-obat') }}" type="button"
                             class="btn-custom ps-3 d-flex justify-content-start align-items-center m-2 mx-4"> <img
@@ -142,20 +139,6 @@
                                     src="{{ asset('images/navbar menu/riwayat pasien.png') }}" class="me-4"
                                     style="width: 30px; height:30px"><strong>Pengawas</strong></a>
                         @endcan
-                        @can('apoteker')
-                        <a href ="{{ route('rawat-jalan') }}" type="button"
-                                class="btn-custom ps-3 d-flex justify-content-start align-items-center m-2 mx-4"> <img
-                                    src="{{ asset('images\carbon_cabin-care.png') }}" class="me-4"
-                                    style="width: 30px; height:30px"><strong>Rawat Jalan</strong>
-                        </a>
-                        @endcan
-                        @can('apoteker')
-                        <a href ="{{ route('view-pasien-dokter') }}" type="button"
-                            class="btn-custom ps-3 d-flex justify-content-start align-items-center m-2 mx-4"> <img
-                            src="{{ asset('images/pasien icon.png') }}" class="me-4"
-                            style="width: 30px; height:30px"><strong>Pasien</strong></a>
-                        @endcan
-
 
                 </div>
             </div>

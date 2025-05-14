@@ -50,10 +50,10 @@
 
     {{-- Sidebar --}}
     <div class="container-fluid">
-        <div class="row">
+        <div class="row ">
             <div class="col-auto px-0" >
                 <div id="sidebar" class="collapse collapse-horizontal show border-end">
-                    <div id="sidebar-nav" class="list-group border-0 rounded-0 text-sm-start"
+                    <div id="sidebar-nav" class="list-group border-0 rounded-0 text-sm-start h-100"
                         style="height: 100%; background: var(--Linear-Gradient, linear-gradient(180deg, #0D426C 12.3%, #338CC1 62%, #BDE5FF 100%)); backdrop-filter: blur(2px); backdrop-filter: blur(2px); color:#FFFFFF">
                         <div class="offcanvas-header d-flex flex-column align-items-center text-align-center m-4">
                             @auth
@@ -167,6 +167,7 @@
                                     src="{{ asset('images/pasien icon.png') }}" class="me-4"
                                     style="width: 30px; height:30px"><strong>Pasien</strong></a>
                         @endcan
+                        
                     </div>
                 </div>
             </div>

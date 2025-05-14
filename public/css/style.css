@@ -320,3 +320,8 @@ p{
     .btn.btn-outline-primary{
         color:#1F73B6 !important;
     }
+    .form-check-input:checked {
+        background-color: #2DA3F9 !important; /* Bootstrap primary blue */
+        border-color: #2DA3F9 !important;
+        box-shadow: none;
+      }

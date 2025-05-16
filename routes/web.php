@@ -116,3 +116,4 @@ Route::group(['middleware' => ['auth', 'level:admin,pengawas,apoteker']], functi
 Route::get('/cobajadwal/{id}', [PengawasMinumObatController::class, 'cobacoba'])->name('cobaminum');
 Route::get('/resepsionis', [ResepsionisController::class, 'inputDataPasien'])->name('resepsionis');
 Route::get('/resepsionis-tambah-pasien', [ResepsionisController::class, 'tambahDataPasien'])->name('resepsionis-tambah');
+Route::get('/resepsionis-tambah-kesehatan', [ResepsionisController::class, 'tambahDataKesehatanPasien'])->name('resepsionis-tambah-kesehatan');

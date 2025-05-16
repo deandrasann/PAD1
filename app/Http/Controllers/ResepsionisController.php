@@ -34,4 +34,7 @@ class ResepsionisController extends Controller
     public function tambahDataPasien(){
         return view('resepsionis.tambah-data-personal');
     }
+        public function tambahDataKesehatanPasien(){
+        return view('resepsionis.tambah-data-kesehatan');
+    }
 }

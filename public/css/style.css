@@ -48,8 +48,9 @@ p{
 .btn-custom:hover{
     background-color: #2DA3F9;
 }
-.btn-custom:active{
-    background-color: #2DA3F9 !important;
+.btn-custom.active{
+    background-color: #FFFFFF !important;
+    color: #2E6084;
 }
 
 .delete-icon{
@@ -325,3 +326,19 @@ p{
         border-color: #2DA3F9 !important;
         box-shadow: none;
       }
+
+    .tab-link {
+      border: none;
+      background: none;
+      border-bottom: 3px solid transparent;
+      font-weight: bold;
+      margin-right: 20px;
+      padding: 8px 0;
+      text-decoration: none;
+      color: #4E4E4E;
+    }
+    .tab-link.active {
+      border-color: #26577A;
+      color: #26577A;
+      text-decoration: none;
+    }

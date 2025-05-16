@@ -2,29 +2,39 @@
 @section('content')
 <h2> Pasien</h2>
 <div class="card p-4">
-    <div class="d-flex flex-row justify-content-between ">
-        <div class="d-flex flex-row">
-            <form action="{{ route('resepsionis') }}" method="GET">
-                <div class="search-bar mt-2">
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center flex-wrap gap-2">
+
+        <div class="d-flex flex-column flex-sm-row flex-wrap gap-2">
+            <!-- Form cari No RM -->
+            <form action="{{ route('resepsionis') }}" method="GET" class="d-flex flex-row align-items-center">
+                <div class="input-group">
                     <input type="text" class="form-control" placeholder="Cari No RM" name="search"
                         value="{{ request('search') }}">
-                    <button class="btn btn-link" type="submit">
-                        <img src="{{ asset('images/search icon.png') }}">
+                    <button class="btn btn-outline-secondary" type="submit">
+                        <img src="{{ asset('images/search icon.png') }}" alt="Cari" style="width: 16px; height: 16px;">
                     </button>
                 </div>
             </form>
-            <form action="{{ route('resepsionis') }}" method="GET">
-                <div class="search-bar mt-2">
+
+            <!-- Form cari Nama Pasien -->
+            <form action="{{ route('resepsionis') }}" method="GET" class="d-flex flex-row align-items-center">
+                <div class="input-group">
                     <input type="text" class="form-control" placeholder="Cari Nama Pasien" name="search"
                         value="{{ request('search') }}">
-                    <button class="btn btn-link" type="submit">
-                        <img src="{{ asset('images/search icon.png') }}">
+                    <button class="btn btn-outline-secondary" type="submit">
+                        <img src="{{ asset('images/search icon.png') }}" alt="Cari" style="width: 16px; height: 16px;">
                     </button>
                 </div>
             </form>
         </div>
-        <a href="{{ route('resepsionis-tambah') }}" class="btn btn-resep fw-bold">+ Tambah Pasien</a>
+
+        <!-- Tombol Tambah Pasien -->
+        <a href="{{ route('resepsionis-tambah') }}" class="btn btn-resep fw-bold">
+            + Tambah Pasien
+        </a>
+
     </div>
+
     <div class="table-responsive">
                 <table class="table table-striped table-hover align-middle my-4">
                     <thead class="table-primary">

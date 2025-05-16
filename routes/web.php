@@ -9,6 +9,7 @@ use App\Http\Controllers\PasienController;
 use App\Http\Controllers\PengawasController;
 use App\Http\Controllers\PengawasMinumObatController;
 use App\Http\Controllers\ResepController;
+use App\Http\Controllers\ResepsionisController;
 use App\Models\RiwayatMinumObatModel;
 use Illuminate\Support\Facades\Route;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
@@ -113,3 +114,5 @@ Route::group(['middleware' => ['auth', 'level:admin,pengawas,apoteker']], functi
 });
 
 Route::get('/cobajadwal/{id}', [PengawasMinumObatController::class, 'cobacoba'])->name('cobaminum');
+Route::get('/resepsionis', [ResepsionisController::class, 'inputDataPasien'])->name('resepsionis');
+Route::get('/resepsionis-tambah-pasien', [ResepsionisController::class, 'tambahDataPasien'])->name('resepsionis-tambah');

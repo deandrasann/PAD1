@@ -53,8 +53,8 @@
         <div class="row ">
             <div class="col-auto px-0" >
                 <div id="sidebar" class="collapse collapse-horizontal show border-end">
-                    <div id="sidebar-nav" class="list-group border-0 rounded-0 text-sm-start h-100"
-                        style="height: 100%; background: var(--Linear-Gradient, linear-gradient(180deg, #0D426C 12.3%, #338CC1 62%, #BDE5FF 100%)); backdrop-filter: blur(2px); backdrop-filter: blur(2px); color:#FFFFFF">
+                    <div id="sidebar-nav" class="list-group border-0 rounded-0 text-sm-start"
+                        style="; background: var(--Linear-Gradient, linear-gradient(180deg, #0D426C 12.3%, #338CC1 62%, #BDE5FF 100%)); backdrop-filter: blur(2px); backdrop-filter: blur(2px); color:#FFFFFF">
                         <div class="offcanvas-header d-flex flex-column align-items-center text-align-center m-4">
                             @auth
                                 @if (Auth::user()->nama_role == 'apoteker')
@@ -63,8 +63,8 @@
                                         <img src="{{ asset('storage/' . Auth::user()->apoteker->foto) }}" class="m-4"
                                             width="144px" height="128px">
                                     @else
-                                        <img src="{{ asset('images/profile.png') }}" class="m-4" width="144px"
-                                            height="128px">
+                                        <img src="{{ asset('images/ix_user-profile-filled.png') }}" class="m-4" width="144px"
+                                            height="auto">
                                     @endif
                                 @elseif (Auth::user()->nama_role == 'pengawas')
                                     <!-- Jika role 'pengawas', periksa apakah foto ada -->
@@ -167,7 +167,13 @@
                                     src="{{ asset('images/pasien icon.png') }}" class="me-4"
                                     style="width: 30px; height:30px"><strong>Pasien</strong></a>
                         @endcan
-                        
+                        @can('apoteker')
+                            <a href="{{ route('resepsionis') }}" type="button"
+                                class="btn-custom ps-3 d-flex justify-content-start align-items-center m-2 mx-4"> <img
+                                    src="{{ asset('images/pasien icon.png') }}" class="me-4"
+                                    style="width: 30px; height:30px"><strong>Pasien Resepsionis</strong></a>
+                        @endcan
+
                     </div>
                 </div>
             </div>

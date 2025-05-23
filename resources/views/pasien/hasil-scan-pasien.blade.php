@@ -9,36 +9,39 @@
     color: white !important;
 }
 .nav-pills .nav-link {
-    color: #2DA3F9 !important;
+    color: #848488 !important;
     background-color: transparent;
 }
 
 .nav-pills .nav-link.active {
-    color: white !important;
-    background-color: #2DA3F9 !important; /* Atau warna background lain */
+    color: #2E6084 !important;
+    background-color: white !important; /* Atau warna background lain */
+    box-shadow: -4px 0 8px -4px rgba(0, 0, 0, 0.2),  /* kiri */
+                4px 0 8px -4px rgba(0, 0, 0, 0.2);   /* kanan */
+
 }
 
 .nav-pills .nav-link:hover {
-    color: white !important;
+    color: #2E6084 !important;
 }
 
 </style>
 
-<ul class="nav nav-pills flex-row flex-wrap mb-3 gap-2 justify-content-between" id="pills-tab" role="tablist">
+<ul class="nav nav-pills flex-row flex-wrap mb-3 gap-0 justify-content-between align-items-center" id="pills-tab" role="tablist" style="background-color: #EFEFF0">
     <li class="nav-item" role="presentation">
         <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill"
             data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home"
-            aria-selected="true">Pemeriksaan</button>
+            aria-selected="true">Peme- <br>riksaan<br>Anda</button>
     </li>
     <li class="nav-item" role="presentation">
         <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill"
             data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile"
-            aria-selected="false">Jadwal</button>
+            aria-selected="false">Jadwal <br> Minum <br> Obat</button>
     </li>
     <li class="nav-item" role="presentation">
         <button class="nav-link" id="pills-contact-tab" data-bs-toggle="pill"
             data-bs-target="#pills-contact" type="button" role="tab" aria-controls="pills-contact"
-            aria-selected="false">Riwayat</button>
+            aria-selected="false">Riwayat <br> Minum <br> Obat</button>
     </li>
 </ul>
 
@@ -57,7 +60,7 @@
                 <div>dr. Andi Junaidi</div>
                 <div>Poli Umum</div>
             </div>
-            <a href="#" class="d-flex justify-content-end" style="text-decoration: none; color:black"> Lihat Obat ></a>
+            <a href="{{route('daftar-obat-pasien')}}" class="d-flex justify-content-end" style="text-decoration: none; color:black"> Lihat Obat <span class="fw-bold ms-4"> > </span></a>
         </div>
     </div>
     <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">

@@ -176,89 +176,126 @@
 </head>
 
 <body>
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-3 py-4 border-end border-bottom">
-                <div class="d-flex flex-column align-items-center">
-                    <h1>Data Pasien</h1>
-                    <img src="images/pengawas_minum_obat.jpeg" class="profile-img m-4" width="200px"
-                        height="200px">
-                    <div>
-                        <ul class="list-group mt-4 width-250">
-                            <li class="list-group-item p-3 d-flex align-items-start" style="color: #2E6084; width: 250px;">
-                                <div class="me-2">
-                                    <img src="images/navbar pmo/vector-2.png" class="img-fluid" alt="Icon" style="max-width: 50px; height: auto;">
-                                </div>
-                                <div>
-                                    <strong>No RM:</strong> <br> [No RM Pasien]
-                                </div>
-                            </li>
-                            <li class="list-group-item p-3 d-flex align-items-start" style="color: #2E6084; width: 250px;">
-                                <div class="me-2">
-                                    <img src="images/navbar pmo/vector.png" class="img-fluid" alt="Icon" style="max-width: 50px; height: auto;">
-                                </div>
-                                <div>
-                                    <strong>Nama:</strong> <br> [Nama Pasien]
-                                </div>
-                            </li>
-                            <li class="list-group-item p-3 d-flex align-items-start" style="color: #2E6084; width: 250px;">
-                                <div class="me-2">
-                                    <img src="images/navbar pmo/vector-1.png" class="img-fluid" alt="Icon" style="max-width: 50px; height: auto;">
-                                </div>
-                                <div>
-                                    <strong>Jenis Kelamin:</strong> <br> [Jenis Kelamin]
-                                </div>
-                            </li>
-                            <li class="list-group-item p-3 d-flex align-items-start" style="color: #2E6084; width: 250px;">
-                                <div class="me-2">
-                                    <img src="images/navbar pmo/vector-5.png" class="img-fluid" alt="Icon" style="max-width: 50px; height: auto;">
-                                </div>
-                                <div>
-                                    <strong>Tanggal Lahir:</strong> <br> [Tanggal Lahir]
-                                </div>
-                            </li>
-                            <li class="list-group-item p-3 d-flex align-items-start" style="color: #2E6084; width: 250px;">
-                                <div class="me-2">
-                                    <img src="images/navbar pmo/vector-4.png" class="img-fluid" alt="Icon" style="max-width: 50px; height: auto;">
-                                </div>
-                                <div>
-                                    <strong>No Telepon:</strong> <br> [No Telepon]
-                                </div>
-                            </li>
-                            <li class="list-group-item p-3 d-flex align-items-start" style="color: #2E6084; width: 250px;">
-                                <div class="me-2">
-                                    <img src="images/navbar pmo/vector-3.png" class="img-fluid" alt="Icon" style="max-width: 50px; height: auto;">
-                                </div>
-                                <div>
-                                    <strong>Alamat:</strong> <br> [Alamat Pasien]
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
+    <body>
+        {{-- Navbar --}}
+        <nav class="navbar sticky-top bg-body-tertiary px-4 py-2"
+            style="background: linear-gradient(90deg, #0D426C 22.99%, #338CC1 95.86%); width: 100%;">
+            <div class="container-fluid d-flex justify-content-between align-items-center">
+                <!-- Left Section: Sidebar Toggle & Logo -->
+                <div class="d-flex align-items-center">
+                    <a class="navbar-brand d-flex align-items-center" href="#">
+                        <img src="{{ asset('images/logo.png') }}" alt="Logo" width="150" height="auto" class="me-3">
+                    </a>
+                    <!-- Sidebar Toggle Icon -->
+                    <a href="#" data-bs-target="#sidebar" data-bs-toggle="collapse"
+                        class="navbar-brand d-flex align-items-center">
+                        <img src="{{ asset('images/navbar menu/navbar icon.png') }}" alt="Menu">
+                    </a>
+                </div>
+
+                <div class="d-flex align-items-center">
+                    <form action="{{ route('logout') }}" method="POST">
+                        @csrf
+                        <a href="{{ route('logout') }}" class="text-decoration-none d-flex align-items-center">
+                            <img src="{{ asset('images/navbar menu/logout.png') }}" alt="Logout Icon" class="icon">
+                            <span class="logout-text text-white">Logout</span>
+                        </a>
+                    </form>
                 </div>
             </div>
-            <div class="col-md-9">
-                <div class="body m-2">
-                    <!-- Success message placeholder -->
-                    <div class="alert alert-success" style="display: none;">
-                        [Success message]
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" style="position: absolute; right: 10px; top: 10px;"></button>
-                    </div>
+        </nav>
 
-                    <!-- Error message placeholder -->
-                    <div class="alert alert-danger alert-dismissible fade show" role="alert" style="display: none;">
-                        [Error message]
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        {{-- Sidebar Replacement --}}
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-3 py-4 collapse collapse-horizontal show border-end border-bottom" id="sidebar">
+                    <div class="d-flex flex-column align-items-center">
+                        <h1>Data Pasien</h1>
+                        <img src="{{ asset('images/pengawas_minum_obat.jpeg') }}" class="profile-img m-4" width="200px" height="200px">
+                        <div>
+                            <ul class="list-group mt-4 width-250">
+                                <li class="list-group-item p-3 d-flex align-items-start" style="color: #2E6084; width: 250px;">
+                                    <div class="me-2">
+                                        <img src="{{ asset('images/navbar pmo/vector-2.png') }}" class="img-fluid" alt="Icon" style="max-width: 50px; height: auto;">
+                                    </div>
+                                    <div>
+                                        <strong>No RM:</strong> <br> [No RM Pasien]
+                                    </div>
+                                </li>
+                                <li class="list-group-item p-3 d-flex align-items-start" style="color: #2E6084; width: 250px;">
+                                    <div class="me-2">
+                                        <img src="{{ asset('images/navbar pmo/vector.png') }}" class="img-fluid" alt="Icon" style="max-width: 50px; height: auto;">
+                                    </div>
+                                    <div>
+                                        <strong>Nama:</strong> <br> [Nama Pasien]
+                                    </div>
+                                </li>
+                                <li class="list-group-item p-3 d-flex align-items-start" style="color: #2E6084; width: 250px;">
+                                    <div class="me-2">
+                                        <img src="{{ asset('images/navbar pmo/vector-1.png') }}" class="img-fluid" alt="Icon" style="max-width: 50px; height: auto;">
+                                    </div>
+                                    <div>
+                                        <strong>Jenis Kelamin:</strong> <br> [Jenis Kelamin]
+                                    </div>
+                                </li>
+                                <li class="list-group-item p-3 d-flex align-items-start" style="color: #2E6084; width: 250px;">
+                                    <div class="me-2">
+                                        <img src="{{ asset('images/navbar pmo/vector-5.png') }}" class="img-fluid" alt="Icon" style="max-width: 50px; height: auto;">
+                                    </div>
+                                    <div>
+                                        <strong>Tanggal Lahir:</strong> <br> [Tanggal Lahir]
+                                    </div>
+                                </li>
+                                <li class="list-group-item p-3 d-flex align-items-start" style="color: #2E6084; width: 250px;">
+                                    <div class="me-2">
+                                        <img src="{{ asset('images/navbar pmo/vector-4.png') }}" class="img-fluid" alt="Icon" style="max-width: 50px; height: auto;">
+                                    </div>
+                                    <div>
+                                        <strong>No Telepon:</strong> <br> [No Telepon]
+                                    </div>
+                                </li>
+                                <li class="list-group-item p-3 d-flex align-items-start" style="color: #2E6084; width: 250px;">
+                                    <div class="me-2">
+                                        <img src="{{ asset('images/navbar pmo/vector-3.png') }}" class="img-fluid" alt="Icon" style="max-width: 50px; height: auto;">
+                                    </div>
+                                    <div>
+                                        <strong>Alamat:</strong> <br> [Alamat Pasien]
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
-
-                    <!-- Content section -->
-                    <div id="content">
+                </div>
+                <div class="col-md-9">
+                    <div class="body m-5">
+                        @if ($message = Session::get('success'))
+                            <div class="alert alert-success">
+                                {{ $message }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"
+                                    style="position: absolute; right: 10px; top: 10px;"></button>
+                            </div>
+                        @elseif($message = Session::get('error'))
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                {{ $message }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                    aria-label="Close"></button>
+                            </div>
+                        @endif
                         @yield('content')
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+
+        <script>
+            // Add responsive behavior for sidebar toggle
+            $(document).ready(function() {
+                $('[data-bs-toggle="collapse"]').on('click', function() {
+                    $('#sidebar').toggleClass('d-none d-md-block');
+                });
+            });
+        </script>
+    </body>
 </body>
 
 </html>

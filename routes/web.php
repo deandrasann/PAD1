@@ -54,6 +54,12 @@ Route::group(['middleware' => ['auth', 'level:admin,apoteker,dokter']], function
     Route::post('/pasien/{id}', [PasienController::class, 'PasienUpdate'])->name('pasien.update');
     Route::delete('/pasien/{id}', [PasienController::class, 'PasienDestroy'])->name('pasien.destroy');
     Route::get('/hasil-scan', [PasienController::class, 'hasilScan'])->name('hasil.scan');
+    Route::get('/daftar-obat', [PasienController::class, 'daftarObat'])->name('daftar-obat-pasien');
+    Route::get('/detail-obat', [PasienController::class, 'detailObat'])->name('detail-obat-pasien');
+    Route::get('/atur-jadwal', [PasienController::class, 'aturJadwalObat'])->name('atur-jadwal');
+
+
+
 
     Route::get('/obat', [ObatController::class, 'obat'])->name('daftar-obat');
     Route::post('/obat', [ObatController::class, 'obatstore'])->name('daftarobat.store');
@@ -112,3 +118,6 @@ Route::group(['middleware' => ['auth', 'level:admin,pengawas,apoteker']], functi
 });
 
 Route::get('/cobajadwal/{id}', [PengawasMinumObatController::class, 'cobacoba'])->name('cobaminum');
+Route::get('/resepsionis', [ResepsionisController::class, 'inputDataPasien'])->name('resepsionis');
+Route::get('/resepsionis-tambah-pasien', [ResepsionisController::class, 'tambahDataPasien'])->name('resepsionis-tambah');
+Route::get('/resepsionis-tambah-kesehatan', [ResepsionisController::class, 'tambahDataKesehatanPasien'])->name('resepsionis-tambah-kesehatan');

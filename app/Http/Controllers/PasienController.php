@@ -100,4 +100,15 @@ class PasienController extends Controller
     public function riwayatMinumObat(){
         return view('pasien.riwayat-minum-obat-pasien');
     }
+    public function daftarObat(){
+        return view('pasien.daftar-obat');
+    }
+    public function detailObat(){
+        return view('pasien.detail-obat');
+    }
+    public function aturJadwalObat(){
+        return view('pasien.atur-jadwal-minum');
+    }
+
+
 }

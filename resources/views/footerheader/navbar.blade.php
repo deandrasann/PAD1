@@ -50,11 +50,11 @@
 
     {{-- Sidebar --}}
     <div class="container-fluid">
-        <div class="row flex-nowrap">
+        <div class="row ">
             <div class="col-auto px-0" >
-                <div id="sidebar" class="collapse collapse-horizontal show border-end">
-                    <div id="sidebar-nav" class="list-group border-0 rounded-0 text-sm-start min-vh-100"
-                        style="height: 100%; background: var(--Linear-Gradient, linear-gradient(180deg, #0D426C 12.3%, #338CC1 62%, #BDE5FF 100%)); backdrop-filter: blur(2px); backdrop-filter: blur(2px); color:#FFFFFF">
+                <div id="sidebar" class="collapse collapse-horizontal show border-end h-100 w-100 min-vh-100">
+                    <div id="sidebar-nav" class="list-group border-0 rounded-0 text-sm-start h-100 w-100 min-vh-100"
+                        style="height: 100vh; background: var(--Linear-Gradient, linear-gradient(180deg, #0D426C 12.3%, #338CC1 62%, #BDE5FF 100%)); backdrop-filter: blur(2px); backdrop-filter: blur(2px); color:#FFFFFF">
                         <div class="offcanvas-header d-flex flex-column align-items-center text-align-center m-4">
                             @auth
                                 @if (Auth::user()->nama_role == 'apoteker')
@@ -63,8 +63,8 @@
                                         <img src="{{ asset('storage/' . Auth::user()->apoteker->foto) }}" class="m-4"
                                             width="144px" height="128px">
                                     @else
-                                        <img src="{{ asset('images/profile.png') }}" class="m-4" width="144px"
-                                            height="128px">
+                                        <img src="{{ asset('images/ix_user-profile-filled.png') }}" class="m-4" width="144px"
+                                            height="auto">
                                     @endif
                                 @elseif (Auth::user()->nama_role == 'pengawas')
                                     <!-- Jika role 'pengawas', periksa apakah foto ada -->
@@ -104,37 +104,38 @@
 
                         @can('admin+apoteker+pengawas')
                             <a href="{{ route('beranda') }}" type="button"
-                                class="btn-custom ps-3 d-flex justify-content-start align-items-center m-2 mx-4"> <img
-                                    src="{{ asset('images/home icon.png') }}" class="me-4" style="width: 30px; height:30px">
-                                <strong>Beranda</strong></a>
+                                class="btn-custom ps-3 d-flex justify-content-start align-items-center m-2 mx-4 {{ request()->routeIs('beranda') ? 'active' : '' }}">
+                                <i class="fa-solid fa-house ms-4 me-4"></i>
+                                <strong>Beranda</strong>
+                            </a>
                         @endcan
 
                         @can('dokter')
                             <a href="{{ route('beranda') }}" type="button"
-                                class="btn-custom ps-3 d-flex justify-content-start align-items-center m-2 mx-4"> <img
-                                    src="{{ asset('images/home icon.png') }}" class="me-4" style="width: 30px; height:30px">
-                                <strong>Beranda</strong></a>
+                                class="btn-custom ps-3 d-flex justify-content-start align-items-center m-2 mx-4 {{ request()->routeIs('beranda') ? 'active' : '' }}">
+                                <i class="fa-solid fa-house  ms-4 me-4"></i>
+                                <strong>Beranda</strong>
+                            </a>
                         @endcan
 
                         @can('apoteker')
                             <a href="{{ route('daftar-obat') }}" type="button"
-                                class="btn-custom ps-3 d-flex justify-content-start align-items-center m-2 mx-4"> <img
-                                    src="{{ asset('images/obat icon.png') }}" class="me-4"
-                                    style="width: 30px; height:30px"><strong>Obat</strong></a>
+                                class="btn-custom ps-3 d-flex justify-content-start align-items-center m-2 mx-4 {{ request()->routeIs('daftar-obat') ? 'active' : '' }}">
+                                <i class="fa-solid fa-capsules  ms-4 me-4"></i>
+                                <strong>Obat</strong>
+                            </a>
                         @endcan
 
                         @can('apoteker')
                             <a href="{{ route('daftar-pasien') }}" type="button"
-                                class="btn-custom ps-3 d-flex justify-content-start align-items-center m-2 mx-4"> <img
-                                    src="{{ asset('images/pasien icon.png') }}" class="me-4"
-                                    style="width: 24px; height:24px"><strong>Pasien</strong></a>
+                                class="btn-custom ps-3 d-flex justify-content-start align-items-center m-2 mx-4   {{ request()->routeIs('daftar-pasien') ? 'active' : '' }}">
+                                <i class="fa-solid fa-user ms-4 me-4"></i> <strong>Pasien</strong></a>
                         @endcan
 
                         @can('apoteker')
                             <a href="{{ route('riwayat-resep') }}" type="button"
-                                class="btn-custom ps-3 d-flex justify-content-start align-items-center m-2 mx-4"> <img
-                                    src="{{ asset('images/riwayat resep.png') }}" class="me-4"
-                                    style="width: 24px; height:24px"><strong>Riwayat Resep</strong></a>
+                                class="btn-custom ps-3 d-flex justify-content-start align-items-center m-2 mx-4 {{ request()->routeIs('riwayat-resep') ? 'active' : '' }}">
+                                <i class="fa-solid fa-file-medical ms-4 me-4"></i><strong>Riwayat Resep</strong></a>
                         @endcan
 
                         @can('pengawas')
@@ -176,6 +177,15 @@
                                     src="{{ asset('images/pasien icon.png') }}" class="me-4"
                                     style="width: 30px; height:30px"><strong>Pasien</strong></a>
                         @endcan
+                        {{-- haruse resepsionis --}}
+                        @can('apoteker')
+                            <a href="{{ route('resepsionis') }}" type="button"
+                                class="btn-custom ps-3 d-flex justify-content-start align-items-center m-2 mx-4 {{ request()->routeIs('resepsionis') ? 'active' : '' }}">
+                                 <i class="fa-solid fa-user ms-4 me-4"></i>
+                                 <strong>Pasien Resepsionis</strong>
+                            </a>
+                        @endcan
+
                     </div>
                 </div>
             </div>

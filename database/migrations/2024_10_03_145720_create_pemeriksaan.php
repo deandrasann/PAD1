@@ -26,6 +26,8 @@ return new class extends Migration
             $table->date('tgl_diagnosa');
             $table->string('pemeriksaan_penunjang');
             $table->text('catatan');
+            $table->timestamps();
+            $table->softDeletes();
 
             $table
             ->foreign('nama_dokter')

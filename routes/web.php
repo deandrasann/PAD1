@@ -19,6 +19,8 @@ Route::get('/', function () {
 });
 
 Route::get('/cobaresepsionis', [ResepsionisController::class, 'index'])->name('resepsionis');
+Route::get('/tambahresepsionis', [ResepsionisController::class, 'tambah'])->name('tambahrawatjalan');
+Route::get('/detail', [ResepsionisController::class, 'detail'])->name('detail');
 
 Route::group(['middleware' => ['level:admin,dokter,apoteker,pengawas,pasien']], function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');

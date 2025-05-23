@@ -19,6 +19,8 @@ return new class extends Migration
             $table->char('kode_klinik', 10);
             $table->integer('kode_bpjs');
             $table->string('nama_klinik');
+            $table->timestamps();
+            $table->softDeletes();
         });
     }
 

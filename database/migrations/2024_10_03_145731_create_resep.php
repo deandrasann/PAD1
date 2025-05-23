@@ -26,6 +26,8 @@ return new class extends Migration
             $table->string('jadwal_minum_obat')->nullable();
             $table->enum('status_pengobatan', ['Proses Pengobatan ', 'Pengobatan Selesai'])->default('Proses Pengobatan')->nullable();
             // $table->string('harga_satuan')->nullable();
+            $table->timestamps();
+            $table->softDeletes();
 
 
             $table

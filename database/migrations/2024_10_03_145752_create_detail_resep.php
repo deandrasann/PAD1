@@ -19,6 +19,8 @@ return new class extends Migration
             $table->integer('no_resep');
             $table->integer('jumlah_resep');
             // $table->integer('total_harga');
+            $table->timestamps();
+            $table->softDeletes();
 
 
             $table

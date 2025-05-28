@@ -14,15 +14,15 @@ use App\Models\RiwayatMinumObatModel;
 use Illuminate\Support\Facades\Route;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 Route::group(['middleware' => ['level:admin,dokter,apoteker,pengawas,pasien']], function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 });
 
-Route::get('/login', [AuthController::class, 'index'])->name('login');
+Route::get('/', [AuthController::class, 'index'])->name('login');
 Route::post('/login', [AuthController::class, 'authenticate'])->name('login');
 Route::get('/logout', [AuthController::class, 'logout']);
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');

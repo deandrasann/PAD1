@@ -22,8 +22,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        Gate::define('admin+apoteker+pengawas', function(User $user) {
-            return (in_array($user->nama_role,['admin','apoteker', 'pengawas']));
+        Gate::define('admin+apoteker+pengawas+resepsionis', function(User $user) {
+            return (in_array($user->nama_role,['admin','apoteker', 'pengawas', 'resepsionis']));
         });
         Gate::define('admin+apoteker', function(User $user) {
             return (in_array($user->nama_role,['admin','apoteker']));
@@ -42,6 +42,9 @@ class AppServiceProvider extends ServiceProvider
         });
         Gate::define('pengawas', function(User $user) {
             return $user->nama_role === 'pengawas';
+        });
+        Gate::define('resepsionis', function(User $user) {
+            return $user->nama_role === 'resepsionis';
         });
 
         Paginator::useBootstrap();

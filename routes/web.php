@@ -10,9 +10,7 @@ use App\Http\Controllers\PengawasController;
 use App\Http\Controllers\PengawasMinumObatController;
 use App\Http\Controllers\ResepController;
 use App\Http\Controllers\ResepsionisController;
-use App\Models\RiwayatMinumObatModel;
 use Illuminate\Support\Facades\Route;
-use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 Route::get('/', function () {
     return view('welcome');
@@ -59,8 +57,6 @@ Route::group(['middleware' => ['auth', 'level:admin,apoteker,dokter']], function
     Route::get('/atur-jadwal', [PasienController::class, 'aturJadwalObat'])->name('atur-jadwal');
 
 
-
-
     Route::get('/obat', [ObatController::class, 'obat'])->name('daftar-obat');
     Route::post('/obat', [ObatController::class, 'obatstore'])->name('daftarobat.store');
     Route::post('/obat/{id}', [ObatController::class, 'obatupdate'])->name('daftarobat.update');
@@ -93,7 +89,8 @@ Route::group(['middleware' => ['auth', 'level:admin']], function () {
 //     Route::get('/resume-medis', [DokterController::class, 'resumeMedis'])->name('resume-medis');
 // });
 
-Route::get('/resume-medis', [DokterController::class, 'resumeMedis'])->name('resume-medis');
+Route::get('/resume-medis/{id_pasien}', [DokterController::class, 'resumeMedis'])->name('resume-medis');
+Route::post('/resume-medis/{id_pasien}', [DokterController::class, 'simpanPemeriksaan'])->name('simpan-pemeriksaan');
 Route::get('/riwayat-konsultasi', [DokterController::class, 'riwayatKonsultasi'])->name('riwayat-konsultasi');
 Route::get('/rawat-jalan', [DokterController::class, 'rawatJalan'])->name('rawat-jalan');
 Route::get('/tambah-obat-dokter', [DokterController::class, 'tambahObat'])->name('tambah-obat-dokter');
@@ -119,5 +116,11 @@ Route::group(['middleware' => ['auth', 'level:admin,pengawas,apoteker']], functi
 
 Route::get('/cobajadwal/{id}', [PengawasMinumObatController::class, 'cobacoba'])->name('cobaminum');
 Route::get('/resepsionis', [ResepsionisController::class, 'inputDataPasien'])->name('resepsionis');
-Route::get('/resepsionis-tambah-pasien', [ResepsionisController::class, 'tambahDataPasien'])->name('resepsionis-tambah');
-Route::get('/resepsionis-tambah-kesehatan', [ResepsionisController::class, 'tambahDataKesehatanPasien'])->name('resepsionis-tambah-kesehatan');
+Route::get('/resepsionis-tambah-pasien/{no_rm?}', [ResepsionisController::class, 'storeDataPersonalForm'])->name('resepsionis-tambah-form');
+Route::post('/resepsionis-tambah-pasien/{no_rm?}', [ResepsionisController::class, 'storeDataPersonal'])->name('resepsionis-tambah');
+// Menampilkan form tambah data kesehatan
+Route::get('/resepsionis-tambah-kesehatan/{id}', [ResepsionisController::class, 'tambahDataKesehatanPasien'])->name('resepsionis-tambah-kesehatan');
+
+// Menyimpan data ke pemeriksaan_awal
+Route::post('/resepsionis-tambah-kesehatan/{id}', [ResepsionisController::class, 'storeDataKesehatan'])->name('simpan-kesehatan');
+

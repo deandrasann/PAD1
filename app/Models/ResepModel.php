@@ -21,7 +21,7 @@ class ResepModel extends Model
     public $incrementing = true;
 
     protected $fillable = [
-        'no_antrian',
+        'id_pemeriksaan_akhir',
         'id_dokter',
         'id_pasien',
         'kode_obat',

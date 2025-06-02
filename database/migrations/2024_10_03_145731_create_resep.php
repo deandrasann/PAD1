@@ -16,7 +16,7 @@ return new class extends Migration
             $table->charset = 'utf8mb4';
             $table->collation = 'utf8mb4_general_ci';
             $table->integer('no_resep',true);
-            $table->integer('no_antrian');
+            $table->integer('id_pemeriksaan_akhir');
             $table->integer('id_dokter');
             $table->integer('id_pasien');
             $table->integer('kode_obat');
@@ -31,9 +31,9 @@ return new class extends Migration
 
 
             $table
-            ->foreign('no_antrian')
-            ->references('no_antrian')
-            ->on('pemeriksaan')
+            ->foreign('id_pemeriksaan_akhir')
+            ->references('id_pemeriksaan_akhir')
+            ->on('pemeriksaan_akhir')
             ->cascadeOnUpdate()
             ->cascadeOnDelete();
 

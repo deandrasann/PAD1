@@ -72,12 +72,48 @@
                                         <img src="{{ asset('storage/' . Auth::user()->pengawas->foto) }}" class="m-4"
                                             width="144px" height="128px">
                                     @else
-                                        <img src="{{ asset('images/profile.png') }}" class="m-4" width="144px"
+                                        <img src="{{ asset('images/ix_user-profile-filled.png') }}" class="m-4" width="144px"
+                                            height="128px">
+                                    @endif
+                                @elseif (Auth::user()->nama_role == 'admin')
+                                    <!-- Jika role 'admin', periksa apakah foto ada -->
+                                    @if (Auth::user()->admin && Auth::user()->admin->foto)
+                                        <img src="{{ asset('storage/' . Auth::user()->admin->foto) }}" class="m-4"
+                                            width="144px" height="128px">
+                                    @else
+                                        <img src="{{ asset('images/ix_user-profile-filled.png') }}" class="m-4" width="144px"
+                                            height="128px">
+                                    @endif
+                                @elseif (Auth::user()->nama_role == 'dokter')
+                                    <!-- Jika role 'dokter', periksa apakah foto ada -->
+                                    @if (Auth::user()->dokter && Auth::user()->dokter->foto)
+                                        <img src="{{ asset('storage/' . Auth::user()->dokter->foto) }}" class="m-4"
+                                            width="144px" height="128px">
+                                    @else
+                                        <img src="{{ asset('images/ix_user-profile-filled.png') }}" class="m-4" width="144px"
+                                            height="128px">
+                                    @endif
+                                @elseif (Auth::user()->nama_role == 'resepsionis')
+                                    <!-- Jika role 'resepsionis', periksa apakah foto ada -->
+                                    @if (Auth::user()->resepsionis && Auth::user()->resepsionis->foto)
+                                        <img src="{{ asset('storage/' . Auth::user()->resepsionis->foto) }}" class="m-4"
+                                            width="144px" height="128px">
+                                    @else
+                                        <img src="{{ asset('images/ix_user-profile-filled.png') }}" class="m-4" width="144px"
+                                            height="128px">
+                                    @endif
+                                @elseif (Auth::user()->nama_role == 'pasien')
+                                    <!-- Jika role 'pasien', periksa apakah foto ada -->
+                                    @if (Auth::user()->pasien && Auth::user()->pasien->foto)
+                                        <img src="{{ asset('storage/' . Auth::user()->pasien->foto) }}" class="m-4"
+                                            width="144px" height="128px">
+                                    @else
+                                        <img src="{{ asset('images/ix_user-profile-filled.png') }}" class="m-4" width="144px"
                                             height="128px">
                                     @endif
                                 @else
                                     <!-- Untuk role lainnya, tampilkan foto default -->
-                                    <img src="{{ asset('images/profile.png') }}" alt="" width="144px" height="128px">
+                                    <img src="{{ asset('images/ix_user-profile-filled.png') }}" alt="" width="144px" height="128px">
                                 @endif
                                 <h5 class="offcanvas-title" id="offcanvasScrollingLabel">{{ auth()->user()->username }}</h5>
                                 <p>{{ auth()->user()->nama_role }}</p>
@@ -93,16 +129,7 @@
                         </a>
                     @endcan
 
-                    @can('apoteker')
-                        <a href="{{ route('resepsionis') }}" type="button"
-                            class="btn btn-primary d-flex justify-content-center align-items-center m-4"
-                            style="flex-shrink: 0; border-radius: 90px;background: #3378AA; box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);border:none"><strong>TAMBAH
-                                Daftar Rawat Jalan</strong> <img src="{{ asset('images/tambah resep icon.png') }}" class="ms-4"
-                                style="width: 45px; height:45px">
-                        </a>
-                    @endcan
-
-                        @can('admin+apoteker+pengawas')
+                        @can('admin+apoteker+pengawas+resepsionis')
                             <a href="{{ route('beranda') }}" type="button"
                                 class="btn-custom ps-3 d-flex justify-content-start align-items-center m-2 mx-4 {{ request()->routeIs('beranda') ? 'active' : '' }}">
                                 <i class="fa-solid fa-house ms-4 me-4"></i>
@@ -178,7 +205,7 @@
                                     style="width: 30px; height:30px"><strong>Pasien</strong></a>
                         @endcan
                         {{-- haruse resepsionis --}}
-                        @can('apoteker')
+                        @can('resepsionis')
                             <a href="{{ route('resepsionis') }}" type="button"
                                 class="btn-custom ps-3 d-flex justify-content-start align-items-center m-2 mx-4 {{ request()->routeIs('resepsionis') ? 'active' : '' }}">
                                  <i class="fa-solid fa-user ms-4 me-4"></i>

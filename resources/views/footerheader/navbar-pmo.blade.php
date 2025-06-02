@@ -145,14 +145,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="css/style.css">
+    {{-- {-- link styles --} --}}
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="icon" type="image/logo simple" href="images/pavicon.png">
+    {{-- scripts --}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
     <link rel="icon" type="image/png" href="images/pavicon.png">
     <title>apotech.id</title>
@@ -219,7 +222,7 @@
                                         <img src="{{ asset('images/navbar pmo/vector-2.png') }}" class="img-fluid" alt="Icon" style="max-width: 50px; height: auto;">
                                     </div>
                                     <div>
-                                        <strong>No RM:</strong> <br> [No RM Pasien]
+                                        <strong>No RM:</strong> <br> {{ $kunjungan->no_rm ?? '-' }}
                                     </div>
                                 </li>
                                 <li class="list-group-item p-3 d-flex align-items-start" style="color: #2E6084; width: 250px;">
@@ -227,7 +230,7 @@
                                         <img src="{{ asset('images/navbar pmo/vector.png') }}" class="img-fluid" alt="Icon" style="max-width: 50px; height: auto;">
                                     </div>
                                     <div>
-                                        <strong>Nama:</strong> <br> [Nama Pasien]
+                                        <strong>Nama:</strong> <br> {{ $kunjungan->nama ?? '-' }}
                                     </div>
                                 </li>
                                 <li class="list-group-item p-3 d-flex align-items-start" style="color: #2E6084; width: 250px;">
@@ -235,7 +238,7 @@
                                         <img src="{{ asset('images/navbar pmo/vector-1.png') }}" class="img-fluid" alt="Icon" style="max-width: 50px; height: auto;">
                                     </div>
                                     <div>
-                                        <strong>Jenis Kelamin:</strong> <br> [Jenis Kelamin]
+                                        <strong>Jenis Kelamin:</strong> <br> {{ $kunjungan->jenis_kelamin ?? '-' }}
                                     </div>
                                 </li>
                                 <li class="list-group-item p-3 d-flex align-items-start" style="color: #2E6084; width: 250px;">
@@ -243,7 +246,7 @@
                                         <img src="{{ asset('images/navbar pmo/vector-5.png') }}" class="img-fluid" alt="Icon" style="max-width: 50px; height: auto;">
                                     </div>
                                     <div>
-                                        <strong>Tanggal Lahir:</strong> <br> [Tanggal Lahir]
+                                        <strong>Tanggal Lahir:</strong> <br> {{ $kunjungan->tanggal_lahir ?? '-' }}
                                     </div>
                                 </li>
                                 <li class="list-group-item p-3 d-flex align-items-start" style="color: #2E6084; width: 250px;">
@@ -251,7 +254,7 @@
                                         <img src="{{ asset('images/navbar pmo/vector-4.png') }}" class="img-fluid" alt="Icon" style="max-width: 50px; height: auto;">
                                     </div>
                                     <div>
-                                        <strong>No Telepon:</strong> <br> [No Telepon]
+                                        <strong>No Telepon:</strong> <br> {{ $kunjungan->no_telp ?? '-' }}
                                     </div>
                                 </li>
                                 <li class="list-group-item p-3 d-flex align-items-start" style="color: #2E6084; width: 250px;">
@@ -259,7 +262,7 @@
                                         <img src="{{ asset('images/navbar pmo/vector-3.png') }}" class="img-fluid" alt="Icon" style="max-width: 50px; height: auto;">
                                     </div>
                                     <div>
-                                        <strong>Alamat:</strong> <br> [Alamat Pasien]
+                                        <strong>Alamat:</strong> <br> {{ $kunjungan->alamat ?? '-' }}
                                     </div>
                                 </li>
                             </ul>

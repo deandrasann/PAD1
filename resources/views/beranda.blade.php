@@ -166,6 +166,7 @@
             </div>
         </div>
     @endcan
+
 @can("dokter")
     <div class="misahin role dokter">
         <div class="info d-flex flex-wrap justify-content-start">
@@ -257,4 +258,42 @@
             </table>
         </div>
     @endcan
+
+    @can('resepsionis')
+        <div class="misahin role PMO">
+            <div class="info d-flex flex-wrap justify-content-start">
+                <div class="container-row-1 py-3 pe-3 my-3 me-3 d-flex justify-content-end align-items-start px-4">
+                    <div class="me-4">
+                        <h2>
+                            @if ($pasienHariIni == null)
+                                0
+                            @else
+                                {{ $pasienHariIni }}
+                            @endif
+                        </h2>
+                        <p>Pasien Hari Ini</p>
+                    </div>
+                    <div>
+                        <img src="{{ asset('images/beranda/jumlah apoteker.png') }}" class="ms-3">
+                    </div>
+                </div>
+                <div class="container-row-2 py-3 pe-3 my-3 me-3 d-flex justify-content-end align-items-start px-4">
+                    <div class="me-4">
+                        <h2>
+                            @if ($totalPasien == null)
+                                0
+                            @else
+                                {{ $totalPasien }}
+                            @endif
+                        </h2>
+                        <p>Jumlah Pasien</p>
+                    </div>
+                    <div>
+                        <img src="{{ asset('images/beranda/jumlah pasien.png') }}" class="ms-3">
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endcan
+
 @endsection

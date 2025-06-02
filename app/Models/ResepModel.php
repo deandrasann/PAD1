@@ -4,11 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class ResepModel extends Model
 {
     use HasFactory;
+    use SoftDeletes;
 
+    protected $dates = ['deleted_at'];
     protected $table = 'resep';
     // nama PK
     protected $primaryKey = 'no_resep';
@@ -18,7 +21,7 @@ class ResepModel extends Model
     public $incrementing = true;
 
     protected $fillable = [
-        'no_antrian',
+        'id_pemeriksaan_akhir',
         'id_dokter',
         'id_pasien',
         'kode_obat',

@@ -6,38 +6,33 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class PemeriksaanModel extends Model
+class PemeriksaanAwalModel extends Model
 {
-    use HasFactory;    
+    use HasFactory;
     use SoftDeletes;
 
     protected $dates = ['deleted_at'];
 
-    protected $table = 'pemeriksaan_akhir';
+    protected $table = 'pemeriksaan_awal';
     // nama PK
-    protected $primaryKey = 'id_pemeriksaan_akhir';
+    protected $primaryKey = 'id_pemeriksaan_awal';
     // PK integer AI
     public $incrementing = true;
 
-     protected $fillable = [
-        'id_dokter',
+    protected $fillable = [
         'id_pasien',
-        'anamnesa',
-        'frekuensi',
-        'golongan_darah',
+        'tanggal_pemeriksaan',
         'berat_badan',
         'tinggi_badan',
-        'merokok',
-        'hamil_menyusui',
-        'keluhan_awal',
+        'golongan_darah',
         'suhu_tubuh',
         'nadi',
         'sistole',
         'diastole',
         'pernapasan',
-        'status_pemeriksaaan',
-        'medikamentosa',
-        'non_medikamentosa',
+        'merokok',
+        'hamil/menyusui',
+        'keluhan_awal',
+        'ket_alergi_obat',
     ];
-
 }

@@ -207,11 +207,12 @@
                         @csrf
                         <div class="modal-body">
                             <div class="row mb-3">
-                                <label for="noPemeriksaan" class="col-md-4 col-form-label">Nomor Antrian</label>
+                                <label for="id_pemeriksaan_akhir" class="col-md-4 col-form-label">Nomor Pemeriksaan</label>
                                 <div class="col-md-8">
-                                    <input type="text" class="form-control" id="noPemeriksaan" name="no_antrian"
-                                        value="{{ $resep_obat->no_antrian }}" readonly
+                                    <input type="text" class="form-control" id="id_pemeriksaan_akhir" name="id_pemeriksaan_akhir"
+                                        value="{{ $resep_obat->id_pemeriksaan_akhir }}" readonly
                                         style="background-color: #f0f0f0; color: #333; ">
+                                        {{-- {{ dd($resep_obat->id_pemeriksaan_akhir) }} --}}
                                 </div>
                             </div>
                             <br>
@@ -284,7 +285,12 @@
         $("#dosis").select2({
             placeholder: '-- Pilih Dosis --',
             allowClear: true,
-            dropdownParent: $('#tambahObatModal')
+            dropdownParent: $('#tambahObatModal'),
+            language: {
+                noResults: function() {
+                    return "Obat belum dipilih";
+                }
+            }
         });
 
         $('#namaObat').on('change', function() {

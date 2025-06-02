@@ -16,7 +16,7 @@ class ResepSeeder extends Seeder
     {
         $resep = collect([
             [
-                'no_antrian'   => 1,
+                'id_pemeriksaan_akhir'   => 1,
                 'id_dokter'    => 1,
                 'id_pasien'    => 1,
                 'kode_obat'    => 1,
@@ -25,7 +25,7 @@ class ResepSeeder extends Seeder
                 'jadwal_minum_obat' => 'Pagi: 06:00 - 09:00, Siang: 13:00 - 15:00, Malam: 19:00 - 21:00',
             ],
             [
-                'no_antrian'   => 2,
+                'id_pemeriksaan_akhir'   => 2,
                 'id_dokter'    => 1,
                 'id_pasien'    => 2,
                 'kode_obat'    => 2,
@@ -34,7 +34,7 @@ class ResepSeeder extends Seeder
                 'jadwal_minum_obat' => 'Pagi: 06:00 - 09:00, Siang: 13:00 - 15:00',
             ],
             [
-                'no_antrian'   => 3,
+                'id_pemeriksaan_akhir'   => 3,
                 'id_dokter'    => 1,
                 'id_pasien'    => 3,
                 'kode_obat'    => 3,
@@ -43,7 +43,7 @@ class ResepSeeder extends Seeder
                 'jadwal_minum_obat' => 'Pagi: 06:00 - 09:00',
             ],
             [
-                'no_antrian'   => 4,
+                'id_pemeriksaan_akhir'   => 4,
                 'id_dokter'    => 1,
                 'id_pasien'    => 4,
                 'kode_obat'    => 4,
@@ -52,7 +52,7 @@ class ResepSeeder extends Seeder
                 'jadwal_minum_obat' => 'Pagi: 06:00 - 09:00, Siang: 13:00 - 15:00',
             ],
             [
-                'no_antrian'   => 5,
+                'id_pemeriksaan_akhir'   => 5,
                 'id_dokter'    => 1,
                 'id_pasien'    => 5,
                 'kode_obat'    => 5,
@@ -61,7 +61,7 @@ class ResepSeeder extends Seeder
                 'jadwal_minum_obat' => 'Pagi: 06:00 - 09:00',
             ],
             [
-                'no_antrian'   => 6,
+                'id_pemeriksaan_akhir'   => 6,
                 'id_dokter'    => 1,
                 'id_pasien'    => 6,
                 'kode_obat'    => 6,
@@ -70,7 +70,7 @@ class ResepSeeder extends Seeder
                 'jadwal_minum_obat' => 'Pagi: 06:00 - 09:00, Siang: 13:00 - 15:00, Malam: 19:00 - 21:00',
             ],
             [
-                'no_antrian'   => 7,
+                'id_pemeriksaan_akhir'   => 7,
                 'id_dokter'    => 1,
                 'id_pasien'    => 7,
                 'kode_obat'    => 7,
@@ -79,7 +79,7 @@ class ResepSeeder extends Seeder
                 'jadwal_minum_obat' => 'Pagi: 06:00 - 09:00, Siang: 13:00 - 15:00',
             ],
             [
-                'no_antrian'   => 8,
+                'id_pemeriksaan_akhir'   => 8,
                 'id_dokter'    => 1,
                 'id_pasien'    => 8,
                 'kode_obat'    => 8,
@@ -88,7 +88,7 @@ class ResepSeeder extends Seeder
                 'jadwal_minum_obat' => 'Pagi: 06:00 - 09:00',
             ],
             [
-                'no_antrian'   => 9,
+                'id_pemeriksaan_akhir'   => 9,
                 'id_dokter'    => 1,
                 'id_pasien'    => 9,
                 'kode_obat'    => 9,
@@ -97,7 +97,7 @@ class ResepSeeder extends Seeder
                 'jadwal_minum_obat' => 'Pagi: 06:00 - 09:00',
             ],
             [
-                'no_antrian'   => 10,
+                'id_pemeriksaan_akhir'   => 10,
                 'id_dokter'    => 1,
                 'id_pasien'    => 10,
                 'kode_obat'    => 10,

@@ -11,31 +11,20 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('pengawas', function (Blueprint $table) {
+        Schema::create('resepsionis', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->charset = 'utf8mb4';
             $table->collation = 'utf8mb4_general_ci';
-            $table->integer('id_pengawas',true);
+            $table->integer('id_resepsionis',true);
             $table->integer('id_pengguna');
-            $table->integer('kode_klinik');
-            $table->string('nama_pengawas');
+            $table->string('nama_resepsionis');
             $table->string('email');
             $table->string('foto')->nullable();
-            $table->timestamps();
-            $table->softDeletes();
-
 
             $table
             ->foreign('id_pengguna')
             ->references('id_pengguna')
             ->on('users')
-            ->cascadeOnUpdate()
-            ->cascadeOnDelete();
-
-            $table
-            ->foreign('kode_klinik')
-            ->references('id_klinik')
-            ->on('klinik')
             ->cascadeOnUpdate()
             ->cascadeOnDelete();
         });
@@ -46,6 +35,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('pengawas');
+        Schema::dropIfExists('resepsionis');
     }
 };

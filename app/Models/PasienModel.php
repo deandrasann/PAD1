@@ -23,11 +23,17 @@ class PasienModel extends Model
         'nama_pasien',
         'no_rm',
         'nama',
+        'id_pengguna',
         'alamat',
         'jenis_kelamin',
+        'tempat_lahir',
         'tanggal_lahir',
+        'provinsi',
+        'kabupaten',
+        'kecamatan',
+        'kelurahan',
         'no_telp',
-        'berat_badan',
+        'email',
     
     ];
 

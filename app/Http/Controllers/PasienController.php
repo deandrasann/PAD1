@@ -57,11 +57,13 @@ class PasienController extends Controller
         $tambah_pasien = PasienModel::insert([
             'no_rm' => $request->input('no_rm'),
             'nama' => $request->input('nama'),
+            'id_pengguna' => 1,
             'jenis_kelamin' => $request->input('jenis_kelamin'),
             'tanggal_lahir' => $request->input('tanggal_lahir'),
             'berat_badan' => $request->input('berat_badan'),
             'alamat' => $request->input('alamat'),
             'no_telp' => $request->input('no_telp'),
+            'created_at' => now(),
         ]);
         return redirect()->route('daftar-pasien')->with('success', 'Berhasil Menambahkan Pasien');
     }
@@ -70,6 +72,7 @@ class PasienController extends Controller
         $data = [
             'no_rm' => $request->input('no_rm'),
             'nama' => $request->input('nama'),
+            'id_pengguna' => 1,
             'tanggal_lahir' => $request->input('tanggal_lahir'),
             'jenis_kelamin' => $request->input('jenis_kelamin'),
             'no_telp' => $request->input('no_telp'),
@@ -81,12 +84,17 @@ class PasienController extends Controller
         return redirect()->route('daftar-pasien')->with('success', 'berhasil mengubah data');
     }
 
-    public function PasienDestroy($id) {
-        $delete_pasien = PasienModel::where('id_pasien', $id)->delete();
-        if ($delete_pasien){
-            return back();
-        };
+  public function PasienDestroy($id)
+{
+    $delete_pasien = PasienModel::where('id_pasien', $id)->first();
+
+    if ($delete_pasien) {
+        $delete_pasien->delete(); // soft delete
+        return back()->with('success', 'Pasien berhasil dihapus secara soft delete.');
     }
+
+    return back()->with('error', 'Pasien tidak ditemukan.');
+}
 
     public function hasilScan(){
         return view('pasien.hasil-scan-pasien');

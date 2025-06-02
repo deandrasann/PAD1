@@ -1,313 +1,458 @@
 @extends('footerheader.navbar-pmo')
 @section('content')
-<nav class="nav">
-    <a class="nav-link" href="{{ route('resume-medis') }}">Isi Resume Medis</a>
-    <a class="nav-link" href="{{ route('riwayat-konsultasi') }}">Riwayat Konsultasi</a>
-</nav>
+    <style>
+        .nav-link {
+            color: #6c757d;
+            /* abu-abu default */
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+        }
 
-<div class="container mt-4">
-    <div class="table-responsive">
-        <table class="table table-borderless border">
-            <thead>
-                <tr>
-                    <th class="bg-light" colspan="2">DATA KUNJUNGAN</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr><td><strong>Jadwal</strong></td></tr>
-                <tr><td>dr. Andi Junaidi</td></tr>
-                <tr><td>Poli Umum</td></tr>
-                <tr><td>Kunjungan sakit</td></tr>
-                <tr><td>24/10/2024</td></tr>
-            </tbody>
-        </table>
-    </div>
-</div>
+        .nav-link.active {
+            color: #20587a;
+            /* biru */
+            font-weight: bold;
+            border-bottom: 3px solid #20587a;
+        }
 
+        /* Warna dan padding untuk stepwizard */
+        .stepwizard-step p {
+            margin-top: 10px;
+        }
 
-<div class="container">
+        .btn-resep {
+            background-color: #20587a;
+            color: white;
+            width: 40px;
+            height: 40px;
+            padding: 0;
+        }
 
-    <div class="stepwizard col-md-offset-3">
-        <div class="stepwizard-row setup-panel">
-          <div class="stepwizard-step">
-            <a href="#step-1" type="button" class="btn btn-resep">1</a>
-            <p>Pemeriksaan </p>
-          </div>
-          <div class="stepwizard-step">
-            <a href="#step-2" type="button" class="btn btn-light" disabled="disabled">2</a>
-            <p>Assesment</p>
-          </div>
-          <div class="stepwizard-step">
-            <a href="#step-3" type="button" class="btn btn-light" disabled="disabled">3</a>
-            <p class="px-4">Resep</p>
-          </div>
+        .btn-resep:hover {
+            background-color: #1c4d6d;
+            color: white;
+        }
+
+        .setup-panel .stepwizard-step {
+            display: inline-block;
+            margin-top: 40px;
+            margin-right: 70px;
+        }
+
+        .table-borderless th,
+        .table-borderless td {
+            border: none !important;
+        }
+
+        .form-control,
+        .input-group-text {
+            border-radius: 8px !important;
+        }
+
+        .table {
+            margin-bottom: 0;
+        }
+
+        hr {
+            border-top: 2px solid #ccc;
+        }
+    </style>
+
+    <nav class="nav">
+        <a class="nav-link {{ request()->routeIs('resume-medis') ? 'active' : '' }}"
+            href="{{ route('resume-medis', ['id_pasien' => $kunjungan->id_pasien]) }}">
+            Isi Resume Medis
+        </a>
+
+        <a class="nav-link {{ request()->routeIs('riwayat-konsultasi') ? 'active' : '' }}"
+            href="{{ route('riwayat-konsultasi', ['id_pasien' => $kunjungan->id_pasien]) }}">
+            Riwayat Konsultasi
+        </a>
+    </nav>
+
+    <div class="container mt-4">
+        <div class="table-responsive">
+            <table class="table table-borderless border">
+                <thead>
+                    <tr>
+                        <th class="bg-light" colspan="2">DATA KUNJUNGAN</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Jadwal</strong></td>
+                    </tr>
+                    <tr>
+                        <td>{{ $kunjungan->nama_dokter ?? '-' }}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ $kunjungan->spesialis ?? '-' }}</td>
+                    </tr>
+                    <tr>
+                        <td>Kunjungan sakit</td>
+                    </tr>
+                    <tr>
+                        <td>{{ \Carbon\Carbon::parse($kunjungan->tanggal_pemeriksaan)->format('d/m/Y') }}</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
-      </div>
+    </div>
 
-      <form role="form" action="" method="post">
-        <div class="row setup-content" id="step-1">
-          <div class="col-xs-6 col-md-offset-3">
-            <div class="col md-12">
-                <div class="table-responsive">
-                    <table class="table table-borderless border">
-                        <thead>
-                            <tr>
-                                <th class="" colspan="2"><h4>DATA KESEHATAN</h4></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td colspan="2">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <label class="my-2">Golongan Darah</label>
-                                            <input type="text" class="form-control w-50">
-                                        </div>
-                                        <div class="col-md-6">
-                                            <label class="my-2">Merokok?</label><br>
-                                            <div class="form-check form-check-inline ms-2">
-                                                <input class="form-check-input" type="checkbox" id="merokokYa">
-                                                <label class="form-check-label" for="merokokYa">Ya</label>
+
+    <div class="container">
+
+        <div class="stepwizard col-md-offset-3">
+            <div class="stepwizard-row setup-panel">
+                <div class="stepwizard-step">
+                    <a href="#step-1" type="button" class="btn btn-resep">1</a>
+                    <p>Pemeriksaan </p>
+                </div>
+                <div class="stepwizard-step">
+                    <a href="#step-2" type="button" class="btn btn-light" disabled="disabled">2</a>
+                    <p>Assesment</p>
+                </div>
+                <div class="stepwizard-step">
+                    <a href="#step-3" type="button" class="btn btn-light" disabled="disabled">3</a>
+                    <p class="px-4">Resep</p>
+                </div>
+            </div>
+        </div>
+
+        <form role="form" action="{{ route('simpan-pemeriksaan', ['id_pasien' => $kunjungan->id_pasien]) }}" method="POST">
+            @csrf
+            <div class="row setup-content" id="step-1">
+                <div class="col-xs-6 col-md-offset-3">
+                    <div class="col md-12">
+                        <div class="table-responsive">
+                            <table class="table table-borderless border">
+                                <thead>
+                                    <tr>
+                                        <th class="" colspan="2">
+                                            <h4>DATA KESEHATAN</h4>
+                                    </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td colspan="2">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <label class="my-2">Golongan Darah</label>
+                                                    <input type="text" name="golongan_darah" class="form-control w-50" @if(!empty($kunjungan->golongan_darah)) value="{{ $kunjungan->golongan_darah }}" data-from-db="true" @endif>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label class="my-2">Merokok?</label><br>
+                                                    @php
+                                                        $merokok = $kunjungan->merokok ?? null;
+                                                    @endphp
+                                                    <div class="form-check form-check-inline">
+                                                        <input class="form-check-input" type="radio" name="merokok"
+                                                            id="merokokYa" value="Ya"
+                                                            {{ $merokok == 'Ya' ? 'checked' : '' }}>
+                                                        <label class="form-check-label" for="merokokYa">Ya</label>
+                                                    </div>
+                                                    <div class="form-check form-check-inline">
+                                                        <input class="form-check-input" type="radio" name="merokok"
+                                                            id="merokokTidak" value="Tidak"
+                                                            {{ $merokok == 'Tidak' ? 'checked' : '' }}>
+                                                        <label class="form-check-label" for="merokokTidak">Tidak</label>
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="checkbox" id="merokokTidak">
-                                                <label class="form-check-label" for="merokokTidak">Tidak</label>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <label class="my-2">Berat Badan</label>
+                                                    <div class="input-group w-50">
+                                                        <input type="number" name="berat_badan" class="form-control" @if(!empty($kunjungan->berat_badan)) value="{{ $kunjungan->berat_badan }}" data-from-db="true" @endif>
+                                                        <span class="input-group-text">kg</span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label class="mt-4 mb-2">Hamil / Menyusui</label><br>
+                                                    @php
+                                                        $hamilMenyusuiValue = $kunjungan->hamil_menyusui ?? null;
+                                                    @endphp
+                                                    <div class="form-check form-check-inline">
+                                                        <input class="form-check-input" type="radio" name="hamil_menyusui"
+                                                            id="hamil" value="Hamil"
+                                                            {{ $hamilMenyusuiValue == 'Hamil' ? 'checked' : '' }}>
+                                                        <label class="form-check-label" for="hamil">Hamil</label>
+                                                    </div>
+                                                    <div class="form-check form-check-inline">
+                                                        <input class="form-check-input" type="radio" name="hamil_menyusui"
+                                                            id="menyusui" value="Menyusui"
+                                                            {{ $hamilMenyusuiValue == 'Menyusui' ? 'checked' : '' }}>
+                                                        <label class="form-check-label" for="menyusui">Menyusui</label>
+                                                    </div>
+                                                    <div class="form-check form-check-inline">
+                                                        <input class="form-check-input" type="radio" name="hamil_menyusui"
+                                                            id="tidak_keduanya" value="Tidak Keduanya"
+                                                            {{ $hamilMenyusuiValue == 'Tidak Keduanya' ? 'checked' : '' }}>
+                                                        <label class="form-check-label" for="tidak_keduanya">Tidak
+                                                            Keduanya</label>
+                                                    </div>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td colspan="2">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <label class="my-2">Berat Badan</label>
-                                            <div class="input-group w-50">
-                                                <input type="number" class="form-control">
-                                                <span class="input-group-text">kg</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <label class="my-2">Tinggi Badan</label>
+                                                    <div class="input-group w-50">
+                                                        <input type="number" name="tinggi_badan" class="form-control"  @if(!empty($kunjungan->tinggi_badan)) value="{{ $kunjungan->tinggi_badan }}" data-from-db="true" @endif>
+                                                        <span class="input-group-text">cm</span>
+                                                    </div>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <label class="mt-4 mb-2">Hamil / Menyusui</label><br>
-                                            <div class="form-check form-check-inline ms-2">
-                                                <input class="form-check-input" type="checkbox" id="hamil">
-                                                <label class="form-check-label" for="hamil">Hamil</label>
+                                        </td>
+                                    </tr>
+                                    <hr>
+                                    <tr>
+                                        <td colspan="1">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <hr>
+                                                    <h5>Keluhan</h5>
+                                                    <label class="my-2">Keluhan Awal</label>
+                                                    <div class="input-group w-100">
+                                                        <input type="text" name="keluhan_awal" class="form-control" @if(!empty($kunjungan->keluhan_awal)) value="{{ $kunjungan->keluhan_awal }}" data-from-db="true" @endif>
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="checkbox" id="menyusui">
-                                                <label class="form-check-label" for="menyusui">Menyusui</label>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td colspan="2">
+                                            <hr>
+                                            <h5 class="my-4">TANDA-TANDA VITAL</h5>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <label class="my-2">Suhu tubuh</label>
+                                                    <div class="input-group w-50">
+                                                        <input type="number" name="suhu_tubuh" class="form-control"  @if(!empty($kunjungan->suhu_tubuh)) value="{{ $kunjungan->suhu_tubuh }}" data-from-db="true" @endif>
+                                                        <span class="input-group-text">C</span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label class="my-2">Nadi</label>
+                                                    <div class="input-group w-50">
+                                                        <input type="number" name="nadi" class="form-control"  @if(!empty($kunjungan->nadi)) value="{{ $kunjungan->nadi }}" data-from-db="true" @endif>
+                                                        <span class="input-group-text">bpm</span>
+                                                    </div>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td colspan="2">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <label class="my-2">Tinggi Badan</label>
-                                            <div class="input-group w-50">
-                                                <input type="number" class="form-control">
-                                                <span class="input-group-text">cm</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <label class="my-2">Sistole</label>
+                                                    <div class="input-group w-50">
+                                                        <input type="number" name="sistole" class="form-control"  @if(!empty($kunjungan->sistole)) value="{{ $kunjungan->sistole }}" data-from-db="true" @endif>
+                                                        <span class="input-group-text">mmhg</span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label class="my-2">Preferensi pernafasan</label>
+                                                    <div class="input-group w-50">
+                                                        <input type="number" name="pernapasan" class="form-control"  @if(!empty($kunjungan->pernapasan)) value="{{ $kunjungan->pernapasan }}" data-from-db="true" @endif>
+                                                        <span class="input-group-text">rpm</span>
+                                                    </div>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-                            <hr>
-                            <tr>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <label class="my-2">Diastole</label>
+                                                    <div class="input-group w-50">
+                                                        <input type="number" name="diastole" class="form-control"  @if(!empty($kunjungan->diastole)) value="{{ $kunjungan->diastole }}" data-from-db="true" @endif>
+                                                        <span class="input-group-text">mmhg</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+
+                            </table>
+                        </div>
+                        <button class="btn btn-submit nextBtn btn-lg pull-right btn-success" type="button">Next
+                            ></button>
+                    </div>
+                </div>
+            </div>
+            <div class="row setup-content" id="step-2">
+                <div class="col-xs-6 col-md-offset-3">
+                    <div class="col-md-12">
+                        <table class="table table-borderless border">
+                            <thead>
+                                <tr>
+                                    <th class="mt-2" colspan="2">
+                                        <h4>ASSESMENT</h4>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
                                 <td colspan="1">
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <hr>
-                                            <h5>Keluhan</h5>
                                             <label class="my-2">Anamnesa</label>
-                                            <div class="input-group w-100">
-                                                <input type="text" class="form-control">
+                                            <div class="input-group w-100 mb-4">
+                                                <textarea type="text" name="anamnesa" class="form-control"></textarea>
+                                            </div>
+                                            <div class="mb-4 mt-4">
+                                                <label class="mb-2">Frekuensi</label><br>
+                                                <input type="text" name="frekuensi" class="form-control"></input>
                                             </div>
                                         </div>
                                     </div>
                                 </td>
-                            </tr>
+                                </tr>
 
-                            <tr>
-                                <td colspan="2">
-                                    <hr>
-                                    <h5 class="my-4">TANDA-TANDA VITAL</h5>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <label class="my-2">Suhu tubuh</label>
-                                            <div class="input-group w-50">
-                                                <input type="number" class="form-control">
-                                                <span class="input-group-text">C</span>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <label class="my-2">Nadi</label>
-                                            <div class="input-group w-50">
-                                                <input type="number" class="form-control">
-                                                <span class="input-group-text">bpm</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td colspan="2">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <label class="my-2">Sistole</label>
-                                            <div class="input-group w-50">
-                                                <input type="number" class="form-control">
-                                                <span class="input-group-text">mmhg</span>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <label class="my-2">Preferensi pernafasan</label>
-                                            <div class="input-group w-50">
-                                                <input type="number" class="form-control">
-                                                <span class="input-group-text">rpm</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td colspan="2">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <label class="my-2">Diastole</label>
-                                            <div class="input-group w-50">
-                                                <input type="number" class="form-control" value="70" disabled>
-                                                <span class="input-group-text">mmhg</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
+                            </tbody>
 
-                        </tbody>
-
-                    </table>
+                        </table>
+                        <button class="btn btn-submit nextBtn btn-lg pull-right btn-success" type="button">Next
+                            ></button>
+                    </div>
                 </div>
-              <button class="btn btn-resep nextBtn btn-lg pull-right" type="button" >Next</button>
             </div>
-          </div>
-        </div>
-        <div class="row setup-content" id="step-2">
-          <div class="col-xs-6 col-md-offset-3">
-            <div class="col-md-12">
-                <table class="table table-borderless border">
-                    <thead>
-                        <tr>
-                            <th class="mt-2" colspan="2"><h4>ASSESMENT</h4></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                            <td colspan="1">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <label class="my-2">Diagnosa</label>
-                                        <div class="input-group w-100 mb-4">
-                                            <textarea type="text" class="form-control"></textarea>
+            <div class="row setup-content" id="step-3">
+                <div class="col-xs-6 col-md-offset-3">
+                    <div class="col-md-12">
+                        <table class="table table-borderless border">
+
+                            <tbody>
+                                <td colspan="1">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <label class="my-2">Resep</label>
+
+                                            <hr>
+                                            {{-- <button type="button" class="btn btn-tambah ms-3 mb-2 btn-primary rounded-3"
+                                                data-bs-toggle="modal" data-bs-target="#tambahObatModal">
+                                                <strong><a href="{{ route('tambah-obat-dokter') }}"
+                                                        style="color: white; text-decoration:none">+ Tambah Obat </a>
+                                                </strong>
+                                            </button> --}}
+                                            <div class="mb-4 mt-4">
+                                                <label class="mb-2">Pilih Obat</label><br>
+                                                <select class="form-control" id="namaObat" name="kode_obat"
+                                                    style="width: 100%;">
+                                                    <option value="" disabled selected>-- Pilih Nama Obat --</option>
+                                                    @foreach ($data_obat as $item)
+                                                        <option value="{{ $item->kode_obat }}">
+                                                            {{ $item->nama_obat }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+
+                                            <div class="mb-4 mt-4">
+                                                <label class="mb-2">Medikamentosa</label><br>
+                                                <input type="text" name="medikamentosa" class="form-control"></input>
+                                            </div>
+                                            <div class="mb-4 mt-4">
+                                                <label class="mb-2">Non-Medikamentosa</label><br>
+                                                <input type="text" name="non_medikamentosa" class="form-control"></input>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            </td>
-                        </tr>
+                                </td>
+                                </tr>
 
-                    </tbody>
+                            </tbody>
 
-                </table>
-                <button class="btn btn-resep nextBtn btn-lg pull-right" type="button" >Next</button>
+                        </table>
+                        <button class="btn btn-success btn-lg pull-right btn-submit" type="submit">Submit</button>
+                    </div>
+                </div>
             </div>
-          </div>
-        </div>
-        <div class="row setup-content" id="step-3">
-          <div class="col-xs-6 col-md-offset-3">
-            <div class="col-md-12">
-              <table class="table table-borderless border">
-
-                    <tbody>
-                            <td colspan="1">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <label class="my-2">Resep</label>
-
-                                        <hr>
-                                        <button type="button" class="btn btn-resep px-2 py-2 mb-2 mt-4" data-bs-toggle="modal"
-                                            data-bs-target="#tambahObatModal">
-                                            <strong><a href="{{ route('tambah-obat-dokter') }}" style="color: white; text-decoration:none">+ Tambah Obat </a> </strong>
-                                        </button>
-
-                                        <div class="mb-4 mt-4">
-                                            <label class="mb-2">Medikamentosa</label><br>
-                                            <input type="text" class="form-control" placeholder="Paracetamol"></input>
-                                        </div>
-                                        <div class="mb-4 mt-4">
-                                            <label class="mb-2">Non-Medikamentosa</label><br>
-                                            <input type="text" class="form-control" placeholder="Anjuran untuk pasien"></input>
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-
-                    </tbody>
-
-                </table>
-              <button class="btn btn-success btn-lg pull-right" type="submit">Submit</button>
-            </div>
-          </div>
-        </div>
-      </form>
+        </form>
 
     </div>
 
     <script>
-        $(document).ready(function () {
-  var navListItems = $('div.setup-panel div a'),
-          allWells = $('.setup-content'),
-          allNextBtn = $('.nextBtn');
-
-  allWells.hide();
-
-  navListItems.click(function (e) {
-      e.preventDefault();
-      var $target = $($(this).attr('href')),
-              $item = $(this);
-
-      if (!$item.hasClass('disabled')) {
-          navListItems.removeClass('btn-resep').addClass('btn-light');
-          $item.addClass('btn-resep');
-          allWells.hide();
-          $target.show();
-          $target.find('input:eq(0)').focus();
-      }
-  });
-
-  allNextBtn.click(function(){
-      var curStep = $(this).closest(".setup-content"),
-          curStepBtn = curStep.attr("id"),
-          nextStepWizard = $('div.setup-panel div a[href="#' + curStepBtn + '"]').parent().next().children("a"),
-          curInputs = curStep.find("input[type='text'],input[type='url']"),
-          isValid = true;
-
-      $(".form-group").removeClass("has-error");
-      for(var i=0; i<curInputs.length; i++){
-          if (!curInputs[i].validity.valid){
-              isValid = false;
-              $(curInputs[i]).closest(".form-group").addClass("has-error");
-          }
-      }
-
-      if (isValid)
-          nextStepWizard.removeAttr('disabled').trigger('click');
-  });
-
-  $('div.setup-panel div a.btn-resep').trigger('click');
-});
+         $(document).ready(function() {
+            $("#namaObat").select2({
+                placeholder: '-- Pilih Nama Obat --', // Samain placeholder
+                allowClear: true, // (Optional) Biar bisa hapus pilihan
+            });
+        });
     </script>
 
+   <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Pilih hanya input yang berasal dari database
+        const inputsFromDb = document.querySelectorAll('input.form-control[data-from-db="true"]');
 
+        inputsFromDb.forEach(input => {
+            // Jika memiliki nilai dari database, disable
+            if (input.value.trim() !== '') {
+                input.readOnly = true;
+                input.style.backgroundColor = '#e9ecef';
+            }
+        });
+    });
+</script>
+
+    <script>
+        $(document).ready(function() {
+            var navListItems = $('div.setup-panel div a'),
+                allWells = $('.setup-content'),
+                allNextBtn = $('.nextBtn');
+
+            allWells.hide();
+
+            navListItems.click(function(e) {
+                e.preventDefault();
+                var $target = $($(this).attr('href')),
+                    $item = $(this);
+
+                if (!$item.hasClass('disabled')) {
+                    navListItems.removeClass('btn-resep').addClass('btn-light');
+                    $item.addClass('btn-resep');
+                    allWells.hide();
+                    $target.show();
+                    $target.find('input:eq(0)').focus();
+                }
+            });
+
+            allNextBtn.click(function() {
+                var curStep = $(this).closest(".setup-content"),
+                    curStepBtn = curStep.attr("id"),
+                    nextStepWizard = $('div.setup-panel div a[href="#' + curStepBtn + '"]').parent().next()
+                    .children("a"),
+                    curInputs = curStep.find("input[type='text'],input[type='url']"),
+                    isValid = true;
+
+                $(".form-group").removeClass("has-error");
+                for (var i = 0; i < curInputs.length; i++) {
+                    if (!curInputs[i].validity.valid) {
+                        isValid = false;
+                        $(curInputs[i]).closest(".form-group").addClass("has-error");
+                    }
+                }
+
+                if (isValid)
+                    nextStepWizard.removeAttr('disabled').trigger('click');
+            });
+
+            $('div.setup-panel div a.btn-resep').trigger('click');
+        });
+    </script>
 @endsection

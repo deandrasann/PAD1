@@ -1,101 +1,255 @@
+@php
+    $isDisabled = isset($pasien);
+@endphp
+
 @extends('footerheader.navbar')
 @section('content')
-  <style>
+    <style>
 
-  </style>
-  <!-- Tabs -->
-  <div class="mb-4">
-        <a href="{{ route('resepsionis-tambah') }}" class="tab-link {{ Route::is('resepsionis-tambah') ? 'active' : '' }}"> Isi Data Personal</a>
-        <a href="{{ route('resepsionis-tambah-kesehatan') }}" class="tab-link {{ Route::is('resepsionis-tambah-kesehatan') ? 'active' : '' }}"> Isi Data Kesehatan</a>
-  </div>
-
-  <h4 class="text-center mb-4">DATA PERSONAL</h4>
-
-  <form>
-    <div class="row">
-      <!-- Kiri -->
-      <div class="col-md-6">
-        <h6>IDENTITAS PRIBADI</h6>
-
-        <div class="mb-3">
-          <label class="form-label">No RM</label>
-          <input type="text" class="form-control" disabled>
-        </div>
-
-        <div class="mb-3">
-          <label class="form-label">Nama Lengkap</label>
-          <input type="text" class="form-control">
-        </div>
-
-        <div class="mb-3">
-          <label class="form-label">Jenis Kelamin</label>
-          <input type="text" class="form-control">
-        </div>
-
-        <div class="mb-3">
-          <label class="form-label">Tempat Lahir</label>
-          <input type="text" class="form-control">
-        </div>
-
-        <div class="mb-3">
-          <label class="form-label">Tanggal Lahir</label>
-          <input type="date" class="form-control">
-        </div>
-
-        <div class="mb-3">
-          <label class="form-label">Nomor Telepon / Telepon Seluler</label>
-          <input type="text" class="form-control">
-        </div>
-
-        <div class="mb-3">
-          <label class="form-label">Email</label>
-          <input type="email" class="form-control">
-        </div>
-      </div>
-
-      <!-- Kanan -->
-      <div class="col-md-6">
-        <h6>ALAMAT</h6>
-
-        <div class="mb-3">
-          <label class="form-label">Provinsi</label>
-          <select class="form-select">
-            <option selected>Pilih Data</option>
-          </select>
-        </div>
-
-        <div class="mb-3">
-          <label class="form-label">Kabupaten/Kota</label>
-          <select class="form-select">
-            <option selected>Pilih Data</option>
-          </select>
-        </div>
-
-        <div class="mb-3">
-          <label class="form-label">Kecamatan</label>
-          <select class="form-select">
-            <option selected>Pilih Data</option>
-          </select>
-        </div>
-
-        <div class="mb-3">
-          <label class="form-label">Desa/Kelurahan</label>
-          <select class="form-select">
-            <option selected>Pilih Data</option>
-          </select>
-        </div>
-
-        <div class="mb-3">
-          <label class="form-label">Alamat</label>
-          <textarea class="form-control" rows="3"></textarea>
-        </div>
-      </div>
+    </style>
+    <!-- Tabs -->
+    <div class="mb-4">
+        <a href="{{ route('resepsionis-tambah-form') }}"
+            class="tab-link {{ Route::is('resepsionis-tambah-form') ? 'active' : '' }}">
+            Isi Data Personal</a>
+        @isset($pasien)
+            @if (isset($pasien->id_pasien))
+                <a href="{{ route('resepsionis-tambah-kesehatan', ['id' => $pasien->id_pasien]) }}"
+                    class="tab-link {{ Route::is('resepsionis-tambah-kesehatan') ? 'active' : '' }}">
+                    Isi Data Kesehatan
+                </a>
+            @endif
+        @endisset
     </div>
 
-    <div class="text-end mt-3">
-      <button type="submit" class="btn btn-success">Simpan</button>
-    </div>
-  </form>
+    <h4 class="text-center mb-4">DATA PERSONAL</h4>
 
+    <form method="POST" action="{{ route('resepsionis-tambah') }}">
+        @csrf
+        <div class="row">
+            <!-- Kiri -->
+            <div class="col-md-6">
+                <h6>IDENTITAS PRIBADI</h6>
 
+                <div class="mb-3">
+                    <label class="form-label">No RM</label>
+                    {{-- <input type="text" class="form-control" disabled> --}}
+                    <input type="number" class="form-control" name="no_rm" value="{{ $pasien->no_rm ?? '' }}"
+                        {{ $isDisabled ? 'disabled' : '' }}>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Nama Lengkap</label>
+                    {{-- <input type="text" class="form-control"> --}}
+                    <input type="text" class="form-control" name="nama" value="{{ $pasien->nama ?? '' }}"
+                        {{ $isDisabled ? 'disabled' : '' }}>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Jenis Kelamin</label>
+                    {{-- <input type="text" class="form-control"> --}}
+                    <input type="text" class="form-control" name="jenis_kelamin"
+                        value="{{ $pasien->jenis_kelamin ?? '' }}" {{ $isDisabled ? 'disabled' : '' }}>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Tempat Lahir</label>
+                    {{-- <input type="text" class="form-control"> --}}
+                    <input type="text" class="form-control" name="tempat_lahir"
+                        value="{{ $pasien->tempat_lahir ?? '' }}" {{ $isDisabled ? 'disabled' : '' }}>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Tanggal Lahir</label>
+                    {{-- <input type="date" class="form-control"> --}}
+                    <input type="date" class="form-control" name="tanggal_lahir"
+                        value="{{ $pasien->tanggal_lahir ?? '' }}" {{ $isDisabled ? 'disabled' : '' }}>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Nomor Telepon</label>
+                    {{-- <input type="text" class="form-control"> --}}
+                    <input type="number" class="form-control" name="no_telp" value="{{ $pasien->no_telp ?? '' }}"
+                        {{ $isDisabled ? 'disabled' : '' }}>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Email</label>
+                    {{-- <input type="email" class="form-control"> --}}
+                    <input type="email" class="form-control" name="email" value="{{ $pasien->email ?? '' }}"
+                        {{ $isDisabled ? 'disabled' : '' }}>
+                </div>
+            </div>
+
+            <!-- Kanan -->
+            <div class="col-md-6">
+                <h6>ALAMAT</h6>
+
+                <div class="mb-3">
+                    <label class="form-label">Provinsi</label>
+                    {{-- {{ dd($pasien->provinsi) }} --}}
+                    <select id="provinsi" class="form-control" name="provinsi" style="width: 100%;"
+                        {{ isset($pasien->provinsi) ? 'disabled' : '' }}>
+                        <option value="" disabled {{ !isset($pasien->provinsi) ? 'selected' : '' }}>-- Pilih Provinsi --</option>
+                        @if (isset($pasien->provinsi))
+                            <option value="{{ $pasien->provinsi }}" selected>{{ $pasien->provinsi }}</option>
+                        @endif
+                    </select>
+                    <input type="hidden" name="nama_provinsi" id="nama_provinsi" value="{{ $pasien->provinsi ?? '' }}">
+                        
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Kabupaten/Kota</label>
+                    <select id="kabupaten" class="form-control" name="kabupaten" style="width: 100%;"
+                        {{ isset($pasien->kabupaten) ? 'disabled' : '' }}>
+                        <option value="" disabled {{ !isset($pasien->kabupaten) ? 'selected' : '' }}>-- Pilih
+                            Kab/Kota --</option>
+                        @if (isset($pasien->kabupaten))
+                            <option value="{{ $pasien->kabupaten }}" selected>{{ $pasien->kabupaten }}</option>
+                        @endif
+                    </select>
+                    <input type="hidden" name="nama_kabupaten" id="nama_kabupaten" value="{{ $pasien->kabupaten ?? '' }}">
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Kecamatan</label>
+                    <select id="kecamatan" class="form-control" name="kecamatan" style="width: 100%;"
+                        {{ isset($pasien->kecamatan) ? 'disabled' : '' }}>
+                        <option value="" disabled {{ !isset($pasien->kecamatan) ? 'selected' : '' }}>-- Pilih
+                            Kecamatan --</option>
+                        @if (isset($pasien->kecamatan))
+                            <option value="{{ $pasien->kecamatan }}" selected>{{ $pasien->kecamatan }}</option>
+                        @endif
+                    </select>
+                    <input type="hidden" name="nama_kecamatan" id="nama_kecamatan" value="{{ $pasien->kecamatan ?? '' }}">
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Desa/Kelurahan</label>
+                    <select id="kelurahan" class="form-control" name="kelurahan" style="width: 100%;"
+                        {{ isset($pasien->kelurahan) ? 'disabled' : '' }}>
+                        <option value="" disabled {{ !isset($pasien->kelurahan) ? 'selected' : '' }}>-- Pilih
+                            Kelurahan --</option>
+                        @if (isset($pasien->kelurahan))
+                            <option value="{{ $pasien->kelurahan }}" selected>{{ $pasien->kelurahan }}</option>
+                        @endif
+                    </select>
+                    <input type="hidden" name="nama_kelurahan" id="nama_kelurahan"
+                        value="{{ $pasien->kelurahan ?? '' }}">
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Alamat</label>
+                    <textarea class="form-control" name="alamat" rows="3" {{ $isDisabled ? 'disabled' : '' }}>{{ $pasien->alamat ?? '' }}</textarea>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-end mt-3">
+            <button type="submit" class="btn btn-success" {{ $isDisabled ? 'disabled' : '' }}>Simpan</button>
+        </div>
+    </form>
+
+    <script>
+        $(document).ready(function() {
+            // Aktifkan select2
+            $('#provinsi, #kabupaten, #kecamatan, #kelurahan').select2({
+                // placeholder: "-- Pilih --",
+                allowClear: true,
+                width: "100%"
+            });
+
+            // Ambil daftar provinsi
+          $.getJSON("https://www.emsifa.com/api-wilayah-indonesia/api/provinces.json", function(data) {
+    console.log("Data Provinsi didapat:", data); // DEBUG 1
+
+    $('#provinsi').empty().append(
+        '<option value="" disabled selected>-- Pilih Provinsi --</option>'
+    );
+
+    $.each(data, function(i, provinsi) {
+        console.log("Tambah provinsi:", provinsi.id, provinsi.name); // DEBUG 2
+        $('#provinsi').append('<option value="' + provinsi.id + '">' + provinsi.name + '</option>');
+    });
+
+    console.log("Semua provinsi ditambahkan ke select"); // DEBUG 3
+});
+
+            // Ketika provinsi dipilih
+            $('#provinsi').on('change', function() {
+                var provId = $(this).val();
+                var provText = $('#provinsi option:selected').text();
+                $('#nama_provinsi').val(provText); // simpan nama provinsi
+
+                $('#kabupaten').empty().append(
+                    '<option value="" disabled selected>-- Pilih Kab/Kota --</option>');
+                $('#kecamatan').empty().append(
+                    '<option value="" disabled selected>-- Pilih Kecamatan --</option>');
+                $('#kelurahan').empty().append(
+                    '<option value="" disabled selected>-- Pilih Kelurahan --</option>');
+
+                if (provId) {
+                    $.getJSON("https://www.emsifa.com/api-wilayah-indonesia/api/regencies/" + provId +
+                        ".json",
+                        function(data) {
+                            $.each(data, function(i, kabupaten) {
+                                $('#kabupaten').append('<option value="' + kabupaten.id + '">' +
+                                    kabupaten.name + '</option>');
+                            });
+                        });
+                }
+            });
+
+            // Ketika kabupaten dipilih
+            $('#kabupaten').on('change', function() {
+                var kabId = $(this).val();
+                var kabText = $('#kabupaten option:selected').text();
+                $('#nama_kabupaten').val(kabText); // simpan nama kabupaten
+
+                $('#kecamatan').empty().append(
+                    '<option value="" disabled selected>-- Pilih Kecamatan --</option>');
+                $('#kelurahan').empty().append(
+                    '<option value="" disabled selected>-- Pilih Kelurahan --</option>');
+
+                if (kabId) {
+                    $.getJSON("https://www.emsifa.com/api-wilayah-indonesia/api/districts/" + kabId +
+                        ".json",
+                        function(data) {
+                            $.each(data, function(i, kecamatan) {
+                                $('#kecamatan').append('<option value="' + kecamatan.id + '">' +
+                                    kecamatan.name + '</option>');
+                            });
+                        });
+                }
+            });
+
+            // Ketika kecamatan dipilih
+            $('#kecamatan').on('change', function() {
+                var kecId = $(this).val();
+                var kecText = $('#kecamatan option:selected').text();
+                $('#nama_kecamatan').val(kecText); // simpan nama kecamatan
+
+                $('#kelurahan').empty().append(
+                    '<option value="" disabled selected>-- Pilih Kelurahan --</option>');
+
+                if (kecId) {
+                    $.getJSON("https://www.emsifa.com/api-wilayah-indonesia/api/villages/" + kecId +
+                        ".json",
+                        function(data) {
+                            $.each(data, function(i, kelurahan) {
+                                $('#kelurahan').append('<option value="' + kelurahan.id + '">' +
+                                    kelurahan.name + '</option>');
+                            });
+                        });
+                }
+            });
+
+            // Ketika kelurahan dipilih
+            $('#kelurahan').on('change', function() {
+                var kelText = $('#kelurahan option:selected').text();
+                $('#nama_kelurahan').val(kelText); // simpan nama kelurahan
+            });
+        });
+    </script>
 @endsection

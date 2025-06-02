@@ -7,6 +7,7 @@ use App\Models\PasienModel;
 use App\Models\User;
 use App\Models\ApotekerModel;
 use App\Models\ObatModel;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -30,9 +31,15 @@ class DashboardController extends Controller
         ->leftJoin('resep', 'pasien.id_pasien', '=', 'resep.id_pasien')  // Join tabel pasien dengan resep berdasarkan id_pasien
         ->whereNull('resep.kode_obat')  // Memilih pasien yang tidak memiliki kode_obat (NULL)
         ->count(); 
-    
+     $pasienHariIni = DB::table('pasien')
+        ->whereDate('created_at', Carbon::today())
+        ->count();
+
+    $totalPasien = DB::table('pasien')
+        ->whereNull('deleted_at')
+        ->count();
         // dd($data_pasien);
-        return view('beranda', compact('data', 'data_pasien', 'data_obat', 'data_apoteker', 'data_pengawas', 'data_pasien', 'data_pasien_baru'));
+        return view('beranda', compact('data', 'data_pasien', 'data_obat', 'data_apoteker', 'data_pengawas', 'data_pasien', 'data_pasien_baru', 'pasienHariIni', 'totalPasien'));
     }
 
     public function pasienTerdaftar(){
@@ -102,5 +109,6 @@ class DashboardController extends Controller
     public function riwayatDataResep(){
         return view('pmo.riwayat-resep');
     }
+
 }
 

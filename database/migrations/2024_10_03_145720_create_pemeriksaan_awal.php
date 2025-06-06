@@ -33,6 +33,7 @@ return new class extends Migration
 
             $table->enum('merokok', ['Ya', 'Tidak'])->nullable();
             $table->enum('hamil_menyusui', ['Hamil', 'Menyusui', 'Tidak Keduanya'])->nullable();
+            $table->enum('status_pemanggilan', ['sudah dipanggil', 'belum dipanggil'])->default('belum dipanggil')->nullable();
 
             $table->text('keluhan_awal')->nullable();
             $table->string('ket_alergi_obat')->nullable();
@@ -56,7 +57,7 @@ return new class extends Migration
         });
     }
 
-    /** 
+    /**
      * Reverse the migrations.
      */
     public function down(): void

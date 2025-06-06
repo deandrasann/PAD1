@@ -12,6 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('resep', function (Blueprint $table) {
+            //table resep 
             $table->engine = 'InnoDB';
             $table->charset = 'utf8mb4';
             $table->collation = 'utf8mb4_general_ci';
@@ -57,7 +58,7 @@ return new class extends Migration
             ->on('obat')
             ->cascadeOnUpdate()
             ->cascadeOnDelete();
-            
+
         });
     }
 

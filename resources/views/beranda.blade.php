@@ -173,10 +173,10 @@
             <div class="container-row-2 py-3 pe-3 my-3 me-3 d-flex justify-content-end align-items-start px-4">
                 <div class="me-4">
                     <h2>
-                        @if ($data_pengawas == null)
+                        @if ($totalPasienHariIni == null)
                             0
                         @else
-                            {{ $data_pengawas }}
+                            {{ $totalPasienHariIni }}
                         @endif
                     </h2>
                     <p>Pasien Hari Ini</p>
@@ -188,10 +188,10 @@
             <div class="container-row-2 py-3 pe-3 my-3 me-3 d-flex justify-content-end align-items-start px-4">
                 <div class="me-4">
                     <h2>
-                        @if ($data_pengawas == null)
+                        @if ($pasienSelesai == null)
                             0
                         @else
-                            {{ $data_pengawas }}
+                            {{ $pasienSelesai }}
                         @endif
                     </h2>
                     <p>Sudah Dilayani</p>
@@ -203,10 +203,10 @@
             <div class="container-row-2 py-3 pe-3 my-3 me-3 d-flex justify-content-end align-items-start px-4">
                 <div class="me-4">
                     <h2>
-                        @if ($data_pengawas == null)
+                        @if ($pasienBelumDipanggil == null)
                             0
                         @else
-                            {{ $data_pengawas }}
+                            {{ $pasienBelumDipanggil }}
                         @endif
                     </h2>
                     <p>Belum Dilayani</p>

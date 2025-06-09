@@ -1,7 +1,28 @@
 # Sistem Manajemen Klinik Apotech.id
 
-## Deskripsi Proyek
-Sistem Manajemen Klinik Apotech.id adalah aplikasi berbasis web yang bertujuan untuk meningkatkan efisiensi operasional klinik. Sistem ini mendukung berbagai peran pengguna seperti apoteker, dokter, pasien, pengawas, dan resepsionis, dengan fitur yang disesuaikan berdasarkan kebutuhan dan tanggung jawab masing-masing.
+Sistem Manajemen Klinik **Apotech.id** adalah aplikasi berbasis web yang bertujuan untuk meningkatkan efisiensi operasional klinik. Sistem ini mendukung berbagai peran pengguna seperti **apoteker, dokter, pasien, pengawas**, dan **resepsionis**, dengan fitur yang disesuaikan berdasarkan kebutuhan dan tanggung jawab masing-masing.
+
+![Last Commit](https://img.shields.io/github/last-commit/deandrasann/PAD1?label=last%20commit)
+![Blade](https://img.shields.io/badge/blade-62.0%25-blue)
+![Languages](https://img.shields.io/github/languages/count/deandrasann/PAD1)
+
+---
+
+## 📚 Table of Contents
+- [Fitur Utama](#fitur-utama)
+  - [Modul Apoteker](#modul-apoteker)
+  - [Modul Dokter](#modul-dokter)
+  - [Modul Pasien](#modul-pasien)
+  - [Modul Pengawas](#modul-pengawas)
+  - [Modul Resepsionis](#modul-resepsionis)
+- [Teknologi yang Digunakan](#teknologi-yang-digunakan)
+- [Instalasi](#instalasi)
+- [Kontribusi](#kontribusi)
+- [Tautan Penting](#tautan-penting)
+- [Tim Pengembang](#tim-pengembang)
+- [Lisensi](#lisensi)
+
+---
 
 ## Fitur Utama
 
@@ -41,12 +62,18 @@ Sistem Manajemen Klinik Apotech.id adalah aplikasi berbasis web yang bertujuan u
 - Mengisi pendataan awal dan keluhan pasien
 - Memasukkan pasien ke rawat jalan
 
+---
+
 ## Teknologi yang Digunakan
-- **Backend**: PHP (Laravel 11)
-- **Frontend**: HTML, CSS, JavaScript, jQuery
-- **Database**: MySQL (Versi 8.1.0-1.e18)
-- **Sistem Operasi**: Windows 10
-- **Repository**: GitHub
+
+![Laravel](https://img.shields.io/badge/-Laravel-red?logo=laravel&logoColor=white)
+![Bootstrap](https://img.shields.io/badge/-Bootstrap-7952B3?logo=bootstrap&logoColor=white)
+![PHP](https://img.shields.io/badge/-PHP-777BB4?logo=php&logoColor=white)
+![JavaScript](https://img.shields.io/badge/-JavaScript-F7DF1E?logo=javascript&logoColor=black)
+![MySQL](https://img.shields.io/badge/-MySQL-4479A1?logo=mysql&logoColor=white)
+![jQuery](https://img.shields.io/badge/-jQuery-0769AD?logo=jquery&logoColor=white)
+![GitHub](https://img.shields.io/badge/-GitHub-181717?logo=github&logoColor=white)
+---
 
 ## Instalasi
 1. Clone repository:

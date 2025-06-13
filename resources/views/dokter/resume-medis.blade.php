@@ -65,10 +65,10 @@
             Isi Resume Medis
         </a>
 
-        <a class="nav-link {{ request()->routeIs('riwayat-konsultasi-pasien') ? 'active' : '' }}"
-            href="{{ route('riwayat-konsultasi-pasien', ['id_pemeriksaan_awal' => $kunjungan->id_pemeriksaan_awal]) }}">
+        {{-- <a class="nav-link {{ request()->routeIs('riwayat-konsultasi-pasien') ? 'active' : '' }}"
+            href="{{ route('riwayat-konsultasi-pasien', ['id_pasien' => $kunjungan->id_pasien]) }}">
             Riwayat Konsultasi
-        </a>
+        </a> --}}
     </nav>
 
     <div class="container mt-4">
@@ -325,11 +325,12 @@
                                         <div class="col-md-12">
                                             <label class="my-2">Anamnesa</label>
                                             <div class="input-group w-100 mb-4">
-                                                <textarea type="text" name="anamnesa" class="form-control"></textarea>
+                                                <textarea type="text" id="input-anamnesa" name="anamnesa" class="form-control"></textarea>
                                             </div>
                                             <div class="mb-4 mt-4">
                                                 <label class="mb-2">Diagnosis</label><br>
-                                                <input type="text" name="diagnosis" class="form-control"></input>
+                                                <input type="text" id="input-diagnosis" name="diagnosis"
+                                                    class="form-control"></input>
                                             </div>
                                             <div id="icd-wrapper">
                                                 <div class="icd-group mb-3">
@@ -352,8 +353,6 @@
 
                                             <button type="button" id="btn-add-icd"
                                                 class="btn btn-primary m-2">Tambah</button>
-
-
                                         </div>
                                     </div>
                                 </td>
@@ -379,12 +378,12 @@
                                             <label class="my-2">Resep</label>
 
                                             <hr>
-                                            {{-- <button type="button" class="btn btn-tambah ms-3 mb-2 btn-primary rounded-3"
-                                                data-bs-toggle="modal" data-bs-target="#tambahObatModal">
-                                                <strong><a href="{{ route('tambah-obat-dokter') }}"
-                                                        style="color: white; text-decoration:none">+ Tambah Obat </a>
+                                            <button type="button" class="btn btn-primary px-2 py-2 mb-2 mt-4">
+                                                <strong><a
+                                                        href="{{ route('tambah-obat-dokter', ['id_pemeriksaan_awal' => $kunjungan->id_pemeriksaan_awal]) }}"
+                                                        style="color: white; text-decoration:none">+ Tambah Obat</a>
                                                 </strong>
-                                            </button> --}}
+                                            </button>
                                             <div class="mb-4 mt-4">
                                                 <label class="mb-2">Pilih Obat</label><br>
                                                 <select class="form-control" id="namaObat" name="kode_obat"
@@ -415,7 +414,8 @@
                             </tbody>
 
                         </table>
-                        <button class="btn btn-success btn-lg pull-right btn-submit" type="submit">Submit</button>
+                        <button class="btn btn-success btn-lg pull-right btn-submit" type="submit"
+                            id="submit-form">Submit</button>
                     </div>
                 </div>
             </div>
@@ -423,58 +423,207 @@
 
     </div>
 
-    <script>
+    {{-- <script>
+        function saveStep2Data() {
+            const anamnesa = $('#input-anamnesa').val();
+            const diagnosis = $('#input-diagnosis').val();
+            const icdCodes = [];
+
+            $('select[name="icd_codes[]"]').each(function() {
+                icdCodes.push($(this).val());
+            });
+
+            localStorage.setItem('step2Data', JSON.stringify({
+                anamnesa: anamnesa,
+                diagnosis: diagnosis,
+                icdCodes: icdCodes
+            }));
+        }
+
+        function loadStep2Data() {
+            const data = JSON.parse(localStorage.getItem('step2Data'));
+
+            if (data) {
+                $('#input-anamnesa').val(data.anamnesa);
+                $('#input-diagnosis').val(data.diagnosis);
+
+                // Hapus semua form ICD kecuali yang pertama
+                $('#icd-wrapper .icd-group').slice(1).remove();
+
+                // Tambahkan field ICD sesuai jumlah kode (sudah ada 1, jadi mulai dari index 1)
+                for (let i = 1; i < data.icdCodes.length; i++) {
+                    $('#btn-add-icd').click();
+                }
+
+                // Setelah semua field ada, isi semua valuenya
+                $('select[name="icd_codes[]"]').each(function(index) {
+                    $(this).val(data.icdCodes[index]).trigger('change');
+                });
+            }
+        }
+
         $(document).ready(function() {
-            // Inisialisasi awal
+            loadStep2Data(); // ⬅️ harus paling awal
+
+            // Event listener simpan perubahan
+            $('#input-anamnesa, #input-diagnosis').on('input', saveStep2Data);
+            $('#icd-wrapper').on('change', 'select[name="icd_codes[]"]', saveStep2Data);
+
+            // Select2 setup
             $('.icd-select').select2({
                 placeholder: '-- Pilih ICD 11 (2019) --',
                 allowClear: true,
                 width: '100%'
             });
 
-            // Tambah field ICD
+            // Tambah ICD
             $('#btn-add-icd').on('click', function() {
-                // Ambil elemen pertama dan hapus select2-nya
                 const original = $('.icd-group').first();
-
-                // Hapus Select2 instance sebelum cloning
                 const originalSelect = original.find('select');
                 originalSelect.select2('destroy');
 
-                // Clone elemen
                 const newICD = original.clone();
-
-                // Re-inisialisasi select2 di elemen awal
                 originalSelect.select2({
                     placeholder: '-- Pilih ICD 11 (2019) --',
                     allowClear: true,
                     width: '100%'
                 });
 
-                // Reset value select dan append
                 newICD.find('select').val('');
                 $('#icd-wrapper').append(newICD);
 
-                // Inisialisasi select2 untuk select baru
                 newICD.find('select').select2({
                     placeholder: '-- Pilih ICD 11 (2019) --',
                     allowClear: true,
                     width: '100%'
                 });
+
+                saveStep2Data(); // Simpan setelah clone
             });
 
-            // Hapus field ICD
+            // Hapus ICD
             $('#icd-wrapper').on('click', '.btn-remove-icd', function() {
                 if ($('.icd-group').length > 1) {
                     $(this).closest('.icd-group').remove();
+                    saveStep2Data(); // Simpan setelah hapus
                 }
+            });
+        });
+    </script> --}}
+
+    <script>
+function saveStep2Data() {
+    const anamnesa = $('#input-anamnesa').val();
+    const diagnosis = $('#input-diagnosis').val();
+    const icdCodes = [];
+
+    $('select[name="icd_codes[]"]').each(function () {
+        icdCodes.push($(this).val());
+    });
+
+    localStorage.setItem('step2Data', JSON.stringify({
+        anamnesa: anamnesa,
+        diagnosis: diagnosis,
+        icdCodes: icdCodes
+    }));
+}
+
+function cloneICDField() {
+    const original = $('.icd-group').first();
+    const newICD = original.clone();
+
+    // Reset dan hapus select2 sebelumnya
+    newICD.find('select').val(null);
+    newICD.find('.select2-container').remove();
+
+    // Tambah field ke wrapper
+    $('#icd-wrapper').append(newICD);
+
+    // Re-init select2 untuk field baru
+    newICD.find('select').select2({ 
+        placeholder: '-- Pilih ICD 11 (2019) --', 
+        allowClear: true, 
+        width: '100%' 
+    });
+}
+
+function loadStep2Data() {
+    const data = JSON.parse(localStorage.getItem('step2Data'));
+
+    if (data) {
+        $('#input-anamnesa').val(data.anamnesa);
+        $('#input-diagnosis').val(data.diagnosis);
+
+        // Bersihkan semua ICD kecuali yang pertama
+        $('#icd-wrapper .icd-group').slice(1).remove();
+
+        // Tambahkan field sesuai jumlah data
+        const totalNeeded = data.icdCodes.length;
+        for (let i = 1; i < totalNeeded; i++) {
+            cloneICDField();
+        }
+
+        // Isi semua nilai ICD
+        $('select[name="icd_codes[]"]').each(function(index) {
+            $(this).val(data.icdCodes[index]).trigger('change');
+        });
+    }
+}
+
+$(document).ready(function () {
+    // Inisialisasi awal select2
+    $('.icd-select').select2({ 
+        placeholder: '-- Pilih ICD 11 (2019) --', 
+        allowClear: true, 
+        width: '100%' 
+    });
+
+    // Load data dari localStorage setelah select2 siap
+    loadStep2Data();
+
+    // Simpan data jika input berubah
+    $('#input-anamnesa, #input-diagnosis').on('input', saveStep2Data);
+    $('#icd-wrapper').on('change', 'select[name="icd_codes[]"]', saveStep2Data);
+
+    // Tombol tambah ICD
+    $('#btn-add-icd').on('click', function () {
+        cloneICDField();
+        saveStep2Data();
+    });
+
+    // Tombol hapus ICD
+    $('#icd-wrapper').on('click', '.btn-remove-icd', function () {
+        if ($('.icd-group').length > 1) {
+            $(this).closest('.icd-group').remove();
+            saveStep2Data();
+        }
+    });
+});
+</script>
+
+
+    <script>
+        $(document).ready(function() {
+            $('#submit-form').on('click', function() {
+                // Hapus data Step 2 dari localStorage
+                localStorage.removeItem('step2Data');
+            });
+        });
+    </script>
+
+
+    <script>
+        $(document).ready(function() {
+            $("#namaObat").select2({
+                placeholder: '-- Pilih Nama Obat --', // Samain placeholder
+                allowClear: true, // (Optional) Biar bisa hapus pilihan
             });
         });
     </script>
 
     <script>
         $(document).ready(function() {
-            $("#namaObat").select2({
+            $("#kodeicd").select2({
                 placeholder: '-- Pilih Nama Obat --', // Samain placeholder
                 allowClear: true, // (Optional) Biar bisa hapus pilihan
             });

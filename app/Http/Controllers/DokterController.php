@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\PasienModel;
 use App\Http\Controllers\Controller;
 use App\Models\IcdModel;
+use App\Models\ObatModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -73,7 +74,7 @@ class DokterController extends Controller
         if (!$kunjungan) {
             abort(404, 'Data pemeriksaan tidak ditemukan');
         }
-
+        // dd(session('data_resep' . $id_pemeriksaan_awal));
         $data_obat = DB::table('obat')->get();
         $data_icd = DB::table('icdtable')->get();
         // dd($data_icd);
@@ -169,7 +170,6 @@ class DokterController extends Controller
             ->join('dokter', 'pemeriksaan_awal.id_dokter', '=', 'dokter.id_dokter')
             ->join('users', 'dokter.id_pengguna', '=', 'users.id_pengguna')
             ->where('dokter.id_pengguna', $idPengguna)
-            ->whereDate('pemeriksaan_awal.tanggal_pemeriksaan', $today)
             ->whereNotExists(function ($query) {
                 $query->select(DB::raw(1))
                     ->from('pemeriksaan_akhir')
@@ -229,10 +229,118 @@ class DokterController extends Controller
         return redirect()->back()->with('success', 'Pasien berhasil dipanggil.');
     }
 
-    public function tambahObat()
+    public function tambahObat($id_pemeriksaan_awal)
     {
-        return \view('dokter.tambah-obat-dokter');
+        $idPengguna = Auth::user()->id_pengguna;
+
+        $kunjungan = DB::table('pemeriksaan_awal')
+            ->join('pasien', 'pemeriksaan_awal.id_pasien', '=', 'pasien.id_pasien')
+            ->join('dokter', 'pemeriksaan_awal.id_dokter', '=', 'dokter.id_dokter')
+            ->join('users', 'dokter.id_pengguna', '=', 'users.id_pengguna')
+            ->select(
+                'pemeriksaan_awal.*',
+                'pasien.nama as nama_pasien',
+                'pasien.no_rm',
+                'pasien.nama',
+                'pasien.jenis_kelamin',
+                'pasien.tanggal_lahir',
+                'pasien.no_telp',
+                'pasien.alamat',
+                'dokter.nama_dokter',
+                'dokter.spesialis',
+                'dokter.jenis_dokter',
+                'dokter.kode_klinik',
+            )
+            ->where('dokter.id_pengguna', $idPengguna)
+            ->where('pemeriksaan_awal.id_pemeriksaan_awal', $id_pemeriksaan_awal)
+            ->first();
+
+        if (!$kunjungan) {
+            abort(404, 'Data pemeriksaan tidak ditemukan');
+        }
+
+        $data_obat = DB::table('obat')->get();
+        $data_icd = DB::table('icdtable')->get();
+
+        return view('dokter.tambah-obat-dokter', compact('kunjungan', 'data_obat'));
     }
+
+    public function getObat($kode_obat)
+    {
+        $obat = DB::table('obat')
+            ->where('kode_obat', $kode_obat)
+            ->first();
+
+        if (!$obat) {
+            return response()->json(['error' => 'Obat tidak ditemukan'], 404);
+        }
+
+        return response()->json([
+            'kekuatan_sediaan' => $obat->kekuatan_sediaan,
+            'harga_satuan' => $obat->harga_satuan,
+            'kemasan_obat' => $obat->kemasan_obat,
+        ]);
+    }
+
+    public function simpanResepSession(Request $request)
+    {
+        $data = $request->validate([
+            'id_pemeriksaan_awal' => 'required',
+            'non_racikan' => 'nullable|array',
+        ]);
+
+        session([
+            'data_resep' . $data['id_pemeriksaan_awal'] => [
+                'non_racikan' => $data['non_racikan'],
+            ]
+        ]);
+
+        return response()->json([
+            'success' => true,
+            'redirect' => route('resume-medis', ['id_pemeriksaan_awal' => $data['id_pemeriksaan_awal']])
+        ]);
+    }
+
+    public function getObatRacikan(Request $request)
+    {
+        $query = $request->query('query');
+
+        $racikan = DB::table('obat_racikan')
+            ->where('nama_racikan', 'like', '%' . $query . '%')
+            ->select('id_obat_racikan', 'nama_racikan')
+            ->limit(10)
+            ->get();
+
+        return response()->json($racikan);
+    }
+
+    public function getTambahObatRacikan($kode_obat)
+    {
+        $obat = DB::table('obat')
+            ->where('kode_obat', $kode_obat)
+            ->where('status_ketersediaan_obat', 'Stocked')
+            ->first();
+
+        if (!$obat) {
+            return response()->json(['error' => 'Obat tidak ditemukan atau sedang tidak tersedia'], 404);
+        }
+        return response()->json($obat);
+    }
+
+    public function getObatRacikanStocked(Request $request)
+    {
+        $search = $request->get('term');
+        $obat = DB::table('obat')
+            ->where('status_ketersediaan_obat', 'Stocked')
+            ->when($search, function ($query, $search) {
+                return $query->where('nama_obat', 'like', "%{$search}%");
+            })
+            ->select('kode_obat', 'nama_obat')
+            ->get();
+
+            return response()->json($obat);
+    }
+
     public function viewPasienDokter(Request $request, $id_dokter)
     {
         // $idPengguna = Auth::user()->id_pengguna;
@@ -258,38 +366,38 @@ class DokterController extends Controller
         //     // ->whereNull('pemeriksaan_akhir.id_pasien')
         //     ->orderBy('pemeriksaan_awal.created_at') // urutkan dari waktu daftar
         //     ->paginate(10);
-                // dd($pasien_selesai_konsultasi);
+        // dd($pasien_selesai_konsultasi);
 
-                // Ambil ID dokter dari pengguna yang sedang login
-    $idDokter = DB::table('dokter')
-        ->where('id_pengguna', Auth::user()->id_pengguna)
-        ->value('id_dokter');
+        // Ambil ID dokter dari pengguna yang sedang login
+        $idDokter = DB::table('dokter')
+            ->where('id_pengguna', Auth::user()->id_pengguna)
+            ->value('id_dokter');
 
-    // Pastikan dokter ditemukan
-    if (!$idDokter) {
-        abort(403, 'Dokter tidak ditemukan.');
-    }
-    // Ambil pasien dengan status pemeriksaan selesai
-    $pasien_selesai_konsultasi = DB::table('pemeriksaan_awal')
-        ->join('pasien', 'pemeriksaan_awal.id_pasien', '=', 'pasien.id_pasien')
-        ->join('dokter', 'pemeriksaan_awal.id_dokter', '=', 'dokter.id_dokter')
-        ->join('users', 'dokter.id_pengguna', '=', 'users.id_pengguna')
-        ->leftJoin('pemeriksaan_akhir', 'pemeriksaan_awal.id_pemeriksaan_awal', '=', 'pemeriksaan_akhir.id_pemeriksaan_awal')
-        ->select(
-            'pemeriksaan_awal.*',
-            'pasien.*',
-            'dokter.nama_dokter',
-            'dokter.spesialis',
-            'dokter.jenis_dokter',
-            'dokter.kode_klinik',
-            'pemeriksaan_akhir.status_pemeriksaan',
-            'pemeriksaan_akhir.anamnesa',
-            'pemeriksaan_akhir.medikamentosa'
-        )
-        ->where('pemeriksaan_awal.id_dokter', $idDokter)
-        ->where('pemeriksaan_akhir.status_pemeriksaan', 'selesai')
-        ->orderBy('pemeriksaan_awal.created_at', 'desc')
-        ->paginate(10);
+        // Pastikan dokter ditemukan
+        if (!$idDokter) {
+            abort(403, 'Dokter tidak ditemukan.');
+        }
+        // Ambil pasien dengan status pemeriksaan selesai
+        $pasien_selesai_konsultasi = DB::table('pemeriksaan_awal')
+            ->join('pasien', 'pemeriksaan_awal.id_pasien', '=', 'pasien.id_pasien')
+            ->join('dokter', 'pemeriksaan_awal.id_dokter', '=', 'dokter.id_dokter')
+            ->join('users', 'dokter.id_pengguna', '=', 'users.id_pengguna')
+            ->leftJoin('pemeriksaan_akhir', 'pemeriksaan_awal.id_pemeriksaan_awal', '=', 'pemeriksaan_akhir.id_pemeriksaan_awal')
+            ->select(
+                'pemeriksaan_awal.*',
+                'pasien.*',
+                'dokter.nama_dokter',
+                'dokter.spesialis',
+                'dokter.jenis_dokter',
+                'dokter.kode_klinik',
+                'pemeriksaan_akhir.status_pemeriksaan',
+                'pemeriksaan_akhir.anamnesa',
+                'pemeriksaan_akhir.medikamentosa'
+            )
+            ->where('pemeriksaan_awal.id_dokter', $idDokter)
+            ->where('pemeriksaan_akhir.status_pemeriksaan', 'selesai')
+            ->orderBy('pemeriksaan_awal.created_at', 'desc')
+            ->paginate(10);
 
         return view('dokter.pasien-dokter', compact('pasien_selesai_konsultasi'));
     }

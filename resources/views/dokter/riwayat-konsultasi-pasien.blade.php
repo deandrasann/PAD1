@@ -11,21 +11,23 @@
 
         .nav-link.active {
             color: #20587a;
-            /* biru */
+            /* biru */`
             font-weight: bold;
             border-bottom: 3px solid #20587a;
         }
     </style>
     <nav class="nav">
+        {{-- @if(!empty($kunjungan) && !empty($kunjungan->id_pemeriksaan_awal)) --}}
         <a class="nav-link {{ request()->routeIs('resume-medis') ? 'active' : '' }}"
             href="{{ route('resume-medis', ['id_pemeriksaan_awal' => $kunjungan->id_pemeriksaan_awal]) }}">
-            Isi Resume Medis
+            Isi Resume Medis    
         </a>
 
         <a class="nav-link {{ request()->routeIs('riwayat-konsultasi-pasien') ? 'active' : '' }}"
-            href="{{ route('riwayat-konsultasi-pasien', ['id_pemeriksaan_awal' => $kunjungan->id_pemeriksaan_awal]) }}">
+            href="{{ route('riwayat-konsultasi-pasien', ['id_pasien' => $kunjungan->id_pasien]) }}">
             Riwayat Konsultasi
         </a>
+    {{-- @endif --}}
     </nav>
 
     <div class="table-responsive my-4 mx-2">

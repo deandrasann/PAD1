@@ -58,7 +58,7 @@ class ResepController extends Controller
         ->where('pasien.id_pasien', $id)  // Filter berdasarkan id_pasien
         ->select('pemeriksaan_akhir.id_pemeriksaan_akhir', 'pasien.nama as nama_pasien', 'pasien.alamat', 'dokter.nama_dokter as nama_dokter', 'dokter.id_dokter')  // Pilih kolom yang dibutuhkan
         ->get();
-        // dd($data_pemeriksaan);
+
         $data_pengawas = DB::table('pengawas')->get();
         // ApotekerModel::join('obat', 'apoteker.id_apoteker', '=', 'obat.id_apoteker')
         //         ->select('obat.*', 'apotekerr.id_apoteker', 'apoteker.nama_apoteker')
@@ -69,6 +69,7 @@ class ResepController extends Controller
             ->select('pasien.*', 'resep.*')
             ->first();
         // dd($data_dokter);
+        dd($resep_obat);
         // $resep_obat1 = DB::table('resep')->get();
         return view('resep-tiap-pasien', compact('data', 'obat', 'resep_obat', 'data_dokter', 'data_obat', 'data_pemeriksaan','data_pengawas'));
     }
@@ -110,18 +111,18 @@ class ResepController extends Controller
         $kode_obat = $request->kode_obat;
 
         $obat = ObatModel::where('kode_obat', $kode_obat)->first();
-    
+
         if (!$obat) {
             return response()->json(['dosis_options' => []]);
         }
-    
+
         $max_dosis = $obat->kekuatan_sediaan;
-    
+
         $dosis_options = [];
         for ($i = 1; $i <= $max_dosis; $i++) {
             $dosis_options[] = $i;
         }
-    
+
         return response()->json(['dosis_options' => $dosis_options]);
     }
 

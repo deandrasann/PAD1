@@ -12,6 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('riwayat_minum_obat', function (Blueprint $table) {
+            //table riwayat_minum_obat
             $table->engine = 'InnoDB';
             $table->charset = 'utf8mb4';
             $table->collation = 'utf8mb4_general_ci';

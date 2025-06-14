@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class PemeriksaanModel extends Model
 {
-    use HasFactory;    
+    use HasFactory;
     use SoftDeletes;
 
     protected $dates = ['deleted_at'];
@@ -19,11 +19,12 @@ class PemeriksaanModel extends Model
     // PK integer AI
     public $incrementing = true;
 
-     protected $fillable = [
+    protected $fillable = [
+        'id_pemeriksaan_awal',
         'id_dokter',
         'id_pasien',
         'anamnesa',
-        'frekuensi',
+        'diagnosis',
         'golongan_darah',
         'berat_badan',
         'tinggi_badan',
@@ -35,9 +36,13 @@ class PemeriksaanModel extends Model
         'sistole',
         'diastole',
         'pernapasan',
-        'status_pemeriksaaan',
+        'status_pemeriksaan',
         'medikamentosa',
         'non_medikamentosa',
+        'kode_icd',
     ];
 
+    protected $casts = [
+        'kode_icd' => 'array',
+    ];
 }

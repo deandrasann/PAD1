@@ -174,146 +174,177 @@
                 </div>
             </div>
         @endforeach
-        {{-- Tambah Obat Modal --}}
-        <div class="modal fade" id="tambahObatModal" tabindex="-1" aria-labelledby="tambahObatModalLabel"
-            aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="tambahObatModalLabel">Tambah Obat</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <form action="{{ route('daftarobat.store') }}" method="POST">
-                        @csrf
-                        <div class="modal-body">
-                            <!-- Nama Obat -->
-                            <div class="row mb-3">
-                                <label for="namaapoteker" class="col-md-4 col-form-label">Nama Apoteker</label>
-                                <div class="col-md-8">
-                                    <select id="namaapoteker" name="id_apoteker" class="form-select" required>
-                                        <option value="" disabled selected>--Pilih Apoteker --</option>
-                                        @foreach ($apoteker_obat as $ao)
-                                            <option value="{{ $ao->id_apoteker }}"
-                                                {{ old('nama_apoteker') == $ao->nama_apoteker ? 'selected' : null }} >
-                                                {{ $ao->nama_apoteker }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="row mb-3">
-                                <label for="namaObat" class="col-md-4 col-form-label">Nama Obat</label>
-                                <div class="col-md-8">
-                                    <input type="text" class="form-control" id="namaObat" name="nama_obat"
-                                        class="nama_obat" placeholder="Nama obat" required>
-                                        class="nama_obat" placeholder="Nama obat" required>
-                                </div>
-                            </div>
-
-                            <!-- Bentuk Obat -->
-                            <div class="row mb-3">
-                                <label for="bentukObat" class="col-md-4 col-form-label">Bentuk Obat</label>
-                                <div class="col-md-8">
-                                    <input type="text" class="form-control" id="bentukObat" name="bentuk_obat"
-                                        class="bentuk_obat" placeholder="Bentuk obat" required>
-                                        class="bentuk_obat" placeholder="Bentuk obat" required>
-                                </div>
-                            </div>
-                            <div class="row mb-3">
-                                <label for="golonganobat" class="col-md-4 col-form-label" >Golongan Obat</label>
-                                <div class="col-md-8">
-                                    <input type="text" class="form-control" id="golonganobat" name="golongan_obat"
-                                        class="golongan_obat" placeholder="Golongan obat" required>
-                                        class="golongan_obat" placeholder="Golongan obat" required>
-                                </div>
-                            </div>
-
-                            <!-- Kebutuhan Sediaan & Satuan -->
-                            <div class="row mb-3">
-                                <label for="kekuatanSediaan" class="col-md-4 col-form-label">Kebutuhan Sediaan</label>
-                                <div class="col-md-5">
-                                    <input type="text" class="form-control" id="kekuatanSediaan"
-                                        name="kekuatan_sediaan" class="kekuatan_sediaan" placeholder="Kebutuhan Sediaan" required>
-                                        name="kekuatan_sediaan" class="kekuatan_sediaan" placeholder="Kebutuhan Sediaan" required>
-                                </div>
-                            </div>
-
-                            <!-- Efek Samping -->
-                            <div class="row mb-3">
-                                <label for="efekSamping" class="col-md-4 col-form-label">Efek Samping</label>
-                                <div class="col-md-8">
-                                    <input type="text" class="form-control" id="efekSamping" name="efek_samping"
-                                        class="efek_samping" placeholder="Efek Samping" required>
-                                </div>
-                            </div>
-
-                            <!-- Kontraindikasi -->
-                            <div class="row mb-3">
-                                <label for="kontraindikasi" class="col-md-4 col-form-label">Kontraindikasi</label>
-                                <div class="col-md-8">
-                                    <input type="text" class="form-control" id="kontraindikasi" name="kontraindikasi"
-                                        class="kontraindikasi" placeholder="Kontraindikasi" required>
-                                </div>
-                            </div>
-
-                            <div class="row mb-3">
-                                <label for="indikasi" class="col-md-4 col-form-label">indikasi</label>
-                                <div class="col-md-8">
-                                    <input type="text" class="form-control" id="indikasi" name="indikasi"
-                                        class="indikasi" placeholder="indikasi" required>
-                                        class="indikasi" placeholder="indikasi" required>
-                                </div>
-                            </div>
-
-                            <!-- Interaksi Obat -->
-                            <div class="row mb-3">
-                                <label for="interaksiObat" class="col-md-4 col-form-label">Interaksi Obat</label>
-                                <div class="col-md-8">
-                                    <input type="text" class="form-control" id="interaksiObat" name="interaksi_obat"
-                                        class="interaksi_obat" placeholder="Interaksi Obat" required>
-                                        class="interaksi_obat" placeholder="Interaksi Obat" required>
-                                </div>
-                            </div>
-
-                            <!-- Petunjuk Penyimpanan -->
-                            <div class="row mb-3">
-                                <label for="petunjukPenyimpanan" class="col-md-4 col-form-label">Petunjuk
-                                    Penyimpanan</label>
-                                <div class="col-md-8">
-                                    <input type="text" class="form-control" id="petunjukPenyimpanan"
-                                        name="petunjuk_penyimpanan" class="petunjuk_penyimpanan"
-                                        placeholder="Petunjuk Penyimpanan" required>
-                                </div>
-                            </div>
-
-                            <!-- Pola Makan dan Hidup Sehat -->
-                            <div class="row mb-3">
-                                <label for="polaMakan" class="col-md-4 col-form-label">Pola Makan dan Hidup Sehat</label>
-                                <div class="col-md-8">
-                                    <input type="text" class="form-control" id="polaMakan" name="pola_makan"
-                                        class="pola_makan" placeholder="Pola Makan dan Hidup Sehat" required>
-                                </div>
-                            </div>
-
-                            <!-- Informasi Tambahan -->
-                            <div class="row mb-3">
-                                <label for="informasiTambahan" class="col-md-4 col-form-label">Informasi Tambahan</label>
-                                <div class="col-md-8">
-                                    <input type="text" class="form-control" id="informasiTambahan"
-                                        name="informasi_tambahan" class="informasi_tambahan"
-                                        placeholder="Informasi Tambahan" required>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-white" data-bs-dismiss="modal">Batal</button>
-                            <button type="submit" class="btn btn-resep ms-auto">Simpan</button>
-                        </div>
-                    </form>
-                </div>
+  {{-- Tambah Obat Modal --}}
+<div class="modal fade" id="tambahObatModal" tabindex="-1" aria-labelledby="tambahObatModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Tambah Obat</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
+
+            <form action="{{ route('daftarobat.store') }}" method="POST">
+                @csrf
+                <div class="modal-body">
+
+                    {{-- Nama Apoteker --}}
+                    <div class="row mb-3">
+                        <label for="namaapoteker" class="col-md-4 col-form-label">Nama Apoteker</label>
+                        <div class="col-md-8">
+                            <select id="namaapoteker" name="id_apoteker" class="form-select">
+                                <option value="" disabled selected>--Pilih Apoteker--</option>
+                                @foreach ($apoteker_obat as $ao)
+                                    <option value="{{ $ao->id_apoteker }}" {{ old('id_apoteker') == $ao->id_apoteker ? 'selected' : '' }}>
+                                        {{ $ao->nama_apoteker }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            @error('id_apoteker')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
+                        </div>
+                    </div>
+
+                    {{-- Nama Obat --}}
+                    <div class="row mb-3">
+                        <label class="col-md-4 col-form-label">Nama Obat</label>
+                        <div class="col-md-8">
+                            <input type="text" name="nama_obat" class="form-control" value="{{ old('nama_obat') }}">
+                            @error('nama_obat')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
+                        </div>
+                    </div>
+
+                    {{-- Bentuk Obat --}}
+                    <div class="row mb-3">
+                        <label class="col-md-4 col-form-label">Bentuk Obat</label>
+                        <div class="col-md-8">
+                            <input type="text" name="bentuk_obat" class="form-control" value="{{ old('bentuk_obat') }}">
+                            @error('bentuk_obat')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
+                        </div>
+                    </div>
+
+                    {{-- Golongan Obat --}}
+                    <div class="row mb-3">
+                        <label class="col-md-4 col-form-label">Golongan Obat</label>
+                        <div class="col-md-8">
+                            <input type="text" name="golongan_obat" class="form-control" value="{{ old('golongan_obat') }}">
+                            @error('golongan_obat')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
+                        </div>
+                    </div>
+
+                    {{-- Kekuatan Sediaan --}}
+                    <div class="row mb-3">
+                        <label class="col-md-4 col-form-label">Kebutuhan Sediaan</label>
+                        <div class="col-md-5">
+                            <input type="text" name="kekuatan_sediaan" class="form-control" value="{{ old('kekuatan_sediaan') }}">
+                            @error('kekuatan_sediaan')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
+                        </div>
+                    </div>
+
+                    {{-- Efek Samping --}}
+                    <div class="row mb-3">
+                        <label class="col-md-4 col-form-label">Efek Samping</label>
+                        <div class="col-md-8">
+                            <input type="text" name="efek_samping" class="form-control" value="{{ old('efek_samping') }}">
+                            @error('efek_samping')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
+                        </div>
+                    </div>
+
+                    {{-- Kontraindikasi --}}
+                    <div class="row mb-3">
+                        <label class="col-md-4 col-form-label">Kontraindikasi</label>
+                        <div class="col-md-8">
+                            <input type="text" name="kontraindikasi" class="form-control" value="{{ old('kontraindikasi') }}">
+                            @error('kontraindikasi')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
+                        </div>
+                    </div>
+
+                    {{-- Indikasi --}}
+                    <div class="row mb-3">
+                        <label class="col-md-4 col-form-label">Indikasi</label>
+                        <div class="col-md-8">
+                            <input type="text" name="indikasi" class="form-control" value="{{ old('indikasi') }}">
+                            @error('indikasi')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
+                        </div>
+                    </div>
+
+                    {{-- Interaksi Obat --}}
+                    <div class="row mb-3">
+                        <label class="col-md-4 col-form-label">Interaksi Obat</label>
+                        <div class="col-md-8">
+                            <input type="text" name="interaksi_obat" class="form-control" value="{{ old('interaksi_obat') }}">
+                            @error('interaksi_obat')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
+                        </div>
+                    </div>
+
+                    {{-- Petunjuk Penyimpanan --}}
+                    <div class="row mb-3">
+                        <label class="col-md-4 col-form-label">Petunjuk Penyimpanan</label>
+                        <div class="col-md-8">
+                            <input type="text" name="petunjuk_penyimpanan" class="form-control" value="{{ old('petunjuk_penyimpanan') }}">
+                            @error('petunjuk_penyimpanan')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
+                        </div>
+                    </div>
+
+                    {{-- Pola Makan --}}
+                    <div class="row mb-3">
+                        <label class="col-md-4 col-form-label">Pola Makan dan Hidup Sehat</label>
+                        <div class="col-md-8">
+                            <input type="text" name="pola_makan" class="form-control" value="{{ old('pola_makan') }}">
+                            @error('pola_makan')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
+                        </div>
+                    </div>
+
+                    {{-- Informasi Tambahan --}}
+                    <div class="row mb-3">
+                        <label class="col-md-4 col-form-label">Informasi Tambahan</label>
+                        <div class="col-md-8">
+                            <input type="text" name="informasi_tambahan" class="form-control" value="{{ old('informasi_tambahan') }}">
+                            @error('informasi_tambahan')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-white" data-bs-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-resep ms-auto">Simpan</button>
+                </div>
+            </form>
         </div>
+    </div>
+</div>
+
+{{-- Script buka modal jika ada error --}}
+@if ($errors->any())
+    <script>
+        var myModal = new bootstrap.Modal(document.getElementById('tambahObatModal'));
+        window.onload = () => myModal.show();
+    </script>
+@endif
+
 
 
     </div>
@@ -525,3 +556,9 @@
         }
     }
 </script>
+@if ($errors->any())
+<script>
+    var myModal = new bootstrap.Modal(document.getElementById('tambahObatModal'));
+    window.onload = () => myModal.show();
+</script>
+@endif

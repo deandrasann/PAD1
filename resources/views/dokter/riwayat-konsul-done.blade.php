@@ -17,13 +17,13 @@
         }
     </style>
     <nav class="nav">
-        <a class="nav-link {{ request()->routeIs('resume-medis') ? 'active' : '' }}"
-            href="{{ route('resume-medis', ['id_pemeriksaan_awal' => $kunjungan->id_pemeriksaan_awal]) }}">
+        <a class="nav-link {{ request()->routeIs('detail-data-pasien') ? 'active' : '' }}"
+            href="{{ route('detail-data-pasien', ['id_pemeriksaan_awal' => $kunjungan->id_pemeriksaan_awal]) }}">
             Isi Resume Medis
         </a>
 
-        <a class="nav-link {{ request()->routeIs('riwayat-konsultasi-pasien') ? 'active' : '' }}"
-            href="{{ route('riwayat-konsultasi-pasien', ['id_pemeriksaan_awal' => $kunjungan->id_pemeriksaan_awal]) }}">
+        <a class="nav-link {{ request()->routeIs('riwayat-konsul-done') ? 'active' : '' }}"
+            href="{{ route('riwayat-konsul-done', ['id_pemeriksaan_awal' => $kunjungan->id_pemeriksaan_awal]) }}">
             Riwayat Konsultasi
         </a>
     </nav>

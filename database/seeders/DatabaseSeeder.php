@@ -22,10 +22,11 @@ class DatabaseSeeder extends Seeder
             PasienSeeder::class,
             ObatSeeder::class,
             PengawasSeeder::class,
-            PemeriksaanSeeder::class,
-            ResepSeeder::class,
-            DetailResepSeeder::class,
-            ResepsionisSeeder::class
+            // PemeriksaanSeeder::class,
+            // ResepSeeder::class,
+            // DetailResepSeeder::class,
+            ResepsionisSeeder::class,
+            IcdSeeder::class
         ]);
     }
 }

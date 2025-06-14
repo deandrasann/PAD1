@@ -60,6 +60,9 @@
             <label for="username" class="form-label">Username</label>
             <div class="input-group">
               <input type="text" class="form-control" id="username" name="username" required>
+                @error('username')
+                    <small class="text-danger">{{ $message }}</small>
+                @enderror
               <span class="input-group-text">
                 <img src="{{asset('images\user.png')}}" style="width: 20px; height: 20px; ">
               </span>
@@ -69,9 +72,17 @@
             <label for="password" class="form-label">Password</label>
             <div class="input-group">
                 <input type="password" class="form-control" id="password" name="password" required>
+                @error('password')
+                    <small class="text-danger">{{ $message }}</small>
+                @enderror
                 <button class="btn btn-outline-secondary" type="button" id="togglePassword">
                   <img id="eyeIcon" src="{{ asset('images/hidden.png') }}" style="width: 20px; height: 20px;">
                 </button>
+                @if ($errors->has('login'))
+                    <div class="alert alert-danger mt-4"id="loginError" role="alert">
+                        {{ $errors->first('login') }}
+                    </div>
+                @endif
               </div>
           </div>
           <div class="form-check mb-3 d-flex justify-content-between align-items-center">

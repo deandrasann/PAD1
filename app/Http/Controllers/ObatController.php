@@ -30,6 +30,26 @@ class ObatController extends Controller
     }
 
     public function obatstore(Request $request) {
+        $validated = $request->validate([
+                'id_apoteker' => 'required|integer',
+                'nama_obat' => 'required|string',
+                'bentuk_obat' => 'required|string',
+                'kekuatan_sediaan' => 'required|numeric',
+                'efek_samping' => 'required|string',
+                'kontraindikasi' => 'required|string',
+                'interaksi_obat' => 'required|string',
+                'petunjuk_penyimpanan' => 'required|string',
+                'pola_makan' => 'required|string',
+                'informasi_tambahan' => 'required|string',
+                'indikasi' => 'required|string',
+                'golongan_obat' => 'required|string',
+            ], [
+                'required' => 'Field ini wajib diisi.',
+                'integer' => 'Harus berupa angka bulat.',
+                'numeric' => 'Harus berupa angka.',
+                'string' => 'Harus berupa teks.',
+            ]);
+
         $tambah_obat = ObatModel::insert([
             'id_apoteker' => $request->input('id_apoteker'),
             'nama_obat' => $request->input('nama_obat'),

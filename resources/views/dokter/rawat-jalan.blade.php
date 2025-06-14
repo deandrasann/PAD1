@@ -89,12 +89,21 @@
                                     <tr>
                                         <td>
                                             <strong>{{ \Carbon\Carbon::parse($data->tanggal_pemeriksaan)->translatedFormat('d M Y') }}</strong><br>
-                                            08.00 - 20.00 {{-- Bisa diganti jika ada jam sebenarnya --}}
+                                            {{ \Carbon\Carbon::parse($data->created_at)->timezone('Asia/Jakarta')->format('H:i') }}
+                                            Asia/Jakarta Timezone
+
                                         </td>
                                         <td>
                                             <strong>{{ $index + 1 }}</strong>
-                                            ({{ \Carbon\Carbon::parse($data->created_at)->format('H:i') }})<br>
-                                            Belum Dipanggil
+                                            ({{ \Carbon\Carbon::parse($data->created_at)->format('H:i') }})
+                                            <br>
+                                            @if ($data->status_pemanggilan === 'sudah dipanggil')
+                                                <span class="badge bg-success">Sudah Dipanggil</span>
+                                            @elseif($data->status_pemanggilan === 'belum dipanggil')
+                                                <span class="badge bg-danger">Belum Dipanggil</span>
+                                            @else
+                                                <span class="badge bg-secondary">{{ $data->status_pemanggilan }}</span>
+                                            @endif
                                         </td>
                                         <td>
                                             <strong>{{ $data->nama_pasien }}</strong><br>{{ $data->no_rm }}
@@ -104,11 +113,16 @@
                                         </td>
                                         <td>
                                             <div class="d-flex flex-wrap gap-2">
-                                                <button class="btn btn-danger">
-                                                    <i class="fa-solid fa-volume-high me-2"></i>Panggil
-                                                </button>
-                                                <button class="btn btn-resep">
-                                                    <a class="nav-link" href="{{ route('resume-medis', ['id_pasien' => $data->id_pasien]) }}">
+                                                <form action="{{ route('panggil.pasien', $data->id_pasien) }}"
+                                                    method="POST" class="d-inline">
+                                                    @csrf
+                                                    <button type="submit" class="btn btn-danger">
+                                                        <i class="fa-solid fa-volume-high me-2"></i>Panggil
+                                                    </button>
+                                                </form>
+                                                <button type="submit" class="btn btn-resep">
+                                                    <a class="nav-link"
+                                                        href="{{ route('resume-medis', ['id_pemeriksaan_awal' => $data->id_pemeriksaan_awal]) }}">
                                                         <i class="fa-solid fa-circle-info me-2"></i>Detail
                                                     </a>
                                                 </button>
@@ -132,27 +146,50 @@
                             <thead class="table-primary">
                                 <tr>
                                     <th>Tanggal</th>
-                                    <th>Antrean</th>
                                     <th>Pasien</th>
                                     <th>Dokter</th>
+                                    <th>Status Pemeriksaan</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td><strong>29 Sep 2024</strong><br>08.00 - 20.00</td>
-                                    <td><strong>1 (12:30)</strong><br>Belum Dipanggil</td>
-                                    <td><strong>Viska Ayu</strong><br>87658</td>
-                                    <td><strong>dr. Andi</strong><br>Poli Umum</td>
-                                    <td>
-                                        <div class="d-flex flex-wrap gap-2">
-                                            <button class="btn btn-resep">
-                                                <a class="nav-link" href="{{ route('detail-data-pasien') }}"><i
-                                                        class="fa-solid fa-circle-info me-2"></i>Detail</a>
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
+                                @forelse ($pasien_selesai_konsultasi as $item)
+                                    <tr>
+                                        <td class="px-4 py-2">
+                                            <strong>{{ \Carbon\Carbon::parse($item->created_at)->format('d/m/Y') }}</strong><br>
+                                            {{ \Carbon\Carbon::parse($item->created_at)->timezone('Asia/Jakarta')->format('H:i') }}
+                                            Asia/Jakarta Timezone
+                                        </td>
+                                        <td class="px-4 py-2">{{ $item->nama ?? '-' }}</td>
+                                        <td class="px-4 py-2"><strong>{{ $item->nama_dokter }}</strong><br>{{ $item->spesialis }}</td>
+                                        <td class="px-4 py-2">
+                                            @if ($item->status_pemeriksaan === 'selesai')
+                                                <span class="badge rounded-pill bg-success shadow-sm px-3 py-1">Selesai</span>
+                                            @elseif($item->status_pemeriksaan === 'sedang berjalan')
+                                                <span class="badge rounded-pill bg-info shadow-sm px-3 py-1">Sedang Berjalan</span>
+                                            @elseif($item->status_pemeriksaan === 'belum dipanggil')
+                                                <span class="badge rounded-pill bg-danger shadow-sm px-3 py-1">Belum Dipanggil</span>
+                                            @else
+                                                <span class="badge rounded-pill bg-secondary shadow-sm px-3 py-1">{{ $item->status_pemeriksaan }}</span>
+                                            @endif
+                                        </td>
+                                        <td>
+                                            <div class="d-flex flex-wrap gap-2">
+                                                <button class="btn btn-resep">
+                                                   <a class="nav-link"
+                                                        href="{{ route('detail-data-pasien', ['id_pemeriksaan_awal' => $item->id_pemeriksaan_awal]) }}">
+                                                        <i class="fa-solid fa-circle-info me-2"></i>Detail
+                                                    </a>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @empty
+                                    <tr>
+                                        <td colspan="5" class="text-center text-muted">Tidak ada riwayat konsultasi.
+                                        </td>
+                                    </tr>
+                                @endforelse
                             </tbody>
                         </table>
                     </div>

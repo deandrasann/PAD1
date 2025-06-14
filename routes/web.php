@@ -12,9 +12,9 @@ use App\Http\Controllers\ResepController;
 use App\Http\Controllers\ResepsionisController;
 use Illuminate\Support\Facades\Route;
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+Route::get('/', function () {
+    return redirect('/login');
+});
 
 Route::get('/cobaresepsionis', [ResepsionisController::class, 'index'])->name('resepsionis');
 Route::get('/tambahresepsionis', [ResepsionisController::class, 'tambah'])->name('tambahrawatjalan');
@@ -89,14 +89,16 @@ Route::group(['middleware' => ['auth', 'level:admin']], function () {
 //     Route::get('/resume-medis', [DokterController::class, 'resumeMedis'])->name('resume-medis');
 // });
 
-Route::get('/resume-medis/{id_pasien}', [DokterController::class, 'resumeMedis'])->name('resume-medis');
-Route::post('/resume-medis/{id_pasien}', [DokterController::class, 'simpanPemeriksaan'])->name('simpan-pemeriksaan');
+Route::get('/resume-medis/{id_pemeriksaan_awal}', [DokterController::class, 'resumeMedis'])->name('resume-medis');
+Route::post('/resume-medis/{id_pemeriksaan_awal}', [DokterController::class, 'simpanPemeriksaan'])->name('simpan-pemeriksaan');
 Route::get('/riwayat-konsultasi', [DokterController::class, 'riwayatKonsultasi'])->name('riwayat-konsultasi');
 Route::get('/rawat-jalan', [DokterController::class, 'rawatJalan'])->name('rawat-jalan');
+Route::post('/rawat-jalan/{id_pasien}', [DokterController::class, 'panggilPasien'])->name('panggil.pasien');
 Route::get('/tambah-obat-dokter', [DokterController::class, 'tambahObat'])->name('tambah-obat-dokter');
-Route::get('/view-pasien-dokter', [DokterController::class, 'viewPasienDokter'])->name('view-pasien-dokter');
-Route::get('/detail-data-pasien', [DokterController::class, 'detailPasien'])->name('detail-data-pasien');
-Route::get('/riwayat-konsultasi-pasien', [DokterController::class, 'riwayatKonsultasiPasien'])->name('riwayat-konsultasi-pasien');
+Route::get('/view-pasien-dokter/{id_dokter}', [DokterController::class, 'viewPasienDokter'])->name('view-pasien-dokter');
+Route::get('/detail-data-pasien/{id_pemeriksaan_awal}', [DokterController::class, 'detailPasien'])->name('detail-data-pasien');
+Route::get('/riwayat-konsultasi-pasien/{id_pemeriksaan_awal}', [DokterController::class, 'riwayatKonsultasiPasien'])->name('riwayat-konsultasi-pasien');
+Route::get('/riwayat-konsultasi-pasien-selesai/{id_pemeriksaan_awal}', [DokterController::class, 'riwayatKonsulDone'])->name('riwayat-konsul-done');
 Route::get('/lihat-obat-pasien', [DokterController::class, 'lihatObatPasien'])->name('lihat-obat-pasien');
 
 

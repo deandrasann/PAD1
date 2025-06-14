@@ -12,19 +12,22 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('pemeriksaan_akhir', function (Blueprint $table) {
+            //pemeriksaan_akhir
             $table->engine = 'InnoDB';
             $table->charset = 'utf8mb4';
             $table->collation = 'utf8mb4_general_ci';
             // $table->integer('no_antrian',true);
             $table->integer('id_pemeriksaan_akhir', true);
-            $table->integer('id_dokter');
-            $table->integer('id_pasien');
+            $table->integer('id_pemeriksaan_awal')->nullable();
+            $table->integer('id_dokter')->nullable();
+            $table->integer('id_pasien')->nullable();
             // $table->string('kode_icd');
             $table->string('anamnesa')->nullable();
-            $table->string('frekuensi')->nullable();
+            $table->string('diagnosis')->nullable();
             $table->string('golongan_darah')->nullable();
             $table->integer('berat_badan')->nullable();
             $table->integer('tinggi_badan')->nullable();
+            $table->json('kode_icd')->nullable(); // ubah dari string ke json
             // $table->date('tgl_diagnosa');
             $table->enum('merokok', ['Ya', 'Tidak'])->nullable();
             $table->enum('hamil_menyusui', ['Hamil', 'Menyusui', 'Tidak Keduanya'])->nullable();
@@ -36,7 +39,7 @@ return new class extends Migration
             $table->integer('diastole')->nullable();           // mmHg
             $table->integer('pernapasan')->nullable();         // rpm
             
-            $table->enum('status_pemeriksaaan', ['selesai', 'sedang berjalan', 'belum dipanggil'])->nullable();
+            $table->enum('status_pemeriksaan', ['selesai', 'sedang berjalan', 'belum dipanggil'])->default('belum dipanggil')->nullable();
             $table->string('medikamentosa')->nullable();
             $table->string('non_medikamentosa')->nullable();
             $table->timestamps();
@@ -55,6 +58,14 @@ return new class extends Migration
                 ->on('pasien')
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();
+
+            $table
+                ->foreign('id_pemeriksaan_awal')
+                ->references('id_pemeriksaan_awal')
+                ->on('pemeriksaan_awal')
+                ->cascadeOnUpdate()
+                ->cascadeOnDelete();
+            
         });
     }
 

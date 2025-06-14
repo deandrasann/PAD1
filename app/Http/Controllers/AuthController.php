@@ -30,8 +30,8 @@ class AuthController extends Controller
         }
 
         return back()->withErrors([
-            'username' => 'The provided credentials do not match our records.',
-        ])->onlyInput('username');
+            'login' => 'Login gagal. Username atau password salah.',
+        ]);
     }
 
     public function logout(Request $request)

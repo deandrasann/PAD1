@@ -61,12 +61,12 @@
 
     <nav class="nav">
         <a class="nav-link {{ request()->routeIs('resume-medis') ? 'active' : '' }}"
-            href="{{ route('resume-medis', ['id_pasien' => $kunjungan->id_pasien]) }}">
+            href="{{ route('resume-medis', ['id_pemeriksaan_awal' => $kunjungan->id_pemeriksaan_awal]) }}">
             Isi Resume Medis
         </a>
 
-        <a class="nav-link {{ request()->routeIs('riwayat-konsultasi') ? 'active' : '' }}"
-            href="{{ route('riwayat-konsultasi', ['id_pasien' => $kunjungan->id_pasien]) }}">
+        <a class="nav-link {{ request()->routeIs('riwayat-konsultasi-pasien') ? 'active' : '' }}"
+            href="{{ route('riwayat-konsultasi-pasien', ['id_pemeriksaan_awal' => $kunjungan->id_pemeriksaan_awal]) }}">
             Riwayat Konsultasi
         </a>
     </nav>
@@ -107,7 +107,7 @@
             <div class="stepwizard-row setup-panel">
                 <div class="stepwizard-step">
                     <a href="#step-1" type="button" class="btn btn-resep">1</a>
-                    <p>Pemeriksaan </p>
+                    <p>Pemeriksaan</p>
                 </div>
                 <div class="stepwizard-step">
                     <a href="#step-2" type="button" class="btn btn-light" disabled="disabled">2</a>
@@ -120,7 +120,9 @@
             </div>
         </div>
 
-        <form role="form" action="{{ route('simpan-pemeriksaan', ['id_pasien' => $kunjungan->id_pasien]) }}" method="POST">
+        <form role="form"
+            action="{{ route('simpan-pemeriksaan', ['id_pemeriksaan_awal' => $kunjungan->id_pemeriksaan_awal]) }}"
+            method="POST">
             @csrf
             <div class="row setup-content" id="step-1">
                 <div class="col-xs-6 col-md-offset-3">
@@ -131,7 +133,7 @@
                                     <tr>
                                         <th class="" colspan="2">
                                             <h4>DATA KESEHATAN</h4>
-                                    </th>
+                                        </th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -140,8 +142,11 @@
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     <label class="my-2">Golongan Darah</label>
-                                                    <input type="text" name="golongan_darah" class="form-control w-50" @if(!empty($kunjungan->golongan_darah)) value="{{ $kunjungan->golongan_darah }}" data-from-db="true" @endif>
+                                                    <input type="text" name="golongan_darah" class="form-control w-50"
+                                                        @if (!empty($kunjungan->golongan_darah)) value="{{ $kunjungan->golongan_darah }}" data-from-db="true" @endif>
                                                 </div>
+                                                <input type="hidden" name="id_pemeriksaan_awal"
+                                                    value="{{ $kunjungan->id_pemeriksaan_awal }}">
                                                 <div class="col-md-6">
                                                     <label class="my-2">Merokok?</label><br>
                                                     @php
@@ -169,7 +174,8 @@
                                                 <div class="col-md-6">
                                                     <label class="my-2">Berat Badan</label>
                                                     <div class="input-group w-50">
-                                                        <input type="number" name="berat_badan" class="form-control" @if(!empty($kunjungan->berat_badan)) value="{{ $kunjungan->berat_badan }}" data-from-db="true" @endif>
+                                                        <input type="number" name="berat_badan" class="form-control"
+                                                            @if (!empty($kunjungan->berat_badan)) value="{{ $kunjungan->berat_badan }}" data-from-db="true" @endif>
                                                         <span class="input-group-text">kg</span>
                                                     </div>
                                                 </div>
@@ -207,7 +213,8 @@
                                                 <div class="col-md-6">
                                                     <label class="my-2">Tinggi Badan</label>
                                                     <div class="input-group w-50">
-                                                        <input type="number" name="tinggi_badan" class="form-control"  @if(!empty($kunjungan->tinggi_badan)) value="{{ $kunjungan->tinggi_badan }}" data-from-db="true" @endif>
+                                                        <input type="number" name="tinggi_badan" class="form-control"
+                                                            @if (!empty($kunjungan->tinggi_badan)) value="{{ $kunjungan->tinggi_badan }}" data-from-db="true" @endif>
                                                         <span class="input-group-text">cm</span>
                                                     </div>
                                                 </div>
@@ -223,7 +230,8 @@
                                                     <h5>Keluhan</h5>
                                                     <label class="my-2">Keluhan Awal</label>
                                                     <div class="input-group w-100">
-                                                        <input type="text" name="keluhan_awal" class="form-control" @if(!empty($kunjungan->keluhan_awal)) value="{{ $kunjungan->keluhan_awal }}" data-from-db="true" @endif>
+                                                        <input type="text" name="keluhan_awal" class="form-control"
+                                                            @if (!empty($kunjungan->keluhan_awal)) value="{{ $kunjungan->keluhan_awal }}" data-from-db="true" @endif>
                                                     </div>
                                                 </div>
                                             </div>
@@ -238,14 +246,16 @@
                                                 <div class="col-md-6">
                                                     <label class="my-2">Suhu tubuh</label>
                                                     <div class="input-group w-50">
-                                                        <input type="number" name="suhu_tubuh" class="form-control"  @if(!empty($kunjungan->suhu_tubuh)) value="{{ $kunjungan->suhu_tubuh }}" data-from-db="true" @endif>
+                                                        <input type="number" name="suhu_tubuh" class="form-control"
+                                                            @if (!empty($kunjungan->suhu_tubuh)) value="{{ $kunjungan->suhu_tubuh }}" data-from-db="true" @endif>
                                                         <span class="input-group-text">C</span>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <label class="my-2">Nadi</label>
                                                     <div class="input-group w-50">
-                                                        <input type="number" name="nadi" class="form-control"  @if(!empty($kunjungan->nadi)) value="{{ $kunjungan->nadi }}" data-from-db="true" @endif>
+                                                        <input type="number" name="nadi" class="form-control"
+                                                            @if (!empty($kunjungan->nadi)) value="{{ $kunjungan->nadi }}" data-from-db="true" @endif>
                                                         <span class="input-group-text">bpm</span>
                                                     </div>
                                                 </div>
@@ -258,14 +268,16 @@
                                                 <div class="col-md-6">
                                                     <label class="my-2">Sistole</label>
                                                     <div class="input-group w-50">
-                                                        <input type="number" name="sistole" class="form-control"  @if(!empty($kunjungan->sistole)) value="{{ $kunjungan->sistole }}" data-from-db="true" @endif>
+                                                        <input type="number" name="sistole" class="form-control"
+                                                            @if (!empty($kunjungan->sistole)) value="{{ $kunjungan->sistole }}" data-from-db="true" @endif>
                                                         <span class="input-group-text">mmhg</span>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <label class="my-2">Preferensi pernafasan</label>
                                                     <div class="input-group w-50">
-                                                        <input type="number" name="pernapasan" class="form-control"  @if(!empty($kunjungan->pernapasan)) value="{{ $kunjungan->pernapasan }}" data-from-db="true" @endif>
+                                                        <input type="number" name="pernapasan" class="form-control"
+                                                            @if (!empty($kunjungan->pernapasan)) value="{{ $kunjungan->pernapasan }}" data-from-db="true" @endif>
                                                         <span class="input-group-text">rpm</span>
                                                     </div>
                                                 </div>
@@ -278,7 +290,8 @@
                                                 <div class="col-md-6">
                                                     <label class="my-2">Diastole</label>
                                                     <div class="input-group w-50">
-                                                        <input type="number" name="diastole" class="form-control"  @if(!empty($kunjungan->diastole)) value="{{ $kunjungan->diastole }}" data-from-db="true" @endif>
+                                                        <input type="number" name="diastole" class="form-control"
+                                                            @if (!empty($kunjungan->diastole)) value="{{ $kunjungan->diastole }}" data-from-db="true" @endif>
                                                         <span class="input-group-text">mmhg</span>
                                                     </div>
                                                 </div>
@@ -315,9 +328,32 @@
                                                 <textarea type="text" name="anamnesa" class="form-control"></textarea>
                                             </div>
                                             <div class="mb-4 mt-4">
-                                                <label class="mb-2">Frekuensi</label><br>
-                                                <input type="text" name="frekuensi" class="form-control"></input>
+                                                <label class="mb-2">Diagnosis</label><br>
+                                                <input type="text" name="diagnosis" class="form-control"></input>
                                             </div>
+                                            <div id="icd-wrapper">
+                                                <div class="icd-group mb-3">
+                                                    <label class="mb-2">ICD 11 (2019)</label>
+                                                    <div class="d-flex">
+                                                        <select name="icd_codes[]" class="form-control icd-select"
+                                                            id="kodeicd" style="width: 100%;">
+                                                            <option></option>
+                                                            @foreach ($data_icd as $item)
+                                                                <option value="{{ $item->kode_icd }}">
+                                                                    {{ $item->kode_icd }} - {{ $item->deskripsi }}
+                                                                </option>
+                                                            @endforeach
+                                                        </select>
+                                                        <button type="button"
+                                                            class="btn btn-danger ms-2 btn-remove-icd">x</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <button type="button" id="btn-add-icd"
+                                                class="btn btn-primary m-2">Tambah</button>
+
+
                                         </div>
                                     </div>
                                 </td>
@@ -326,8 +362,8 @@
                             </tbody>
 
                         </table>
-                        <button class="btn btn-submit nextBtn btn-lg pull-right btn-success" type="button">Next
-                            ></button>
+                        <button class="btn btn-submit nextBtn btn-lg pull-right btn-success mt-3"
+                            type="button">Next></button>
                     </div>
                 </div>
             </div>
@@ -368,7 +404,8 @@
                                             </div>
                                             <div class="mb-4 mt-4">
                                                 <label class="mb-2">Non-Medikamentosa</label><br>
-                                                <input type="text" name="non_medikamentosa" class="form-control"></input>
+                                                <input type="text" name="non_medikamentosa"
+                                                    class="form-control"></input>
                                             </div>
                                         </div>
                                     </div>
@@ -387,7 +424,56 @@
     </div>
 
     <script>
-         $(document).ready(function() {
+        $(document).ready(function() {
+            // Inisialisasi awal
+            $('.icd-select').select2({
+                placeholder: '-- Pilih ICD 11 (2019) --',
+                allowClear: true,
+                width: '100%'
+            });
+
+            // Tambah field ICD
+            $('#btn-add-icd').on('click', function() {
+                // Ambil elemen pertama dan hapus select2-nya
+                const original = $('.icd-group').first();
+
+                // Hapus Select2 instance sebelum cloning
+                const originalSelect = original.find('select');
+                originalSelect.select2('destroy');
+
+                // Clone elemen
+                const newICD = original.clone();
+
+                // Re-inisialisasi select2 di elemen awal
+                originalSelect.select2({
+                    placeholder: '-- Pilih ICD 11 (2019) --',
+                    allowClear: true,
+                    width: '100%'
+                });
+
+                // Reset value select dan append
+                newICD.find('select').val('');
+                $('#icd-wrapper').append(newICD);
+
+                // Inisialisasi select2 untuk select baru
+                newICD.find('select').select2({
+                    placeholder: '-- Pilih ICD 11 (2019) --',
+                    allowClear: true,
+                    width: '100%'
+                });
+            });
+
+            // Hapus field ICD
+            $('#icd-wrapper').on('click', '.btn-remove-icd', function() {
+                if ($('.icd-group').length > 1) {
+                    $(this).closest('.icd-group').remove();
+                }
+            });
+        });
+    </script>
+
+    <script>
+        $(document).ready(function() {
             $("#namaObat").select2({
                 placeholder: '-- Pilih Nama Obat --', // Samain placeholder
                 allowClear: true, // (Optional) Biar bisa hapus pilihan
@@ -395,20 +481,21 @@
         });
     </script>
 
-   <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Pilih hanya input yang berasal dari database
-        const inputsFromDb = document.querySelectorAll('input.form-control[data-from-db="true"]');
 
-        inputsFromDb.forEach(input => {
-            // Jika memiliki nilai dari database, disable
-            if (input.value.trim() !== '') {
-                input.readOnly = true;
-                input.style.backgroundColor = '#e9ecef';
-            }
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Pilih hanya input yang berasal dari database
+            const inputsFromDb = document.querySelectorAll('input.form-control[data-from-db="true"]');
+
+            inputsFromDb.forEach(input => {
+                // Jika memiliki nilai dari database, disable
+                if (input.value.trim() !== '') {
+                    input.readOnly = true;
+                    input.style.backgroundColor = '#e9ecef';
+                }
+            });
         });
-    });
-</script>
+    </script>
 
     <script>
         $(document).ready(function() {

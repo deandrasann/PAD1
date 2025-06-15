@@ -1,66 +1,107 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Sistem Manajemen Klinik Apotech.id
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Sistem Manajemen Klinik **Apotech.id** adalah aplikasi berbasis web yang bertujuan untuk meningkatkan efisiensi operasional klinik. Sistem ini mendukung berbagai peran pengguna seperti **apoteker, dokter, pasien, pengawas**, dan **resepsionis**, dengan fitur yang disesuaikan berdasarkan kebutuhan dan tanggung jawab masing-masing.
 
-## About Laravel
+![Last Commit](https://img.shields.io/github/last-commit/deandrasann/PAD1?label=last%20commit)
+![Blade](https://img.shields.io/badge/blade-62.0%25-blue)
+![Languages](https://img.shields.io/github/languages/count/deandrasann/PAD1)
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+---
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## 📚 Table of Contents
+- [Fitur Utama](#fitur-utama)
+  - [Modul Apoteker](#modul-apoteker)
+  - [Modul Dokter](#modul-dokter)
+  - [Modul Pasien](#modul-pasien)
+  - [Modul Pengawas](#modul-pengawas)
+  - [Modul Resepsionis](#modul-resepsionis)
+- [Teknologi yang Digunakan](#teknologi-yang-digunakan)
+- [Instalasi](#instalasi)
+- [Kontribusi](#kontribusi)
+- [Tautan Penting](#tautan-penting)
+- [Tim Pengembang](#tim-pengembang)
+- [Lisensi](#lisensi)
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+---
 
-## Learning Laravel
+## Fitur Utama
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### Modul Apoteker
+- Melihat list pasien
+- Menampilkan list obat
+- Mengelola database obat (CRUD)
+- Melihat riwayat pemeriksaan
+- Melihat riwayat resep
+- Mencetak resep
+- Melihat obat yang paling sering digunakan
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+### Modul Dokter
+- Melihat list pasien rawat jalan
+- Melakukan pemeriksaan
+- Merumuskan obat
+- Melihat riwayat pemeriksaan
+- Melihat riwayat resep
+- Mendapatkan informasi pasien
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### Modul Pasien
+- Generate barkode
+- Melihat informasi pribadi
+- Melihat resep yang dipindai
+- Melihat riwayat resep
+- Mendapatkan notifikasi minum obat
+- Mengisi tracker minum obat
 
-## Laravel Sponsors
+### Modul Pengawas
+- Login/otentikasi akun pengawas
+- Menampilkan informasi singkat pasien
+- Menampilkan tracker pasien
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### Modul Resepsionis
+- Melihat list pasien
+- Mengelola database pasien (CRUD)
+- Mengisi pendataan awal dan keluhan pasien
+- Memasukkan pasien ke rawat jalan
 
-### Premium Partners
+---
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+## Teknologi yang Digunakan
 
-## Contributing
+![Laravel](https://img.shields.io/badge/-Laravel-red?logo=laravel&logoColor=white)
+![Bootstrap](https://img.shields.io/badge/-Bootstrap-7952B3?logo=bootstrap&logoColor=white)
+![PHP](https://img.shields.io/badge/-PHP-777BB4?logo=php&logoColor=white)
+![JavaScript](https://img.shields.io/badge/-JavaScript-F7DF1E?logo=javascript&logoColor=black)
+![MySQL](https://img.shields.io/badge/-MySQL-4479A1?logo=mysql&logoColor=white)
+![jQuery](https://img.shields.io/badge/-jQuery-0769AD?logo=jquery&logoColor=white)
+![GitHub](https://img.shields.io/badge/-GitHub-181717?logo=github&logoColor=white)
+---
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## Instalasi
+1. Clone repository:
+   `git clone https://github.com/deandrasann/PAD1.git`
+2. Install dependencies:
+   `composer install && npm install`
+3. Buat file `.env` dan sesuaikan konfigurasi database.
+4. Jalankan migrasi dan seeder:
+   `php artisan migrate --seed`
+5. Jalankan aplikasi:
+   `php artisan serve`
 
-## Code of Conduct
+## Kontribusi
+Kami membuka peluang kontribusi untuk pengembangan sistem ini. Silakan fork repository, buat branch baru, dan kirim pull request.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+## Tautan Penting
+- **Repository GitHub**: [https://github.com/deandrasann/PAD1](https://github.com/deandrasann/PAD1)
+- **Desain Figma**: [https://www.figma.com/design/RPs4KukBOB3QurfbWn5Kw/ui-apotech.id](https://www.figma.com/design/RPs4KukBOB3QurfbWn5Kw/ui-apotech.id)
 
-## Security Vulnerabilities
+## Tim Pengembang
+- **Project Manager**: Septyan Yaumul Fatkhan
+- **UI/UX Designer**: Marsha Bilqis Nasywa
+- **Frontend Developer**: Deandra Santoso
+- **Backend Developer**: Joe Sozanolo Waruwu
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+## Lisensi
+Proyek ini dilisensikan di bawah [MIT License](LICENSE).
 
-## License
+---
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+© 2024 Apotech.id. All rights reserved.

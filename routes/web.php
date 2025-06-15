@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\ResepsionisController as ApiResepsionisController;
 use App\Http\Controllers\ApotekerController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
@@ -21,7 +22,6 @@ Route::get('/cek-session/{id}', function ($id) {
     return response()->json($data);
 });
 
-Route::get('/cobaresepsionis', [ResepsionisController::class, 'index'])->name('resepsionis');
 Route::get('/tambahresepsionis', [ResepsionisController::class, 'tambah'])->name('tambahrawatjalan');
 Route::get('/detail', [ResepsionisController::class, 'detail'])->name('detail');
 
@@ -99,12 +99,13 @@ Route::post('/resume-medis/{id_pemeriksaan_awal}', [DokterController::class, 'si
 Route::get('/riwayat-konsultasi', [DokterController::class, 'riwayatKonsultasi'])->name('riwayat-konsultasi');
 Route::get('/rawat-jalan', [DokterController::class, 'rawatJalan'])->name('rawat-jalan');
 Route::post('/rawat-jalan/{id_pasien}', [DokterController::class, 'panggilPasien'])->name('panggil.pasien');
-Route::get('/tambah-obat-dokter/{id_pemeriksaan_awal}', [DokterController::class, 'tambahObat'])->name('tambah-obat-dokter');
+Route::get('/tambah-obat-dokter/{id_pemeriksaan_akhir}', [DokterController::class, 'tambahObat'])->name('tambah-obat-dokter');
 Route::get('/get-obat/{kode_obat}', [DokterController::class, 'getObat']);
 Route::get('/cari-racikan', [DokterController::class, 'getObatRacikan']);
 Route::get('/api/obat-stocked', [DokterController::class, 'getObatRacikanStocked']);
 Route::get('/get-obat-racikan/{kode_obat}', [DokterController::class, 'getTambahObatRacikan']);
-Route::post('/simpan-resep', [DokterController::class, 'simpanResepSession'])->name('resep.simpan.session');
+Route::post('/simpan-racikan-ke-session', [DokterController::class, 'simpanKeSession']);
+Route::post('/simpan-resep', [DokterController::class, 'simpanNonRacikanSession'])->name('resep.simpan.session');
 Route::get('/view-pasien-dokter/{id_dokter}', [DokterController::class, 'viewPasienDokter'])->name('view-pasien-dokter');
 Route::get('/detail-data-pasien/{id_pemeriksaan_awal}', [DokterController::class, 'detailPasien'])->name('detail-data-pasien');
 Route::get('/riwayat-konsultasi-pasien/{id_pemeriksaan_awal}', [DokterController::class, 'riwayatKonsultasiPasien'])->name('riwayat-konsultasi-pasien');
@@ -128,11 +129,16 @@ Route::group(['middleware' => ['auth', 'level:admin,pengawas,apoteker']], functi
 
 Route::get('/cobajadwal/{id}', [PengawasMinumObatController::class, 'cobacoba'])->name('cobaminum');
 Route::get('/resepsionis', [ResepsionisController::class, 'inputDataPasien'])->name('resepsionis');
+Route::get('/api/resepsionis', [ApiResepsionisController::class, 'apiGetPasien']);
 Route::get('/resepsionis-tambah-pasien/{no_rm?}', [ResepsionisController::class, 'storeDataPersonalForm'])->name('resepsionis-tambah-form');
+Route::get('/api/resepsionis-tambah-pasien/{no_rm?}', [ApiResepsionisController::class, 'apiGetPasienByNoRM']);
 Route::post('/resepsionis-tambah-pasien/{no_rm?}', [ResepsionisController::class, 'storeDataPersonal'])->name('resepsionis-tambah');
+Route::post('/api/resepsionis-tambah-pasien', [ApiResepsionisController::class, 'apiStorePasien']);
 // Menampilkan form tambah data kesehatan
 Route::get('/resepsionis-tambah-kesehatan/{id}', [ResepsionisController::class, 'tambahDataKesehatanPasien'])->name('resepsionis-tambah-kesehatan');
+Route::get('/api/resepsionis-tambah-kesehatan/{id}', [ApiResepsionisController::class, 'apiTambahDataKesehatanPasien']);
 
 // Menyimpan data ke pemeriksaan_awal
 Route::post('/resepsionis-tambah-kesehatan/{id}', [ResepsionisController::class, 'storeDataKesehatan'])->name('simpan-kesehatan');
+Route::post('/api/resepsionis-tambah-kesehatan/{id}', [ApiResepsionisController::class, 'storeDataKesehatanApi']);
 

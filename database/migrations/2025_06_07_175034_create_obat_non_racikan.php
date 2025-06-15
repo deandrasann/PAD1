@@ -17,9 +17,9 @@ return new class extends Migration
             $table->collation = 'utf8mb4_general_ci';
 
             $table->integer('id_obat_non_racikan', true);
-            $table->integer('id_dokter');
-            $table->integer('id_pasien');
-            $table->integer('id_pemeriksaan_akhir');
+            $table->integer('id_dokter')->nullable();
+            $table->integer('id_pasien')->nullable();
+            $table->integer('id_pemeriksaan_akhir')->nullable();
             $table->string('nama_obat')->nullable();
             $table->string('jml_obat')->nullable();
             $table->string('bentuk_obat')->nullable();

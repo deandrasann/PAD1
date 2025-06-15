@@ -6,11 +6,12 @@ use App\Models\PasienModel;
 use App\Http\Controllers\Controller;
 use App\Models\IcdModel;
 use App\Models\ObatModel;
+use App\Models\obatNonRacikanModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-
-
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Validator;
 
 class DokterController extends Controller
 {
@@ -90,7 +91,7 @@ class DokterController extends Controller
 
         $kodeICDs = $request->input('icd_codes'); // array dari form
 
-        DB::table('pemeriksaan_akhir')->insert([
+        $idPemeriksaanAkhir = DB::table('pemeriksaan_akhir')->insertGetId([
             'id_pemeriksaan_awal' => $request->input('id_pemeriksaan_awal'),
             'id_dokter'           => $idDokter,
             'id_pasien'           => $id_pasien,
@@ -115,7 +116,7 @@ class DokterController extends Controller
             'updated_at'          => now(),
         ]);
 
-        return redirect()->route('rawat-jalan')->with('success', 'Pemeriksaan berhasil disimpan');
+        return redirect()->route('tambah-obat-dokter', ['id_pemeriksaan_akhir' => $idPemeriksaanAkhir])->with('success', 'Pemeriksaan berhasil disimpan');
     }
 
     public function riwayatKonsultasi()
@@ -229,16 +230,18 @@ class DokterController extends Controller
         return redirect()->back()->with('success', 'Pasien berhasil dipanggil.');
     }
 
-    public function tambahObat($id_pemeriksaan_awal)
+    public function tambahObat($id_pemeriksaan_akhir)
     {
         $idPengguna = Auth::user()->id_pengguna;
 
-        $kunjungan = DB::table('pemeriksaan_awal')
+        $kunjungan = DB::table('pemeriksaan_akhir')
+            ->join('pemeriksaan_awal', 'pemeriksaan_akhir.id_pemeriksaan_awal', '=', 'pemeriksaan_awal.id_pemeriksaan_awal')
             ->join('pasien', 'pemeriksaan_awal.id_pasien', '=', 'pasien.id_pasien')
             ->join('dokter', 'pemeriksaan_awal.id_dokter', '=', 'dokter.id_dokter')
             ->join('users', 'dokter.id_pengguna', '=', 'users.id_pengguna')
             ->select(
-                'pemeriksaan_awal.*',
+                'pemeriksaan_akhir.*',
+                'pemeriksaan_awal.id_pemeriksaan_awal',
                 'pasien.nama as nama_pasien',
                 'pasien.no_rm',
                 'pasien.nama',
@@ -252,7 +255,7 @@ class DokterController extends Controller
                 'dokter.kode_klinik',
             )
             ->where('dokter.id_pengguna', $idPengguna)
-            ->where('pemeriksaan_awal.id_pemeriksaan_awal', $id_pemeriksaan_awal)
+            ->where('pemeriksaan_akhir.id_pemeriksaan_akhir', $id_pemeriksaan_akhir)
             ->first();
 
         if (!$kunjungan) {
@@ -282,23 +285,169 @@ class DokterController extends Controller
         ]);
     }
 
-    public function simpanResepSession(Request $request)
+    public function simpanNonRacikanSession(Request $request)
     {
-        $data = $request->validate([
-            'id_pemeriksaan_awal' => 'required',
+        // $validator = Validator::make($request->all(), [
+        //     'id_pemeriksaan_akhir' => 'required|exists:pemeriksaan_akhir,id_pemeriksaan_akhir',
+        //     'id_dokter' => 'required|exists:dokter,id_dokter',
+        //     'id_pasien' => 'required|exists:pasien,id_pasien',
+        //     'non_racikan' => 'nullable|array',
+        //     'non_racikan.*.nama_obat' => 'required|string',
+        //     'non_racikan.*.jml_obat' => 'required|integer',
+        //     'non_racikan.*.bentuk_obat' => 'required|string',
+        //     'non_racikan.*.harga_satuan' => 'required|numeric',
+        //     'non_racikan.*.harga_total' => 'required|numeric',
+        //     'non_racikan.*.signatura' => 'required|string',
+        //     'non_racikan.*.signatura_label' => 'nullable|string',
+        // ]);
+
+        // if ($validator->fails()) {
+        //     return response()->json(['success' => false, 'errors' => $validator->errors()], 422);
+        // }
+
+        // $data = $validator->validated();
+
+        // DB::beginTransaction();
+
+        // try {
+        //     if (!empty($data['non_racikan'])) {
+        //         $obatToInsert = [];
+
+        //         $id_pemeriksaan = $data['id_pemeriksaan_akhir'];
+        //         $id_dokter = $data['id_dokter'];
+        //         $id_pasien = $data['id_pasien'];
+
+        //         foreach ($data['non_racikan'] as $obat) {
+        //             $obatToInsert[] = [
+        //                 'id_pemeriksaan_akhir' => $id_pemeriksaan,
+        //                 'id_dokter'          => $id_dokter,
+        //                 'id_pasien'          => $id_pasien,
+        //                 'nama_obat'          => $obat['nama_obat'],
+        //                 'jml_obat'           => $obat['jml_obat'],
+        //                 'bentuk_obat'        => $obat['bentuk_obat'],
+        //                 'harga_satuan'       => $obat['harga_satuan'],
+        //                 'harga_total'        => $obat['harga_total'],
+        //                 'signatura'          => $obat['signatura'],
+        //                 'signatura_label'    => $obat['signatura_label'] ?? null,
+        //                 'created_at'         => now(),
+        //                 'updated_at'         => now(),
+        //             ];
+        //         }
+
+        //         DB::table('obat_non_racikan')->insert($obatToInsert);
+        //     }
+
+        //     DB::commit();
+
+        //     return response()->json([
+        //         'success' => true,
+        //         'message' => 'Data resep berhasil disimpan.',
+        //     ]);
+        // } catch (\Exception $e) {
+        //     DB::rollBack();
+        //     Log::error('Gagal menyimpan resep non-racikan: ' . $e->getMessage());
+
+        //     return response()->json([
+        //         'success' => false,
+        //         'message' => 'Terjadi kesalahan internal: ' . $e->getMessage() // Tambahkan ini
+        //     ], 500);
+        // }
+        $validator = Validator::make($request->all(), [
+            'id_pemeriksaan_akhir' => 'required|exists:pemeriksaan_akhir,id_pemeriksaan_akhir',
+            'id_dokter' => 'required|exists:dokter,id_dokter',
+            'id_pasien' => 'required|exists:pasien,id_pasien',
+
             'non_racikan' => 'nullable|array',
+            'non_racikan.*.nama_obat' => 'required|string',
+            'non_racikan.*.jml_obat' => 'required|integer|min:1',
+            'non_racikan.*.bentuk_obat' => 'required|string',
+            'non_racikan.*.harga_satuan' => 'required|numeric|min:0',
+            'non_racikan.*.harga_total' => 'required|numeric|min:0',
+            'non_racikan.*.signatura' => 'required|string',
+            'non_racikan.*.signatura_label' => 'nullable|string',
+
+            'racikan' => 'nullable|array',
+            'racikan.*.nama_racikan' => 'required|string',
+            'racikan.*.bentuk_obat' => 'required|string',
+            'racikan.*.kemasan_obat' => 'required|string',
+            'racikan.*.instruksi_pemakaian' => 'nullable|string',
+            'racikan.*.instruksi_racikan' => 'nullable|string',
+            'racikan.*.jumlah_kemasan' => 'required|integer|min:1',
+            'racikan.*.takaran_obat' => 'required|string',
+            'racikan.*.dosis' => 'required|string',
         ]);
 
-        session([
-            'data_resep' . $data['id_pemeriksaan_awal'] => [
-                'non_racikan' => $data['non_racikan'],
-            ]
-        ]);
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'errors' => $validator->errors()
+            ], 422);
+        }
 
-        return response()->json([
-            'success' => true,
-            'redirect' => route('resume-medis', ['id_pemeriksaan_awal' => $data['id_pemeriksaan_awal']])
-        ]);
+        $data = $validator->validated();
+
+        DB::beginTransaction();
+        try {
+            // --- Simpan Non Racikan ---
+            if (!empty($data['non_racikan'])) {
+                foreach ($data['non_racikan'] as $obat) {
+                    DB::table('obat_non_racikan')->insert([
+                        'id_pemeriksaan_akhir' => $data['id_pemeriksaan_akhir'],
+                        'id_dokter' => $data['id_dokter'],
+                        'id_pasien' => $data['id_pasien'],
+                        'nama_obat' => $obat['nama_obat'],
+                        'jml_obat' => $obat['jml_obat'],
+                        'bentuk_obat' => $obat['bentuk_obat'],
+                        'harga_satuan' => $obat['harga_satuan'],
+                        'harga_total' => $obat['harga_total'],
+                        'signatura' => $obat['signatura'],
+                        'signatura_label' => $obat['signatura_label'] ?? null,
+                        'created_at' => now(),
+                        'updated_at' => now(),
+                    ]);
+                }
+            }
+
+            // --- Simpan Racikan (tanpa detail obat) ---
+            if (!empty($data['racikan'])) {
+                foreach ($data['racikan'] as $racik) {
+                    DB::table('obat_racikan')->insert([
+                        'id_pemeriksaan_akhir' => $data['id_pemeriksaan_akhir'],
+                        'id_dokter' => $data['id_dokter'],
+                        'id_pasien' => $data['id_pasien'],
+                        'nama_racikan' => $racik['nama_racikan'],
+                        'bentuk_obat' => $racik['bentuk_obat'],
+                        'kemasan_obat' => $racik['kemasan_obat'],
+                        'instruksi_pemakaian' => $racik['instruksi_pemakaian'] ?? null,
+                        'instruksi_racikan' => $racik['instruksi_racikan'] ?? null,
+                        'jumlah_kemasan' => $racik['jumlah_kemasan'],
+                        'takaran_obat' => $racik['takaran_obat'],
+                        'dosis' => $racik['dosis'],
+                        'created_at' => now(),
+                        'updated_at' => now(),
+                    ]);
+                }
+            }
+
+            DB::commit();
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Data resep berhasil disimpan!',
+                'redirect' => route('rawat-jalan'), // sesuaikan dengan kebutuhan
+                'data' => $data
+            ]);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            Log::error('Gagal menyimpan resep: ' . $e->getMessage());
+
+            return response()->json([
+                'success' => false,
+                'message' => 'Terjadi kesalahan saat menyimpan resep.',
+                'error' => $e->getMessage(),
+                'data' => $data
+            ], 500);
+        }
     }
 
     public function getObatRacikan(Request $request)
@@ -338,7 +487,7 @@ class DokterController extends Controller
             ->select('kode_obat', 'nama_obat')
             ->get();
 
-            return response()->json($obat);
+        return response()->json($obat);
     }
 
     public function viewPasienDokter(Request $request, $id_dokter)

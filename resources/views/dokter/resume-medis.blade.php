@@ -378,13 +378,13 @@
                                             <label class="my-2">Resep</label>
 
                                             <hr>
-                                            <button type="button" class="btn btn-primary px-2 py-2 mb-2 mt-4">
+                                            {{-- <button type="button" class="btn btn-primary px-2 py-2 mb-2 mt-4">
                                                 <strong><a
-                                                        href="{{ route('tambah-obat-dokter', ['id_pemeriksaan_awal' => $kunjungan->id_pemeriksaan_awal]) }}"
+                                                        href="{{ route('tambah-obat-dokter', ['id_pemeriksaan_akhir' => $kunjungan->id_pemeriksaan_akhir]) }}"
                                                         style="color: white; text-decoration:none">+ Tambah Obat</a>
                                                 </strong>
-                                            </button>
-                                            <div class="mb-4 mt-4">
+                                            </button> --}}
+                                            {{-- <div class="mb-4 mt-4">
                                                 <label class="mb-2">Pilih Obat</label><br>
                                                 <select class="form-control" id="namaObat" name="kode_obat"
                                                     style="width: 100%;">
@@ -395,7 +395,7 @@
                                                         </option>
                                                     @endforeach
                                                 </select>
-                                            </div>
+                                            </div> --}}
 
                                             <div class="mb-4 mt-4">
                                                 <label class="mb-2">Medikamentosa</label><br>

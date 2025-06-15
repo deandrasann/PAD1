@@ -15,7 +15,7 @@ class PasienSeeder extends Seeder
     {
         $pasien = collect([
             [
-                'no_rm' => 1001,
+                'no_rm' =>'RM1001',
                 'id_pengguna' => 1,
                 'nama' => 'John Doe',
                 'alamat' => 'Jl. Merdeka No. 1, Jakarta',
@@ -31,7 +31,7 @@ class PasienSeeder extends Seeder
                 'foto' => 'foto/john_doe.jpg',
             ],
             [
-                'no_rm' => 1002,
+                'no_rm' =>'RM1002',
                 'id_pengguna' => 1,
                 'nama' => 'Jane Smith',
                 'alamat' => 'Jl. Asia Afrika No. 2, Bandung',
@@ -47,7 +47,7 @@ class PasienSeeder extends Seeder
                 'foto' => 'foto/jane_smith.jpg',
             ],
             [
-                'no_rm' => 1003,
+                'no_rm' =>'RM1003',
                 'id_pengguna' => 1,
                 'nama' => 'Ali Ahmad',
                 'alamat' => 'Jl. Kenjeran No. 10, Surabaya',
@@ -63,7 +63,7 @@ class PasienSeeder extends Seeder
                 'foto' => 'foto/ali_ahmad.jpg',
             ],
             [
-                'no_rm' => 1004,
+                'no_rm' =>'RM1004',
                 'id_pengguna' => 1,
                 'nama' => 'Siti Nurhaliza',
                 'alamat' => 'Jl. Gatot Subroto No. 7, Medan',
@@ -79,7 +79,7 @@ class PasienSeeder extends Seeder
                 'foto' => 'foto/siti_nurhaliza.jpg',
             ],
             [
-                'no_rm' => 1005,
+                'no_rm' =>'RM1005',
                 'id_pengguna' => 1,
                 'nama' => 'Budi Santoso',
                 'alamat' => 'Jl. Malioboro No. 5, Yogyakarta',
@@ -95,7 +95,7 @@ class PasienSeeder extends Seeder
                 'foto' => 'foto/budi_santoso.jpg',
             ],
             [
-                'no_rm' => 1006,
+                'no_rm' =>'RM1006',
                 'id_pengguna' => 1,
                 'nama' => 'Dewi Lestari',
                 'alamat' => 'Jl. Kuta No. 9, Bali',
@@ -111,7 +111,7 @@ class PasienSeeder extends Seeder
                 'foto' => 'foto/dewi_lestari.jpg',
             ],
             [
-                'no_rm' => 1007,
+                'no_rm' =>'RM1007',
                 'id_pengguna' => 1,
                 'nama' => 'Rudi Setiawan',
                 'alamat' => 'Jl. Pahlawan No. 6, Semarang',
@@ -127,7 +127,7 @@ class PasienSeeder extends Seeder
                 'foto' => 'foto/rudi_setiawan.jpg',
             ],
             [
-                'no_rm' => 1008,
+                'no_rm' =>'RM1008',
                 'id_pengguna' => 1,
                 'nama' => 'Nina Maulani',
                 'alamat' => 'Jl. Engku Putri No. 8, Batam',
@@ -143,7 +143,7 @@ class PasienSeeder extends Seeder
                 'foto' => 'foto/nina_maulani.jpg',
             ],
             [
-                'no_rm' => 1009,
+                'no_rm' =>'RM1009',
                 'id_pengguna' => 1,
                 'nama' => 'Eko Prasetyo',
                 'alamat' => 'Jl. Kapten A. Rivai No. 3, Palembang',
@@ -159,7 +159,7 @@ class PasienSeeder extends Seeder
                 'foto' => 'foto/eko_prasetyo.jpg',
             ],
             [
-                'no_rm' => 1010,
+                'no_rm' =>'RM1010',
                 'id_pengguna' => 1,
                 'nama' => 'Tina Sari',
                 'alamat' => 'Jl. AP Pettarani No. 11, Makassar',

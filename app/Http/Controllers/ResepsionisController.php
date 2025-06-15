@@ -49,9 +49,24 @@ class ResepsionisController extends Controller
     }
     public function storeDataPersonal(Request $request)
     {
-        // Simpan ke tabel pasien
-        $pasien = PasienModel::create([
-            'no_rm' => $request->no_rm,
+        // Ambil no_rm terakhir
+        $lastNoRM = DB::table('pasien')
+            ->orderBy('id_pasien', 'desc')
+            ->limit(1)
+            ->value('no_rm');
+
+        if ($lastNoRM && preg_match('/RM(\d+)/', $lastNoRM, $matches)) {
+            $lastNumber = (int) $matches[1];
+        } else {
+            $lastNumber = 0;
+        }
+
+        $newNumber = $lastNumber + 1;
+        $newNoRM = 'RM' . str_pad($newNumber, 4, '0', STR_PAD_LEFT); // Contoh: RM0001
+
+        // Simpan data ke tabel pasien menggunakan Query Builder
+        $id_pasien = DB::table('pasien')->insertGetId([
+            'no_rm' => $newNoRM,
             'id_pengguna' => 1,
             'nama' => $request->nama,
             'jenis_kelamin' => $request->jenis_kelamin,
@@ -66,9 +81,8 @@ class ResepsionisController extends Controller
             'alamat' => $request->alamat,
         ]);
 
-        // Redirect ke form isi data kesehatan dengan id_pasien
-        // dd($pasien);
-        return redirect()->route('resepsionis-tambah-kesehatan', ['id' => $pasien->id_pasien]);
+        // Redirect ke form isi data kesehatan
+        return redirect()->route('resepsionis-tambah-kesehatan', ['id' => $id_pasien]);
     }
 
     public function tambahDataKesehatanPasien($id)

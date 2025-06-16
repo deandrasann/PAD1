@@ -13,11 +13,13 @@ class ObatController extends Controller
         if ($request->has('search')) {
             $search = $request->input('search');
             $data_obat = DB::table('obat')
-            ->WhereNull('obat.deleted_at')
-            ->orWhere('indikasi', $search)
-            ->orWhere('golongan_obat', 'like',"%" . $search . "%")
-            ->orWhere('nama_obat', 'like',"%" . $search . "%")
-            ->paginate(5);
+                ->whereNull('deleted_at')
+                ->where(function($query) use ($search) {
+                    $query->where('indikasi', 'like', '%' . $search . '%')
+                        ->orWhere('golongan_obat', 'like', '%' . $search . '%')
+                        ->orWhere('nama_obat', 'like', '%' . $search . '%');
+                })
+                ->paginate(5);
         } else {
             $data_obat = DB::table('obat')
                 ->WhereNull('obat.deleted_at')

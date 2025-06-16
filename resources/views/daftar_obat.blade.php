@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container mt-4">
-        <h2>DATA RESEP OBAT</h2>
+        <h2>DATA OBAT</h2>
 
         <div class="d-flex justify-content-between align-items-center mb-3">
             <!-- Search Bar -->
@@ -87,7 +87,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="5" class="text-center">Tidak Ada Data</td>
+                            <td colspan="7" class="text-center">Tidak Ada Data</td>
                         </tr>
                     @endforelse
                 </tbody>

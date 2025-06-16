@@ -387,13 +387,19 @@
                         </div>
 
                         <!-- Kebutuhan Sediaan & Satuan -->
-                        <div class="row mb-3">
-                            <label for="kekuatansediaaneditan" class="col-md-4 col-form-label">Kebutuhan Sediaan</label>
-                            <div class="col-md-5">
-                                <input type="text" class="form-control" id="kekuatansediaaneditan"
-                                    name="kekuatan_sediaan" placeholder="Kebutuhan Sediaan">
-                            </div>
+                    <div class="row mb-3">
+                        <label for="kekuatansediaaneditan" class="col-md-4 col-form-label">Kebutuhan Sediaan</label>
+                        <div class="col-md-5">
+                            <input type="text" class="form-control @error('kekuatan_sediaan') is-invalid @enderror"
+                                id="kekuatansediaaneditan"
+                                name="kekuatan_sediaan"
+                                placeholder="Kebutuhan Sediaan">
+                            @error('kekuatan_sediaan')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
+                    </div>
+
 
                         <div class="row mb-3">
                             <label for="statussediaedit" class="col-md-4 col-form-label">Status Ketersediaan</label>
@@ -527,16 +533,19 @@
         document.getElementById("indikasieditan").value = data[1].innerText;
         document.getElementById("golonganobateditan").value = data[2].innerText;
         document.getElementById("namaobateditan").value = data[3].innerText;
-        document.getElementById("bentukobateditan").value = data[6].innerText;
-        document.getElementById("efeksampingeditan").value = data[8].innerText;
-        document.getElementById("kontraindikasieditan").value = data[9].innerText;
-        document.getElementById("kekuatansediaaneditan").value = data[10].innerText;
-        document.getElementById("interaksiobateditan").value = data[11].innerText;
-        document.getElementById("petunjukpenyimpananeditan").value = data[12].innerText;
-        document.getElementById("polamakaneditan").value = data[13].innerText;
-        document.getElementById("informasitambahaneditan").value = data[14].innerText;
+        document.getElementById("bentukobateditan").value = data[7].innerText;
+        document.getElementById("efeksampingeditan").value = data[9].innerText;
+        document.getElementById("kontraindikasieditan").value = data[10].innerText;
+        document.getElementById("kekuatansediaaneditan").value = data[4].innerText;
+        document.getElementById("interaksiobateditan").value = data[12].innerText;
+        document.getElementById("petunjukpenyimpananeditan").value = data[13].innerText;
+        document.getElementById("polamakaneditan").value = data[14].innerText;
+        document.getElementById("informasitambahaneditan").value = data[15].innerText;
         // document.getElementById("statussediaedit").value = data[15].innerText;
         // console.log(data);
+        for (let i = 0; i < data.length; i++) {
+    console.log(`data[${i}] = "${data[i].innerText.trim()}"`);
+}
         // ==== PERBAIKAN PADA BAGIAN STATUS KETERSEDIAAN ====
         let status = data[15].innerText.trim(); // Pastikan tidak ada spasi
         let select = document.getElementById("statussediaedit");

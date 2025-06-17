@@ -296,5 +296,43 @@
         </div>
     </div>
     @stack('scripts')
+    <script>
+$(document).ready(function () {
+    // Pengaturan global untuk menyertakan CSRF token di semua request AJAX
+    // Ini PENTING untuk request POST ke Laravel
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
+    // Event listener saat elemen dengan id="logoutButton" diklik
+    $('#logoutButton').on('click', function(event) {
+        // Mencegah aksi default dari link (yaitu pindah halaman)
+        event.preventDefault();
+
+        // Kirim request POST ke route 'logout'
+        $.ajax({
+            url: '{{ route("logout") }}', // URL dari API logout Anda
+            method: 'POST',
+            success: function(response) {
+                // Jika server merespons dengan sukses (logout berhasil)
+                console.log(response.message); // Pesan: "Successfully logged out"
+                
+                // Arahkan pengguna ke halaman login
+                window.location.href = '/login'; // Ganti jika URL login Anda berbeda
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                // Jika ada error (misal: sesi sudah habis atau error server)
+                console.error('Logout failed:', errorThrown);
+                
+                // Sebagai fallback, tetap arahkan ke halaman login
+                alert('Gagal melakukan logout. Mengarahkan kembali ke halaman login.');
+                window.location.href = '/login';
+            }
+        });
+    });
+});
+</script>
 </body>
 </html>

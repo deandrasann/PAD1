@@ -7,6 +7,7 @@
         </a>
         <h2 class="fw-bold text-center mb-4 flex-grow-1" style="color:black">Obat Anda</h2>
     </div>
+    <div id="detailWarning"></div>
 
     <!-- Card Obat -->
     <div id="list-obat"></div>
@@ -53,6 +54,9 @@ $(document).ready(function() {
 
               rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
               return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
+          }
+          function closeAlert(){
+            $('#detailWarning').hide()
           }
 
         function fetchData() {
@@ -154,13 +158,28 @@ $(document).ready(function() {
                                     modalBody.append(detailHtml);
                                 });
                             } else {
-                                alert('Data obat tidak ditemukan.');
+                                $('#detailWarning').html(`
+                            <div class="alert alert-danger d-flex justify-content-between" role="alert">
+                        Data obat tidak ditemukan.
+                        <i class="fa fa-close" onclick="document.getElementById('detailWarning').style.display='none'"></i>
+                            </div>
+                            `)
                             }
                           } else {
-                            alert('Resep belum diserahkan.');
+                            $('#detailWarning').html(`
+                            <div class="alert alert-danger d-flex justify-content-between" role="alert">
+                            Resep belum diserahkan.
+                            <i class="fa fa-close" onclick="document.getElementById('detailWarning').style.display='none'"></i>
+                            </div>
+                            `)
                           }
                         } else {
-                            alert('Data resep tidak ditemukan.');
+                            $('#detailWarning').html(`
+                            <div class="alert alert-danger d-flex justify-content-between" role="alert">
+                        Data resep tidak ditemukan.
+                        <i class="fa fa-close" onclick="document.getElementById('detailWarning').style.display='none'"></i>
+                            </div>
+                            `)
                         }
                     } else {
                         alert('Gagal mengambil data obat: ' + response.message);

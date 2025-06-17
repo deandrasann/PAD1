@@ -327,3 +327,11 @@
     @endcan
 
 @endsection
+@push('scripts')
+    <script>
+        let role = "{{ Auth::user() ? Auth::user()->id_role : '' }}"
+        if(role == "R05"){
+            window.location.href = '/hasil-scan'
+        }
+    </script>
+@endpush

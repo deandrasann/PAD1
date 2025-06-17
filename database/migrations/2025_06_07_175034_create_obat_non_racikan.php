@@ -20,7 +20,7 @@ return new class extends Migration
             $table->integer('id_dokter')->nullable();
             $table->integer('id_pasien')->nullable();
             $table->integer('id_pemeriksaan_akhir')->nullable();
-            $table->string('nama_obat')->nullable();
+            $table->integer('kode_obat')->nullable();
             $table->string('jml_obat')->nullable();
             $table->string('bentuk_obat')->nullable();
             $table->string('harga_satuan')->nullable();
@@ -46,6 +46,13 @@ return new class extends Migration
                 ->foreign('id_pemeriksaan_akhir')
                 ->references('id_pemeriksaan_akhir')
                 ->on('pemeriksaan_akhir')
+                ->cascadeOnUpdate()
+                ->cascadeOnDelete();
+
+            $table
+                ->foreign('kode_obat')
+                ->references('kode_obat')
+                ->on('obat')
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();
         });

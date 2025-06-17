@@ -51,247 +51,251 @@
             <div class="my-2">
                 <strong>
                     <div class="label">Tanggal Pemeriksaan</div>
-                    <div>24/10/2024</div>
+                    <div id="tanggal_pemeriksaan"></div>
                 </strong>
 
             </div>
 
             <div class="doctor-info">
-                <div>dr. Andi Junaidi</div>
-                <div>Poli Umum</div>
+                <div id="nama_dokter"></div>
+                <div id="spesialis_dokter"></div>
             </div>
             <a href="{{route('daftar-obat-pasien')}}" class="d-flex justify-content-end" style="text-decoration: none; color:black"> Lihat Obat <span class="fw-bold ms-4"> > </span></a>
         </div>
     </div>
     <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
-        <div class="card p-4">
-            <div class="time-info d-flex justify-content-between mb-3">
-                <div class="fw-bold">Tanggal : 12-11-2018</div>
-                <div class="fw-bold">Jam : 06:00 AM</div>
-            </div>
-            <hr>
-
-            <!-- Informasi Obat -->
-            <div class="mb-4">
-                <p class="card-title fw-bold">Nama Obat: Amlodipine Tablet 10 mg</p>
-                <p class="card-text">Aturan Pakai: 3 kali sehari 1 tablet</p>
-            </div>
-
-            <!-- Status -->
-            <div>
-                <h6 class="mb-3">Status:</h6>
-                <div class="d-flex align-items-start flex-column  ">
-                    <div class="form-check status-option">
-                        <input class="form-check-input" type="radio" name="status" id="sudahMinum" checked>
-                        <label class="form-check-label text-success" for="sudahMinum ">
-                            Sudah Minum
-                        </label>
-                    </div>
-                    <div class="form-check status-option">
-                        <input class="form-check-input" type="radio" name="status" id="tundaMinum">
-                        <label class="form-check-label text-primary" for="tundaMinum">
-                            Tunda Minum
-                        </label>
-                    </div>
-                    <div class="form-check status-option">
-                        <input class="form-check-input" type="radio" name="status" id="tidakMinum">
-                        <label class="form-check-label text-danger" for="tidakMinum">
-                            Tidak Minum
-                        </label>
-                    </div>
-                </div>
-                <div class="d-flex justify-content-end">
-                    <button class="btn btn-resep">Simpan</button>
-                </div>
-            </div>
-
-        </div>
+        <div id="list-jadwal-minum-obat"></div>
     </div>
     <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
-        <div class="card p-4">
-            <div class="time-info d-flex justify-content-between mb-3">
-                <div class="fw-bold">Tanggal : 12-11-2018</div>
-                <div class="fw-bold">Jam : 06:00 AM</div>
-            </div>
-            <hr>
-
-            <!-- Informasi Obat -->
-            <div class="mb-4">
-                <p class="card-title fw-bold">Nama Obat: Amlodipine Tablet 10 mg</p>
-                <p class="card-text">Aturan Pakai: 3 kali sehari 1 tablet</p>
-            </div>
-
-            <!-- Status -->
-            <div>
-                <hp class="mb-3">Status:</p>
-                <p class="text-success">Sudah Minum</p>
-            </div>
-
-        </div>
+       <div id="list-riwayat-minum-obat"></div>
     </div>
   </div>
-
-{{-- <nav class="nav">
-    <a class="nav-link" href="{{ route('hasil.scan') }}">Data Resep</a>
-    <a class="nav-link" href="{{ route('jadwal.obat') }}">Jadwal Minum Obat</a>
-    <a class="nav-link" href="{{ route('laporan.obat') }}">Laporan Minum Obat</a>
-    <a class="nav-link" href="{{ route('riwayat.minum.obat.pasien') }}">Riwayat Minum Obat</a>
-</nav>
-<h2 class="my-4">Data Resep Pasien</h2>
-<main class="m-3" style="color: black">
-    <div class="row m-2">
-        <div class="col-3"><strong>No Resep</strong></div>
-        <div class="col-1">:</div>
-        <div class="col-5">-</div>
-    </div>
-    <div class="row m-2">
-        <div class="col-3"><strong>Tanggal Resep</strong></div>
-        <div class="col-1">:</div>
-        <div class="col-5">-</div>
-    </div>
-    <div class="row m-2">
-        <div class="col-3"><strong>Jumlah Obat</strong></div>
-        <div class="col-1">:</div>
-        <div class="col-5">-</div>
-    </div>
-    <div class="d-flex justify-content-center align-items-center p-4">
-        <div class="card p-4 w-100 custom-card">
-            <table class="table table-striped table-hover custom-table">
-                <thead class="table-primary">
-                    <tr>
-                        <th class="py-2">No RM</th>
-                        <th class="py-2">Nama Obat</th>
-                        <th class="py-2">Status</th>
-                        <th class="py-2" style="white-space: nowrap">Aksi</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td style="width: 250px">
-                            <div class="d-flex">
-                                <button class="btn btn-resep p-2 detail-btn me-2" data-bs-toggle="modal" data-bs-target="#detailObatModal">
-                                    <img src="{{ asset('images/detail icon.png') }}" class="me-2">Detail
-                                </button>
-                                <button class="btn btn-danger p-2 delete-btn" data-bs-toggle="modal" data-bs-target="#HapusObatModal">
-                                    <img src="{{ asset('images/atur icon.png') }}" class="me-2">Atur Jadwal
-                                </button>
-                            </div>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-</main>
-
-<!-- Detail Modal -->
-<div class="modal fade" id="detailObatModal" tabindex="-1" aria-labelledby="detailObatModalLabel"
-aria-hidden="true" style="color: black">
-    <div class="modal-dialog modal-lg modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="detailObatModalLabel">Detail Data Obat</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                {{-- @foreach ($data as $item) --}}
-                {{-- <table class="table table-borderless">
-                    <tbody>
-                        <tr>
-                            <th>Nama Obat </th>
-                            <td id="modalNama"></td>
-                        </tr>
-                        <tr>
-                            <th>Dosis</th>
-                            <td id="modalIndikasi"></td>
-                        </tr>
-                        <tr>
-                            <th>Aturan Pakai</th>
-                            <td id="modalGolongan"></td>
-                        </tr>
-                        <tr>
-                            <th>Waktu Minum</th>
-                            <td id="modalEfek"></td>
-                        </tr>
-                        <tr>
-                            <th>Keterangan</th>
-                            <td id="modalKontra"></td>
-                        </tr>
-                        <tr>
-                            <th>Jumlah Kali Minum</th>
-                            <td id="modalPola"></td>
-                        </tr>
-                        <tr>
-                            <th>Jumlah Obat</th>
-                            <td id="modalTambahan"></td>
-                        </tr>
-                        <tr>
-                            <th>Efek Samping</th>
-                            <td id="modalTambahan"></td>
-                        </tr>
-                        <tr>
-                            <th>Kontradiksi</th>
-                            <td id="modalTambahan"></td>
-                        </tr>
-                        <tr>
-                            <th>Interaksi Obat</th>
-                            <td id="modalTambahan"></td>
-                        </tr>
-                        <tr>
-                            <th>Petunjuk Penyimpanan</th>
-                            <td id="modalTambahan"></td>
-                        </tr>
-                        <tr>
-                            <th>Pola Makan Hidup Sehat</th>
-                            <td id="modalTambahan"></td>
-                        </tr>
-                        <tr>
-                            <th>Informasi Tambahan</th>
-                            <td id="modalTambahan"></td>
-                        </tr>
-                    </tbody>
-                </table>
-                {{-- @endforeach --}}
-            {{-- </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-resep" data-bs-dismiss="modal">Kembali</button>
-            </div>
-
-        </div>
-    </div>
-</div> --}}
-<!--Hapus Obat Modal-->
-{{-- <div class="modal fade" id="HapusObatModal" tabindex="-1" aria-labelledby="HapusObatModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="HapusObatModalLabel">Atur Jadwal Minum Obat Anda</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form>
-                    <div class="mb-3">
-                        <label for="obat1" class="form-label">Obat 1</label>
-                        <input type="datetime-local" class="form-control" id="obat1" name="obat1">
-                    </div>
-                    <div class="mb-3">
-                        <label for="obat2" class="form-label">Obat 2</label>
-                        <input type="datetime-local" class="form-control" id="obat2" name="obat2">
-                    </div>
-                    <div class="mb-3">
-                        <label for="obat3" class="form-label">Obat 3</label>
-                        <input type="datetime-local" class="form-control" id="obat3" name="obat3">
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                <button type="button" class="btn btn-primary">Simpan</button>
-            </div>
-        </div>
-    </div>
-</div> --}}
 @endsection
+
+@push('scripts')
+<script>
+    $(document).ready(function() {
+        // Fungsi untuk mengambil dan menampilkan data jadwal
+        function fetchData() {
+            $.ajax({
+                url: '{{ route('api.pasien.hasil-scan') }}',
+                method: 'GET',
+                success: function(response) {
+                    if (response.status === 'success') {
+                        let hasilData = response.data;
+                        if(hasilData.data_pasien) {
+                            $('#sidebar_norm').text(hasilData.data_pasien.no_rm);
+                            $('#sidebar_nama').text(hasilData.data_pasien.nama);
+                            $('#sidebar_jeniskelamin').text(hasilData.data_pasien.jenis_kelamin);
+                            $('#sidebar_tanggallahir').text(hasilData.data_pasien.tanggal_lahir);
+                            $('#sidebar_notelp').text(hasilData.data_pasien.no_telp);
+                            $('#sidebar_alamat').text(hasilData.data_pasien.alamat);
+                        } else {
+                            console.warn('Data pasien tidak ditemukan.');
+                        }
+                        if(hasilData.data_pemeriksaan) {
+                            const dateString = hasilData.data_pemeriksaan.created_at;
+                            const date = new Date(dateString);
+
+                            const year = date.getFullYear();
+                            const month = date.getMonth() + 1; // getMonth() is 0-indexed
+                            const day = date.getDate();
+                            // const hours = date.getHours();
+                            // const minutes = date.getMinutes();
+                            // const seconds = date.getSeconds();
+
+                            $('#tanggal_pemeriksaan').text(`${day}/${month}/${year}`);
+                            $('#nama_dokter').text(hasilData.data_pemeriksaan.dokter.nama_dokter);
+                            $('#spesialis_dokter').text(hasilData.data_pemeriksaan.dokter.spesialis);
+
+
+                        } else {
+                            console.warn('Data pemeriksaan tidak ditemukan.');
+                        }
+
+                        if(hasilData.data_minum_obat && Array.isArray(hasilData.data_minum_obat)) {
+                            let jadwalHtml = '';
+                            let riwayatHtml = '';
+                            const now = new Date(); // Waktu saat ini
+                            
+                            hasilData.data_minum_obat.forEach(function(item) {
+                                // Periksa apakah item.jam_minum adalah string dan tidak kosong
+                                const [hours, minutes, seconds] = item.jam_minum.split(':').map(Number);
+                                const itemDateTime = new Date(item.tanggal_minum);
+                                itemDateTime.setHours(hours, minutes, 0, 0);
+                                console.log(itemDateTime)
+
+                                // Membedakan antara Jadwal dan Riwayat
+                                if (itemDateTime > now) {
+                                    // Ini adalah jadwal yang akan datang
+                                    jadwalHtml += `
+                                        <div class="card p-4 mb-5">
+                                            <form class="update-status-form" data-id="${item.id_riwayat}">
+                                                @csrf {{-- Tambahkan CSRF token --}}
+                                                <div class="time-info d-flex justify-content-between mb-3">
+                                                    <div class="fw-bold">Tanggal : ${item.tanggal_minum}</div>
+                                                    <div class="fw-bold">Jam : ${item.jam_minum}</div>
+                                                </div>
+                                                <hr>
+                                                <div class="mb-4">
+                                                    <p class="card-title fw-bold">Nama Obat: ${item.nama_obat}</p>
+                                                    <p class="card-text">Aturan Pakai: ${item.aturan_pakai}</p>
+                                                </div>
+                                                <div>
+                                                    <h6 class="mb-3">Status:</h6>
+                                                    <div class="d-flex align-items-start flex-column">
+                                                        <div class="form-check status-option">
+                                                            <input class="form-check-input" type="radio" name="status" id="sudahMinum-${item.id_riwayat}" value="sudah_minum" ${item.status === 'sudah_minum' ? 'checked' : ''}>
+                                                            <label class="form-check-label text-success" for="sudahMinum-${item.id_riwayat}">
+                                                                Sudah Minum
+                                                            </label>
+                                                        </div>
+                                                        <div class="form-check status-option">
+                                                            <input class="form-check-input" type="radio" name="status" id="tundaMinum-${item.id_riwayat}" value="tunda_minum" ${item.status === 'tunda_minum' ? 'checked' : ''}>
+                                                            <label class="form-check-label text-primary" for="tundaMinum-${item.id_riwayat}">
+                                                                Tunda Minum
+                                                            </label>
+                                                        </div>
+                                                        <div class="form-check status-option">
+                                                            <input class="form-check-input" type="radio" name="status" id="tidakMinum-${item.id_riwayat}" value="tidak_minum" ${item.status === 'tidak_minum' ? 'checked' : ''}>
+                                                            <label class="form-check-label text-danger" for="tidakMinum-${item.id_riwayat}">
+                                                                Tidak Minum
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="d-flex justify-content-end mt-3">
+                                                        <button class="btn btn-resep" type="submit">Simpan</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    `;
+                                } else {
+                                    // Ini adalah riwayat (sudah lewat waktu atau status sudah diubah)
+                                    let statusText = '';
+                                    let statusClass = '';
+                                    if (item.status === 'sudah_minum') {
+                                        statusText = 'Sudah Minum';
+                                        statusClass = 'text-success';
+                                    } else if (item.status === 'tunda_minum') {
+                                        statusText = 'Tunda Minum';
+                                        statusClass = 'text-primary'; // Menggunakan text-primary untuk tunda minum
+                                    } else if (item.status === 'tidak_minum') {
+                                        statusText = 'Tidak Minum';
+                                        statusClass = 'text-danger';
+                                    } else {
+                                        statusText = 'Belum Minum (Terlewat)';
+                                        statusClass = 'text-warning'; // Untuk jadwal yang terlewat tapi belum diubah
+                                    }
+
+                                    riwayatHtml += `
+                                        <div class="card p-4 mb-5">
+                                            <div class="time-info d-flex justify-content-between mb-3">
+                                                <div class="fw-bold">Tanggal : ${item.tanggal_minum}</div>
+                                                <div class="fw-bold">Jam : ${item.jam_minum}</div>
+                                            </div>
+                                            <hr>
+                                            <div class="mb-4">
+                                                <p class="card-title fw-bold">Nama Obat: ${item.nama_obat}</p>
+                                                <p class="card-text">Aturan Pakai: ${item.aturan_pakai}</p>
+                                            </div>
+                                            <div>
+                                                <h6 class="mb-3">Status:</h6>
+                                                <p class="${statusClass}">${statusText}</p>
+                                            </div>
+                                        </div>
+                                    `;
+                                }
+                            });
+                            $('#list-jadwal-minum-obat').html(jadwalHtml || '<p class="text-center">Tidak ada jadwal minum obat yang akan datang.</p>');
+                            $('#list-riwayat-minum-obat').html(riwayatHtml || '<p class="text-center">Tidak ada riwayat minum obat.</p>');
+
+                            // Attach event listener to the forms after they are rendered
+                            attachFormSubmitListener();
+
+                        } else {
+                            $('#list-jadwal-minum-obat').html('<p class="text-center">Data jadwal obat tidak ditemukan atau kosong.</p>');
+                            $('#list-riwayat-minum-obat').html('<p class="text-center">Data riwayat obat tidak ditemukan atau kosong.</p>');
+                        }
+
+                    } else {
+                        alert('Gagal mengambil data: ' + response.message);
+                        console.error('API Error:', response.message);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error("AJAX Error: " + status + error + " | Response: " + xhr.responseText);
+                    alert('Terjadi kesalahan saat mengambil data.');
+                }
+            });
+        }
+
+        // Fungsi untuk melampirkan event listener ke form update status
+        function attachFormSubmitListener() {
+            $('.update-status-form').off('submit').on('submit', function(e) {
+                e.preventDefault(); // Mencegah form submit default
+
+                const form = $(this);
+                const jadwalId = form.data('id');
+                const selectedStatus = form.find('input[name="status"]:checked').val();
+
+                if (!selectedStatus) {
+                    alert('Mohon pilih status minum obat.');
+                    return;
+                }
+
+                $.ajax({
+                    url: `/api/pasien/jadwal-minum/${jadwalId}`, // URL POST/PUT ke API
+                    method: 'POST', // Menggunakan POST karena method "PUT" tidak didukung langsung oleh form HTML
+                    data: {
+                        _token: $('meta[name="csrf-token"]').attr('content'), // CSRF Token
+                        _method: 'PUT', // Mengindikasikan ini adalah permintaan PUT di Laravel
+                        status: selectedStatus
+                    },
+                    beforeSend: function() {
+                        form.find('button[type="submit"]').prop('disabled', true).text('Menyimpan...');
+                    },
+                    success: function(response) {
+                        if (response.status === 'success') {
+                            alert('Status minum obat berhasil diperbarui!');
+                            fetchData(); // Muat ulang data untuk merefleksikan perubahan
+                        } else {
+                            alert('Gagal memperbarui status: ' + response.message);
+                            console.error('API Error:', response.message, response.errors);
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error("AJAX Error updating status:", status, error, xhr.responseText);
+                        let errorMessage = 'Terjadi kesalahan saat memperbarui status.';
+                        try {
+                            const errorResponse = JSON.parse(xhr.responseText);
+                            if (errorResponse.message) {
+                                errorMessage = errorResponse.message;
+                            }
+                            if (errorResponse.errors) {
+                                for (const key in errorResponse.errors) {
+                                    errorMessage += `\n${key}: ${errorResponse.errors[key].join(', ')}`;
+                                }
+                            }
+                        } catch (e) {
+                            // ignore
+                        }
+                        alert(errorMessage);
+                    },
+                    complete: function() {
+                        form.find('button[type="submit"]').prop('disabled', false).text('Simpan');
+                    }
+                });
+            });
+        }
+
+        fetchData(); // Panggil fetchData saat halaman pertama kali dimuat
+
+        // Event listener untuk perubahan tab, agar fetchData dipanggil kembali
+        // untuk memastikan data terbaru (terutama setelah update status)
+        $('a[data-bs-toggle="pill"]').on('shown.bs.tab', function (e) {
+            fetchData();
+        });
+    });
+</script>
+@endpush

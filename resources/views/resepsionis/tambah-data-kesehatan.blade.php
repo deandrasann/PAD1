@@ -99,9 +99,6 @@
                     <label class="form-label">Pilih Dokter</label>
                     <select class="form-select js-dokter-select" name="id_dokter" required>
                         <option value="" disabled selected>-- Pilih Dokter --</option>
-                        @foreach ($dokters as $dokter)
-                            <option value="{{ $dokter->id_dokter }}">{{ $dokter->nama_dokter }}</option>
-                        @endforeach
                     </select>
                 </div>
             </div>

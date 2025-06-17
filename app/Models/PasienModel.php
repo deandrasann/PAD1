@@ -20,7 +20,7 @@ class PasienModel extends Model
     public $incrementing = true;
 
     protected $fillable = [
-        'nama_pasien',
+        'nama',
         'no_rm',
         'nama',
         'id_pengguna',

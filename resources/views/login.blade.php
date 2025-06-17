@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="csrf-token" content="{{ csrf_token() }}">
   <title>Apotech</title>
   <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -54,7 +55,7 @@
       </div>
       <div class="col-md-6 p-4">
         <h3 class="text-center">Masuk</h3>
-        <form action="{{ route('login') }}" method="POST">
+        <form id="loginForm">
           @csrf
           <div class="mb-3">
             <label for="username" class="form-label">Username</label>
@@ -74,6 +75,8 @@
                 </button>
               </div>
           </div>
+          <div id="error-message" class="alert alert-danger d-none" role="alert"></div>
+          
           <div class="form-check mb-3 d-flex justify-content-between align-items-center">
             <div>
               <input class="form-check-input" type="checkbox" id="rememberMe">
@@ -84,7 +87,7 @@
             <a href="{{'forgot-password'}}" class="text-end" style="color: black">Lupa password?</a>
           </div>
           <div class="d-grid">
-            <button type="submit" class="btn btn-primary">Login</button>
+            <button type="submit" class="btn btn-primary" id="submitButton">Login</button>
           </div>
           <div class="text-center my-3">OR</div>
           <div class="d-grid">
@@ -97,6 +100,7 @@
       </div>
     </div>
   </div>
+  
 </body>
 
 <script>
@@ -114,4 +118,112 @@
         : "{{ asset('images/show.png') }}";
     });
   </script>
+
+  {{-- <script>
+$(document).ready(function () {
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
+    $('#loginForm').on('submit', function (event) {
+        // 1. Hentikan aksi default form
+        event.preventDefault();
+
+        const form = $(this);
+        const submitButton = $('#submitButton');
+        const errorMessage = $('#error-message');
+        const originalButtonText = submitButton.html();
+
+        // Lakukan request AJAX
+        $.ajax({
+            url: '{{ route("apilogin") }}', // Pastikan route name ini benar
+            method: 'POST',
+            data: form.serialize(), // Mengambil data form secara otomatis
+            beforeSend: function() {
+                // Aksi sebelum request dikirim: nonaktifkan tombol dan tampilkan spinner
+                errorMessage.addClass('d-none').text('');
+                submitButton.prop('disabled', true).html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...');
+            },
+            success: function(response) {
+                // Aksi jika request berhasil (HTTP Status 200 OK)
+                // Redirect ke halaman beranda
+                window.location.href = '/beranda'; // <-- GANTI DENGAN URL TUJUAN ANDA
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                // Aksi jika request gagal (HTTP Status 4xx atau 5xx)
+                if (jqXHR.status === 422) {
+                    // Error validasi dari Laravel
+                    const errors = jqXHR.responseJSON.errors;
+                    const firstError = Object.values(errors)[0][0];
+                    errorMessage.text(firstError).removeClass('d-none');
+                } else {
+                    // Error lainnya
+                    const message = jqXHR.responseJSON.message || 'Terjadi kesalahan saat login.';
+                    errorMessage.text(message).removeClass('d-none');
+                }
+            },
+            complete: function() {
+                // Aksi yang selalu dijalankan setelah request selesai (baik sukses maupun gagal)
+                // Aktifkan kembali tombolnya
+                submitButton.prop('disabled', false).html(originalButtonText);
+            }
+        });
+    });
+  </script> --}}
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script>
+$(document).ready(function () {
+
+    // Pengaturan global untuk CSRF token
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
+    // Event listener untuk form login
+    $('#loginForm').on('submit', function (event) { // <-- BUKA blok submit
+
+        // 1. Hentikan aksi default form
+        event.preventDefault();
+
+        const form = $(this);
+        const submitButton = $('#submitButton');
+        const errorMessage = $('#error-message');
+        const originalButtonText = submitButton.html();
+
+        // Lakukan request AJAX
+        $.ajax({
+            url: '{{ route("apilogin") }}',
+            method: 'POST',
+            data: form.serialize(),
+            beforeSend: function() {
+                errorMessage.addClass('d-none').text('');
+                submitButton.prop('disabled', true).html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...');
+            },
+            success: function(response) {
+                window.location.href = '/beranda';
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                if (jqXHR.status === 422) {
+                    const errors = jqXHR.responseJSON.errors;
+                    const firstError = Object.values(errors)[0][0];
+                    errorMessage.text(firstError).removeClass('d-none');
+                } else {
+                    const message = jqXHR.responseJSON.message || 'Terjadi kesalahan saat login.';
+                    errorMessage.text(message).removeClass('d-none');
+                }
+            },
+            complete: function() {
+                submitButton.prop('disabled', false).html(originalButtonText);
+            }
+        });
+
+    }); // <-- TUTUP blok submit
+
+}); // <-- TUTUP blok document.ready (INI YANG KEMUNGKINAN BESAR HILANG)  
+</script>
+
 </html>

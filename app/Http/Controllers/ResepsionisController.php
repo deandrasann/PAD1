@@ -11,6 +11,32 @@ use Carbon\Carbon;
 
 class ResepsionisController extends Controller
 {
+    public function index(Request $request){
+        // $data_pengawas =  DB::table('users')
+        // ->join('pengawas', 'users.id_pengguna', '=', 'pengawas.id_pengguna')
+        // ->select('users.*', 'pengawas.*')
+        // ->paginate(5);
+    // dd($data_pengawas);
+    if ($request->has('search')) {
+        $search = $request->input('search');
+        $data_resepsionis = DB::table('users')
+        ->join('resepsionis', 'users.id_pengguna', '=', 'resepsionis.id_pengguna')
+        ->orWhere('users.username', 'like',"%" . $search . "%")
+        ->orWhere('resepsionis.nama_resepsionis', 'like',"%" . $search . "%")
+        ->orWhere('users.email', 'like',"%" . $search . "%")
+        ->paginate(5);
+    } else {
+        $data_resepsionis = DB::table('users')
+        ->join('resepsionis', 'users.id_pengguna', '=', 'resepsionis.id_pengguna')
+        ->paginate(5);
+    }
+
+    return view('admin.jumlah-resepsionis', compact('data_resepsionis'));
+    }
+
+    public function tambahResepsionis() {
+        return view('admin.tambah-resepsionis');
+    }
     public function inputDataPasien(Request $request)
     {
         if ($request->has('search')) {

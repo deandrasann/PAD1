@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('resep_obat', function (Blueprint $table) {
             $table->integer('id_resep_obat',true);
             $table->integer('no_resep');
-            $table->integer('id_obat_racikan');
-            $table->integer('id_obat_non_racikan');
+            $table->integer('id_obat_racikan')->nullable();
+            $table->integer('id_obat_non_racikan')->nullable();
             $table->enum('jenis_obat', ['racikan ', 'non_racikan'])->nullable();
 
             $table

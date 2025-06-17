@@ -26,6 +26,8 @@ class DashboardController extends Controller
         $data_obat = DB::table('obat')->count('kode_obat');
         $data_apoteker = DB::table('apoteker')->count('id_apoteker');
         $data_pengawas = DB::table('pengawas')->count('id_pengawas');
+        $data_dokter = DB::table('dokter')->count('id_dokter');
+        $data_resepsionis = DB::table('resepsionis')->count('id_resepsionis');
         $data_pasien = DB::table('pasien')->count('id_pasien');
         $data_pasien_baru = DB::table('pasien')
             ->leftJoin('resep', 'pasien.id_pasien', '=', 'resep.id_pasien')  // Join tabel pasien dengan resep berdasarkan id_pasien
@@ -51,7 +53,6 @@ class DashboardController extends Controller
 
             // Cek apakah user ini punya dokter
             $dokter = DB::table('dokter')->where('id_pengguna', $idPengguna)->first();
-
             if ($dokter) {
                 $idDokter = $dokter->id_dokter;
 
@@ -79,7 +80,7 @@ class DashboardController extends Controller
             }
         }
 
-        return view('beranda', compact('data', 'data_pasien', 'data_obat', 'data_apoteker', 'data_pengawas', 'data_pasien', 'data_pasien_baru', 'pasienHariIni', 'totalPasien', 'totalPasienHariIni', 'pasienSelesai', 'pasienBelumDipanggil'));
+        return view('beranda', compact('data', 'data_pasien', 'data_obat', 'data_apoteker', 'data_pengawas','data_dokter', 'data_resepsionis', 'data_pasien', 'data_pasien_baru', 'pasienHariIni', 'totalPasien', 'totalPasienHariIni', 'pasienSelesai', 'pasienBelumDipanggil'));
     }
 
     public function pasienTerdaftar()

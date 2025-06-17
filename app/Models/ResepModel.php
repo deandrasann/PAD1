@@ -27,6 +27,7 @@ class ResepModel extends Model
         'kode_obat',
         'tgl_resep',
         'status_resep',
+        'status_diserahkan',
         'dosis',
         'jadwal_minum_obat',
     ];

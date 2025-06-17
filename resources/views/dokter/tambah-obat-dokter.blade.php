@@ -575,8 +575,10 @@
                     },
                     error: function(xhr) {
                         if (xhr.status === 422) {
+                            console.log(xhr.responseJSON);
                             const errors = xhr.responseJSON.errors;
                             let errorMessage = 'Validasi gagal:\n';
+                            console.log(errors)
                             for (const key in errors) {
                                 errorMessage += `- ${errors[key][0]}\n`;
                             }
@@ -796,6 +798,36 @@
                         })
                         .catch(err => console.error(err));
                 });
+                
             });
         </script>
     @endsection
+    @push('scripts')
+        <script>
+function fetchProfileData(id) {
+                $.ajax({
+                    url: '/api/pasien/get/byPemeriksaanAkhir/'+id,
+                    method: 'GET',
+                    success: function(response) {
+                        if (response.status === 'success') {
+                            const profile = response.data;
+                            $('#sidebar_norm').text(profile.no_rm || '-');
+                            $('#sidebar_nama').text(profile.nama || '-');
+                            $('#sidebar_jeniskelamin').text(profile.jenis_kelamin || '-');
+                            $('#sidebar_tanggallahir').text(profile.tanggal_lahir || '-');
+                            $('#sidebar_notelp').text(profile.no_telp || '-');
+                            $('#sidebar_alamat').text(profile.alamat || '-');
+                        } else {
+                            console.error('Gagal mengambil data profil:', response.message);
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error("AJAX Error fetching profile:", status, error, xhr.responseText);
+                    }
+                });
+            }
+
+            const pasienId = '{{ request()->route('id_pemeriksaan_akhir') }}';
+            fetchProfileData(pasienId)
+            </script>
+    @endpush

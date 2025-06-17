@@ -6,34 +6,46 @@
     <div class="card">
         <div class="card-body">
             <h3 class="card-title mb-4">TAMBAH PENGAWAS</h3>
-            <form action="{{ route('pengawas.store') }}" method="POST" enctype="multipart/form-data">
+            <form id="create-pengawas-form" enctype="multipart/form-data">
                 @csrf
                 <div class="row mb-3">
                     <div class="col-md-6">
                         <label for="username" class="form-label">Username</label>
-                        <input type="text" class="form-control" id="username" name="username" placeholder="Username">
+                        <input type="text" class="form-control @error('username') is-invalid @enderror" id="username" name="username" placeholder="Username" value="{{ old('username') }}">
+                        @if ($errors->has('username'))
+                        <span class="text-danger">{{ $errors->first('username') }}</span>
+                    @endif
                     </div>
                     
                     <div class="col-md-6">
                         <label for="namapengawas" class="form-label">Nama Pengawas</label>
-                        <input type="text" class="form-control" id="namapengawas" name="nama_pengawas" placeholder="Nama Pengawas">
+                        <input type="text" class="form-control @error('nama_pengawas') is-invalid @enderror" id="namapengawas" name="nama_pengawas" placeholder="Nama Pengawas" value="{{ old('nama_pengawas') }}">
+                        @if ($errors->has('nama_pengawas'))
+                        <span class="text-danger">{{ $errors->first('nama_pengawas') }}</span>
+                    @endif
                     </div>
                 </div>
                 <div class="row mb-3">
                     <div class="col-md-6">
                         <label for="email" class="form-label">Email</label>
-                        <input type="email" class="form-control" id="email" name="email" placeholder="Email">
+                        <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email" placeholder="Email" value="{{ old('email') }}">
+                        @if ($errors->has('email'))
+                        <span class="text-danger">{{ $errors->first('email') }}</span>
+                    @endif
                     </div>
                     <div class="col-md-6">
                         <label for="password" class="form-label">Password</label>
-                        <input type="password" class="form-control" id="password" name="password" placeholder="Password">
+                        <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" name="password" placeholder="Password">
+                        @if ($errors->has('password'))
+                        <span class="text-danger">{{ $errors->first('password') }}</span>
+                    @endif
                     </div>
                 </div>
                 <div class="row mb-3">
                     <div class="col-md-6">
                         <label for="photo" class="form-label">Foto</label>
                         <input type="file" class="form-control @error('foto') is-invalid @enderror"
-                                    id="photo" name="foto" value="{{ old('foto') }}">
+                                    id="photo" name="foto" value="{{ old('foto') }}"/>
                                 @if ($errors->has('foto'))
                                     <span class="text-danger">{{ $errors->first('foto') }}</span>
                                 @endif
@@ -50,6 +62,37 @@
     </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#create-pengawas-form').on('submit', function(e) {
+            e.preventDefault();
+
+            let formData = new FormData(this);
+
+            // Make the API request
+            $.ajax({
+                url: '{{ route("api.create.pengawas") }}',
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function(response) {
+                    if (response.status === 'success') {
+                        alert(response.message);
+                        window.location.href = '{{ route("jumlah-pengawas") }}';
+                    } else {
+                        alert(response.message);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    let errorMessage = xhr.responseJSON ? xhr.responseJSON.message : 'Something went wrong!';
+                    alert(errorMessage);
+                }
+            });
+        });
+    });
+</script>
+
 </body>
 @endsection

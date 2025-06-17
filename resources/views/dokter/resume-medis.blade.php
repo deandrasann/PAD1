@@ -423,6 +423,10 @@
 
     </div>
 
+    
+@endsection
+
+@push('scripts')
     {{-- <script>
         function saveStep2Data() {
             const anamnesa = $('#input-anamnesa').val();
@@ -571,6 +575,31 @@ function loadStep2Data() {
 }
 
 $(document).ready(function () {
+    function fetchProfileData(id) {
+                $.ajax({
+                    url: '/api/pasien/get/byPemeriksaanAwal/'+id,
+                    method: 'GET',
+                    success: function(response) {
+                        if (response.status === 'success') {
+                            const profile = response.data;
+                            $('#sidebar_norm').text(profile.no_rm || '-');
+                            $('#sidebar_nama').text(profile.nama || '-');
+                            $('#sidebar_jeniskelamin').text(profile.jenis_kelamin || '-');
+                            $('#sidebar_tanggallahir').text(profile.tanggal_lahir || '-');
+                            $('#sidebar_notelp').text(profile.no_telp || '-');
+                            $('#sidebar_alamat').text(profile.alamat || '-');
+                        } else {
+                            console.error('Gagal mengambil data profil:', response.message);
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error("AJAX Error fetching profile:", status, error, xhr.responseText);
+                    }
+                });
+            }
+
+            const pasienId = '{{ request()->route('id_pemeriksaan_awal') }}';
+            fetchProfileData(pasienId)
     // Inisialisasi awal select2
     $('.icd-select').select2({ 
         placeholder: '-- Pilih ICD 11 (2019) --', 
@@ -691,4 +720,4 @@ $(document).ready(function () {
             $('div.setup-panel div a.btn-resep').trigger('click');
         });
     </script>
-@endsection
+@endpush

@@ -145,6 +145,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     {{-- {-- link styles --} --}}
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -178,7 +179,6 @@
     </style>
 </head>
 
-<body>
     <body>
         {{-- Navbar --}}
         <nav class="navbar sticky-top bg-body-tertiary px-4 py-2"
@@ -222,7 +222,7 @@
                                         <img src="{{ asset('images/navbar pmo/vector-2.png') }}" class="img-fluid" alt="Icon" style="max-width: 50px; height: auto;">
                                     </div>
                                     <div>
-                                        <strong>No RM:</strong> <br> {{ $kunjungan->no_rm ?? '-' }}
+                                        <strong>No RM:</strong> <br><div id="sidebar_norm"></div>
                                     </div>
                                 </li>
                                 <li class="list-group-item p-3 d-flex align-items-start" style="color: #2E6084; width: 250px;">
@@ -230,7 +230,7 @@
                                         <img src="{{ asset('images/navbar pmo/vector.png') }}" class="img-fluid" alt="Icon" style="max-width: 50px; height: auto;">
                                     </div>
                                     <div>
-                                        <strong>Nama:</strong> <br> {{ $kunjungan->nama ?? '-' }}
+                                        <strong>Nama:</strong> <br><div id="sidebar_nama"></div>
                                     </div>
                                 </li>
                                 <li class="list-group-item p-3 d-flex align-items-start" style="color: #2E6084; width: 250px;">
@@ -238,7 +238,7 @@
                                         <img src="{{ asset('images/navbar pmo/vector-1.png') }}" class="img-fluid" alt="Icon" style="max-width: 50px; height: auto;">
                                     </div>
                                     <div>
-                                        <strong>Jenis Kelamin:</strong> <br> {{ $kunjungan->jenis_kelamin ?? '-' }}
+                                        <strong>Jenis Kelamin:</strong> <br><div id="sidebar_jeniskelamin"></div>
                                     </div>
                                 </li>
                                 <li class="list-group-item p-3 d-flex align-items-start" style="color: #2E6084; width: 250px;">
@@ -246,7 +246,7 @@
                                         <img src="{{ asset('images/navbar pmo/vector-5.png') }}" class="img-fluid" alt="Icon" style="max-width: 50px; height: auto;">
                                     </div>
                                     <div>
-                                        <strong>Tanggal Lahir:</strong> <br> {{ $kunjungan->tanggal_lahir ?? '-' }}
+                                        <strong>Tanggal Lahir:</strong> <br> <div id="sidebar_tanggallahir"></div>
                                     </div>
                                 </li>
                                 <li class="list-group-item p-3 d-flex align-items-start" style="color: #2E6084; width: 250px;">
@@ -254,7 +254,7 @@
                                         <img src="{{ asset('images/navbar pmo/vector-4.png') }}" class="img-fluid" alt="Icon" style="max-width: 50px; height: auto;">
                                     </div>
                                     <div>
-                                        <strong>No Telepon:</strong> <br> {{ $kunjungan->no_telp ?? '-' }}
+                                        <strong>No Telepon:</strong> <br> <div id="sidebar_notelp"></div>
                                     </div>
                                 </li>
                                 <li class="list-group-item p-3 d-flex align-items-start" style="color: #2E6084; width: 250px;">
@@ -262,7 +262,7 @@
                                         <img src="{{ asset('images/navbar pmo/vector-3.png') }}" class="img-fluid" alt="Icon" style="max-width: 50px; height: auto;">
                                     </div>
                                     <div>
-                                        <strong>Alamat:</strong> <br> {{ $kunjungan->alamat ?? '-' }}
+                                        <strong>Alamat:</strong> <br> <div id="sidebar_alamat"></div>
                                     </div>
                                 </li>
                             </ul>
@@ -290,6 +290,7 @@
             </div>
         </div>
 
+        @stack('scripts')
         <script>
             // Add responsive behavior for sidebar toggle
             $(document).ready(function() {
@@ -298,7 +299,7 @@
                 });
             });
         </script>
+        @stack('scripts')
     </body>
-</body>
 
 </html>

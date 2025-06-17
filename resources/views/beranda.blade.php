@@ -163,6 +163,36 @@
                         <img src="{{ asset('images/beranda/jumlah pasien.png') }}" class="ms-3">
                     </div>
                 </div>
+                <div class="container-row-2 py-3 pe-3 my-3 me-3 d-flex justify-content-end align-items-start px-4">
+                    <div class="me-4">
+                        <h2>
+                            @if ($data_dokter == null)
+                                0
+                            @else
+                                {{ $data_dokter }}
+                            @endif
+                        </h2>
+                        <p>Jumlah Dokter</p>
+                    </div>
+                    <div>
+                        <img src="{{ asset('images/beranda/jumlah pasien.png') }}" class="ms-3">
+                    </div>
+                </div>
+                <div class="container-row-2 py-3 pe-3 my-3 me-3 d-flex justify-content-end align-items-start px-4">
+                    <div class="me-4">
+                        <h2>
+                            @if ($data_resepsionis == null)
+                                0
+                            @else
+                                {{ $data_resepsionis }}
+                            @endif
+                        </h2>
+                        <p>Jumlah Resepsionis</p>
+                    </div>
+                    <div>
+                        <img src="{{ asset('images/beranda/jumlah pasien.png') }}" class="ms-3">
+                    </div>
+                </div>
             </div>
         </div>
     @endcan

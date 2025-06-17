@@ -5,8 +5,8 @@
 <div class="container mt-5">
     <div class="card">
         <div class="card-body">
-            <h3 class="card-title mb-4">TAMBAH APOTEKER</h3>
-            <form id="create-apoteker-form" enctype="multipart/form-data">
+            <h3 class="card-title mb-4">TAMBAH RESEPSIONIS</h3>
+            <form id="create-resepsionis-form" enctype="multipart/form-data">
                 @csrf
                 <div class="row mb-3">
                     <div class="col-md-6">
@@ -18,10 +18,10 @@
                     </div>
                     
                     <div class="col-md-6">
-                        <label for="namaApoteker" class="form-label">Nama Apoteker</label>
-                        <input type="text" class="form-control @error('nama_apoteker') is-invalid @enderror" id="namaApoteker" name="nama_apoteker" placeholder="Nama Apoteker" value="{{ old('nama_apoteker') }}">
-                        @if ($errors->has('nama_apoteker'))
-                        <span class="text-danger">{{ $errors->first('nama_apoteker') }}</span>
+                        <label for="namaresepsionis" class="form-label">Nama Resepsionis</label>
+                        <input type="text" class="form-control @error('nama_resepsionis') is-invalid @enderror" id="namaresepsionis" name="nama_resepsionis" placeholder="Nama Resepsionis" value="{{ old('nama_resepsionis') }}">
+                        @if ($errors->has('nama_resepsionis'))
+                        <span class="text-danger">{{ $errors->first('nama_resepsionis') }}</span>
                     @endif
                     </div>
                 </div>
@@ -53,7 +53,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-12 text-end">
-                        <button type="button" class="btn btn-secondary me-2" onclick="document.location='{{route('jumlah-apoteker')}}'">Kembali</button>
+                        <button type="button" class="btn btn-secondary me-2" onclick="document.location='{{route('jumlah-resepsionis')}}'">Kembali</button>
                         <button type="submit" class="btn btn-resep">Simpan</button>
                     </div>
                 </div>
@@ -65,14 +65,14 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     $(document).ready(function() {
-        $('#create-apoteker-form').on('submit', function(e) {
+        $('#create-resepsionis-form').on('submit', function(e) {
             e.preventDefault();
 
             let formData = new FormData(this);
 
             // Make the API request
             $.ajax({
-                url: '{{ route("api.create.apoteker") }}',
+                url: '{{ route("api.create.resepsionis") }}',
                 type: 'POST',
                 data: formData,
                 processData: false,
@@ -80,7 +80,7 @@
                 success: function(response) {
                     if (response.status === 'success') {
                         alert(response.message);
-                        window.location.href = '{{ route("jumlah-apoteker") }}';
+                        window.location.href = '{{ route("jumlah-resepsionis") }}';
                     } else {
                         alert(response.message);
                     }

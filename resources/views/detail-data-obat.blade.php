@@ -9,11 +9,9 @@
 </head>
 <body>
     <div class="d-flex justify-content-center flex-column align-items-center p-4">
-        @foreach ($data_detail_obat as $item)
-        <div class="d-flex flex-row flex-center card p-4 w-100 mb-4">
+        <div class="d-flex flex-row flex-center card p-4 mb-4">
             <div class="container">
-                <h2 class="my-4">Resep Obat {{ $item->nama }}</h2>
-                <div class="d-flex justify-content-between">
+                <div class="d-flex justify-content-center">
                     <table class="table table-borderless">
                         <tbody>
                             <tr>
@@ -21,34 +19,12 @@
                                     {!! $qrCode !!}
                                 </div>
                             </tr>
-                            <tr>
-                                <th>Nama Pasien</th>
-                                <td>: {{ $item->nama }}, ({{ $item->umur }} Tahun / {{ $item->jenis_kelamin }})</td>
-                            </tr>
-                            <tr>
-                                <th>Nama Obat</th>
-                                <td>: {{ $item->nama_obat }}</td>
-                            </tr>
-                            <tr>
-                                <th>Aturan Pakai</th>
-                                <td>: {{ $item->jml_kali_minum }} Sehari {{ $item->takaran_minum }}</td>
-                            </tr>
-                            <tr>
-                                <th>Waktu Minum</th>
-                                <td>: {{ $item->aturan_pakai }}</td>
-                            </tr>
-                            
-                            <tr>
-                                <td colspan="2"><hr></td>
-                            </tr>
-                            
                         </tbody>
                     </table>
                 </div>
             </div>
             
         </div>
-        @endforeach
     </div>
     
     

@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
     {{-- link styles --}}
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -38,13 +39,13 @@
             </div>
 
             <div class="d-flex align-items-center">
-                <form action="{{ route('logout') }}" method="POST">
-                    @csrf
-                    <a href="{{ route('logout') }}" class="text-decoration-none d-flex align-items-center">
+                {{-- <form action="{{ route('logout') }}" method="POST">
+                    @csrf --}}
+                    <a href="#" id="logoutButton" class="text-decoration-none d-flex align-items-center">
                         <img src="{{ asset('images/navbar menu/logout.png') }}" alt="Logout Icon" class="icon">
                         <span class="logout-text text-white">Logout</span>
                     </a>
-                </form>
+                {{-- </form> --}}
             </div>
         </div>
     </nav>
@@ -126,7 +127,7 @@
                         @can('apoteker')
                             <a href="{{ route('tambah-resep') }}" type="button"
                                 class="btn btn-primary d-flex justify-content-center align-items-center m-4"
-                                style="flex-shrink: 0; border-radius: 90px;background: #3378AA; box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);border:none"><strong>TAMBAH
+                                style="flex-shrink: 0; border-radius: 90px;background: #3378AA; box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);border:none"><strong>KELOLA
                                     RESEP</strong> <img src="{{ asset('images/tambah resep icon.png') }}" class="ms-4"
                                     style="width: 45px; height:45px">
                             </a>
@@ -196,6 +197,17 @@
                                     style="width: 30px; height:30px"><strong>Pengawas</strong></a>
                         @endcan
 
+                        @can('admin')
+                            <a href="{{ route('jumlah-resepsionis') }}" type="button"
+                                class="btn-custom ps-3 d-flex justify-content-start align-items-center m-2 mx-4"> <i class="fa fa-users fa-2xl me-4" aria-hidden="true"></i><strong>Resepsionis</strong></a>
+                        @endcan
+
+                        @can('admin')
+                            <a href="{{ route('jumlah-dokter') }}" type="button"
+                                class="btn-custom ps-3 d-flex justify-content-start align-items-center m-2 mx-4"> <i class="fa fa-user-md fa-2xl me-4" aria-hidden="true"></i>
+<strong>Dokter</strong></a>
+                        @endcan
+
                         @can('dokter')
                             <a href="{{ route('rawat-jalan') }}" type="button"
                                 class="btn-custom ps-3 d-flex justify-content-start align-items-center m-2 mx-4"> <img
@@ -244,6 +256,21 @@
                             </a>
                         @endcan
 
+                         {{-- @can('resepsionis')
+                            <a href="{{ route('resepsionis') }}" type="button"
+                                class="btn-custom ps-3 d-flex justify-content-start align-items-center m-2 mx-4 {{ request()->routeIs('resepsionis') ? 'active' : '' }}">
+                                <i class="fa-solid fa-user ms-4 me-4"></i>
+                                <strong>Tambah Akun Pasien</strong>
+                            </a>
+                        @endcan --}}
+
+                        @can('resepsionis')
+                            <a href="{{ route('daftar-pasien') }}" type="button"
+                                class="btn-custom ps-3 d-flex justify-content-start align-items-center m-2 mx-4   {{ request()->routeIs('daftar-pasien') ? 'active' : '' }}">
+                                <i class="fa-solid fa-user ms-4 me-4"></i> <strong>Tambah Akun Pasien</strong></a>
+                        @endcan
+
+
                     </div>
                 </div>
             </div>
@@ -268,6 +295,44 @@
             </main>
         </div>
     </div>
-</body>
+    @stack('scripts')
+    <script>
+$(document).ready(function () {
+    // Pengaturan global untuk menyertakan CSRF token di semua request AJAX
+    // Ini PENTING untuk request POST ke Laravel
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
 
+    // Event listener saat elemen dengan id="logoutButton" diklik
+    $('#logoutButton').on('click', function(event) {
+        // Mencegah aksi default dari link (yaitu pindah halaman)
+        event.preventDefault();
+
+        // Kirim request POST ke route 'logout'
+        $.ajax({
+            url: '{{ route("logout") }}', // URL dari API logout Anda
+            method: 'POST',
+            success: function(response) {
+                // Jika server merespons dengan sukses (logout berhasil)
+                console.log(response.message); // Pesan: "Successfully logged out"
+                
+                // Arahkan pengguna ke halaman login
+                window.location.href = '/login'; // Ganti jika URL login Anda berbeda
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                // Jika ada error (misal: sesi sudah habis atau error server)
+                console.error('Logout failed:', errorThrown);
+                
+                // Sebagai fallback, tetap arahkan ke halaman login
+                alert('Gagal melakukan logout. Mengarahkan kembali ke halaman login.');
+                window.location.href = '/login';
+            }
+        });
+    });
+});
+</script>
+</body>
 </html>

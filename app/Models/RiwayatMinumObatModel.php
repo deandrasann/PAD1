@@ -17,4 +17,17 @@ class RiwayatMinumObatModel extends Model
     // PK integer AI
     public $incrementing = true;
 
+    protected $fillable = [
+        'id_pasien',
+        'kode_obat',
+        'jenis_obat',
+        'nama_obat',
+        'aturan_pakai',
+        'waktu_minum_obat',
+        'tanggal_minum',
+        'jam_minum',
+        'notifikasi',
+        'status',
+    ];
+
 }

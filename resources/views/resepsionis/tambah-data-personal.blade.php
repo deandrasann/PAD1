@@ -24,25 +24,21 @@
 
     <h4 class="text-center mb-4">DATA PERSONAL</h4>
 
-    <form method="POST" action="{{ route('resepsionis-tambah') }}">
+    <form id="form-pasien">
         @csrf
         <div class="row">
             <!-- Kiri -->
             <div class="col-md-6">
                 <h6>IDENTITAS PRIBADI</h6>
 
-                <div class="mb-3">
-                    <label class="form-label">No RM</label>
-                    {{-- <input type="text" class="form-control" disabled> --}}
-                    <input type="number" class="form-control" name="no_rm" value="{{ $pasien->no_rm ?? '' }}"
-                        {{ $isDisabled ? 'disabled' : '' }}>
-                </div>
+                <input type="hidden" id="csrf-token" value="{{ csrf_token() }}">
 
                 <div class="mb-3">
                     <label class="form-label">Nama Lengkap</label>
                     {{-- <input type="text" class="form-control"> --}}
                     <input type="text" class="form-control" name="nama" value="{{ $pasien->nama ?? '' }}"
                         {{ $isDisabled ? 'disabled' : '' }}>
+                    <div class="invalid-feedback" id="error-nama"></div>
                 </div>
 
                 <div class="mb-3">
@@ -50,13 +46,15 @@
                     {{-- <input type="text" class="form-control"> --}}
                     <input type="text" class="form-control" name="jenis_kelamin"
                         value="{{ $pasien->jenis_kelamin ?? '' }}" {{ $isDisabled ? 'disabled' : '' }}>
+                    <div class="invalid-feedback" id="error-jenis-kelamin"></div>
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label">Tempat Lahir</label>
                     {{-- <input type="text" class="form-control"> --}}
-                    <input type="text" class="form-control" name="tempat_lahir"
-                        value="{{ $pasien->tempat_lahir ?? '' }}" {{ $isDisabled ? 'disabled' : '' }}>
+                    <input type="text" class="form-control" name="tempat_lahir" value="{{ $pasien->tempat_lahir ?? '' }}"
+                        {{ $isDisabled ? 'disabled' : '' }}>
+                    <div class="invalid-feedback" id="error-tempat-lahir"></div>
                 </div>
 
                 <div class="mb-3">
@@ -64,6 +62,7 @@
                     {{-- <input type="date" class="form-control"> --}}
                     <input type="date" class="form-control" name="tanggal_lahir"
                         value="{{ $pasien->tanggal_lahir ?? '' }}" {{ $isDisabled ? 'disabled' : '' }}>
+                    <div class="invalid-feedback" id="error-tanggal_lahir"></div>
                 </div>
 
                 <div class="mb-3">
@@ -71,6 +70,7 @@
                     {{-- <input type="text" class="form-control"> --}}
                     <input type="number" class="form-control" name="no_telp" value="{{ $pasien->no_telp ?? '' }}"
                         {{ $isDisabled ? 'disabled' : '' }}>
+                    <div class="invalid-feedback" id="error-no_telp"></div>
                 </div>
 
                 <div class="mb-3">
@@ -78,6 +78,7 @@
                     {{-- <input type="email" class="form-control"> --}}
                     <input type="email" class="form-control" name="email" value="{{ $pasien->email ?? '' }}"
                         {{ $isDisabled ? 'disabled' : '' }}>
+                    <div class="invalid-feedback" id="error-email"></div>
                 </div>
             </div>
 
@@ -90,13 +91,14 @@
                     {{-- {{ dd($pasien->provinsi) }} --}}
                     <select id="provinsi" class="form-control" name="provinsi" style="width: 100%;"
                         {{ isset($pasien->provinsi) ? 'disabled' : '' }}>
-                        <option value="" disabled {{ !isset($pasien->provinsi) ? 'selected' : '' }}>-- Pilih Provinsi --</option>
+                        <option value="" disabled {{ !isset($pasien->provinsi) ? 'selected' : '' }}>-- Pilih Provinsi
+                            --</option>
                         @if (isset($pasien->provinsi))
                             <option value="{{ $pasien->provinsi }}" selected>{{ $pasien->provinsi }}</option>
                         @endif
                     </select>
                     <input type="hidden" name="nama_provinsi" id="nama_provinsi" value="{{ $pasien->provinsi ?? '' }}">
-                        
+
                 </div>
 
                 <div class="mb-3">
@@ -142,6 +144,7 @@
                 <div class="mb-3">
                     <label class="form-label">Alamat</label>
                     <textarea class="form-control" name="alamat" rows="3" {{ $isDisabled ? 'disabled' : '' }}>{{ $pasien->alamat ?? '' }}</textarea>
+                    <div class="invalid-feedback" id="error-alamat"></div>
                 </div>
             </div>
         </div>
@@ -161,20 +164,21 @@
             });
 
             // Ambil daftar provinsi
-          $.getJSON("https://www.emsifa.com/api-wilayah-indonesia/api/provinces.json", function(data) {
-    console.log("Data Provinsi didapat:", data); // DEBUG 1
+            $.getJSON("https://www.emsifa.com/api-wilayah-indonesia/api/provinces.json", function(data) {
+                console.log("Data Provinsi didapat:", data); // DEBUG 1
 
-    $('#provinsi').empty().append(
-        '<option value="" disabled selected>-- Pilih Provinsi --</option>'
-    );
+                $('#provinsi').empty().append(
+                    '<option value="" disabled selected>-- Pilih Provinsi --</option>'
+                );
 
-    $.each(data, function(i, provinsi) {
-        console.log("Tambah provinsi:", provinsi.id, provinsi.name); // DEBUG 2
-        $('#provinsi').append('<option value="' + provinsi.id + '">' + provinsi.name + '</option>');
-    });
+                $.each(data, function(i, provinsi) {
+                    console.log("Tambah provinsi:", provinsi.id, provinsi.name); // DEBUG 2
+                    $('#provinsi').append('<option value="' + provinsi.id + '">' + provinsi.name +
+                        '</option>');
+                });
 
-    console.log("Semua provinsi ditambahkan ke select"); // DEBUG 3
-});
+                console.log("Semua provinsi ditambahkan ke select"); // DEBUG 3
+            });
 
             // Ketika provinsi dipilih
             $('#provinsi').on('change', function() {
@@ -252,4 +256,69 @@
             });
         });
     </script>
+
+    <script>
+        $(document).ready(function() {
+            // ... script select2 tetap ...
+            const csrfToken = $('#csrf-token').val(); // ambil dari hidden input
+
+            $('#form-pasien').submit(function(e) {
+                e.preventDefault();
+
+                let formData = {
+                    nama: $('input[name="nama"]').val(),
+                    jenis_kelamin: $('input[name="jenis_kelamin"]').val(),
+                    tempat_lahir: $('input[name="tempat_lahir"]').val(),
+                    tanggal_lahir: $('input[name="tanggal_lahir"]').val(),
+                    no_telp: $('input[name="no_telp"]').val(),
+                    email: $('input[name="email"]').val(),
+                    nama_provinsi: $('#nama_provinsi').val(),
+                    nama_kabupaten: $('#nama_kabupaten').val(),
+                    nama_kecamatan: $('#nama_kecamatan').val(),
+                    nama_kelurahan: $('#nama_kelurahan').val(),
+                    alamat: $('textarea[name="alamat"]').val(),
+                    _token: $('#csrf-token').val(),
+                };
+
+                $.ajax({
+                    url: '{{ url('/api/resepsionis-tambah-pasien') }}', // sesuaikan dengan route API kamu
+                    method: 'POST',
+                    data: formData,
+                    success: function(res) {
+                        alert('Berhasil menambahkan pasien dengan No RM: ' + res.data.no_rm);
+                        location.href = '/resepsionis-tambah-kesehatan/' + res.data.id_pasien;
+                    },
+                    error: function(xhr) {
+                        $('input, textarea, select').removeClass('is-invalid');
+                        $('.invalid-feedback').text('');
+
+                        if (xhr.status === 422) {
+                            let errors = xhr.responseJSON.errors;
+
+                            // Loop untuk tampilkan error di setiap field
+                            for (let field in errors) {
+                                const inputField = $('[name="' + field + '"]');
+                                const errorMessage = errors[field][0];
+
+                                inputField.addClass('is-invalid');
+                                $('#error-' + field).text(errorMessage);
+                            }
+                        } else {
+                            let message = "Terjadi kesalahan tidak terduga.";
+
+                            if (xhr.responseJSON && xhr.responseJSON.message) {
+                                message += "\nPesan Server: " + xhr.responseJSON.message;
+                            } else if (xhr.responseText) {
+                                message += "\nDetail: " + xhr.responseText;
+                            }
+
+                            alert(message);
+                        }
+
+                    }
+                });
+            });
+        });
+    </script>
+
 @endsection

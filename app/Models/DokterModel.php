@@ -17,6 +17,18 @@ class DokterModel extends Model
     // PK integer AI
     public $incrementing = true;
 
+    protected $fillable = [
+        'id_pengguna',
+        'kode_klinik',
+        'kode_dokter',
+        'kode_bpjs',
+        'jenis_dokter',
+        'spesialis',
+        'nama_dokter',
+        'email',
+        'foto',
+    ];
+
     public function dokter() {
         return $this->belongsTo(User::class, 'id_pengguna','id_pengguna');
     }

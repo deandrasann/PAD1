@@ -299,11 +299,10 @@
                                                 </label>
                                                 <hr>
                                                 <button type="button" class="btn btn-resep px-2 py-2 mb-2 mt-4">
-                                                    <strong><a href="{{ route('lihat-obat-pasien') }}"
+                                                    <strong><a href="/lihat-obat-pasien/{{ request()->route('id_pemeriksaan_awal') }}"
                                                             style="color: white; text-decoration:none">Lihat Detail</a>
                                                     </strong>
                                                 </button>
-
                                                 <div class="mb-4 mt-4">
                                                     <label class="mb-2">Medikamentosa</label><br>
                                                     <input type="text" class="form-control" placeholder="Paracetamol"
@@ -329,7 +328,32 @@
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+                document.addEventListener('DOMContentLoaded', function() {
+                function fetchProfileData(id) {
+                $.ajax({
+                    url: '/api/pasien/get/byPemeriksaanAwal/'+id,
+                    method: 'GET',
+                    success: function(response) {
+                        if (response.status === 'success') {
+                            const profile = response.data;
+                            $('#sidebar_norm').text(profile.no_rm || '-');
+                            $('#sidebar_nama').text(profile.nama || '-');
+                            $('#sidebar_jeniskelamin').text(profile.jenis_kelamin || '-');
+                            $('#sidebar_tanggallahir').text(profile.tanggal_lahir || '-');
+                            $('#sidebar_notelp').text(profile.no_telp || '-');
+                            $('#sidebar_alamat').text(profile.alamat || '-');
+                        } else {
+                            console.error('Gagal mengambil data profil:', response.message);
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error("AJAX Error fetching profile:", status, error, xhr.responseText);
+                    }
+                });
+            }
+
+            const pasienId = '{{ request()->route('id_pemeriksaan_awal') }}';
+            fetchProfileData(pasienId)
             // Pilih hanya input yang berasal dari database
             const inputsFromDb = document.querySelectorAll('input.form-control[data-from-db="true"]');
 

@@ -20,7 +20,7 @@ class obatNonRacikanModel extends Model
         'id_dokter',
         'id_pasien',
         'id_pemeriksaan_akhir',
-        'nama_obat',
+        'kode_obat',
         'jml_obat',
         'bentuk_obat',
         'harga_satuan',

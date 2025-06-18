@@ -17,16 +17,16 @@ return new class extends Migration
             $table->collation = 'utf8mb4_general_ci';
 
             $table->integer('id_obat_racikan', true);
-            $table->integer('id_dokter');
-            $table->integer('id_pasien');
-            $table->integer('id_pemeriksaan_akhir');
+            $table->integer('id_dokter')->nullable();
+            $table->integer('id_pasien')->nullable();
+            $table->integer('id_pemeriksaan_akhir')->nullable();
             $table->string('nama_racikan')->nullable();
             $table->string('bentuk_obat')->nullable();       // dari table obat
             $table->string('kemasan_obat')->nullable();      // dari table obat
             $table->string('instruksi_pemakaian')->nullable();
             $table->string('instruksi_racikan')->nullable();
             $table->integer('jumlah_kemasan')->nullable();
-            $table->integer('takaran_obat')->nullable();
+            $table->string('takaran_obat')->nullable();
             $table->string('dosis')->nullable();             // contoh: '3x1'
 
             $table->timestamps();

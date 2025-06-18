@@ -20,7 +20,7 @@ return new class extends Migration
             $table->integer('id_pemeriksaan_akhir');
             $table->integer('id_dokter');
             $table->integer('id_pasien');
-            $table->integer('kode_obat');
+            $table->integer('kode_obat')->nullable();
             $table->enum('status_resep', ['setuju ', 'deleted'])->default('setuju')->nullable();
             $table->string('tgl_resep')->nullable();
             $table->string('dosis')->nullable();

@@ -11,6 +11,32 @@ use Carbon\Carbon;
 
 class ResepsionisController extends Controller
 {
+    public function index(Request $request){
+        // $data_pengawas =  DB::table('users')
+        // ->join('pengawas', 'users.id_pengguna', '=', 'pengawas.id_pengguna')
+        // ->select('users.*', 'pengawas.*')
+        // ->paginate(5);
+    // dd($data_pengawas);
+    if ($request->has('search')) {
+        $search = $request->input('search');
+        $data_resepsionis = DB::table('users')
+        ->join('resepsionis', 'users.id_pengguna', '=', 'resepsionis.id_pengguna')
+        ->orWhere('users.username', 'like',"%" . $search . "%")
+        ->orWhere('resepsionis.nama_resepsionis', 'like',"%" . $search . "%")
+        ->orWhere('users.email', 'like',"%" . $search . "%")
+        ->paginate(5);
+    } else {
+        $data_resepsionis = DB::table('users')
+        ->join('resepsionis', 'users.id_pengguna', '=', 'resepsionis.id_pengguna')
+        ->paginate(5);
+    }
+
+    return view('admin.jumlah-resepsionis', compact('data_resepsionis'));
+    }
+
+    public function tambahResepsionis() {
+        return view('admin.tambah-resepsionis');
+    }
     public function inputDataPasien(Request $request)
     {
         if ($request->has('search')) {
@@ -49,9 +75,24 @@ class ResepsionisController extends Controller
     }
     public function storeDataPersonal(Request $request)
     {
-        // Simpan ke tabel pasien
-        $pasien = PasienModel::create([
-            'no_rm' => $request->no_rm,
+        // Ambil no_rm terakhir
+        $lastNoRM = DB::table('pasien')
+            ->orderBy('id_pasien', 'desc')
+            ->limit(1)
+            ->value('no_rm');
+
+        if ($lastNoRM && preg_match('/RM(\d+)/', $lastNoRM, $matches)) {
+            $lastNumber = (int) $matches[1];
+        } else {
+            $lastNumber = 0;
+        }
+
+        $newNumber = $lastNumber + 1;
+        $newNoRM = 'RM' . str_pad($newNumber, 4, '0', STR_PAD_LEFT); // Contoh: RM0001
+
+        // Simpan data ke tabel pasien menggunakan Query Builder
+        $id_pasien = DB::table('pasien')->insertGetId([
+            'no_rm' => $newNoRM,
             'id_pengguna' => 1,
             'nama' => $request->nama,
             'jenis_kelamin' => $request->jenis_kelamin,
@@ -66,9 +107,8 @@ class ResepsionisController extends Controller
             'alamat' => $request->alamat,
         ]);
 
-        // Redirect ke form isi data kesehatan dengan id_pasien
-        // dd($pasien);
-        return redirect()->route('resepsionis-tambah-kesehatan', ['id' => $pasien->id_pasien]);
+        // Redirect ke form isi data kesehatan
+        return redirect()->route('resepsionis-tambah-kesehatan', ['id' => $id_pasien]);
     }
 
     public function tambahDataKesehatanPasien($id)

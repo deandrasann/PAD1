@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use Hash;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -13,10 +14,9 @@ class PasienSeeder extends Seeder
      */
     public function run(): void
     {
-        $pasien = collect([
+        $pasienData = [
             [
-                'no_rm' => 1001,
-                'id_pengguna' => 1,
+                'no_rm' =>'RM1001',
                 'nama' => 'John Doe',
                 'alamat' => 'Jl. Merdeka No. 1, Jakarta',
                 'jenis_kelamin' => 'Laki-laki',
@@ -31,8 +31,7 @@ class PasienSeeder extends Seeder
                 'foto' => 'foto/john_doe.jpg',
             ],
             [
-                'no_rm' => 1002,
-                'id_pengguna' => 1,
+                'no_rm' =>'RM1002',
                 'nama' => 'Jane Smith',
                 'alamat' => 'Jl. Asia Afrika No. 2, Bandung',
                 'jenis_kelamin' => 'Perempuan',
@@ -47,8 +46,7 @@ class PasienSeeder extends Seeder
                 'foto' => 'foto/jane_smith.jpg',
             ],
             [
-                'no_rm' => 1003,
-                'id_pengguna' => 1,
+                'no_rm' =>'RM1003',
                 'nama' => 'Ali Ahmad',
                 'alamat' => 'Jl. Kenjeran No. 10, Surabaya',
                 'jenis_kelamin' => 'Laki-laki',
@@ -63,8 +61,7 @@ class PasienSeeder extends Seeder
                 'foto' => 'foto/ali_ahmad.jpg',
             ],
             [
-                'no_rm' => 1004,
-                'id_pengguna' => 1,
+                'no_rm' =>'RM1004',
                 'nama' => 'Siti Nurhaliza',
                 'alamat' => 'Jl. Gatot Subroto No. 7, Medan',
                 'jenis_kelamin' => 'Perempuan',
@@ -79,8 +76,7 @@ class PasienSeeder extends Seeder
                 'foto' => 'foto/siti_nurhaliza.jpg',
             ],
             [
-                'no_rm' => 1005,
-                'id_pengguna' => 1,
+                'no_rm' =>'RM1005',
                 'nama' => 'Budi Santoso',
                 'alamat' => 'Jl. Malioboro No. 5, Yogyakarta',
                 'jenis_kelamin' => 'Laki-laki',
@@ -95,8 +91,8 @@ class PasienSeeder extends Seeder
                 'foto' => 'foto/budi_santoso.jpg',
             ],
             [
-                'no_rm' => 1006,
-                'id_pengguna' => 1,
+                'no_rm' =>'RM1006',
+
                 'nama' => 'Dewi Lestari',
                 'alamat' => 'Jl. Kuta No. 9, Bali',
                 'jenis_kelamin' => 'Perempuan',
@@ -111,8 +107,7 @@ class PasienSeeder extends Seeder
                 'foto' => 'foto/dewi_lestari.jpg',
             ],
             [
-                'no_rm' => 1007,
-                'id_pengguna' => 1,
+                'no_rm' =>'RM1007',
                 'nama' => 'Rudi Setiawan',
                 'alamat' => 'Jl. Pahlawan No. 6, Semarang',
                 'jenis_kelamin' => 'Laki-laki',
@@ -127,8 +122,7 @@ class PasienSeeder extends Seeder
                 'foto' => 'foto/rudi_setiawan.jpg',
             ],
             [
-                'no_rm' => 1008,
-                'id_pengguna' => 1,
+                'no_rm' =>'RM1008',
                 'nama' => 'Nina Maulani',
                 'alamat' => 'Jl. Engku Putri No. 8, Batam',
                 'jenis_kelamin' => 'Perempuan',
@@ -143,8 +137,8 @@ class PasienSeeder extends Seeder
                 'foto' => 'foto/nina_maulani.jpg',
             ],
             [
-                'no_rm' => 1009,
-                'id_pengguna' => 1,
+                'no_rm' =>'RM1009',
+
                 'nama' => 'Eko Prasetyo',
                 'alamat' => 'Jl. Kapten A. Rivai No. 3, Palembang',
                 'jenis_kelamin' => 'Laki-laki',
@@ -159,8 +153,7 @@ class PasienSeeder extends Seeder
                 'foto' => 'foto/eko_prasetyo.jpg',
             ],
             [
-                'no_rm' => 1010,
-                'id_pengguna' => 1,
+                'no_rm' =>'RM1010',
                 'nama' => 'Tina Sari',
                 'alamat' => 'Jl. AP Pettarani No. 11, Makassar',
                 'jenis_kelamin' => 'Perempuan',
@@ -174,8 +167,26 @@ class PasienSeeder extends Seeder
                 'kelurahan' => 'Karampuang',
                 'foto' => 'foto/tina_sari.jpg',
             ]
-        ]);
+        ];
 
-        $pasien->each(fn ($put) => DB::table('pasien')->insert($put));
+        foreach ($pasienData as $pasien) {
+            // Create a user for the current doctor
+            $userId = DB::table('users')->insertGetId([
+                'id_role' => 'R05', // Assuming 'R02' is the role ID for doctors
+                'nama_role' => 'pasien',
+                'username' => $pasien['nama'], // Using doctor's name as username
+                'email' => $pasien['email'],
+                'password' => Hash::make('password123'), // A default password for the user
+                'keterangan' => 'User for ' . $pasien['nama'],
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+
+            // Assign the newly created user's ID to id_pengguna for the doctor
+            $pasien['id_pengguna'] = $userId;
+
+            // Insert the doctor data
+            DB::table('pasien')->insert($pasien);
+        }
     }
 }

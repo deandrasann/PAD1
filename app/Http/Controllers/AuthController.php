@@ -26,6 +26,10 @@ class AuthController extends Controller
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
 
+            if(Auth::user()->id_role == 'R05') {
+                return redirect()->intended('hasil-scan');
+            }
+
             return redirect()->intended('beranda');
         }
 

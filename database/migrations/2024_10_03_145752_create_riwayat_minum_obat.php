@@ -18,21 +18,14 @@ return new class extends Migration
             $table->collation = 'utf8mb4_general_ci';
             $table->integer('id_riwayat',true);
             $table->integer('kode_obat');
-            $table->integer('nama_obat');
-            $table->integer('aturan_pakai');
-            $table->string('waktu_miunum_obat');
-            $table->string('status');
+            $table->string('nama_obat');
+            $table->string('aturan_pakai');
+            $table->string('waktu_minum_obat')->nullable();
+            $table->enum('status', ['sudah_minum', 'tidak_minum', 'tunda_minum'])->default('tidak_minum');
     
     
                 $table
                 ->foreign('kode_obat')
-                ->references('kode_obat')
-                ->on('obat')
-                ->cascadeOnUpdate()
-                ->cascadeOnDelete();
-    
-                $table
-                ->foreign('nama_obat')
                 ->references('kode_obat')
                 ->on('obat')
                 ->cascadeOnUpdate()

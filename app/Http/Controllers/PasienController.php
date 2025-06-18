@@ -30,6 +30,28 @@ class PasienController extends Controller
         return view('pasien_terdaftar', compact('data_pasien'));
     }
 
+    public function indexAdmin(Request $request) {
+        $no_rm = $request->input('no_rm');
+        $nama_pasien = $request->input('nama');
+        $alamat = $request->input('alamat');
+        $tgl_lahir = $request->input('tanggal_lahir');
+        // dd($request->all());
+
+        // $data_pasien = PasienModel::where('no_rm', $no_rm)
+        //             ->orWhere('nama', 'LIKE', "%{$nama_pasien}%")
+        //             ->get();
+        if([$no_rm,$nama_pasien,$alamat,$tgl_lahir] !== null) {
+        $data_pasien = DB::table('pasien')->where('no_rm', $no_rm,)
+                        ->where('nama', 'like',"%" . $nama_pasien . "%")
+                        ->where('alamat', 'like',"%" . $alamat . "%")
+                        ->where('tanggal_lahir', $tgl_lahir)
+                        ->paginate(5);
+        } else {
+            $data_pasien = DB::table('pasien')->get();
+        }
+        return view('admin.jumlah-pasien', compact('data_pasien'));
+    }
+
     public function pasien(Request $request) {
         if ($request->has('search')) {
             $search = $request->input('search');
@@ -67,6 +89,9 @@ class PasienController extends Controller
         ]);
         return redirect()->route('daftar-pasien')->with('success', 'Berhasil Menambahkan Pasien');
     }
+    public function tambahPasien() {
+        return view('admin.tambah-pasien');
+    }
 
     public function PasienUpdate(Request $request, $id) {
         $data = [
@@ -97,7 +122,9 @@ class PasienController extends Controller
 }
 
     public function hasilScan(){
-        return view('pasien.hasil-scan-pasien');
+        $data_pasien = PasienModel::where('id_pengguna', auth()->user()->id_pengguna)->first();
+
+        return view('pasien.hasil-scan-pasien', compact('data_pasien'));
     }
     public function jadwalMinumObat(){
         return view('pasien.jadwal-minum-obat');

@@ -77,7 +77,7 @@ class ObatController extends Controller
         $validated = $request->validate([
             'nama_obat' => 'required|string|max:255',
             'bentuk_obat' => 'required|string|max:255',
-            'kekuatan_sediaan' => 'required|string|max:255',
+            'kekuatan_sediaan' => 'required|integer|max:255',
             'efek_samping' => 'required|string',
             'kontraindikasi' => 'required|string',
             'indikasi' => 'required|string',

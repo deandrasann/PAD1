@@ -153,7 +153,6 @@
             <button type="submit" class="btn btn-success" {{ $isDisabled ? 'disabled' : '' }}>Simpan</button>
         </div>
     </form>
-    {{-- HAPUS SEMUA @push('scripts') YANG LAMA DAN GANTI DENGAN INI --}}
     @push('scripts')
         <script>
             $(document).ready(function() {
@@ -286,7 +285,7 @@
                     };
 
                     $.ajax({
-                        url: '{{ url('/api/resepsionis-tambah-pasien') }}', // Sesuaikan dengan route API Anda
+                        url: 'https://apotech.joesepdemar.site/api/resepsionis-tambah-pasien', // Sesuaikan dengan route API Anda
                         method: 'POST',
                         data: formData,
                         success: function(res) {

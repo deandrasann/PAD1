@@ -761,13 +761,6 @@ class DokterController extends Controller
         return view('dokter.lihat-obat-pasien', compact('pemeriksaanExists', 'kunjungan'));
     }
 
-    /**
-     * Mengambil data obat non-racikan dan racikan untuk pemeriksaan tertentu
-     * menggunakan Query Builder.
-     *
-     * @param  int  $id_pemeriksaan_akhir
-     * @return \Illuminate\Http\JsonResponse
-     */
     public function getObatByPemeriksaan($id_pemeriksaan_akhir)
     {
          try {

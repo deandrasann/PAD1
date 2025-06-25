@@ -149,4 +149,18 @@ class ResepsionisController extends Controller
 
         return redirect()->route('resepsionis')->with('success', 'Data kesehatan berhasil disimpan.');
     }
+
+    public function showDetailView($id)
+        {
+            $pasien = PasienModel::where('id_pasien', $id)->first();
+
+            if (!$pasien) {
+                return redirect()->back()->with('error', 'Data pasien tidak ditemukan.');
+            }
+
+            return view('resepsionis.detail-personal', [
+                'id_pasien' => $id,
+                'no_rm' => $pasien->no_rm
+            ]);
+        }
 }

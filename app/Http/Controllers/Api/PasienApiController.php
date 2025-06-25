@@ -369,7 +369,8 @@ class PasienApiController extends Controller
     }
 
     public function getPasienHasilScan(){
-        $data_pasien = PasienModel::where('id_pengguna', auth()->user()->id_pengguna)->first();
+        $user = Auth::user();
+        $data_pasien = PasienModel::where('id_pengguna', $user->id_pengguna)->first();
         $data_pemeriksaan = PemeriksaanAkhirModel::where('id_pasien', $data_pasien->id_pasien)
             ->orderBy('created_at', 'desc')
             ->first();
@@ -384,7 +385,8 @@ class PasienApiController extends Controller
         ], 200);
     }
     public function getDaftarObat(){
-        $data_pasien = PasienModel::where('id_pengguna', auth()->user()->id_pengguna)->first();
+        $user = Auth::user();
+        $data_pasien = PasienModel::where('id_pengguna', $user->id_pengguna)->first();
         $data_resep = ResepModel::where('id_pasien', $data_pasien->id_pasien)
             ->latest()
             ->first();
@@ -603,7 +605,8 @@ class PasienApiController extends Controller
 
     public function getProfile()
     {
-        $data_pasien = PasienModel::where('id_pengguna', auth()->user()->id_pengguna)->first();
+        $user = Auth::user();
+        $data_pasien = PasienModel::where('id_pengguna', $user->id_pengguna)->first();
         if (!$data_pasien) {
             return response()->json([
                 'status' => 'error',

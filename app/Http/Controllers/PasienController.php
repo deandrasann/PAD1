@@ -145,5 +145,7 @@ class PasienController extends Controller
         return view('pasien.atur-jadwal-minum');
     }
 
+    }
+
 
 }

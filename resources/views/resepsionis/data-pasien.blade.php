@@ -136,8 +136,12 @@
                                     <td>${item.no_telp ?? '-'}</td>
                                     <td>
                                         <button class="btn btn-resep p-2 px-3"
-                                            onclick="window.location.href='/resepsionis-tambah-kesehatan/${item.id_pasien}'">
+                                            onclick="window.location.href='/resepsionis/detail-pasien/${item.id_pasien}'">
                                             <img src="{{ asset('images/detail icon.png') }}" class="me-1"> Detail
+                                        </button>
+                                        <button class="btn btn-success p-2 px-3"
+                                            onclick="window.location.href='/resepsionis-tambah-kesehatan/${item.id_pasien}'">
+                                            <i class="fa-solid fa-plus me-3"></i>Rawat Jalan
                                         </button>
                                     </td>
                                 </tr>

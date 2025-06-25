@@ -77,7 +77,7 @@ Route::group(['middleware' => ['auth', 'level:admin,apoteker,dokter,resepsionis'
     Route::post('/pasien', [PasienController::class, 'PasienStore'])->name('pasien.store');
     Route::post('/pasien/{id}', [PasienController::class, 'PasienUpdate'])->name('pasien.update');
     Route::delete('/pasien/{id}', [PasienController::class, 'PasienDestroy'])->name('pasien.destroy');
-    
+
 
     Route::get('/api/pasien/get', [PasienApiController::class, 'getPasien'])->name('api.pasien.get');
     Route::post('/api/pasien/create', [PasienApiController::class, 'createPasien'])->name('api.pasien.create');
@@ -204,6 +204,11 @@ Route::get('/resepsionis', [ResepsionisController::class, 'inputDataPasien'])->n
 Route::get('/api/resepsionis', [ApiResepsionisController::class, 'apiGetPasien']);
 Route::get('/resepsionis-tambah-pasien/{no_rm?}', [ResepsionisController::class, 'storeDataPersonalForm'])->name('resepsionis-tambah-form');
 Route::get('/api/resepsionis-tambah-pasien/{no_rm?}', [ApiResepsionisController::class, 'apiGetPasienByNoRM']);
+
+Route::get('/resepsionis/detail-pasien/{id}', [ResepsionisController::class, 'showDetailView'])->name('pasien.detail.view');
+Route::get('/api/resepsionis/detail-pasien/{id}', [ApiResepsionisController::class, 'apiGetPasienByNoRM']);
+
+
 Route::post('/resepsionis-tambah-pasien/{no_rm?}', [ResepsionisController::class, 'storeDataPersonal'])->name('resepsionis-tambah');
 Route::post('/api/resepsionis-tambah-pasien', [ApiResepsionisController::class, 'apiStorePasien']);
 // Menampilkan form tambah data kesehatan

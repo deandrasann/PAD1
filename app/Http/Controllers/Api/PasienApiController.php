@@ -340,7 +340,7 @@ class PasienApiController extends Controller
             // Melakukan soft delete pada data dari tabel 'pasien'
             // Karena PasienModel menggunakan SoftDeletes, method delete() akan melakukan soft delete
             $delete_pasien = $pasien->delete();
-            
+
             // Menghapus data dari tabel 'users' yang terkait secara permanen (hard delete)
             $delete_pengguna = User::where('id_pengguna', $id_pengguna)->delete();
 
@@ -398,7 +398,7 @@ class PasienApiController extends Controller
                     'detail_obat' => $item->toArray(),
                 ];
             })->values();
-            $obatRacikan = collect($obatRacikan->all()); 
+            $obatRacikan = collect($obatRacikan->all());
             $nonRacikanQuery = obatNonRacikanModel::where('obat_non_racikan.id_pasien', $data_pasien->id_pasien)
                 ->leftJoin('obat', 'obat_non_racikan.kode_obat', '=', 'obat.kode_obat')
                 ->select(
@@ -428,15 +428,15 @@ class PasienApiController extends Controller
                     'tipe_obat' => 'non_racikan',
                     'detail_obat' => $item->toArray(),
                 ];
-            })->values(); 
-            $obatNonRacikan = collect($obatNonRacikan->all()); 
+            })->values();
+            $obatNonRacikan = collect($obatNonRacikan->all());
 
 
             $data_obat = $obatRacikan->merge($obatNonRacikan)->sortBy(function($item) {
                 return $item['detail_obat']['created_at'] ?? '0';
             })->values();
 
-            
+
         }
 
         return response()->json([
@@ -486,11 +486,11 @@ class PasienApiController extends Controller
                 ], 404);
             }
 
-            
-            
+
+
             // Gabungkan data yang dibutuhkan
             $dataResponse = [
-                'id_resep_detail' => $resepDetail->id_resep, 
+                'id_resep_detail' => $resepDetail->id_resep,
                 'tipe_obat' => $tipeObat,
                 'detail_obat' => $detailObat,
             ];
@@ -540,7 +540,7 @@ class PasienApiController extends Controller
 
             $waktuMinumArray = json_decode($waktuMinumRaw, true);
             if (json_last_error() !== JSON_ERROR_NONE) {
-               
+
                 return response()->json([
                     'status' => 'error',
                     'message' => 'Format waktu minum tidak valid.',
@@ -633,6 +633,8 @@ class PasienApiController extends Controller
             'data' => $data_pasien
         ], 200);
     }
+
+
     public function getPasienByIdPemeriksaanAwal(Request $request, $id)
     {
         $pemeriksaanAwal = PemeriksaanAwalModel::where('id_pemeriksaan_awal', '=', $id)->first();

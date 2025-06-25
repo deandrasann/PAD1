@@ -169,7 +169,7 @@ class ResepsionisController extends Controller
             'pernapasan' => 'required|integer',
         ]);
 
-        
+
 
         // Simpan ke database
         DB::table('pemeriksaan_awal')->insert([

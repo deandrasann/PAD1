@@ -206,7 +206,7 @@
             });
 
             // Ketika kabupaten dipilih
-            $('#kabupaten').on('change', function() {
+            $('#kabupaten').on('change', func~tion() {
                 var kabId = $(this).val();
                 var kabText = $('#kabupaten option:selected').text();
                 $('#nama_kabupaten').val(kabText); // simpan nama kabupaten

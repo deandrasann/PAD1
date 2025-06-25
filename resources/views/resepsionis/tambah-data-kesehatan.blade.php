@@ -1,15 +1,5 @@
 @extends('footerheader.navbar')
 @section('content')
-    <div class="mb-4">
-        @isset($pasien)
-            @if (isset($pasien->id_pasien))
-                <a href="{{ route('resepsionis-tambah-kesehatan', ['id' => $pasien->id_pasien]) }}"
-                    class="tab-link {{ Route::is('resepsionis-tambah-kesehatan') ? 'active' : '' }}">
-                    Isi Data Kesehatan
-                </a>
-            @endif
-        @endisset
-    </div>
     <div class="container mt-4">
         <h5 class="text-center fw-bold mb-4">DATA KESEHATAN</h5>
 

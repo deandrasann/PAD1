@@ -214,7 +214,7 @@
                 <div class="col-md-3 py-4 collapse collapse-horizontal show border-end border-bottom" id="sidebar">
                     <div class="d-flex flex-column align-items-center">
                         <h1>Data Pasien</h1>
-                        <img src="{{ asset('images/pengawas_minum_obat.jpeg') }}" class="profile-img m-4" width="200px" height="200px">
+                        <img src="{{ asset('images/ix_user-profile-filled.png') }}" class="profile-img m-4" width="200px" height="200px">
                         <div>
                             <ul class="list-group mt-4 width-250">
                                 <li class="list-group-item p-3 d-flex align-items-start" style="color: #2E6084; width: 250px;">

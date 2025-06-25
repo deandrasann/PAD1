@@ -16,10 +16,35 @@ use App\Http\Controllers\PengawasController;
 use App\Http\Controllers\PengawasMinumObatController;
 use App\Http\Controllers\ResepController;
 use App\Http\Controllers\ResepsionisController;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return redirect('/login');
+});
+
+// Route untuk mengambil daftar provinsi
+Route::get('/api/wilayah/provinces', function () {
+    $response = Http::get('https://www.emsifa.com/api-wilayah-indonesia/api/provinces.json');
+    return $response->json();
+});
+
+// Route untuk mengambil daftar kabupaten berdasarkan ID provinsi
+Route::get('/api/wilayah/regencies/{provinceId}', function ($provinceId) {
+    $response = Http::get("https://www.emsifa.com/api-wilayah-indonesia/api/regencies/{$provinceId}.json");
+    return $response->json();
+});
+
+// Route untuk mengambil daftar kecamatan berdasarkan ID kabupaten
+Route::get('/api/wilayah/districts/{regencyId}', function ($regencyId) {
+    $response = Http::get("https://www.emsifa.com/api-wilayah-indonesia/api/districts/{$regencyId}.json");
+    return $response->json();
+});
+
+// Route untuk mengambil daftar kelurahan berdasarkan ID kecamatan
+Route::get('/api/wilayah/villages/{districtId}', function ($districtId) {
+    $response = Http::get("https://www.emsifa.com/api-wilayah-indonesia/api/villages/{$districtId}.json");
+    return $response->json();
 });
 
 Route::get('/cek-session/{id}', function ($id) {

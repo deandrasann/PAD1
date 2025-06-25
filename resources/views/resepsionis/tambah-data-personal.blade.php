@@ -153,172 +153,181 @@
             <button type="submit" class="btn btn-success" {{ $isDisabled ? 'disabled' : '' }}>Simpan</button>
         </div>
     </form>
+    {{-- HAPUS SEMUA @push('scripts') YANG LAMA DAN GANTI DENGAN INI --}}
+    @push('scripts')
+        <script>
+            $(document).ready(function() {
 
-    <script>
-        $(document).ready(function() {
-            // Aktifkan select2
-            $('#provinsi, #kabupaten, #kecamatan, #kelurahan').select2({
-                // placeholder: "-- Pilih --",
-                allowClear: true,
-                width: "100%"
-            });
-
-            // Ambil daftar provinsi
-            $.getJSON("https://www.emsifa.com/api-wilayah-indonesia/api/provinces.json", function(data) {
-                console.log("Data Provinsi didapat:", data); // DEBUG 1
-
-                $('#provinsi').empty().append(
-                    '<option value="" disabled selected>-- Pilih Provinsi --</option>'
-                );
-
-                $.each(data, function(i, provinsi) {
-                    console.log("Tambah provinsi:", provinsi.id, provinsi.name); // DEBUG 2
-                    $('#provinsi').append('<option value="' + provinsi.id + '">' + provinsi.name +
-                        '</option>');
+                $('#provinsi, #kabupaten, #kecamatan, #kelurahan').select2({
+                    placeholder: "-- Pilih --",
+                    allowClear: true,
+                    width: "100%"
                 });
 
-                console.log("Semua provinsi ditambahkan ke select"); // DEBUG 3
-            });
 
-            // Ketika provinsi dipilih
-            $('#provinsi').on('change', function() {
-                var provId = $(this).val();
-                var provText = $('#provinsi option:selected').text();
-                $('#nama_provinsi').val(provText); // simpan nama provinsi
+                const isFormDisabled = $('#provinsi').is(':disabled');
 
-                $('#kabupaten').empty().append(
-                    '<option value="" disabled selected>-- Pilih Kab/Kota --</option>');
-                $('#kecamatan').empty().append(
-                    '<option value="" disabled selected>-- Pilih Kecamatan --</option>');
-                $('#kelurahan').empty().append(
-                    '<option value="" disabled selected>-- Pilih Kelurahan --</option>');
+                if (!isFormDisabled) {
 
-                if (provId) {
-                    $.getJSON("https://www.emsifa.com/api-wilayah-indonesia/api/regencies/" + provId +
-                        ".json",
-                        function(data) {
-                            $.each(data, function(i, kabupaten) {
-                                $('#kabupaten').append('<option value="' + kabupaten.id + '">' +
-                                    kabupaten.name + '</option>');
-                            });
+                    $.getJSON("{{ url('/api/wilayah/provinces') }}", function(data) {
+                        $('#provinsi').empty().append(
+                            '<option value="" disabled selected>-- Pilih Provinsi --</option>');
+                        $.each(data, function(i, provinsi) {
+                            $('#provinsi').append($('<option>', {
+                                value: provinsi.id,
+                                text: provinsi.name
+                            }));
                         });
-                }
-            });
+                    });
 
-            // Ketika kabupaten dipilih
-            $('#kabupaten').on('change', func~tion() {
-                var kabId = $(this).val();
-                var kabText = $('#kabupaten option:selected').text();
-                $('#nama_kabupaten').val(kabText); // simpan nama kabupaten
+                    $('#provinsi').on('change', function() {
+                        var provId = $(this).val();
+                        var provText = $(this).find('option:selected').text();
+                        $('#nama_provinsi').val(provText); // Simpan nama provinsi ke hidden input
 
-                $('#kecamatan').empty().append(
-                    '<option value="" disabled selected>-- Pilih Kecamatan --</option>');
-                $('#kelurahan').empty().append(
-                    '<option value="" disabled selected>-- Pilih Kelurahan --</option>');
+                        // Reset dan disable dropdown di bawahnya
+                        $('#kabupaten').empty().append(
+                                '<option value="" disabled selected>-- Pilih Kab/Kota --</option>').val(null)
+                            .trigger('change');
+                        $('#kecamatan').empty().append(
+                                '<option value="" disabled selected>-- Pilih Kecamatan --</option>').val(null)
+                            .trigger('change');
+                        $('#kelurahan').empty().append(
+                                '<option value="" disabled selected>-- Pilih Kelurahan --</option>').val(null)
+                            .trigger('change');
 
-                if (kabId) {
-                    $.getJSON("https://www.emsifa.com/api-wilayah-indonesia/api/districts/" + kabId +
-                        ".json",
-                        function(data) {
-                            $.each(data, function(i, kecamatan) {
-                                $('#kecamatan').append('<option value="' + kecamatan.id + '">' +
-                                    kecamatan.name + '</option>');
+                        if (provId) {
+                            $.getJSON("{{ url('/api/wilayah/regencies/') }}/" + provId, function(data) {
+                                $.each(data, function(i, kabupaten) {
+                                    $('#kabupaten').append($('<option>', {
+                                        value: kabupaten.id,
+                                        text: kabupaten.name
+                                    }));
+                                });
                             });
-                        });
-                }
-            });
-
-            // Ketika kecamatan dipilih
-            $('#kecamatan').on('change', function() {
-                var kecId = $(this).val();
-                var kecText = $('#kecamatan option:selected').text();
-                $('#nama_kecamatan').val(kecText); // simpan nama kecamatan
-
-                $('#kelurahan').empty().append(
-                    '<option value="" disabled selected>-- Pilih Kelurahan --</option>');
-
-                if (kecId) {
-                    $.getJSON("https://www.emsifa.com/api-wilayah-indonesia/api/villages/" + kecId +
-                        ".json",
-                        function(data) {
-                            $.each(data, function(i, kelurahan) {
-                                $('#kelurahan').append('<option value="' + kelurahan.id + '">' +
-                                    kelurahan.name + '</option>');
-                            });
-                        });
-                }
-            });
-
-            // Ketika kelurahan dipilih
-            $('#kelurahan').on('change', function() {
-                var kelText = $('#kelurahan option:selected').text();
-                $('#nama_kelurahan').val(kelText); // simpan nama kelurahan
-            });
-        });
-    </script>
-
-    <script>
-        $(document).ready(function() {
-            // ... script select2 tetap ...
-            const csrfToken = $('#csrf-token').val(); // ambil dari hidden input
-
-            $('#form-pasien').submit(function(e) {
-                e.preventDefault();
-
-                let formData = {
-                    nama: $('input[name="nama"]').val(),
-                    jenis_kelamin: $('input[name="jenis_kelamin"]').val(),
-                    tempat_lahir: $('input[name="tempat_lahir"]').val(),
-                    tanggal_lahir: $('input[name="tanggal_lahir"]').val(),
-                    no_telp: $('input[name="no_telp"]').val(),
-                    email: $('input[name="email"]').val(),
-                    nama_provinsi: $('#nama_provinsi').val(),
-                    nama_kabupaten: $('#nama_kabupaten').val(),
-                    nama_kecamatan: $('#nama_kecamatan').val(),
-                    nama_kelurahan: $('#nama_kelurahan').val(),
-                    alamat: $('textarea[name="alamat"]').val(),
-                    _token: $('#csrf-token').val(),
-                };
-
-                $.ajax({
-                    url: '{{ url('/api/resepsionis-tambah-pasien') }}', // sesuaikan dengan route API kamu
-                    method: 'POST',
-                    data: formData,
-                    success: function(res) {
-                        alert('Berhasil menambahkan pasien dengan No RM: ' + res.data.no_rm);
-                        location.href = '/resepsionis-tambah-kesehatan/' + res.data.id_pasien;
-                    },
-                    error: function(xhr) {
-                        $('input, textarea, select').removeClass('is-invalid');
-                        $('.invalid-feedback').text('');
-
-                        if (xhr.status === 422) {
-                            let errors = xhr.responseJSON.errors;
-
-                            // Loop untuk tampilkan error di setiap field
-                            for (let field in errors) {
-                                const inputField = $('[name="' + field + '"]');
-                                const errorMessage = errors[field][0];
-
-                                inputField.addClass('is-invalid');
-                                $('#error-' + field).text(errorMessage);
-                            }
-                        } else {
-                            let message = "Terjadi kesalahan tidak terduga.";
-
-                            if (xhr.responseJSON && xhr.responseJSON.message) {
-                                message += "\nPesan Server: " + xhr.responseJSON.message;
-                            } else if (xhr.responseText) {
-                                message += "\nDetail: " + xhr.responseText;
-                            }
-
-                            alert(message);
                         }
+                    });
 
+                    $('#kabupaten').on('change', function() {
+                        var kabId = $(this).val();
+                        var kabText = $(this).find('option:selected').text();
+                        $('#nama_kabupaten').val(kabText); // Simpan nama kabupaten
+
+                        // Reset dropdown di bawahnya
+                        $('#kecamatan').empty().append(
+                                '<option value="" disabled selected>-- Pilih Kecamatan --</option>').val(null)
+                            .trigger('change');
+                        $('#kelurahan').empty().append(
+                                '<option value="" disabled selected>-- Pilih Kelurahan --</option>').val(null)
+                            .trigger('change');
+
+                        if (kabId) {
+                            $.getJSON("{{ url('/api/wilayah/districts/') }}/" + kabId, function(data) {
+                                $.each(data, function(i, kecamatan) {
+                                    $('#kecamatan').append($('<option>', {
+                                        value: kecamatan.id,
+                                        text: kecamatan.name
+                                    }));
+                                });
+                            });
+                        }
+                    });
+
+                    $('#kecamatan').on('change', function() {
+                        var kecId = $(this).val();
+                        var kecText = $(this).find('option:selected').text();
+                        $('#nama_kecamatan').val(kecText); // Simpan nama kecamatan
+
+                        // Reset dropdown di bawahnya
+                        $('#kelurahan').empty().append(
+                                '<option value="" disabled selected>-- Pilih Kelurahan --</option>').val(null)
+                            .trigger('change');
+
+                        if (kecId) {
+                            $.getJSON("{{ url('/api/wilayah/villages/') }}/" + kecId, function(data) {
+                                $.each(data, function(i, kelurahan) {
+                                    $('#kelurahan').append($('<option>', {
+                                        value: kelurahan.id,
+                                        text: kelurahan.name
+                                    }));
+                                });
+                            });
+                        }
+                    });
+
+                    $('#kelurahan').on('change', function() {
+                        var kelText = $(this).find('option:selected').text();
+                        $('#nama_kelurahan').val(kelText); // Simpan nama kelurahan
+                    });
+                }
+
+
+                $('#form-pasien').submit(function(e) {
+                    e.preventDefault();
+
+                    // Jika form disabled, jangan lakukan apa-apa
+                    if ($('#form-pasien button[type="submit"]').is(':disabled')) {
+                        return;
                     }
-                });
-            });
-        });
-    </script>
 
+                    let formData = {
+                        nama: $('input[name="nama"]').val(),
+                        jenis_kelamin: $('input[name="jenis_kelamin"]').val(),
+                        tempat_lahir: $('input[name="tempat_lahir"]').val(),
+                        tanggal_lahir: $('input[name="tanggal_lahir"]').val(),
+                        no_telp: $('input[name="no_telp"]').val(),
+                        email: $('input[name="email"]').val(),
+                        nama_provinsi: $('#nama_provinsi').val(),
+                        nama_kabupaten: $('#nama_kabupaten').val(),
+                        nama_kecamatan: $('#nama_kecamatan').val(),
+                        nama_kelurahan: $('#nama_kelurahan').val(),
+                        alamat: $('textarea[name="alamat"]').val(),
+                        _token: $('#csrf-token').val(),
+                    };
+
+                    $.ajax({
+                        url: '{{ url('/api/resepsionis-tambah-pasien') }}', // Sesuaikan dengan route API Anda
+                        method: 'POST',
+                        data: formData,
+                        success: function(res) {
+                            alert('Berhasil menambahkan pasien dengan No RM: ' + res.data.no_rm);
+                            // Arahkan ke halaman data kesehatan dengan ID pasien yang baru
+                            location.href = '/resepsionis-tambah-kesehatan/' + res.data.id_pasien;
+                        },
+                        error: function(xhr) {
+                            // Hapus semua error-highlight sebelumnya
+                            $('.is-invalid').removeClass('is-invalid');
+                            $('.invalid-feedback').text('');
+
+                            if (xhr.status === 422) { // Error validasi
+                                let errors = xhr.responseJSON.errors;
+                                for (let field in errors) {
+                                    // Targetkan input, textarea, atau select
+                                    const inputField = $('[name="' + field + '"]');
+                                    const errorContainer = $('#error-' + field.replace(/_/g, "-"));
+
+                                    inputField.addClass('is-invalid');
+
+                                    // Jika ada div khusus error, tampilkan di sana
+                                    if (errorContainer.length) {
+                                        errorContainer.text(errors[field][0]);
+                                    } else {
+                                        // Jika tidak, tampilkan di invalid-feedback setelah input
+                                        inputField.next('.invalid-feedback').text(errors[field][0]);
+                                    }
+                                }
+                            } else {
+                                let message = "Terjadi kesalahan tidak terduga. Silakan coba lagi.";
+                                if (xhr.responseJSON && xhr.responseJSON.message) {
+                                    message += "\nPesan Server: " + xhr.responseJSON.message;
+                                }
+                                alert(message);
+                            }
+                        }
+                    });
+                });
+
+            });
+        </script>
+    @endpush
 @endsection

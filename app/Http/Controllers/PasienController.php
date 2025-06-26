@@ -13,11 +13,6 @@ class PasienController extends Controller
         $nama_pasien = $request->input('nama');
         $alamat = $request->input('alamat');
         $tgl_lahir = $request->input('tanggal_lahir');
-        // dd($request->all());
-
-        // $data_pasien = PasienModel::where('no_rm', $no_rm)
-        //             ->orWhere('nama', 'LIKE', "%{$nama_pasien}%")
-        //             ->get();
         if([$no_rm,$nama_pasien,$alamat,$tgl_lahir] !== null) {
         $data_pasien = DB::table('pasien')->where('no_rm', $no_rm,)
                         ->where('nama', 'like',"%" . $nama_pasien . "%")
@@ -148,4 +143,4 @@ class PasienController extends Controller
     }
 
 
-}
+

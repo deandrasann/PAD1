@@ -24,13 +24,13 @@ class AuthApiController extends Controller
 
             return response()->json([
                 'message' => 'Login successful',
-                'user' => Auth::user() 
-            ], 200); 
+                'user' => Auth::user()
+            ], 200);
 
         }
 
         throw ValidationException::withMessages([
-            'username' => ['The provided credentials do not match our records.'],
+            'username' => ['Login Gagal. Username atau password salah.'],
         ]);
     }
 

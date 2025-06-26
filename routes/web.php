@@ -102,7 +102,7 @@ Route::group(['middleware' => ['auth', 'level:admin,apoteker,dokter,resepsionis'
     Route::post('/pasien', [PasienController::class, 'PasienStore'])->name('pasien.store');
     Route::post('/pasien/{id}', [PasienController::class, 'PasienUpdate'])->name('pasien.update');
     Route::delete('/pasien/{id}', [PasienController::class, 'PasienDestroy'])->name('pasien.destroy');
-    
+
 
     Route::get('/api/pasien/get', [PasienApiController::class, 'getPasien'])->name('api.pasien.get');
     Route::post('/api/pasien/create', [PasienApiController::class, 'createPasien'])->name('api.pasien.create');
@@ -144,12 +144,6 @@ Route::group(['middleware' => ['auth', 'level:admin']], function () {
     Route::delete('/jumlah-apoteker/{id}', [ApotekerController::class, 'ApotekerDestroy'])->name('apoteker.destroy');
     Route::get('/tambah-apoteker', [ApotekerController::class, 'tambahApoteker'])->name('tambah-apoteker');
 
-    Route::get('/jumlah-pengawas', [PengawasController::class, 'index'])->name('jumlah-pengawas');
-    Route::get('/tambah-pengawas', [PengawasController::class, 'tambahpengawas'])->name('tambah-pengawas');
-    Route::post('/tambah-pengawas', [PengawasController::class, 'pengawasStore'])->name('pengawas.store');
-    Route::post('/jumlah-pengawas/{id}', [PengawasController::class, 'pengawasupdate'])->name('pengawas.update');
-    Route::delete('/jumlah-pengawas/{id}', [PengawasController::class, 'pengawasdestroy'])->name('pengawas.destroy');
-
     Route::get('/jumlah-resepsionis', [ResepsionisController::class, 'index'])->name('jumlah-resepsionis');
     Route::get('/tambah-resepsionis', [ResepsionisController::class, 'tambahResepsionis'])->name('tambah-resepsionis');
 
@@ -164,11 +158,6 @@ Route::group(['middleware' => ['auth', 'level:admin']], function () {
     Route::post('/api/admin/apoteker/create', [AdminController::class, 'createApoteker'])->name('api.create.apoteker');
     Route::put('/api/admin/apoteker/update/{id}', [AdminController::class, 'updateApoteker'])->name('api.update.apoteker');
     Route::delete('/api/admin/apoteker/delete/{id}', [AdminController::class, 'deleteApoteker'])->name('api.delete.apoteker');
-
-    Route::get('/api/admin/pengawas/get', [AdminController::class, 'getPengawas'])->name('api.get.pengawas');
-    Route::post('/api/admin/pengawas/create', [AdminController::class, 'createPengawas'])->name('api.create.pengawas');
-    Route::put('/api/admin/pengawas/update/{id}', [AdminController::class, 'updatePengawas'])->name('api.update.pengawas');
-    Route::delete('/api/admin/pengawas/delete/{id}', [AdminController::class, 'deletePengawas'])->name('api.delete.pengawas');
 
     Route::get('/api/admin/resepsionis/get', [AdminController::class, 'getResepsionis'])->name('api.get.resepsionis');
     Route::post('/api/admin/resepsionis/create', [AdminController::class, 'createResepsionis'])->name('api.create.resepsionis');
@@ -189,26 +178,26 @@ Route::group(['middleware' => ['auth', 'level:admin']], function () {
 // Route::group(['middleware' => ['auth', 'level:dokter']], function () {
 //     Route::get('/resume-medis', [DokterController::class, 'resumeMedis'])->name('resume-medis');
 // });
-
-Route::get('/resume-medis/{id_pemeriksaan_awal}', [DokterController::class, 'resumeMedis'])->name('resume-medis');
-Route::post('/resume-medis/{id_pemeriksaan_awal}', [DokterController::class, 'simpanPemeriksaan'])->name('simpan-pemeriksaan');
-Route::get('/riwayat-konsultasi', [DokterController::class, 'riwayatKonsultasi'])->name('riwayat-konsultasi');
-Route::get('/rawat-jalan', [DokterController::class, 'rawatJalan'])->name('rawat-jalan');
-Route::post('/rawat-jalan/{id_pasien}', [DokterController::class, 'panggilPasien'])->name('panggil.pasien');
-Route::get('/tambah-obat-dokter/{id_pemeriksaan_akhir}', [DokterController::class, 'tambahObat'])->name('tambah-obat-dokter');
-Route::get('/get-obat/{kode_obat}', [DokterController::class, 'getObat']);
-Route::get('/cari-racikan', [DokterController::class, 'getObatRacikan']);
-Route::get('/api/obat-stocked', [DokterController::class, 'getObatRacikanStocked']);
-Route::get('/get-obat-racikan/{kode_obat}', [DokterController::class, 'getTambahObatRacikan']);
-Route::post('/simpan-racikan-ke-session', [DokterController::class, 'simpanKeSession']);
-Route::post('/simpan-resep', [DokterController::class, 'simpanNonRacikanSession'])->name('resep.simpan.session');
-Route::get('/view-pasien-dokter/{id_dokter}', [DokterController::class, 'viewPasienDokter'])->name('view-pasien-dokter');
-Route::get('/detail-data-pasien/{id_pemeriksaan_awal}', [DokterController::class, 'detailPasien'])->name('detail-data-pasien');
-Route::get('/riwayat-konsultasi-pasien/{id_pemeriksaan_awal}', [DokterController::class, 'riwayatKonsultasiPasien'])->name('riwayat-konsultasi-pasien');
-Route::get('/riwayat-konsultasi-pasien-selesai/{id_pemeriksaan_awal}', [DokterController::class, 'riwayatKonsulDone'])->name('riwayat-konsul-done');
-Route::get('/lihat-obat-pasien/{id_pemeriksaan_akhir}', [DokterController::class, 'lihatObatPasien'])->name('lihat-obat-pasien');
-Route::get('/api/lihat-obat-pasien/{id_pemeriksaan_akhir}', [DokterController::class, 'getObatByPemeriksaan']);
-
+Route::group(['middleware' => ['auth', 'level:admin,dokter']], function () {
+    Route::get('/resume-medis/{id_pemeriksaan_awal}', [DokterController::class, 'resumeMedis'])->name('resume-medis');
+    Route::post('/resume-medis/{id_pemeriksaan_awal}', [DokterController::class, 'simpanPemeriksaan'])->name('simpan-pemeriksaan');
+    Route::get('/riwayat-konsultasi', [DokterController::class, 'riwayatKonsultasi'])->name('riwayat-konsultasi');
+    Route::get('/rawat-jalan', [DokterController::class, 'rawatJalan'])->name('rawat-jalan');
+    Route::post('/rawat-jalan/{id_pasien}', [DokterController::class, 'panggilPasien'])->name('panggil.pasien');
+    Route::get('/tambah-obat-dokter/{id_pemeriksaan_akhir}', [DokterController::class, 'tambahObat'])->name('tambah-obat-dokter');
+    Route::get('/get-obat/{kode_obat}', [DokterController::class, 'getObat']);
+    Route::get('/cari-racikan', [DokterController::class, 'getObatRacikan']);
+    Route::get('/api/obat-stocked', [DokterController::class, 'getObatRacikanStocked']);
+    Route::get('/get-obat-racikan/{kode_obat}', [DokterController::class, 'getTambahObatRacikan']);
+    Route::post('/simpan-racikan-ke-session', [DokterController::class, 'simpanKeSession']);
+    Route::post('/simpan-resep', [DokterController::class, 'simpanNonRacikanSession'])->name('resep.simpan.session');
+    Route::get('/view-pasien-dokter/{id_dokter}', [DokterController::class, 'viewPasienDokter'])->name('view-pasien-dokter');
+    Route::get('/detail-data-pasien/{id_pemeriksaan_awal}', [DokterController::class, 'detailPasien'])->name('detail-data-pasien');
+    Route::get('/riwayat-konsultasi-pasien/{id_pemeriksaan_awal}', [DokterController::class, 'riwayatKonsultasiPasien'])->name('riwayat-konsultasi-pasien');
+    Route::get('/riwayat-konsultasi-pasien-selesai/{id_pemeriksaan_awal}', [DokterController::class, 'riwayatKonsulDone'])->name('riwayat-konsul-done');
+    Route::get('/lihat-obat-pasien/{id_pemeriksaan_akhir}', [DokterController::class, 'lihatObatPasien'])->name('lihat-obat-pasien');
+    Route::get('/api/lihat-obat-pasien/{id_pemeriksaan_akhir}', [DokterController::class, 'getObatByPemeriksaan']);
+});
 
 
 Route::group(['middleware' => ['auth', 'level:admin,pengawas,apoteker']], function () {
@@ -223,19 +212,20 @@ Route::group(['middleware' => ['auth', 'level:admin,pengawas,apoteker']], functi
     Route::get('/riwayat-data-resep', [DashboardController::class, 'riwayatDataResep'])->name('riwayat-data-resep');
     Route::get('/riwayat-minum-obat-2', [DashboardController::class, 'riwayatMinumObat2'])->name('riwayat-minum-obat-2');
 });
+Route::group(['middleware' => ['auth', 'level:admin,resepsionis']], function () {
+    Route::get('/resepsionis', [ResepsionisController::class, 'inputDataPasien'])->name('resepsionis');
+    Route::get('/api/resepsionis', [ApiResepsionisController::class, 'apiGetPasien']);
+    Route::get('/resepsionis/detail-pasien/{id}', [ResepsionisController::class, 'showDetailView'])->name('pasien.detail.view');
+    Route::get('/api/resepsionis-detail-pasien/{id}', [ApiResepsionisController::class, 'ApishowDetailView']);
+    Route::get('/resepsionis-tambah-pasien/{no_rm?}', [ResepsionisController::class, 'storeDataPersonalForm'])->name('resepsionis-tambah-form');
+    Route::get('/api/resepsionis-tambah-pasien/{no_rm?}', [ApiResepsionisController::class, 'apiGetPasienByNoRM']);
+    Route::post('/resepsionis-tambah-pasien/{no_rm?}', [ResepsionisController::class, 'storeDataPersonal'])->name('resepsionis-tambah');
+    Route::post('/api/resepsionis-tambah-pasien', [ApiResepsionisController::class, 'apiStorePasien']);
+    // Menampilkan form tambah data kesehatan
+    Route::get('/resepsionis-tambah-kesehatan/{id}', [ResepsionisController::class, 'tambahDataKesehatanPasien'])->name('resepsionis-tambah-kesehatan');
+    Route::get('/api/resepsionis-tambah-kesehatan/{id}', [ApiResepsionisController::class, 'apiTambahDataKesehatanPasien']);
 
-Route::get('/cobajadwal/{id}', [PengawasMinumObatController::class, 'cobacoba'])->name('cobaminum');
-Route::get('/resepsionis', [ResepsionisController::class, 'inputDataPasien'])->name('resepsionis');
-Route::get('/api/resepsionis', [ApiResepsionisController::class, 'apiGetPasien']);
-Route::get('/resepsionis-tambah-pasien/{no_rm?}', [ResepsionisController::class, 'storeDataPersonalForm'])->name('resepsionis-tambah-form');
-Route::get('/api/resepsionis-tambah-pasien/{no_rm?}', [ApiResepsionisController::class, 'apiGetPasienByNoRM']);
-Route::post('/resepsionis-tambah-pasien/{no_rm?}', [ResepsionisController::class, 'storeDataPersonal'])->name('resepsionis-tambah');
-Route::post('/api/resepsionis-tambah-pasien', [ApiResepsionisController::class, 'apiStorePasien']);
-// Menampilkan form tambah data kesehatan
-Route::get('/resepsionis-tambah-kesehatan/{id}', [ResepsionisController::class, 'tambahDataKesehatanPasien'])->name('resepsionis-tambah-kesehatan');
-Route::get('/api/resepsionis-tambah-kesehatan/{id}', [ApiResepsionisController::class, 'apiTambahDataKesehatanPasien']);
-
-// Menyimpan data ke pemeriksaan_awal
-Route::post('/resepsionis-tambah-kesehatan/{id}', [ResepsionisController::class, 'storeDataKesehatan'])->name('simpan-kesehatan');
-Route::post('/api/resepsionis-tambah-kesehatan/{id}', [ApiResepsionisController::class, 'storeDataKesehatanApi']);
-
+    // Menyimpan data ke pemeriksaan_awal
+    Route::post('/resepsionis-tambah-kesehatan/{id}', [ResepsionisController::class, 'storeDataKesehatan'])->name('simpan-kesehatan');
+    Route::post('/api/resepsionis-tambah-kesehatan/{id}', [ApiResepsionisController::class, 'storeDataKesehatanApi']);
+});

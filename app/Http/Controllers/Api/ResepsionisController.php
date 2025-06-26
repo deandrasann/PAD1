@@ -196,4 +196,23 @@ class ResepsionisController extends Controller
             'message' => 'Data kesehatan berhasil disimpan.'
         ], 201);
     }
+    
+     public function ApishowDetailView($no_rm)
+    {
+         // Mencari pasien berdasarkan kolom 'no_rm'
+        $pasien = DB::table('pasien')->where('no_rm', $no_rm)->first();
+
+        // Jika pasien dengan No RM tersebut tidak ditemukan
+        if (!$pasien) {
+            return response()->json([
+                'message' => 'Pasien dengan No. RM tersebut tidak ditemukan.'
+            ], 404); // Kembalikan error 404
+        }
+
+        // Jika pasien ditemukan, kembalikan datanya
+        return response()->json([
+            'message' => 'Data pasien berhasil ditemukan.',
+            'data'    => $pasien
+        ], 200);
+    }
 }

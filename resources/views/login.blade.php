@@ -89,10 +89,6 @@
           <div class="d-grid">
             <button type="submit" class="btn btn-primary" id="submitButton">Login</button>
           </div>
-          <div class="text-center my-3">OR</div>
-          <div class="d-grid">
-            <button type="button" class="btn btn-outline-secondary"><img src="{{asset('images/google.png')}}" style="width: 20px; height: 20px; align-items-center; justify-content-center; margin-right:8px;">Log in with Google</button>
-          </div>
           {{-- <div class="text-center mt-3">
             Belum punya akun? <a href="#" style="text-decoration: none; color:blue">Daftar</a>
           </div> --}}

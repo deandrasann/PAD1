@@ -219,7 +219,7 @@
                             <ul class="list-group mt-4 width-250">
                                 <li class="list-group-item p-3 d-flex align-items-start" style="color: #2E6084; width: 250px;">
                                     <div class="me-2">
-                                        <img src="{{ asset('images/navbar pmo/vector-2.png') }}" class="img-fluid" alt="Icon" style="max-width: 50px; height: auto;">
+                                        <img src="{{ asset('images/navbar pmo/Vector-2.png') }}" class="img-fluid" alt="Icon" style="max-width: 50px; height: auto;">
                                     </div>
                                     <div>
                                         <strong>No RM:</strong> <br><div id="sidebar_norm"></div>
@@ -227,7 +227,7 @@
                                 </li>
                                 <li class="list-group-item p-3 d-flex align-items-start" style="color: #2E6084; width: 250px;">
                                     <div class="me-2">
-                                        <img src="{{ asset('images/navbar pmo/vector.png') }}" class="img-fluid" alt="Icon" style="max-width: 50px; height: auto;">
+                                        <img src="{{ asset('images/navbar pmo/Vector.png') }}" class="img-fluid" alt="Icon" style="max-width: 50px; height: auto;">
                                     </div>
                                     <div>
                                         <strong>Nama:</strong> <br><div id="sidebar_nama"></div>
@@ -235,7 +235,7 @@
                                 </li>
                                 <li class="list-group-item p-3 d-flex align-items-start" style="color: #2E6084; width: 250px;">
                                     <div class="me-2">
-                                        <img src="{{ asset('images/navbar pmo/vector-1.png') }}" class="img-fluid" alt="Icon" style="max-width: 50px; height: auto;">
+                                        <img src="{{ asset('images/navbar pmo/Vector-1.png') }}" class="img-fluid" alt="Icon" style="max-width: 50px; height: auto;">
                                     </div>
                                     <div>
                                         <strong>Jenis Kelamin:</strong> <br><div id="sidebar_jeniskelamin"></div>
@@ -243,7 +243,7 @@
                                 </li>
                                 <li class="list-group-item p-3 d-flex align-items-start" style="color: #2E6084; width: 250px;">
                                     <div class="me-2">
-                                        <img src="{{ asset('images/navbar pmo/vector-5.png') }}" class="img-fluid" alt="Icon" style="max-width: 50px; height: auto;">
+                                        <img src="{{ asset('images/navbar pmo/Vector-5.png') }}" class="img-fluid" alt="Icon" style="max-width: 50px; height: auto;">
                                     </div>
                                     <div>
                                         <strong>Tanggal Lahir:</strong> <br> <div id="sidebar_tanggallahir"></div>
@@ -251,7 +251,7 @@
                                 </li>
                                 <li class="list-group-item p-3 d-flex align-items-start" style="color: #2E6084; width: 250px;">
                                     <div class="me-2">
-                                        <img src="{{ asset('images/navbar pmo/vector-4.png') }}" class="img-fluid" alt="Icon" style="max-width: 50px; height: auto;">
+                                        <img src="{{ asset('images/navbar pmo/Vector-4.png') }}" class="img-fluid" alt="Icon" style="max-width: 50px; height: auto;">
                                     </div>
                                     <div>
                                         <strong>No Telepon:</strong> <br> <div id="sidebar_notelp"></div>
@@ -259,7 +259,7 @@
                                 </li>
                                 <li class="list-group-item p-3 d-flex align-items-start" style="color: #2E6084; width: 250px;">
                                     <div class="me-2">
-                                        <img src="{{ asset('images/navbar pmo/vector-3.png') }}" class="img-fluid" alt="Icon" style="max-width: 50px; height: auto;">
+                                        <img src="{{ asset('images/navbar pmo/Vector-3.png') }}" class="img-fluid" alt="Icon" style="max-width: 50px; height: auto;">
                                     </div>
                                     <div>
                                         <strong>Alamat:</strong> <br> <div id="sidebar_alamat"></div>

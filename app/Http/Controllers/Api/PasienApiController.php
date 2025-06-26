@@ -159,15 +159,6 @@ class PasienApiController extends Controller
         ], 200); // Kode status HTTP 200 untuk 'OK'
     }
 
-    /**
-     * Memperbarui data pasien berdasarkan ID.
-     * Method ini memungkinkan pembaruan sebagian (PATCH) atau seluruh (PUT) data pasien,
-     * termasuk informasi di tabel 'users' dan 'pasien'. Penanganan unggahan foto opsional.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id_pasien ID pasien yang akan diperbarui
-     * @return \Illuminate\Http\JsonResponse
-     */
     public function updatePasien(Request $request, $id_pasien)
     {
         // Mencari data pasien berdasarkan id_pasien

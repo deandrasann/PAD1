@@ -119,8 +119,8 @@
         </div>
     </div>
 
-
-<script>
+@push('scripts')
+    <script>
     // Fungsi untuk membuka modal dan mengisi form dengan data resepsionis
     function openEditresepsionisModal(id) {
         const row = document.getElementById("row" + id);
@@ -229,106 +229,81 @@
         });
     });
     
-    // Fetch Data resepsionis dengan AJAX
-    function fetchData(event) {
-        event?.preventDefault(); // Cegah form submit default jika pencarian digunakan
-        
-        const search = $('#searchInput').val();
-        
-        $.ajax({
-            url: '/api/admin/resepsionis/get',
-            type: 'GET',
-            data: { search: search },
-            success: function(response) {
-                const resepsionisData = response.data.data;
-                const pagination = response.data; // Mengambil informasi pagination
-                
-                // Menampilkan data di tabel
-                let tableBody = $('#resepsionisTableBody');
-                tableBody.empty();  // Menghapus data lama
-                
-                resepsionisData.forEach((item, index) => {
-                    tableBody.append(`
-                        <tr id="row${item.id_resepsionis}">
-                            <td>${pagination.current_page * (index + 1) - (pagination.current_page - 1)}</td>
-                            <td class="username">${item.username}</td>
-                            <td class="nama_resepsionis">${item.nama_resepsionis}</td>
-                            <td class="email">${item.email}</td>
-                            <td class="d-flex justify-content-center align-items-center">
-                                <button class="btn btn-success editPasien p-2 px-3 mx-2" onclick="openEditresepsionisModal(${item.id_resepsionis})">
-                                    <img src="{{ asset('images/edit icon.png') }}" class="me-2">Edit
-                                </button>
-                                <button class="btn btn-danger p-2 px-3 mx-2 delete-btn" onclick="openDeleteModal(${item.id_resepsionis}, '${item.username}')">
-                                    <img src="{{ asset('images/delete icon.png') }}" class="me-2">Hapus
-                                </button>
-                            </td>
-                        </tr>
-                    `);
-                });
+// --- FUNGSI UTAMA UNTUK MENGAMBIL DATA ---
+        function fetchData(page = 1) {
+            const search = $('#searchInput').val();
 
-                // Handle Pagination
-                let paginationHtml = `<ul class="pagination">`;
-                for (let i = 1; i <= pagination.last_page; i++) {
-                    paginationHtml += `<li class="page-item ${i === pagination.current_page ? 'active' : ''}">
-                        <a class="page-link" href="javascript:void(0)" onclick="fetchDataPage(${i})">${i}</a>
-                    </li>`;
+            $.ajax({
+                url: '{{ route('api.get.resepsionis') }}', // Gunakan helper route() agar lebih aman
+                type: 'GET',
+                data: {
+                    search: search,
+                    page: page
+                },
+                success: function(response) {
+                    const resepsionisData = response.data.data;
+                    const pagination = response.data;
+
+                    let tableBody = $('#resepsionisTableBody');
+                    tableBody.empty(); // Kosongkan tabel sebelum diisi data baru
+
+                    if (resepsionisData.length === 0) {
+                        tableBody.append('<tr><td colspan="5" class="text-center">Data tidak ditemukan</td></tr>');
+                    } else {
+                        resepsionisData.forEach((item, index) => {
+                            // Menghitung nomor urut dengan benar berdasarkan halaman
+                            const rowNumber = (pagination.current_page - 1) * pagination.per_page + index + 1;
+                            tableBody.append(`
+                                <tr id="row${item.id_resepsionis}">
+                                    <td>${rowNumber}</td>
+                                    <td class="username">${item.username}</td>
+                                    <td class="nama_resepsionis">${item.nama_resepsionis}</td>
+                                    <td class="email">${item.email}</td>
+                                    <td class="d-flex justify-content-center align-items-center">
+                                        <button class="btn btn-success editPasien p-2 px-3 mx-2" onclick="openEditresepsionisModal(${item.id_resepsionis})">
+                                            <img src="{{ asset('images/edit icon.png') }}" class="me-2">Edit
+                                        </button>
+                                        <button class="btn btn-danger p-2 px-3 mx-2 delete-btn" onclick="openDeleteModal(${item.id_resepsionis}, '${item.username}')">
+                                            <img src="{{ asset('images/delete icon.png') }}" class="me-2">Hapus
+                                        </button>
+                                    </td>
+                                </tr>
+                            `);
+                        });
+                    }
+
+                    // --- Handle Pagination ---
+                    let paginationHtml = '';
+                    if (pagination.last_page > 1) {
+                        paginationHtml = `<ul class="pagination">`;
+                        // Tombol Previous
+                        paginationHtml += `<li class="page-item ${pagination.current_page === 1 ? 'disabled' : ''}">
+                            <a class="page-link" href="#" onclick="event.preventDefault(); fetchData(${pagination.current_page - 1})">Previous</a>
+                        </li>`;
+
+                        for (let i = 1; i <= pagination.last_page; i++) {
+                            paginationHtml += `<li class="page-item ${i === pagination.current_page ? 'active' : ''}">
+                                <a class="page-link" href="#" onclick="event.preventDefault(); fetchData(${i})">${i}</a>
+                            </li>`;
+                        }
+                        // Tombol Next
+                        paginationHtml += `<li class="page-item ${pagination.current_page === pagination.last_page ? 'disabled' : ''}">
+                            <a class="page-link" href="#" onclick="event.preventDefault(); fetchData(${pagination.current_page + 1})">Next</a>
+                        </li>`;
+                        paginationHtml += `</ul>`;
+                    }
+                    $('#pagination').html(paginationHtml);
+                },
+                error: function(xhr) {
+                    alert("Gagal memuat data. Silakan coba lagi.");
+                    console.error("Error fetching data:", xhr.responseText);
                 }
-                paginationHtml += `</ul>`;
-                $('#pagination').html(paginationHtml);
-            }
-        });
-    }
-
-    // Handle pagination clicks
-    function fetchDataPage(page) {
-        const search = $('#searchInput').val();
-
-        $.ajax({
-            url: '/api/admin/resepsionis/get',
-            type: 'GET',
-            data: { search: search, page: page },
-            success: function(response) {
-                const resepsionisData = response.data.data;
-                const pagination = response.data; // Mengambil informasi pagination
-                
-                // Menampilkan data di tabel
-                let tableBody = $('#resepsionisTableBody');
-                tableBody.empty();  // Menghapus data lama
-                
-                resepsionisData.forEach((item, index) => {
-                    tableBody.append(`
-                        <tr id="row${item.id_resepsionis}">
-                            <td>${pagination.current_page * (index + 1) - (pagination.current_page - 1)}</td>
-                            <td class="username">${item.username}</td>
-                            <td class="nama_resepsionis">${item.nama_resepsionis}</td>
-                            <td class="email">${item.email}</td>
-                            <td class="d-flex justify-content-center align-items-center">
-                                <button class="btn btn-success editPasien p-2 px-3 mx-2" onclick="openEditresepsionisModal(${item.id_resepsionis})">
-                                    <img src="{{ asset('images/edit icon.png') }}" class="me-2">Edit
-                                </button>
-                                <button class="btn btn-danger p-2 px-3 mx-2 delete-btn" data-bs-toggle="modal" data-bs-target="#hapusresepsionisModal${item.id_resepsionis}">
-                                    <img src="{{ asset('images/delete icon.png') }}" class="me-2">Hapus
-                                </button>
-                            </td>
-                        </tr>
-                    `);
-                });
-
-                // Handle Pagination
-                let paginationHtml = `<ul class="pagination">`;
-                for (let i = 1; i <= pagination.last_page; i++) {
-                    paginationHtml += `<li class="page-item ${i === pagination.current_page ? 'active' : ''}">
-                        <a class="page-link" href="javascript:void(0)" onclick="fetchDataPage(${i})">${i}</a>
-                    </li>`;
-                }
-                paginationHtml += `</ul>`;
-                $('#pagination').html(paginationHtml);
-            }
-        });
-    }
-
+            });
+        }
     // Initial fetch data
     fetchData();
 </script>
+@endpush
+
 
 @endsection

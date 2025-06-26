@@ -191,13 +191,6 @@
                         @endcan
 
                         @can('admin')
-                            <a href="{{ route('jumlah-pengawas') }}" type="button"
-                                class="btn-custom ps-3 d-flex justify-content-start align-items-center m-2 mx-4"> <img
-                                    src="{{ asset('images/navbar menu/riwayat pasien.png') }}" class="me-4"
-                                    style="width: 30px; height:30px"><strong>Pengawas</strong></a>
-                        @endcan
-
-                        @can('admin')
                             <a href="{{ route('jumlah-resepsionis') }}" type="button"
                                 class="btn-custom ps-3 d-flex justify-content-start align-items-center m-2 mx-4"> <i class="fa fa-users fa-2xl me-4" aria-hidden="true"></i><strong>Resepsionis</strong></a>
                         @endcan
@@ -313,7 +306,7 @@ $(document).ready(function () {
 
         // Kirim request POST ke route 'logout'
         $.ajax({
-            url: '{{ route("logout") }}', // URL dari API logout Anda
+            url: 'https://apotech.joesepdemar.site/api/logout', // URL dari API logout Anda
             method: 'POST',
             success: function(response) {
                 // Jika server merespons dengan sukses (logout berhasil)

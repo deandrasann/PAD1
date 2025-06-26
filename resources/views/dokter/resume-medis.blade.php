@@ -422,12 +422,11 @@
         </form>
 
     </div>
-
-    
 @endsection
 
 @push('scripts')
-    {{-- <script>
+    <script>
+        // Fungsi untuk menyimpan data dari Step 2 ke localStorage
         function saveStep2Data() {
             const anamnesa = $('#input-anamnesa').val();
             const diagnosis = $('#input-diagnosis').val();
@@ -444,6 +443,27 @@
             }));
         }
 
+        // Fungsi untuk meng-kloning (clone) field ICD
+        function cloneICDField() {
+            const original = $('.icd-group').first();
+            const newICD = original.clone();
+
+            // Reset nilai dan hapus instance Select2 sebelumnya dari elemen yang baru di-clone
+            newICD.find('select').val(null);
+            newICD.find('.select2-container').remove();
+
+            // Tambahkan field baru ke dalam wrapper
+            $('#icd-wrapper').append(newICD);
+
+            // Inisialisasi ulang Select2 pada field select yang baru
+            newICD.find('select').select2({
+                placeholder: '-- Pilih ICD 11 (2019) --',
+                allowClear: true,
+                width: '100%'
+            });
+        }
+
+        // Fungsi untuk memuat data dari localStorage saat halaman dimuat
         function loadStep2Data() {
             const data = JSON.parse(localStorage.getItem('step2Data'));
 
@@ -451,15 +471,16 @@
                 $('#input-anamnesa').val(data.anamnesa);
                 $('#input-diagnosis').val(data.diagnosis);
 
-                // Hapus semua form ICD kecuali yang pertama
+                // Hapus semua field ICD yang mungkin ada, kecuali yang pertama
                 $('#icd-wrapper .icd-group').slice(1).remove();
 
-                // Tambahkan field ICD sesuai jumlah kode (sudah ada 1, jadi mulai dari index 1)
-                for (let i = 1; i < data.icdCodes.length; i++) {
-                    $('#btn-add-icd').click();
+                // Hitung berapa field ICD yang perlu dibuat
+                const totalNeeded = data.icdCodes.length;
+                for (let i = 1; i < totalNeeded; i++) {
+                    cloneICDField();
                 }
 
-                // Setelah semua field ada, isi semua valuenya
+                // Setelah semua field dibuat, isi nilainya
                 $('select[name="icd_codes[]"]').each(function(index) {
                     $(this).val(data.icdCodes[index]).trigger('change');
                 });
@@ -467,117 +488,9 @@
         }
 
         $(document).ready(function() {
-            loadStep2Data(); // ⬅️ harus paling awal
-
-            // Event listener simpan perubahan
-            $('#input-anamnesa, #input-diagnosis').on('input', saveStep2Data);
-            $('#icd-wrapper').on('change', 'select[name="icd_codes[]"]', saveStep2Data);
-
-            // Select2 setup
-            $('.icd-select').select2({
-                placeholder: '-- Pilih ICD 11 (2019) --',
-                allowClear: true,
-                width: '100%'
-            });
-
-            // Tambah ICD
-            $('#btn-add-icd').on('click', function() {
-                const original = $('.icd-group').first();
-                const originalSelect = original.find('select');
-                originalSelect.select2('destroy');
-
-                const newICD = original.clone();
-                originalSelect.select2({
-                    placeholder: '-- Pilih ICD 11 (2019) --',
-                    allowClear: true,
-                    width: '100%'
-                });
-
-                newICD.find('select').val('');
-                $('#icd-wrapper').append(newICD);
-
-                newICD.find('select').select2({
-                    placeholder: '-- Pilih ICD 11 (2019) --',
-                    allowClear: true,
-                    width: '100%'
-                });
-
-                saveStep2Data(); // Simpan setelah clone
-            });
-
-            // Hapus ICD
-            $('#icd-wrapper').on('click', '.btn-remove-icd', function() {
-                if ($('.icd-group').length > 1) {
-                    $(this).closest('.icd-group').remove();
-                    saveStep2Data(); // Simpan setelah hapus
-                }
-            });
-        });
-    </script> --}}
-
-    <script>
-function saveStep2Data() {
-    const anamnesa = $('#input-anamnesa').val();
-    const diagnosis = $('#input-diagnosis').val();
-    const icdCodes = [];
-
-    $('select[name="icd_codes[]"]').each(function () {
-        icdCodes.push($(this).val());
-    });
-
-    localStorage.setItem('step2Data', JSON.stringify({
-        anamnesa: anamnesa,
-        diagnosis: diagnosis,
-        icdCodes: icdCodes
-    }));
-}
-
-function cloneICDField() {
-    const original = $('.icd-group').first();
-    const newICD = original.clone();
-
-    // Reset dan hapus select2 sebelumnya
-    newICD.find('select').val(null);
-    newICD.find('.select2-container').remove();
-
-    // Tambah field ke wrapper
-    $('#icd-wrapper').append(newICD);
-
-    // Re-init select2 untuk field baru
-    newICD.find('select').select2({ 
-        placeholder: '-- Pilih ICD 11 (2019) --', 
-        allowClear: true, 
-        width: '100%' 
-    });
-}
-
-function loadStep2Data() {
-    const data = JSON.parse(localStorage.getItem('step2Data'));
-
-    if (data) {
-        $('#input-anamnesa').val(data.anamnesa);
-        $('#input-diagnosis').val(data.diagnosis);
-
-        // Bersihkan semua ICD kecuali yang pertama
-        $('#icd-wrapper .icd-group').slice(1).remove();
-
-        // Tambahkan field sesuai jumlah data
-        const totalNeeded = data.icdCodes.length;
-        for (let i = 1; i < totalNeeded; i++) {
-            cloneICDField();
-        }
-
-        // Isi semua nilai ICD
-        $('select[name="icd_codes[]"]').each(function(index) {
-            $(this).val(data.icdCodes[index]).trigger('change');
-        });
-    }
-}
-
-$(document).ready(function () {
-    function fetchProfileData(id) {
+            function fetchProfileData(id) {
                 $.ajax({
-                    url: '/api/pasien/get/byPemeriksaanAwal/'+id,
+                    url: '/api/pasien/get/byPemeriksaanAwal/' + id,
                     method: 'GET',
                     success: function(response) {
                         if (response.status === 'success') {
@@ -599,42 +512,41 @@ $(document).ready(function () {
             }
 
             const pasienId = '{{ request()->route('id_pemeriksaan_awal') }}';
-            fetchProfileData(pasienId)
-    // Inisialisasi awal select2
-    $('.icd-select').select2({ 
-        placeholder: '-- Pilih ICD 11 (2019) --', 
-        allowClear: true, 
-        width: '100%' 
-    });
+            fetchProfileData(pasienId);
 
-    // Load data dari localStorage setelah select2 siap
-    loadStep2Data();
+            $('.icd-select').select2({
+                placeholder: '-- Pilih ICD 11 (2019) --',
+                allowClear: true,
+                width: '100%'
+            });
 
-    // Simpan data jika input berubah
-    $('#input-anamnesa, #input-diagnosis').on('input', saveStep2Data);
-    $('#icd-wrapper').on('change', 'select[name="icd_codes[]"]', saveStep2Data);
+            loadStep2Data();
 
-    // Tombol tambah ICD
-    $('#btn-add-icd').on('click', function () {
-        cloneICDField();
-        saveStep2Data();
-    });
+            $('#input-anamnesa, #input-diagnosis').on('input', saveStep2Data);
+            $('#icd-wrapper').on('change', 'select[name="icd_codes[]"]', saveStep2Data);
 
-    // Tombol hapus ICD
-    $('#icd-wrapper').on('click', '.btn-remove-icd', function () {
-        if ($('.icd-group').length > 1) {
-            $(this).closest('.icd-group').remove();
-            saveStep2Data();
-        }
-    });
-});
-</script>
+            const addButton = $('#btn-add-icd');
+
+            addButton.off('click');
+
+            addButton.on('click', function() {
+                cloneICDField();
+                saveStep2Data();
+            });
+
+            $('#icd-wrapper').on('click', '.btn-remove-icd', function() {
+                if ($('.icd-group').length > 1) {
+                    $(this).closest('.icd-group').remove();
+                    saveStep2Data();
+                }
+            });
+        });
+    </script>
 
 
     <script>
         $(document).ready(function() {
             $('#submit-form').on('click', function() {
-                // Hapus data Step 2 dari localStorage
                 localStorage.removeItem('step2Data');
             });
         });
@@ -644,36 +556,12 @@ $(document).ready(function () {
     <script>
         $(document).ready(function() {
             $("#namaObat").select2({
-                placeholder: '-- Pilih Nama Obat --', // Samain placeholder
-                allowClear: true, // (Optional) Biar bisa hapus pilihan
+                placeholder: '-- Pilih Nama Obat --',
+                allowClear: true,
             });
         });
     </script>
 
-    <script>
-        $(document).ready(function() {
-            $("#kodeicd").select2({
-                placeholder: '-- Pilih Nama Obat --', // Samain placeholder
-                allowClear: true, // (Optional) Biar bisa hapus pilihan
-            });
-        });
-    </script>
-
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Pilih hanya input yang berasal dari database
-            const inputsFromDb = document.querySelectorAll('input.form-control[data-from-db="true"]');
-
-            inputsFromDb.forEach(input => {
-                // Jika memiliki nilai dari database, disable
-                if (input.value.trim() !== '') {
-                    input.readOnly = true;
-                    input.style.backgroundColor = '#e9ecef';
-                }
-            });
-        });
-    </script>
 
     <script>
         $(document).ready(function() {
@@ -718,6 +606,20 @@ $(document).ready(function () {
             });
 
             $('div.setup-panel div a.btn-resep').trigger('click');
+        });
+    </script>
+
+    <script>
+        // Script untuk membuat input read-only jika sudah ada data dari database
+        document.addEventListener('DOMContentLoaded', function() {
+            const inputsFromDb = document.querySelectorAll('input.form-control[data-from-db="true"]');
+
+            inputsFromDb.forEach(input => {
+                if (input.value.trim() !== '') {
+                    input.readOnly = true;
+                    input.style.backgroundColor = '#e9ecef';
+                }
+            });
         });
     </script>
 @endpush

@@ -197,13 +197,13 @@
                 </div>
 
                 <div class="d-flex align-items-center">
-                    <form action="{{ route('logout') }}" method="POST">
-                        @csrf
-                        <a href="{{ route('logout') }}" class="text-decoration-none d-flex align-items-center">
-                            <img src="{{ asset('images/navbar menu/logout.png') }}" alt="Logout Icon" class="icon">
-                            <span class="logout-text text-white">Logout</span>
-                        </a>
-                    </form>
+                    {{-- <form action="{{ route('logout') }}" method="POST">
+                        @csrf --}}
+                      <a href="#" id="logoutButton" class="text-decoration-none d-flex align-items-center">
+                        <img src="{{ asset('images/navbar menu/logout.png') }}" alt="Logout Icon" class="icon">
+                        <span class="logout-text text-white">Logout</span>
+                    </a>
+                    {{-- </form> --}}
                 </div>
             </div>
         </nav>
@@ -219,7 +219,7 @@
                             <ul class="list-group mt-4 width-250">
                                 <li class="list-group-item p-3 d-flex align-items-start" style="color: #2E6084; width: 250px;">
                                     <div class="me-2">
-                                        <img src="{{ asset('images/navbar pmo/vector-2.png') }}" class="img-fluid" alt="Icon" style="max-width: 50px; height: auto;">
+                                        <img src="{{ asset('images/navbar pmo/Vector-2.png') }}" class="img-fluid" alt="Icon" style="max-width: 50px; height: auto;">
                                     </div>
                                     <div>
                                         <strong>No RM:</strong> <br><div id="sidebar_norm"></div>
@@ -227,7 +227,7 @@
                                 </li>
                                 <li class="list-group-item p-3 d-flex align-items-start" style="color: #2E6084; width: 250px;">
                                     <div class="me-2">
-                                        <img src="{{ asset('images/navbar pmo/vector.png') }}" class="img-fluid" alt="Icon" style="max-width: 50px; height: auto;">
+                                        <img src="{{ asset('images/navbar pmo/Vector.png') }}" class="img-fluid" alt="Icon" style="max-width: 50px; height: auto;">
                                     </div>
                                     <div>
                                         <strong>Nama:</strong> <br><div id="sidebar_nama"></div>
@@ -235,7 +235,7 @@
                                 </li>
                                 <li class="list-group-item p-3 d-flex align-items-start" style="color: #2E6084; width: 250px;">
                                     <div class="me-2">
-                                        <img src="{{ asset('images/navbar pmo/vector-1.png') }}" class="img-fluid" alt="Icon" style="max-width: 50px; height: auto;">
+                                        <img src="{{ asset('images/navbar pmo/Vector-1.png') }}" class="img-fluid" alt="Icon" style="max-width: 50px; height: auto;">
                                     </div>
                                     <div>
                                         <strong>Jenis Kelamin:</strong> <br><div id="sidebar_jeniskelamin"></div>
@@ -243,7 +243,7 @@
                                 </li>
                                 <li class="list-group-item p-3 d-flex align-items-start" style="color: #2E6084; width: 250px;">
                                     <div class="me-2">
-                                        <img src="{{ asset('images/navbar pmo/vector-5.png') }}" class="img-fluid" alt="Icon" style="max-width: 50px; height: auto;">
+                                        <img src="{{ asset('images/navbar pmo/Vector-5.png') }}" class="img-fluid" alt="Icon" style="max-width: 50px; height: auto;">
                                     </div>
                                     <div>
                                         <strong>Tanggal Lahir:</strong> <br> <div id="sidebar_tanggallahir"></div>
@@ -251,7 +251,7 @@
                                 </li>
                                 <li class="list-group-item p-3 d-flex align-items-start" style="color: #2E6084; width: 250px;">
                                     <div class="me-2">
-                                        <img src="{{ asset('images/navbar pmo/vector-4.png') }}" class="img-fluid" alt="Icon" style="max-width: 50px; height: auto;">
+                                        <img src="{{ asset('images/navbar pmo/Vector-4.png') }}" class="img-fluid" alt="Icon" style="max-width: 50px; height: auto;">
                                     </div>
                                     <div>
                                         <strong>No Telepon:</strong> <br> <div id="sidebar_notelp"></div>
@@ -259,7 +259,7 @@
                                 </li>
                                 <li class="list-group-item p-3 d-flex align-items-start" style="color: #2E6084; width: 250px;">
                                     <div class="me-2">
-                                        <img src="{{ asset('images/navbar pmo/vector-3.png') }}" class="img-fluid" alt="Icon" style="max-width: 50px; height: auto;">
+                                        <img src="{{ asset('images/navbar pmo/Vector-3.png') }}" class="img-fluid" alt="Icon" style="max-width: 50px; height: auto;">
                                     </div>
                                     <div>
                                         <strong>Alamat:</strong> <br> <div id="sidebar_alamat"></div>
@@ -300,6 +300,44 @@
             });
         </script>
         @stack('scripts')
+         <script>
+$(document).ready(function () {
+    // Pengaturan global untuk menyertakan CSRF token di semua request AJAX
+    // Ini PENTING untuk request POST ke Laravel
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
+    // Event listener saat elemen dengan id="logoutButton" diklik
+    $('#logoutButton').on('click', function(event) {
+        // Mencegah aksi default dari link (yaitu pindah halaman)
+        event.preventDefault();
+
+        // Kirim request POST ke route 'logout'
+        $.ajax({
+            url: 'https://apotech.joesepdemar.site/api/logout', // URL dari API logout Anda
+            method: 'POST',
+            success: function(response) {
+                // Jika server merespons dengan sukses (logout berhasil)
+                console.log(response.message); // Pesan: "Successfully logged out"
+                
+                // Arahkan pengguna ke halaman login
+                window.location.href = '/login'; // Ganti jika URL login Anda berbeda
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                // Jika ada error (misal: sesi sudah habis atau error server)
+                console.error('Logout failed:', errorThrown);
+                
+                // Sebagai fallback, tetap arahkan ke halaman login
+                alert('Gagal melakukan logout. Mengarahkan kembali ke halaman login.');
+                window.location.href = '/login';
+            }
+        });
+    });
+});
+</script>
     </body>
 
 </html>

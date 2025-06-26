@@ -408,7 +408,8 @@
             // Function to fetch and display patient data
             function fetchPasienData(page = 1, searchQuery = '') {
                 $.ajax({
-                    url: '{{ route('api.pasien.get') }}',
+                    // url: 'http://127.0.0.1:8000/api/pasien/get', debugging local
+                    url: 'https://apotech.joesepdemar.site/api/pasien/get',
                     method: 'GET',
                     data: {
                         page: page,

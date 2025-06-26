@@ -51,7 +51,7 @@
   <div class="container-fluid login-container d-flex justify-content-center align-items-center rounded-circle">
     <div class="row login-card">
       <div class="col-md-6 p-0">
-        <img src="{{asset('images\login pict.png')}}" alt="Login Image" class="login-image" style="border-radius:8px;">
+        <img src="{{asset('images/login pict.png')}}" alt="Login Image" class="login-image" style="border-radius:8px;">
       </div>
       <div class="col-md-6 p-4">
         <h3 class="text-center">Masuk</h3>
@@ -99,10 +99,6 @@
           </div>
           <div class="d-grid">
             <button type="submit" class="btn btn-primary" id="submitButton">Login</button>
-          </div>
-          <div class="text-center my-3">OR</div>
-          <div class="d-grid">
-            <button type="button" class="btn btn-outline-secondary"><img src="{{asset('images/google.png')}}" style="width: 20px; height: 20px; align-items-center; justify-content-center; margin-right:8px;">Log in with Google</button>
           </div>
           {{-- <div class="text-center mt-3">
             Belum punya akun? <a href="#" style="text-decoration: none; color:blue">Daftar</a>
@@ -207,7 +203,8 @@ $(document).ready(function () {
 
         // Lakukan request AJAX
         $.ajax({
-            url: '{{ route("apilogin") }}',
+            // url: 'http://127.0.0.1:8000/api/login', 
+            url: 'https://apotech.joesepdemar.site/api/login',
             method: 'POST',
             data: form.serialize(),
             beforeSend: function() {

@@ -164,7 +164,7 @@
 
         $(document).ready(function() {
             $.ajax({
-                url: '/api/resepsionis-tambah-kesehatan/' + pasienId,
+                url: 'https://apotech.joesepdemar.site/api/resepsionis-tambah-kesehatan/' + pasienId,
                 method: 'GET',
                 success: function(res) {
                     const pasien = res.data.pasien;

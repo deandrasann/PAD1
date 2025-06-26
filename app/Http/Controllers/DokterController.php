@@ -158,49 +158,12 @@ class DokterController extends Controller
         return view('dokter.riwayat-konsultasi');
     }
 
-    public function rawatJalan()
+    public function rawatJalan(Request $request)
     {
-        // $idPengguna = Auth::user()->id_pengguna;
-
-        // $antreanPasien = DB::table('pemeriksaan_awal')
-        //     ->join('pasien', 'pemeriksaan_awal.id_pasien', '=', 'pasien.id_pasien')
-        //     ->join('dokter', 'pemeriksaan_awal.id_dokter', '=', 'dokter.id_dokter')
-        //     ->join('users', 'dokter.id_pengguna', '=', 'users.id_pengguna')
-        //     ->leftJoin('pemeriksaan_akhir', 'pemeriksaan_awal.id_pasien', '=', 'pemeriksaan_akhir.id_pasien')
-        //     ->select(
-        //         'pemeriksaan_awal.*',
-        //         'pasien.nama as nama_pasien',
-        //         'pasien.no_rm',
-        //         'pasien.id_pasien',
-        //         'dokter.nama_dokter',
-        //         'dokter.spesialis',
-        //         'dokter.jenis_dokter',
-        //         'dokter.kode_klinik',
-        //         'pemeriksaan_akhir.status_pemanggilan',
-        //         'pemeriksaan_akhir.anamnesa',
-        //         'pemeriksaan_akhir.medikamentosa',
-        //     )
-        //     ->where('dokter.id_pengguna', $idPengguna)
-        //     ->whereDate('pemeriksaan_awal.tanggal_pemeriksaan', now())
-        //     ->where(function ($query) {
-        //         $query->whereNull('pemeriksaan_akhir.status_pemeriksaan')
-        //             ->orWhereNotIn(DB::raw('LOWER(pemeriksaan_akhir.status_pemeriksaan)'), ['selesai']);
-        //     })
-        //     ->orderBy('pemeriksaan_awal.created_at') // urutkan dari waktu daftar
-        //     ->get();
-
-        //     $latestPemeriksaan = DB::table('pemeriksaan_akhir as pa1')
-        //         ->select('pa1.*')
-        //         ->join(DB::raw('(
-        //     SELECT MAX(id_pemeriksaan_akhir) as id_pemeriksaan_akhir
-        //     FROM pemeriksaan_akhir
-        //     GROUP BY id_pasien
-        // ) as pa2'), 'pa1.id_pemeriksaan_akhir', '=', 'pa2.id_pemeriksaan_akhir');
-
         $idPengguna = Auth::user()->id_pengguna;
-        $today = now()->toDateString();
 
-        $antreanPasien = DB::table('pemeriksaan_awal')
+        // Mulai query antreanPasien
+        $query = DB::table('pemeriksaan_awal')
             ->join('pasien', 'pemeriksaan_awal.id_pasien', '=', 'pasien.id_pasien')
             ->join('dokter', 'pemeriksaan_awal.id_dokter', '=', 'dokter.id_dokter')
             ->join('users', 'dokter.id_pengguna', '=', 'users.id_pengguna')
@@ -210,23 +173,37 @@ class DokterController extends Controller
                     ->from('pemeriksaan_akhir')
                     ->whereRaw('pemeriksaan_awal.id_pemeriksaan_awal = pemeriksaan_akhir.id_pemeriksaan_awal')
                     ->whereRaw("LOWER(status_pemeriksaan) = 'selesai'");
-            })
-            ->select(
-                'pemeriksaan_awal.*',
-                'pasien.nama as nama_pasien',
-                'pasien.no_rm',
-                'pasien.id_pasien',
-                'dokter.nama_dokter',
-                'dokter.spesialis',
-                'dokter.jenis_dokter',
-                'dokter.kode_klinik',
-            )
-            ->orderBy('pemeriksaan_awal.created_at')
-            ->get();
-        // dd($antreanPasien);
+            });
 
-        $idPengguna = Auth::user()->id_pengguna;
+        // Filter berdasarkan input
+        if ($request->filled('no_rm')) {
+            $query->where('pasien.no_rm', 'like', '%' . $request->no_rm . '%');
+        }
 
+        if ($request->filled('nama_pasien')) {
+            $query->where('pasien.nama', 'like', '%' . $request->nama_pasien . '%');
+        }
+
+        if ($request->filled('klinik')) {
+            $query->where('pasien.alamat', 'like', '%' . $request->klinik . '%');
+        }
+
+        if ($request->filled('tanggal')) {
+            $query->whereDate('pemeriksaan_awal.tanggal_pemeriksaan', $request->tanggal);
+        }
+
+        $antreanPasien = $query->select(
+            'pemeriksaan_awal.*',
+            'pasien.nama as nama_pasien',
+            'pasien.no_rm',
+            'pasien.id_pasien',
+            'dokter.nama_dokter',
+            'dokter.spesialis',
+            'dokter.jenis_dokter',
+            'dokter.kode_klinik',
+        )->orderBy('pemeriksaan_awal.created_at')->get();
+
+        // Pasien selesai konsultasi
         $pasien_selesai_konsultasi = DB::table('pemeriksaan_awal')
             ->join('pasien', 'pemeriksaan_awal.id_pasien', '=', 'pasien.id_pasien')
             ->join('dokter', 'pemeriksaan_awal.id_dokter', '=', 'dokter.id_dokter')
@@ -248,8 +225,7 @@ class DokterController extends Controller
             )
             ->where('dokter.id_pengguna', $idPengguna)
             ->where('pemeriksaan_akhir.status_pemeriksaan', 'selesai')
-            // ->whereNull('pemeriksaan_akhir.id_pasien')
-            ->orderBy('pemeriksaan_awal.created_at') // urutkan dari waktu daftar
+            ->orderBy('pemeriksaan_awal.created_at')
             ->get();
 
         return view('dokter.rawat-jalan', compact('antreanPasien', 'pasien_selesai_konsultasi'));
@@ -330,7 +306,7 @@ class DokterController extends Controller
                 return null;  // Atau bisa mengganti ini dengan exception atau pesan error sesuai kebutuhan
             }
         }
-        
+
         $validator = Validator::make($request->all(), [
             'id_pemeriksaan_akhir' => 'required|exists:pemeriksaan_akhir,id_pemeriksaan_akhir',
             'id_dokter' => 'required|exists:dokter,id_dokter',
@@ -356,7 +332,7 @@ class DokterController extends Controller
             'racikan.*.takaran_obat' => 'required|string',
             'racikan.*.dosis' => 'required|string',
         ]);
-        
+
         if ($validator->fails()) {
             return response()->json([
                 'success' => false,
@@ -412,7 +388,7 @@ class DokterController extends Controller
                     ]);
                     $obatData->kekuatan_sediaan -= $validJumlah;
                     $obatData->save();
-                    
+
                     $resepObat = ResepObatModel::create([
                         'no_resep' => $resep->no_resep,
                         'id_obat_non_racikan' => $obatNonRacikan->id_obat_non_racikan,
@@ -802,7 +778,7 @@ class DokterController extends Controller
                 $obat_racikan_list = DB::table('obat_racikan')
                     ->whereIn('id_obat_racikan', $racikan_ids)
                     ->get();
-                
+
                 // Untuk setiap racikan, komponennya adalah SEMUA obat non-racikan dari resep yang sama
                 foreach ($obat_racikan_list as $racikan) {
                     // Buat salinan data komponen untuk setiap racikan
@@ -814,7 +790,7 @@ class DokterController extends Controller
                             'bentuk_obat' => $non_racikan_item->bentuk_obat,
                             'harga_satuan' => $non_racikan_item->harga_satuan,
                             // Asumsi jumlah diperlukan = jumlah yang diresepkan
-                            'jumlah_diperlukan' => $non_racikan_item->jml_obat 
+                            'jumlah_diperlukan' => $non_racikan_item->jml_obat
                         ];
                     }
                     $racikan->komponen = $komponen_untuk_racikan;

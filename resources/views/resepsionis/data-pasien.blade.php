@@ -113,7 +113,7 @@
                     const perPage = 5;
 
                     $.ajax({
-                        url: `https://apotech.joesepdemar.site/api/resepsionis?page=${page}`,
+                        url: `api/resepsionis?page=${page}`,
                         type: 'GET',
                         data: {
                             search: search,
@@ -136,7 +136,6 @@
                                     <td>${item.no_telp ?? '-'}</td>
                                     <td>
                                         <button class="btn btn-resep p-2 px-3"
-                                            onclick="window.location.href='/resepsionis/detail-pasien/${item.id_pasien}'">
                                             onclick="window.location.href='/resepsionis/detail-pasien/${item.id_pasien}'">
                                             <img src="{{ asset('images/detail icon.png') }}" class="me-1"> Detail
                                         </button>

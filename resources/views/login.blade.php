@@ -87,7 +87,7 @@
               </div>
           </div>
           <div id="error-message" class="alert alert-danger d-none" role="alert"></div>
-          
+
           <div class="form-check mb-3 d-flex justify-content-between align-items-center">
             <div>
               <input class="form-check-input" type="checkbox" id="rememberMe">
@@ -107,7 +107,7 @@
       </div>
     </div>
   </div>
-  
+
 </body>
 
 <script>
@@ -203,8 +203,8 @@ $(document).ready(function () {
 
         // Lakukan request AJAX
         $.ajax({
-            // url: 'http://127.0.0.1:8000/api/login', 
-            url: 'https://apotech.joesepdemar.site/api/login',
+            url: 'http://127.0.0.1:8000/api/login',
+            // url: 'https://apotech.joesepdemar.site/api/login',
             method: 'POST',
             data: form.serialize(),
             beforeSend: function() {
@@ -231,7 +231,7 @@ $(document).ready(function () {
 
     }); // <-- TUTUP blok submit
 
-}); // <-- TUTUP blok document.ready (INI YANG KEMUNGKINAN BESAR HILANG)  
+}); // <-- TUTUP blok document.ready (INI YANG KEMUNGKINAN BESAR HILANG)
 </script>
 
 </html>

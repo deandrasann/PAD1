@@ -6,44 +6,48 @@
             <!-- Bagian Filter Pencarian -->
             <div class="row g-2">
                 <!-- Search No RM -->
-                <div class="col-md-6 col-lg-3">
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Cari No RM">
-                        <button class="btn btn-outline-primary" type="button">
-                            <i class="fas fa-search"></i>
-                        </button>
+                <form method="GET" action="{{ route('rawat-jalan') }}" class="row g-2 mb-4">
+                    <!-- Search No RM -->
+                    <div class="col-md-6 col-lg-3">
+                        <div class="input-group">
+                            <input type="text" name="no_rm" class="form-control" placeholder="Cari No RM" value="{{ request('no_rm') }}">
+                            <button class="btn btn-outline-primary" type="submit">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
                     </div>
-                </div>
 
-                <!-- Search Nama Pasien -->
-                <div class="col-md-8 col-lg-3">
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Cari Nama Pasien">
-                        <button class="btn btn-outline-primary" type="button">
-                            <i class="fas fa-search"></i>
-                        </button>
+                    <!-- Search Nama Pasien -->
+                    <div class="col-md-6 col-lg-3">
+                        <div class="input-group">
+                            <input type="text" name="nama_pasien" class="form-control" placeholder="Cari Nama Pasien" value="{{ request('nama_pasien') }}">
+                            <button class="btn btn-outline-primary" type="submit">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
                     </div>
-                </div>
 
-                <!-- Cari Klinik Pasien -->
-                <div class="col-md-8 col-lg-3">
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Cari Klinik Pasien">
-                        <button class="btn btn-outline-primary" type="button">
-                            <i class="fas fa-search"></i>
-                        </button>
+                    <!-- Search Klinik -->
+                    <div class="col-md-6 col-lg-3">
+                        <div class="input-group">
+                            <input type="text" name="klinik" class="form-control" placeholder="Cari Klinik Pasien" value="{{ request('klinik') }}">
+                            <button class="btn btn-outline-primary" type="submit">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
                     </div>
-                </div>
 
-                <!-- Pilih Hari Tanggal -->
-                <div class="col-md-8 col-lg-3">
-                    <div class="input-group">
-                        <input type="date" class="form-control">
-                        <button class="btn btn-outline-primary" type="button">
-                            <i class="fas fa-calendar-alt"></i>
-                        </button>
+                    <!-- Search Tanggal -->
+                    <div class="col-md-6 col-lg-3">
+                        <div class="input-group">
+                            <input type="date" name="tanggal" class="form-control" value="{{ request('tanggal') }}">
+                            <button class="btn btn-outline-primary" type="submit">
+                                <i class="fas fa-calendar-alt"></i>
+                            </button>
+                        </div>
                     </div>
-                </div>
+                </form>
+
 
                 <!-- Tombol Refresh di kanan layar -->
                 <div class="col-12">

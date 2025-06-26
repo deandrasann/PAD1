@@ -356,7 +356,7 @@
                             type: 'GET',
                             dataType: 'json',
                             success: function(response) {
-                                $('#kekuatan-sediaan').text('Sisa: ' + response.kekuatan_sediaan);
+                                $('#kekuatan-sediaan').text(response.kekuatan_sediaan);
                                 hargaSatuan = parseInt(response.harga_satuan);
                                 $('#harga-satuan').text('Rp ' + formatRupiah(hargaSatuan));
                                 hitungTotal();
@@ -426,7 +426,7 @@
                                 type: 'GET',
                                 dataType: 'json',
                                 success: function(response) {
-                                    kekuatanElem.text('Sisa: ' + response.kekuatan_sediaan);
+                                    kekuatanElem.text(response.kekuatan_sediaan);
                                     hargaSatuanBaru = parseInt(response.harga_satuan);
                                     hargaSatuanElem.text('Rp ' + formatRupiah(
                                         hargaSatuanBaru));
@@ -756,7 +756,7 @@
                         type: 'GET',
                         dataType: 'json',
                         success: function(data) {
-                            $row.find('.kekuatan-sediaan').val(`Sisa: ${data.kekuatan_sediaan}`);
+                            $row.find('.kekuatan-sediaan').val(`${data.kekuatan_sediaan}`);
                             $row.find('.harga-satuan').text(`Rp ${formatRupiah(data.harga_satuan)}`);
                             $row.data('harga-satuan', data.harga_satuan);
                             updateHargaTotal($row);
@@ -798,7 +798,7 @@
                         })
                         .catch(err => console.error(err));
                 });
-                
+
             });
         </script>
     @endsection

@@ -248,9 +248,10 @@
                 tableBody.empty();  // Menghapus data lama
                 
                 pengawasData.forEach((item, index) => {
+                    const rowNumber = pagination.from + index;
                     tableBody.append(`
                         <tr id="row${item.id_pengawas}">
-                            <td>${pagination.current_page * (index + 1) - (pagination.current_page - 1)}</td>
+                            <td>${rowNumber}</td>
                             <td class="username">${item.username}</td>
                             <td class="nama_pengawas">${item.nama_pengawas}</td>
                             <td class="email">${item.email}</td>

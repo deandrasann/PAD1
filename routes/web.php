@@ -61,7 +61,7 @@ Route::group(['middleware' => ['level:admin,dokter,apoteker,pengawas,pasien']], 
 });
 
 Route::get('/login', [AuthController::class, 'index'])->name('login');
-Route::post('/login', [AuthController::class, 'authenticate'])->name('login');
+Route::post('/login', [AuthController::class, 'authenticate']);
 Route::post('/api/login', [AuthApiController::class, 'login'])->name('apilogin');
 Route::get('/logout', [AuthController::class, 'logout']);
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
@@ -170,10 +170,10 @@ Route::group(['middleware' => ['auth', 'level:admin']], function () {
     Route::put('/api/admin/resepsionis/update/{id}', [AdminController::class, 'updateResepsionis'])->name('api.update.resepsionis');
     Route::delete('/api/admin/resepsionis/delete/{id}', [AdminController::class, 'deleteResepsionis'])->name('api.delete.resepsionis');
 
-    Route::get('/api/admin/dokter/get', [AdminController::class, 'getDokter'])->name('api.get.dokter');
-    Route::post('/api/admin/dokter/create', [AdminController::class, 'createDokter'])->name('api.create.dokter');
-    Route::put('/api/admin/dokter/update/{id}', [AdminController::class, 'updateDokter'])->name('api.update.dokter');
-    Route::delete('/api/admin/dokter/delete/{id}', [AdminController::class, 'deleteDokter'])->name('api.delete.dokter');
+    Route::get('/api/admin/dokter/get', [AdminController::class, 'getDokter']);
+    Route::post('/api/admin/dokter/create', [AdminController::class, 'createDokter']);
+    Route::put('/api/admin/dokter/update/{id}', [AdminController::class, 'updateDokter']);
+    Route::delete('/api/admin/dokter/delete/{id}', [AdminController::class, 'deleteDokter']);
 
     Route::get('/api/admin/pasien/get', [AdminController::class, 'getPasien'])->name('api.get.pasien');
     Route::post('/api/admin/pasien/create', [AdminController::class, 'createPasien'])->name('api.create.pasien');

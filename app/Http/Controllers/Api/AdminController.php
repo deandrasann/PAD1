@@ -12,6 +12,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use App\Models\ApotekerModel;
+use Illuminate\Support\Facades\Storage;
 use Log;
 
 class AdminController extends Controller
@@ -436,29 +437,97 @@ class AdminController extends Controller
     }
 
 
+    // public function createDokter(Request $request)
+    // {
+    //     $request->validate([
+    //         'username' => 'required|max:100|unique:users,username',
+    //         'nama_dokter' => 'required|max:100',
+    //         'jenis_dokter' => 'required|max:100',
+    //         'spesialis' => 'required|max:100',
+    //         'kode_dokter' => 'required|max:7',
+    //         'kode_bpjs' => 'required|max:7',
+    //         'email' => 'required|email|unique:users,email',
+    //         'password' => 'required|min:3',
+    //         'foto' => 'required|mimes:jpeg,jpg,png|max:3096'
+    //     ]);
+    //     if ($request->hasFile('foto')) {
+    //         $filenameWithExt = $request->file('foto')->getClientOriginalName();
+    //         $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+    //         $extension = $request->file('foto')->getClientOriginalExtension();
+
+    //         $basename = uniqid() . time();
+    //         $filenameSimpan =  $filename . '_' . time() . '_' . $extension;
+    //         $path = $request->file('foto')->storeAs('avatars', $filenameSimpan);
+    //     } else {
+    //         $path = 'avatars/noimage.png';
+    //     }
+
+    //     DB::beginTransaction(); // Memulai transaksi database
+
+    //     try {
+    //         // Data untuk tabel User
+    //         $userData = [
+    //             'id_role' => 'R02',
+    //             'nama_role' => 'dokter',
+    //             'username' => $request->input('username'),
+    //             'email' => $request->input('email'),
+    //             'password' => Hash::make($request->input('password')),
+    //         ];
+    //         $user = User::create($userData); // Simpan data ke tabel User
+
+    //         // Data untuk tabel Apoteker (menggunakan id_user dari tabel User)
+    //         $dokterData = [
+    //             'id_pengguna' => $user->id, // Menggunakan ID yang baru dibuat dari tabel User
+    //             'kode_klinik' => '1',
+    //             'nama_dokter' => $request->input('nama_dokter'),
+    //             'jenis_dokter' => $request->input('jenis_dokter'),
+    //             'kode_dokter' => $request->input('kode_dokter'),
+    //             'kode_bpjs' => $request->input('kode_bpjs'),
+    //             'spesialis' => $request->input('spesialis'),
+    //             'email' => $user->email,
+    //             'foto' => $path
+    //         ];
+    //         DokterModel::create($dokterData); // Simpan data ke tabel dokter
+
+    //         DB::commit(); // Jika semua operasi berhasil, lakukan commit
+    //         return response()->json([
+    //             'status' => 'success',
+    //             'message' => 'Data berhasil ditambahkan.',
+    //             'data' => [
+    //                 'user' => $user,
+    //                 'dokter' => $dokterData
+    //             ]
+    //         ], 201);
+    //     } catch (\Exception $e) {
+    //         DB::rollback(); // Jika terjadi kesalahan, rollback perubahan
+    //         return response()->json([
+    //             'status' => 'error',
+    //             'message' => 'Gagal menambahkan data',
+    //             'error' => $e->getMessage()
+    //         ], 500);
+    //     }
+    // }
+
     public function createDokter(Request $request)
     {
         $request->validate([
-            'username' => 'required|max:100|unique:users,username',
-            'nama_dokter' => 'required|max:100',
-            'jenis_dokter' => 'required|max:100',
-            'spesialis' => 'required|max:100',
-            'kode_dokter' => 'required|max:7',
-            'kode_bpjs' => 'required|max:7',
-            'email' => 'required|email|unique:users,email',
-            'password' => 'required|min:3',
-            'foto' => 'required|mimes:jpeg,jpg,png|max:3096'
+            'username' => 'required',
+            'nama_dokter' => 'required',
+            'jenis_dokter' => 'required',
+            'spesialis' => 'required',
+            'kode_dokter' => 'required',
+            'kode_bpjs' => 'required',
+            'email' => 'required|email|unique:users,email', // Tambahkan validasi email unik
+            'password' => 'required',
+            'foto' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048' // Tambahkan validasi file
         ]);
-        if ($request->hasFile('foto')) {
-            $filenameWithExt = $request->file('foto')->getClientOriginalName();
-            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
-            $extension = $request->file('foto')->getClientOriginalExtension();
 
-            $basename = uniqid() . time();
-            $filenameSimpan =  $filename . '_' . time() . '_' . $extension;
-            $path = $request->file('foto')->storeAs('avatars', $filenameSimpan);
-        } else {
-            $path = 'avatars/noimage.png';
+        $path = 'avatars/noimage.png'; // Default path
+        if ($request->hasFile('foto')) {
+            $file = $request->file('foto');
+            $filenameSimpan = uniqid() . '_' . time() . '.' . $file->getClientOriginalExtension();
+            $path = $file->storeAs('public/avatars', $filenameSimpan); // Simpan ke public/avatars
+            $path = 'avatars/' . $filenameSimpan; // Path untuk disimpan di DB
         }
 
         DB::beginTransaction(); // Memulai transaksi database
@@ -474,11 +543,11 @@ class AdminController extends Controller
             ];
             $user = User::create($userData); // Simpan data ke tabel User
 
-            // dd($user);
-
-            // Data untuk tabel Apoteker (menggunakan id_user dari tabel User)
+            // Data untuk tabel Dokter
             $dokterData = [
-                'id_pengguna' => $user->id_pengguna, // Menggunakan ID yang baru dibuat dari tabel User
+                // --- PERBAIKAN DI SINI ---
+                'id_pengguna' => $user->id_pengguna, // Menggunakan Primary Key yang benar (id_pengguna)
+
                 'kode_klinik' => '1',
                 'nama_dokter' => $request->input('nama_dokter'),
                 'jenis_dokter' => $request->input('jenis_dokter'),
@@ -488,12 +557,13 @@ class AdminController extends Controller
                 'email' => $user->email,
                 'foto' => $path
             ];
+            // Pastikan model Dokter Anda bernama DokterModel
             DokterModel::create($dokterData); // Simpan data ke tabel dokter
 
             DB::commit(); // Jika semua operasi berhasil, lakukan commit
             return response()->json([
                 'status' => 'success',
-                'message' => 'Data berhasil ditambahkan.',
+                'message' => 'Data dokter berhasil ditambahkan.',
                 'data' => [
                     'user' => $user,
                     'dokter' => $dokterData
@@ -501,9 +571,16 @@ class AdminController extends Controller
             ], 201);
         } catch (\Exception $e) {
             DB::rollback(); // Jika terjadi kesalahan, rollback perubahan
+
+            // Hapus file yang sudah terupload jika transaksi gagal
+            if ($request->hasFile('foto') && isset($filenameSimpan)) {
+                Storage::delete('public/avatars/' . $filenameSimpan);
+            }
+
             return response()->json([
                 'status' => 'error',
-                'message' => 'Gagal menambahkan data',
+                'message' => 'Gagal menambahkan data. Terjadi kesalahan pada server.',
+                // Kirim pesan error yang sebenarnya untuk debugging
                 'error' => $e->getMessage()
             ], 500);
         }

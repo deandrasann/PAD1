@@ -303,18 +303,6 @@
                                                             style="color: white; text-decoration:none">Lihat Detail</a>
                                                     </strong>
                                                 </button>
-                                                <div class="mb-4 mt-4">
-                                                    <label class="mb-2">Medikamentosa</label><br>
-                                                    <input type="text" class="form-control" placeholder="Paracetamol"
-                                                        @if (!empty($kunjungan->medikamentosa)) value="{{ $kunjungan->medikamentosa }}" data-from-db="true" @endif></input>
-                                                </div>
-                                                <div class="mb-4 mt-4">
-                                                    <label class="mb-2">Non-Medikamentosa</label><br>
-                                                    <input type="text" class="form-control"
-                                                        placeholder="Anjuran untuk pasien"
-                                                        @if (!empty($kunjungan->non_medikamentosa)) value="{{ $kunjungan->non_medikamentosa }}" data-from-db="true" @endif
-                                                        disabled></input>
-                                                </div>
                                             </div>
                                         </div>
                                     </td>

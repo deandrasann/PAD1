@@ -366,59 +366,19 @@
                     </div>
                 </div>
             </div>
-            <div class="row setup-content" id="step-3">
-                <div class="col-xs-6 col-md-offset-3">
-                    <div class="col-md-12">
-                        <table class="table table-borderless border">
-
-                            <tbody>
-                                <td colspan="1">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <label class="my-2">Resep</label>
-
-                                            <hr>
-                                            {{-- <button type="button" class="btn btn-primary px-2 py-2 mb-2 mt-4">
-                                                <strong><a
-                                                        href="{{ route('tambah-obat-dokter', ['id_pemeriksaan_akhir' => $kunjungan->id_pemeriksaan_akhir]) }}"
-                                                        style="color: white; text-decoration:none">+ Tambah Obat</a>
-                                                </strong>
-                                            </button> --}}
-                                            {{-- <div class="mb-4 mt-4">
-                                                <label class="mb-2">Pilih Obat</label><br>
-                                                <select class="form-control" id="namaObat" name="kode_obat"
-                                                    style="width: 100%;">
-                                                    <option value="" disabled selected>-- Pilih Nama Obat --</option>
-                                                    @foreach ($data_obat as $item)
-                                                        <option value="{{ $item->kode_obat }}">
-                                                            {{ $item->nama_obat }}
-                                                        </option>
-                                                    @endforeach
-                                                </select>
-                                            </div> --}}
-
-                                            <div class="mb-4 mt-4">
-                                                <label class="mb-2">Medikamentosa</label><br>
-                                                <input type="text" name="medikamentosa" class="form-control"></input>
-                                            </div>
-                                            <div class="mb-4 mt-4">
-                                                <label class="mb-2">Non-Medikamentosa</label><br>
-                                                <input type="text" name="non_medikamentosa"
-                                                    class="form-control"></input>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </td>
-                                </tr>
-
-                            </tbody>
-
-                        </table>
-                        <button class="btn btn-success btn-lg pull-right btn-submit" type="submit"
-                            id="submit-form">Submit</button>
-                    </div>
-                </div>
+           <div class="col-md-12">
+    <div class="col-md-12">
+        <div class="border p-3 rounded">
+            <h5 class="mb-3">Form Tambah Resep Obat</h5>
+            <hr>
+            <div class="text-start">
+                <button class="btn btn-success btn-lg" type="submit" id="submit-form">
+                    Tambahkan Resep Obat
+                </button>
             </div>
+        </div>
+    </div>
+</div>
         </form>
 
     </div>

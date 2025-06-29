@@ -20,13 +20,16 @@ return new class extends Migration
             $table->integer('id_pasien')->nullable();
             $table->string('nama_obat')->nullable();
             $table->string('takaran_minum')->nullable();
-            $table->string('jml_kali_minum')->nullable();
+            $table->integer('jml_kali_minum')->nullable();
+            $table->integer('jml_obat_per_minum')->nullable();
             $table->string('bentuk_obat')->nullable();
+            $table->string('kemasan_obat')->nullable();
             $table->string('aturan_pakai')->nullable();
             $table->string('golongan_obat')->nullable();
             $table->string('jumlah_obat')->nullable();
             $table->string('waktu_minum')->nullable();
             $table->text('keterangan')->nullable();
+            $table->integer('harga_satuan')->nullable();
             $table->string('kontraindikasi')->nullable();
             $table->string('pola_makan')->nullable();
             $table->string('interaksi_obat')->nullable();
@@ -36,6 +39,8 @@ return new class extends Migration
             $table->string('efek_samping')->nullable();
             $table->string('indikasi')->nullable();
             $table->enum('status_ketersediaan_obat', ['Stocked ', 'Draft','Habis'])->default('Stocked')->nullable();
+            $table->timestamps();
+            $table->softDeletes();
 
             $table
             ->foreign('id_apoteker')

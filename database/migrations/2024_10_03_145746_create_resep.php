@@ -12,27 +12,29 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('resep', function (Blueprint $table) {
+            //table resep 
             $table->engine = 'InnoDB';
             $table->charset = 'utf8mb4';
             $table->collation = 'utf8mb4_general_ci';
             $table->integer('no_resep',true);
-            $table->integer('no_antrian');
+            $table->integer('id_pemeriksaan_akhir');
             $table->integer('id_dokter');
             $table->integer('id_pasien');
-            $table->integer('id_pengawas');
-            $table->integer('kode_obat');
+            $table->integer('kode_obat')->nullable();
             $table->enum('status_resep', ['setuju ', 'deleted'])->default('setuju')->nullable();
             $table->string('tgl_resep')->nullable();
             $table->string('dosis')->nullable();
             $table->string('jadwal_minum_obat')->nullable();
             $table->enum('status_pengobatan', ['Proses Pengobatan ', 'Pengobatan Selesai'])->default('Proses Pengobatan')->nullable();
             // $table->string('harga_satuan')->nullable();
+            $table->timestamps();
+            $table->softDeletes();
 
 
             $table
-            ->foreign('no_antrian')
-            ->references('no_antrian')
-            ->on('pemeriksaan')
+            ->foreign('id_pemeriksaan_akhir')
+            ->references('id_pemeriksaan_akhir')
+            ->on('pemeriksaan_akhir')
             ->cascadeOnUpdate()
             ->cascadeOnDelete();
 
@@ -51,19 +53,12 @@ return new class extends Migration
             ->cascadeOnDelete();
 
             $table
-            ->foreign('id_pengawas')
-            ->references('id_pengawas')
-            ->on('pengawas')
-            ->cascadeOnUpdate()
-            ->cascadeOnDelete();
-
-            $table
             ->foreign('kode_obat')
             ->references('kode_obat')
             ->on('obat')
             ->cascadeOnUpdate()
             ->cascadeOnDelete();
-            
+
         });
     }
 

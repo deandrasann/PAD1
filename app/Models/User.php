@@ -65,4 +65,7 @@ class User extends Authenticatable
     public function pasien() {
         return $this->belongsTo(PasienModel::class, 'id_pengguna','id_pengguna');
     }
+    public function resepsionis() {
+        return $this->belongsTo(PasienModel::class, 'id_pengguna','id_pengguna');
+    }
 }

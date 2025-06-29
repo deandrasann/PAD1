@@ -6,7 +6,7 @@
     <div class="card">
         <div class="card-body">
             <h3 class="card-title mb-4">TAMBAH APOTEKER</h3>
-            <form action="{{ route('apoteker.store') }}" method="POST" enctype="multipart/form-data">
+            <form id="create-apoteker-form" enctype="multipart/form-data">
                 @csrf
                 <div class="row mb-3">
                     <div class="col-md-6">
@@ -45,7 +45,7 @@
                     <div class="col-md-6">
                         <label for="photo" class="form-label">Foto</label>
                         <input type="file" class="form-control @error('foto') is-invalid @enderror"
-                                    id="photo" name="foto" value="{{ old('foto') }}">
+                                    id="photo" name="foto" value="{{ old('foto') }}"/>
                                 @if ($errors->has('foto'))
                                     <span class="text-danger">{{ $errors->first('foto') }}</span>
                                 @endif
@@ -62,6 +62,37 @@
     </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#create-apoteker-form').on('submit', function(e) {
+            e.preventDefault();
+
+            let formData = new FormData(this);
+
+            // Make the API request
+            $.ajax({
+                url: '{{ route("api.create.apoteker") }}',
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function(response) {
+                    if (response.status === 'success') {
+                        alert(response.message);
+                        window.location.href = '{{ route("jumlah-apoteker") }}';
+                    } else {
+                        alert(response.message);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    let errorMessage = xhr.responseJSON ? xhr.responseJSON.message : 'Something went wrong!';
+                    alert(errorMessage);
+                }
+            });
+        });
+    });
+</script>
+
 </body>
 @endsection

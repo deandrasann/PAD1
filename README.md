@@ -51,11 +51,6 @@ Sistem Manajemen Klinik **Apotech.id** adalah aplikasi berbasis web yang bertuju
 - Mendapatkan notifikasi minum obat
 - Mengisi tracker minum obat
 
-### Modul Pengawas
-- Login/otentikasi akun pengawas
-- Menampilkan informasi singkat pasien
-- Menampilkan tracker pasien
-
 ### Modul Resepsionis
 - Melihat list pasien
 - Mengelola database pasien (CRUD)
@@ -76,18 +71,45 @@ Sistem Manajemen Klinik **Apotech.id** adalah aplikasi berbasis web yang bertuju
 ---
 
 ## Instalasi
-1. Clone repository:
-   `git clone https://github.com/deandrasann/PAD1.git`
-2. Install dependencies:
-   `composer install && npm install`
-3. Buat file `.env` dan sesuaikan konfigurasi database.
-4. Jalankan migrasi dan seeder:
-   `php artisan migrate --seed`
-5. Jalankan aplikasi:
-   `php artisan serve`
+Untuk menjalankan proyek ini secara lokal, ikuti langkah-langkah berikut:
+1.  **Clone repository ini:**
+    ```bash
+    git clone [https://github.com/deandrasann/PAD1.git](https://github.com/deandrasann/PAD1.git)
+    cd PAD1
+    ```
+2.  **Install semua dependencies:**
+    ```bash
+    composer install && npm install
+    ```
+3.  **Setup Environment:**
+    Buat salinan dari file `.env.example` dan beri nama `.env`.
+    ```bash
+    cp .env.example .env
+    ```
+    Kemudian, sesuaikan konfigurasi database di dalam file `.env` Anda.
 
-## Kontribusi
-Kami membuka peluang kontribusi untuk pengembangan sistem ini. Silakan fork repository, buat branch baru, dan kirim pull request.
+4.  **Generate Application Key:**
+    ```bash
+    php artisan key:generate
+    ```
+
+5.  **Jalankan Migrasi dan Seeder Database:**
+    Perintah ini akan membuat struktur tabel dan mengisi data awal.
+    ```bash
+    php artisan migrate --seed
+    ```
+
+6.  **Jalankan Aplikasi:**
+    ```bash
+    php artisan serve
+    ```
+    Aplikasi akan berjalan di `http://127.0.0.1:8000`.
+
+    <hr>
+## Dokumentasi API:
+
+Untuk dokumentasi API bisa dicoba di lokal dengan mengkases halaman berikut ini: `http://127.0.0.1:8000/docs/api`
+<hr>
 
 ## Tautan Penting
 - **Repository GitHub**: [https://github.com/deandrasann/PAD1](https://github.com/deandrasann/PAD1)

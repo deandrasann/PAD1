@@ -32,33 +32,33 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {{-- @forelse ($data_pasien as $index => $item) --}}
+                    @forelse ($data_pasien as $index => $item)
                     <tr>
                         <td></td>
                         <td></td>
                         <td></td>
-                        {{-- <td>{{ $item->no_rm }}</td>
+                        <td>{{ $item->no_rm }}</td>
                         <td>{{ $item->nama }}</td>
                         <td>{{ $item->jenis_kelamin }}</td>
                         <td>{{ $item->tanggal_lahir }}</td>
                         <td>{{ $item->alamat }}</td>
-                        <td>{{ $item->no_telp }}</td> --}}
+                        <td>{{ $item->no_telp }}</td>
                         <td style="width: 250px">
                             <div class="d-flex">
                                 <button class="btn btn-resep p-2 detail-btn me-2" data-bs-toggle="modal" data-bs-target="#detailObatModal">
                                     <img src="{{ asset('images/detail icon.png') }}" class="me-2">Detail
                                 </button>
-                                {{-- <button class="btn btn-danger p-2 delete-btn" data-bs-toggle="modal" data-bs-target="#HapusObatModal">
+                                <button class="btn btn-danger p-2 delete-btn" data-bs-toggle="modal" data-bs-target="#HapusObatModal">
                                     <img src="{{ asset('images/delete icon.png') }}" class="me-2">Hentikan
-                                </button> --}}
+                                </button>
                             </div>
                         </td>
                     </tr>
-                    {{-- @empty --}}
-                    {{-- <tr>
+                    @empty
+                    <tr>
                         <td colspan="7" class="text-center">Tidak Ada Data</td>
-                    </tr> --}}
-                    {{-- @endforelse --}}
+                    </tr>
+                    @endforelse
                 </tbody>
 
             </table>

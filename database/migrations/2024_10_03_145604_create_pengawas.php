@@ -21,6 +21,8 @@ return new class extends Migration
             $table->string('nama_pengawas');
             $table->string('email');
             $table->string('foto')->nullable();
+            $table->timestamps();
+            $table->softDeletes();
 
 
             $table

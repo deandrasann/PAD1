@@ -25,15 +25,6 @@ class UsersSeeder extends Seeder
                 'keterangan' => 'ini admin',
             ],
             [
-                'id_pengguna' => '2',
-                'id_role' => 'R02',
-                'nama_role' => 'dokter',
-                'username' => 'dokter1',
-                'email' => 'dokter@gmail.com',
-                'password' => Hash::make('dokter123'),
-                'keterangan' => 'ini dokter',
-            ],
-            [
                 'id_pengguna' => '3',
                 'id_role' => 'R03',
                 'nama_role' => 'apoteker',
@@ -59,6 +50,15 @@ class UsersSeeder extends Seeder
                 'email' => 'pasien@gmail.com',
                 'password' => Hash::make('pasien123'),
                 'keterangan' => 'ini pasien',
+            ],
+            [
+                'id_pengguna' => '6',
+                'id_role' => 'R06',
+                'nama_role' => 'resepsionis',
+                'username' => 'resepsionis1',
+                'email' => 'resepsionis@gmail.com',
+                'password' => Hash::make('resepsionis123'),
+                'keterangan' => 'ini resepsionis',
             ],
         ]);
 

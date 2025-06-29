@@ -2,22 +2,23 @@
 @section('content')
     <div class="container">
         <h2 class="me-4">DATA PASIEN</h2>
-        @if ($data_pasien->isEmpty())
-            <button type="button" class="btn btn-resep px-4 py-3 mb-2 mt-4" data-bs-toggle="modal"
-                data-bs-target="#tambahPasienModal">
-                <strong> + Tambah Pasien</strong>
-            </button>
-        @endif
-
-        <form action="{{ route('tambah-resep') }}" method="GET">
-            <div class="search-bar mt-5">
-                <input type="text" class="form-control" placeholder="Cari Pasien" name="search"
-                    value="{{ request('search') }}">
-                <button class="btn btn-link" type="submit">
-                    <img src="{{ asset('images/search icon.png') }}">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <form id="searchPasienForm" method="GET"> {{-- Memberi ID pada form search --}}
+                <div class="search-bar mt-2">
+                    <input type="text" class="form-control" placeholder="Cari Pasien" id="searchPasienInput" name="search"
+                        value="{{ request('search') }}"> {{-- Memberi ID pada input search --}}
+                    <button class="btn btn-link" type="submit" id="searchPasienButton"> {{-- Memberi ID pada tombol search --}}
+                        <img src="{{ asset('images/search icon.png') }}">
+                    </button>
+                </div>
+            </form>
+        
+            @if ($data_pasien->isEmpty())
+                <button type="button" class="btn btn-resep px-4 py-3" data-bs-toggle="modal" data-bs-target="#tambahPasienModal">
+                    <strong>+ Tambah Pasien</strong>
                 </button>
-            </div>
-        </form>
+            @endif
+        </div>
     </div>
 
     <div class="d-flex justify-content-center align-items-center p-4">
@@ -31,109 +32,131 @@
                         <th class="px-4 py-2">Jenis kelamin</th>
                         <th class="px-4 py-2">Tanggal Lahir</th>
                         <th class="px-4 py-2">Alamat</th>
-                        <th class="px-4 py-2">No Telp</th>
                         <th class="px-4 py-2">Aksi</th>
                     </tr>
                 </thead>
-                <tbody>
-                    @forelse ($data_pasien as $index => $item)
-                        <tr>
-                            <td>{{ $data_pasien->firstItem() + $index }}</td>
-                            <td>{{ $item->no_rm }}</td>
-                            <td>{{ $item->nama }}</td>
-                            <td>{{ $item->jenis_kelamin }}</td>
-                            <td>{{ $item->tanggal_lahir }}</td>
-                            <td>{{ $item->alamat }}</td>
-                            <td>{{ $item->no_telp }}</td>
-                            <td>
-                                {{-- <button class="btn btn-resep p-2 px-3 detail-btn" type="submit" onclick="document.location='{{route('resep-tiap-pasien', $item->id_pasien)}}'"> --}}
-                                <button class="btn btn-resep p-2 px-3 detail-btn" type="submit"
-                                    onclick="document.location='{{ route('resep-tiap-pasien', $item->id_pasien) }}'">
-                                    <img src="{{ asset('images/detail icon.png') }}" class="me-2"> Detail
-                                </button>
-                            </td>
-                        </tr>
-                    @empty
-                        <tr>
-                            <td colspan="8" class="text-center">Tidak Ada Data</td>
-                        </tr>
-                    @endforelse
+                <tbody  id="pasienTableBody">
+                    {{-- <button class="btn btn-resep p-2 px-3 detail-btn" type="submit"
+                        onclick="document.location='{{ route('resep-tiap-pasien', $item->id_pasien) }}'">
+                        <img src="{{ asset('images/detail icon.png') }}" class="me-2"> Detail
+                    </button> --}}
                 </tbody>
             </table>
 
-            {{-- Tambah Pasien --}}
-            <div class="modal fade" id="tambahPasienModal" tabindex="-1" aria-labelledby="tambahPasienModalLabel"
-                aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="tambahPasienModalLabel">Tambah Pasien</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                aria-label="Close"></button>
-                        </div>
-                        <form action="{{ route('tambahpasien') }}" method="POST">
-                            @csrf
-                            <div class="modal-body">
-                                <!-- Nama Pasien -->
-                                <div class="mb-3">
-                                    <label for="norm" class="form-label">No RM</label>
-                                    <input type="numberrequired " class="form-control" id="norm" name="no_rm"
-                                        placeholder="No RM" required>
-                                </div>
-
-                                <div class="mb-3">
-                                    <label for="namaPasien" class="form-label">Nama Pasien</label>
-                                    <input type="text" required class="form-control" name="nama" id="namaPasien"
-                                        placeholder="Nama pasien">
-                                </div>
-                                <!-- Jenis Kelamin -->
-                                <div class="mb-3">
-                                    <label for="jenisKelamin" class="form-label">Jenis Kelamin</label>
-                                    <select class="form-select" id="jenisKelamin" name="jenis_kelamin" required>
-                                        <option selected>Pilih</option>
-                                        <option value="Laki-laki">Laki-laki</option>
-                                        <option value="Perempuan">Perempuan</option>
-                                    </select>
-                                </div>
-                                <!-- Tanggal Lahir -->
-                                <div class="mb-3">
-                                    <label for="tanggalLahir" class="form-label">Tanggal Lahir</label>
-                                    <input type="date" required class="form-control" id="tanggalLahir"
-                                        name="tanggal_lahir">
-                                </div>
-
-                                <div class="mb-3">
-                                    <label for="beratbadan" class="form-label">Berat Badan Pasien</label>
-                                    <input type="text" required class="form-control" id="beratbadan"
-                                        name="berat_badan" placeholder="Berat Badan Pasien">
-                                </div>
-                                <!-- Alamat -->
-                                <div class="mb-3">
-                                    <label for="alamat" class="form-label">Alamat</label>
-                                    <input type="text" required class="form-control" id="alamat" name="alamat"
-                                        placeholder="Alamat pasien">
-                                </div>
-                                <!-- No Telp -->
-                                <div class="mb-3">
-                                    <label for="noTelp" class="form-label">No Telp</label>
-                                    <input type="text" required class="form-control" id="noTelp" name="no_telp"
-                                        placeholder="No telp pasien">
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                                <button type="submit" class="btn btn-primary">Simpan</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-
-
             <!-- Pagination -->
-            <div class="paginate d-flex justify-content-center">
-                {{ $data_pasien->links() }}
+            <div id="paginationLinks" class="paginate d-flex justify-content-center">
+                
             </div>
         </div>
     </div>
 @endsection
+@push('scripts')
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        // Function to fetch and display patient data
+        function fetchPasienData(page = 1, searchQuery = '') {
+            $.ajax({
+                url: '{{ route('api.pasien.get') }}',
+                method: 'GET',
+                data: {
+                    page: page,
+                    search: searchQuery
+                },
+                success: function(response) {
+                    if (response.status === 'success') {
+                        let pasienData = response.data.data;
+                        let html = '';
+                        if (pasienData.length > 0) {
+                            $.each(pasienData, function(index, item) {
+                                // Pastikan path foto benar, gunakan default jika kosong
+                                let fotoSrc = item.foto ? '{{ asset('storage/') }}/' + item.foto : '{{ asset('avatars/noimage.png') }}';
+
+                                html += `
+                                <tr>
+                                    <td>${item.no_rm}</td>
+                                    <td>${item.nama}</td>
+                                    <td>${item.jenis_kelamin}</td>
+                                    <td>${item.tanggal_lahir}</td>
+                                    <td>${item.alamat}</td>
+                                    <td>${item.no_telp}</td>
+                                    <td>
+                                        <div class="d-flex flex-wrap gap-1">
+                                            <button class="btn btn-resep p-2 px-3 detail-btn" type="submit"
+                                                onclick="document.location='/resep-pasien/${item.id_pasien}'"'">
+                                                <img src="{{ asset('images/detail icon.png') }}" class="me-2"> Detail
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                `;
+                            });
+                        } else {
+                            html = `<tr><td colspan="7" class="text-center">Tidak Ada Data</td></tr>`;
+                        }
+                        $('#pasienTableBody').html(html);
+
+                        // --- Generasi Pagination ---
+                        let paginationHtml = '<ul class="pagination">';
+                        $.each(response.data.links, function(index, link) {
+                            let activeClass = link.active ? 'active' : '';
+                            let disabledClass = link.url === null ? 'disabled' : '';
+                            let pageNumber;
+
+                            if (link.url) {
+                                const urlParams = new URLSearchParams(new URL(link.url).search);
+                                pageNumber = urlParams.get('page');
+                            } else {
+                                if (link.label.includes('Previous') && link.url === null) {
+                                    pageNumber = 1;
+                                } else if (link.label.includes('Next') && link.url === null) {
+                                    pageNumber = response.data.last_page;
+                                } else {
+                                    pageNumber = link.label;
+                                }
+                            }
+
+                            paginationHtml += `
+                                <li class="page-item ${activeClass} ${disabledClass}">
+                                    <a class="page-link" href="#" data-page="${pageNumber}">${link.label}</a>
+                                </li>
+                            `;
+                        });
+                        paginationHtml += '</ul>';
+                        $('#paginationLinks').html(paginationHtml);
+
+                        // Attach click event to pagination links (delegated)
+                        $('#paginationLinks').off('click', '.page-link').on('click', '.page-link', function(e) {
+                            e.preventDefault();
+                            const pageNum = $(this).data('page');
+                            const currentSearchQuery = $('#searchPasienInput').val();
+                            if (pageNum && !$(this).parent().hasClass('disabled')) {
+                                fetchPasienData(pageNum, currentSearchQuery);
+                            }
+                        });
+
+                    } else {
+                        alert('Gagal mengambil data pasien: ' + response.message);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error("AJAX Error: " + status + error);
+                    alert('Terjadi kesalahan saat mengambil data.');
+                }
+            });
+        }
+
+        // Initial load of data
+        fetchPasienData();
+
+        // Search functionality
+        $('#searchPasienForm').on('submit', function(e) { // Listen for form submission
+            e.preventDefault(); // Prevent default form submission
+            let searchQuery = $('#searchPasienInput').val();
+            fetchPasienData(1, searchQuery); // Reset to page 1 on new search
+        });
+ 
+
+    });
+</script>
+@endpush

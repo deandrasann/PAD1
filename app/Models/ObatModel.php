@@ -4,16 +4,18 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class ObatModel extends Model
 {
     use HasFactory;
+    use SoftDeletes;
+
+    protected $dates = ['deleted_at'];  
 
     protected $table = 'obat';
     // nama PK
     protected $primaryKey = 'kode_obat';
-    // agar timestamps tidak otomatis masuk
-    public $timestamps = false;
     // PK integer AI
     public $incrementing = true;
 
@@ -23,12 +25,15 @@ class ObatModel extends Model
         'nama_obat',
         'takaran_minum',
         'jml_kali_minum',
+        'jml_obat_per_minum',
         'bentuk_obat',
+        'kemasan_obat',
         'aturan_pakai',
         'golongan_obat',
         'jumlah_obat',
         'waktu_minum',
         'keterangan',
+        'harga_satuan',
         'kontraindikasi',
         'pola_makan',
         'interaksi_obat',

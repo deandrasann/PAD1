@@ -1,239 +1,168 @@
 @extends('footerheader.navbar')
 @section('content')
-<div class="container">
-    <h2 class="me-4">RIWAYAT RESEP</h2>
-    <div class="search-bar my-3">
-        <input type="text" class="form-control" placeholder="Cari Pasien">
-        <button class="btn btn-link">
-            <img src="{{ asset('images/search icon.png') }}">
-        </button>
-    </div>
-</div>
+    <div class="container">
+        <h2 class="me-4">RIWAYAT RESEP</h2>
 
-<div class="d-flex justify-content-center align-items-center p-4">
-    <div class="card p-4 w-100">
-        <table class="table table-striped table-hover">
-            <thead class="table-primary">
-                <tr>
-                    <th class="px-4 py-2">No RM</th>
-                    <th class="px-4 py-2">Nama Pasien</th>
-                    <th class="px-4 py-2">Jenis kelamin</th>
-                    <th class="px-4 py-2">Tanggal Lahir</th>
-                    <th class="px-4 py-2">Alamat</th>
-                    <th class="px-4 py-2">No Telp</th>
-                    <th class="px-4 py-2">Aksi</th>
-                </tr>
-            </thead>
-            <tbody>
-                @forelse ($data_pasien as $index => $item)
-                <tr>
-                    <td>{{ $item->no_rm }}</td>
-                    <td>{{ $item->nama }}</td>
-                    <td>{{ $item->jenis_kelamin }}</td>
-                    <td>{{ $item->tanggal_lahir }}</td>
-                    <td>{{ $item->alamat }}</td>
-                    <td>{{ $item->no_telp }}</td>
-                    <td>
-                        <button class="btn btn-resep p-2 px-3 detail-btn" >
-                            <img src="{{ asset('images/detail icon.png') }}" src="{{ route('resep-tiap-pasien') }}" class="me-2">Detail
-                        </button>
-                    </td>
-                </tr>
-                @empty
-                <tr>
-                    <td colspan="7" class="text-center">Tidak Ada Data</td>
-                </tr>
-                @endforelse
-            </tbody>
-        </table>
-
-        <!-- Tambah Pasien Modal -->
-        <div class="modal fade" id="tambahPasienModal" tabindex="-1" aria-labelledby="tambahPasienModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="tambahPasienModalLabel">Tambah Pasien</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <form>
-                            <!-- Nama Pasien -->
-                            <div class="mb-3">
-                                <label for="namaPasien" class="form-label">Nama Pasien</label>
-                                <input type="text" class="form-control" id="namaPasien" placeholder="Nama pasien">
-                            </div>
-                            <!-- Jenis Kelamin -->
-                            <div class="mb-3">
-                                <label for="jenisKelamin" class="form-label">Jenis Kelamin</label>
-                                <select class="form-select" id="jenisKelamin">
-                                    <option selected>Pilih</option>
-                                    <option value="Laki-laki">Laki-laki</option>
-                                    <option value="Perempuan">Perempuan</option>
-                                </select>
-                            </div>
-                            <!-- Tanggal Lahir -->
-                            <div class="mb-3">
-                                <label for="tanggalLahir" class="form-label">Tanggal Lahir</label>
-                                <input type="date" class="form-control" id="tanggalLahir">
-                            </div>
-                            <!-- Alamat -->
-                            <div class="mb-3">
-                                <label for="alamat" class="form-label">Alamat</label>
-                                <input type="text" class="form-control" id="alamat" placeholder="Alamat pasien">
-                            </div>
-                            <!-- No Telp -->
-                            <div class="mb-3">
-                                <label for="noTelp" class="form-label">No Telp</label>
-                                <input type="text" class="form-control" id="noTelp" placeholder="No telp pasien">
-                            </div>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                        <button type="button" class="btn btn-primary">Simpan</button>
-                    </div>
-                </div>
+        <!-- Search + Tambah Button -->
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <!-- Search Bar -->
+            <div class="search-bar mt-2">
+                <input type="text" class="form-control" placeholder="Cari Resep" name="search" id="searchResep"
+                    value="{{ request('search') }}" autocomplete="off">
+                <button class="btn btn-link" type="button" id="searchButton">
+                    <img src="{{ asset('images/search icon.png') }}">
+                </button>
             </div>
         </div>
 
-        {{-- Detail Pasien --}}
-        <div class="modal fade" id="detailPasienModal" tabindex="-1" aria-labelledby="detailPasienModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-lg modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="detailPasienModalLabel">Detail Data Pasien</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <table class="table table-borderless">
-                            <tbody>
-                                <tr>
-                                    <th>No RM</th>
-                                    <td>: {{ $item->no_rm }}</td>
-                                </tr>
-                                <tr>
-                                    <th>Nama</th>
-                                    <td>: {{ $item->nama }}</td>
-                                </tr>
-                                <tr>
-                                    <th>Jenis Kelamin</th>
-                                    <td>:  {{ $item->jenis_kelamin }}</td>
-                                </tr>
-                                <tr>
-                                    <th>Tanggal Lahir</th>
-                                    <td>:  {{ $item->tanggal_lahir}}</td>
-                                </tr>
-                                <tr>
-                                    <th>No telpon</th>
-                                    <td>: {{ $item->no_telp }} </td>
-                                </tr>
-                                <tr>
-                                    <th>Alamat</th>
-                                    <td>:  {{ $item->alamat }}</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-resep" data-bs-dismiss="modal">Kembali</button>
-                    </div>
-
-                </div>
+        <!-- Table Card -->
+        <div class="card p-3">
+            <div class="table-responsive">
+                <table class="table table-striped table-hover align-middle">
+                    <thead class="table-primary">
+                        <tr>
+                            <th>Nomor</th>
+                            <th style="width: 15%">Tanggal Resep</th>
+                            <th>Nomor Resep</th>
+                            <th>Nama Pasien</th>
+                            <th>Tanggal Lahir</th>
+                            <th>Alamat</th>
+                            <th>Jumlah Obat</th>
+                            <th style="text-align: center;">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody id="resepTableBody">
+                        
+                    </tbody>
+                </table>
             </div>
-        </div>
-        <div class="modal fade" id="hapusPasienModal" tabindex="-1" aria-labelledby="hapusPasienModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content ">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="hapusPasienModalLabel">Hapus Data Pasien</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body text-center">
-                        <img src="{{ asset('images/warning icon.png') }}" alt="Warning">
-                        <p>Anda yakin ingin menghapus data obat ini?</p>
-                        <div class="d-flex justify-content-around mt-3">
-                            <button type="button" class="btn btn-white" data-bs-dismiss="modal">TIDAK</button>
-                            <button type="button" class="btn btn-danger px-4">YA</button>
-                        </div>
-                    </div>
-                </div>
+
+            <!-- Pagination -->
+            <div id="paginationLinks" class="paginate d-flex justify-content-center mt-3">
+                
             </div>
-        </div>
-
-         {{-- Edit Obat Modal --}}
-    <div class="modal fade" id="editPasienModal" tabindex="-1" aria-labelledby="editPasienModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-dialog-centered">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="editPasienModalLabel">Edit Pasien</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form>
-                  <!-- Nama Obat -->
-                  <div class="row mb-3">
-                    <label for="namaObat" class="col-md-4 col-form-label">No RM</label>
-                    <div class="col-md-8">
-                      <input type="text" class="form-control" id="namaObat" value=" {{ old('no_rm', $item->no_rm )}}">
-                    </div>
-                  </div>
-
-                  <!-- Bentuk Obat -->
-                  <div class="row mb-3">
-                    <label for="bentukObat" class="col-md-4 col-form-label">Nama</label>
-                    <div class="col-md-8">
-                      <input type="text" class="form-control" id="bentukObat" value=" {{ old('nama', $item->nama )}}">
-                    </div>
-                  </div>
-
-                  <!-- Kebutuhan Sediaan & Satuan -->
-                  <div class="row mb-3">
-                    <label for="kekuatanSediaan" class="col-md-4 col-form-label">Tanggal Lahir</label>
-                    <div class="col-md-8">
-                      <input type="text" class="form-control" id="kekuatanSediaan" value=" {{ old('tanggal_lahir', $item->tanggal_lahir)}}">
-                    </div>
-                  </div>
-
-                  <!-- Efek Samping -->
-                  <div class="row mb-3">
-                    <label for="efekSamping" class="col-md-4 col-form-label">Jenis Kelamin</label>
-                    <div class="col-md-8">
-                      <input type="text" class="form-control" id="efekSamping" value="{{ old('jenis_kelamin', $item->jenis_kelamin )}}">
-                    </div>
-                  </div>
-
-                  <!-- Kontraindikasi -->
-                  <div class="row mb-3">
-                    <label for="kontraindikasi" class="col-md-4 col-form-label">No Telepon</label>
-                    <div class="col-md-8">
-                      <input type="text" class="form-control" id="kontraindikasi" value="{{ old('no_telp', $item->no_telp )}}">
-                    </div>
-                  </div>
-
-                  <!-- Interaksi Obat -->
-                  <div class="row mb-3">
-                    <label for="interaksiObat" class="col-md-4 col-form-label">Alamat</label>
-                    <div class="col-md-8">
-                      <input type="text" class="form-control" id="interaksiObat" value="{{ old('alamat', $item->alamat)}}">
-                    </div>
-                </div>
-                </form>
-              </div>
-
-            <div class="modal-footer">
-                <button type="button" class="btn btn-white" data-bs-dismiss="modal">Batal</button>
-                <button type="button" class="btn btn-resep ms-auto">Simpan</button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-        <!-- Pagination -->
-        <div class="paginate d-flex justify-content-center">
-            {{ $data_pasien->links() }}
         </div>
     </div>
-</div>
 @endsection
+@push('scripts')
+<script>
+        $(document).ready(function() {
+            // Function to fetch and display obat data
+            function fetchResep(page = 1, searchQuery = '') {
+                $.ajax({
+                    url: '{{ route('api.resep.get') }}',
+                    method: 'GET',
+                    data: {
+                        page: page,
+                        search: searchQuery
+                    },
+                    success: function(response) {
+                        if (response.status === 'success') {
+                            let resepData = response.data.data;
+                            let html = '';
+                            if (resepData.length > 0) {
+                                $.each(resepData, function(index, item) {
+                                    html += `
+                                   <tr>
+                                        <td>${response.data.from + index}</td>
+                                        <td>${item.tgl_resep}</td>
+                                        <td style="text-align: center;">${item.no_resep}</td>
+                                        <td>${item.nama}</td>
+                                        <td>${item.tanggal_lahir}</td>
+                                        <td>${item.alamat}</td>
+                                        <td style="text-align: center;">${item.jumlah_obat}</td>
+                                        <td>
+                                            <div class="d-flex flex-wrap gap-1">
+                                                <!-- Detail Button -->
+                                                <a href="/resep-pasien/${item.id_pasien}" class="btn btn-resep btn-sm detail-btn">
+                                                    <img src="{{ asset('images/detail icon.png') }}" class="me-1" alt="Detail">Detail
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    `;
+                                });
+                            } else {
+                                html = `<tr><td colspan="7" class="text-center">Tidak Ada Data</td></tr>`;
+                            }
+                            $('#resepTableBody').html(html);
 
-<!-- Bootstrap JS and Popper -->
+                            // --- Generasi Pagination ---
+                            let paginationHtml = '<ul class="pagination">';
+                            $.each(response.data.links, function(index, link) {
+                                let activeClass = link.active ? 'active' : '';
+                                let disabledClass = link.url === null ? 'disabled' : ''; // Jika URL null, nonaktifkan
+                                let pageNumber;
+
+                                // Ekstrak nomor halaman dari URL, atau gunakan label untuk Prev/Next
+                                if (link.url) {
+                                    const urlParams = new URLSearchParams(new URL(link.url).search);
+                                    pageNumber = urlParams.get('page');
+                                } else {
+                                    // Untuk "Previous" atau "Next" yang disabled, kita perlu logika khusus
+                                    // Jika label adalah "Previous" dan URL null, berarti di halaman pertama
+                                    // Jika label adalah "Next" dan URL null, berarti di halaman terakhir
+                                    if (link.label.includes('Previous') && link.url === null) {
+                                        pageNumber = 1; // Tetap di halaman 1 jika di awal dan prev disabled
+                                    } else if (link.label.includes('Next') && link.url === null) {
+                                        pageNumber = response.data.last_page; // Menuju halaman terakhir
+                                    } else {
+                                        // Untuk tautan angka, label sudah menjadi nomor halaman
+                                        pageNumber = link.label;
+                                    }
+                                }
+
+                                paginationHtml += `
+                                    <li class="page-item ${activeClass} ${disabledClass}">
+                                        <a class="page-link" href="#" data-page="${pageNumber}">${link.label}</a>
+                                    </li>
+                                `;
+                            });
+                            paginationHtml += '</ul>';
+                            $('#paginationLinks').html(paginationHtml);
+
+                            // Attach click event to pagination links
+                            $('#paginationLinks .page-link').on('click', function(e) {
+                                e.preventDefault(); // Mencegah perilaku default tautan
+                                const pageNum = $(this).data('page');
+                                const currentSearchQuery = $('#searchInput').val(); // Ambil nilai dari input search
+                                if (pageNum && !$(this).parent().hasClass('disabled')) { // Pastikan ada pageNum dan tidak disabled
+                                    fetchResep(pageNum, currentSearchQuery);
+                                }
+                            });
+                            // --- Akhir Generasi Pagination ---
+
+                        } else {
+                            alert('Gagal mengambil data resep: ' + response.message);
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error("AJAX Error: " + status + error);
+                        alert('Terjadi kesalahan saat mengambil data.');
+                    }
+                });
+            }
+            // Initial load of data
+            fetchResep();
+            $('#searchButton').on('click', function() {
+                let searchQuery = $('#searchResep').val();
+                fetchResep(1, searchQuery); // Reset to page 1 on new search
+            });
+
+            // Live search as user types (optional, can be performance intensive on large datasets)
+            $('#searchResep').on('keyup', function() {
+                let searchQuery = $(this).val();
+                fetchResep(1, searchQuery);
+            });
+
+            // Pagination links click handler (delegated event)
+            $(document).on('click', '#paginationLinks a', function(e) {
+                e.preventDefault();
+                let pageUrl = $(this).attr('href');
+                let page = new URL(pageUrl).searchParams.get('page');
+                let searchQuery = $('#searchResep').val();
+                fetchResep(page, searchQuery);
+            });
+        });
+    </script>
+@endpush

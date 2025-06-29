@@ -81,8 +81,6 @@ Sistem Manajemen Klinik **Apotech.id** adalah aplikasi berbasis web yang bertuju
 5. Jalankan aplikasi:
    `php artisan serve`
 
-## Kontribusi
-Kami membuka peluang kontribusi untuk pengembangan sistem ini. Silakan fork repository, buat branch baru, dan kirim pull request.
 
 ## Tautan Penting
 - **Repository GitHub**: [https://github.com/deandrasann/PAD1](https://github.com/deandrasann/PAD1)

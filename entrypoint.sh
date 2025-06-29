@@ -20,7 +20,7 @@ php artisan route:clear
 php artisan route:cache
 php artisan view:clear
 php artisan view:cache
-php artisan key:generate
+# php artisan key:generate
 php artisan migrate --force
 php artisan db:seed --force
 php artisan config:cache

@@ -51,11 +51,6 @@ Sistem Manajemen Klinik **Apotech.id** adalah aplikasi berbasis web yang bertuju
 - Mendapatkan notifikasi minum obat
 - Mengisi tracker minum obat
 
-### Modul Pengawas
-- Login/otentikasi akun pengawas
-- Menampilkan informasi singkat pasien
-- Menampilkan tracker pasien
-
 ### Modul Resepsionis
 - Melihat list pasien
 - Mengelola database pasien (CRUD)

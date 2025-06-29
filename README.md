@@ -51,11 +51,6 @@ Sistem Manajemen Klinik **Apotech.id** adalah aplikasi berbasis web yang bertuju
 - Mendapatkan notifikasi minum obat
 - Mengisi tracker minum obat
 
-### Modul Pengawas
-- Login/otentikasi akun pengawas
-- Menampilkan informasi singkat pasien
-- Menampilkan tracker pasien
-
 ### Modul Resepsionis
 - Melihat list pasien
 - Mengelola database pasien (CRUD)
@@ -86,8 +81,6 @@ Sistem Manajemen Klinik **Apotech.id** adalah aplikasi berbasis web yang bertuju
 5. Jalankan aplikasi:
    `php artisan serve`
 
-## Kontribusi
-Kami membuka peluang kontribusi untuk pengembangan sistem ini. Silakan fork repository, buat branch baru, dan kirim pull request.
 
 ## Tautan Penting
 - **Repository GitHub**: [https://github.com/deandrasann/PAD1](https://github.com/deandrasann/PAD1)

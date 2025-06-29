@@ -106,7 +106,7 @@ Untuk menjalankan proyek ini secara lokal, ikuti langkah-langkah berikut:
     Aplikasi akan berjalan di `http://127.0.0.1:8000`.
 
     <hr>
-##Dokumentasi API:
+## Dokumentasi API:
 
 Untuk dokumentasi API bisa dicoba di lokal dengan mengkases halaman berikut ini: `http://127.0.0.1:8000/docs/api`
 <hr>

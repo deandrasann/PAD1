@@ -71,16 +71,41 @@ Sistem Manajemen Klinik **Apotech.id** adalah aplikasi berbasis web yang bertuju
 ---
 
 ## Instalasi
-1. Clone repository:
-   `git clone https://github.com/deandrasann/PAD1.git`
-2. Install dependencies:
-   `composer install && npm install`
-3. Buat file `.env` dan sesuaikan konfigurasi database.
-4. Jalankan migrasi dan seeder:
-   `php artisan migrate --seed`
-5. Jalankan aplikasi:
-   `php artisan serve`
+Untuk menjalankan proyek ini secara lokal, ikuti langkah-langkah berikut:
+1.  **Clone repository ini:**
+    ```bash
+    git clone [https://github.com/deandrasann/PAD1.git](https://github.com/deandrasann/PAD1.git)
+    cd PAD1
+    ```
+2.  **Install semua dependencies:**
+    ```bash
+    composer install && npm install
+    ```
+3.  **Setup Environment:**
+    Buat salinan dari file `.env.example` dan beri nama `.env`.
+    ```bash
+    cp .env.example .env
+    ```
+    Kemudian, sesuaikan konfigurasi database di dalam file `.env` Anda.
 
+4.  **Generate Application Key:**
+    ```bash
+    php artisan key:generate
+    ```
+
+5.  **Jalankan Migrasi dan Seeder Database:**
+    Perintah ini akan membuat struktur tabel dan mengisi data awal.
+    ```bash
+    php artisan migrate --seed
+    ```
+
+6.  **Jalankan Aplikasi:**
+    ```bash
+    php artisan serve
+    ```
+    Aplikasi akan berjalan di `http://127.0.0.1:8000`.
+
+    <hr>
 
 ## Tautan Penting
 - **Repository GitHub**: [https://github.com/deandrasann/PAD1](https://github.com/deandrasann/PAD1)
